@@ -1,0 +1,1903 @@
+// $Revision:   1.776  $
+// $Log:   Y:/VCS/BF iFAST/data/ifastcbo.cnd.vcs_proxy-arc  $
+// 
+//    Rev 1.776   Aug 16 2012 10:11:18   wp040027
+// IN#3008167-P187485-CPF- Account Entity (RA) validation
+//
+//    Rev 1.775   Aug 10 2012 14:43:12   wp040240
+// P0186484 FN06 - French translations
+//
+//    Rev 1.774   Jul 26 2012 10:58:00   wp040027
+// P0198518 - RDR Functionality
+//
+//    Rev 1.773   Jul 25 2012 15:51:54   wp040240
+// IN3014673 - P0181067 Added Error condition to avoid cash instructions  to registered client accounts
+//
+//    Rev 1.772   Jul 23 2012 12:02:52   wutipong
+// PETP0179630_FN01 FATCA Account Entity Document Tracking
+//
+//    Rev 1.771   Jul 23 2012 18:31:48   dchatcha
+// P0179630 FN01 FATCA Project - Entity level
+//
+//    Rev 1.770   Jul 16 2012 12:19:14   wp040133
+// Syncup with 12.4 changes for below incident
+//  IN#-3013839
+//  PET: P0187485
+//  Can place a PAC on a CPF account when “PAC available = no”
+//
+//    Rev 1.769   Jul 12 2012 18:44:12   dchatcha
+// P0191601 FN03 - Manual T3/RL 16/NR4 Slip for Taxable Trusts.
+//
+//    Rev 1.768   Jul 10 2012 18:14:50   wp040039
+// PETP0201166- SSBG- Fund Broker validation
+//
+//    Rev 1.767   Jul 06 2012 18:22:40   dchatcha
+// P0191601 FN03 - Manual T3/RL 16/NR4 Slip for Taxable Trusts.
+//
+//    Rev 1.766   Jul 02 2012 17:27:26   wp040240
+// P0186484 FN06 - French Translations
+//
+//    Rev 1.765   Jun 26 2012 12:54:12   wp040240
+// IN#2948564 - Error condtions for Contract maturity Instrucitons screen added.
+//
+//    Rev 1.764   Jun 18 2012 17:14:40   if991250
+// Added   ERR/WARN VARIABLE_DSC_FEE_AMOUNT
+//
+//    Rev 1.763   Jun 05 2012 17:37:26   if991250
+// INA: New Batch of translations
+//
+//    Rev 1.762   Jun 01 2012 17:32:36   dchatcha
+// IN#2969458- Bypass  the editing for age difference if the new "Guarantees Override" flag set as "Yes"
+//
+//    Rev 1.761   May 29 2012 11:15:54   wp040027
+// IN 2956475 - Split Commission environment max fee not working
+//
+//    Rev 1.760   May 28 2012 11:33:32   dchatcha
+// IN#2952786 - Err Msg when keying Purchase Before Guarantee Adjustment- Trade Entry Screen
+//
+//    Rev 1.759   May 25 2012 19:13:56   if991250
+// IN#2938847 Contract Information - User defined Maturity Date validation
+//
+//    Rev 1.758   May 14 2012 15:08:52   dchatcha
+// P0186479 FN10 -Gap 14G - Block Service Unit Transfers.
+//
+//    Rev 1.757   May 14 2012 00:52:24   panatcha
+// P0186486_FN16_Misc. Enhancements_Stop Adjustment Date
+//
+//    Rev 1.756   May 11 2012 13:23:26   jankovii
+// P0186481 FN07 - GWA LWA Payment Options for SWP RRIF
+//
+//    Rev 1.755   May 08 2012 16:38:28   dchatcha
+// P0186479 FN10 -Gap 14G - Block Service Unit Transfers.
+//
+//    Rev 1.754   May 07 2012 20:00:46   wp040043
+// P0195754_FN01_ KIID_UCITs - KIID Validation
+//
+//    Rev 1.753   May 04 2012 09:37:20   panatcha
+// P0186486_FN15_The Source of Funds
+//
+//    Rev 1.752   May 02 2012 17:46:44   wp040027
+// PETP0187485-CPF-Trade Cancellation
+//
+//    Rev 1.751   May 01 2012 09:21:58   if991250
+// CPF: Account setup errors
+//
+//    Rev 1.750   Apr 27 2012 16:57:54   wp040132
+// P0197311 - Added error message for Transfer order of different fund/class
+//
+//    Rev 1.749   Apr 26 2012 22:23:28   popescu
+// 2902002 - error..bene age over fifteen
+//
+//    Rev 1.748   Apr 25 2012 17:43:30   if991250
+// added ERR_AMOUNT_EXCEEDS_PRINCIPAL
+//
+//    Rev 1.747   Apr 22 2012 18:45:00   jankovii
+// IN 2847670 & 2815937
+//
+//    Rev 1.746   Apr 20 2012 20:20:48   wp040039
+// PETP0187485-Trade Entry And Processing
+//
+//    Rev 1.745   Apr 18 2012 15:34:42   if991250
+// IN 2900126 - change error message when the linked contract is missing
+//
+//    Rev 1.744   Apr 18 2012 12:20:02   jankovii
+// IN 2892108 - SOC 63 - Combine Principal and Interest for instructions “Maturity and Interest”
+//
+//    Rev 1.743   Apr 17 2012 13:53:48   jankovii
+// IN 2847670 - Maturity/Interest Set Up Issues
+//
+//    Rev 1.742   Apr 17 2012 01:05:20   panatcha
+// P0186486_FN15_The Source of Funds
+//
+//    Rev 1.741   Apr 10 2012 17:10:12   if991250
+// added ERR_LINKED_CONTRACT_DIFFERENT
+//
+//    Rev 1.740   Apr 10 2012 00:19:10   panatcha
+// P0186486FN09 - Employee and Agent Account Gap#8A
+//
+//    Rev 1.739   Apr 04 2012 14:34:36   jankovii
+// IN 2898233 - R12.3-P0186477-Enable manual tax calculation of money out transactions for NR
+//
+//    Rev 1.738   Apr 03 2012 21:15:32   wp040039
+// PETP0187485
+// Redoing the check in for CPF
+//
+//    Rev 1.737   Mar 29 2012 23:13:48   dchatcha
+// IN#2901157 - Issues on SEG Trade Processing
+//
+//    Rev 1.736   Mar 27 2012 14:53:46   jankovii
+// IN 2895832 - P0186477_FN05_Maturity Processing CASH instruction for a registered tax type
+//
+//    Rev 1.735   Mar 23 2012 06:31:54   panatcha
+// P0186486FN09 - Employee and Agent Account Gap#8A
+//
+//    Rev 1.734   Mar 21 2012 16:11:28   if991250
+// IN 2885623 - GI Money Out - Error handling
+//
+//    Rev 1.733   Mar 21 2012 13:25:36   jankovii
+// IN 2889348 - Maturity Processing _ Desktop Issues_List 1_EFT issues
+//
+//    Rev 1.732   Mar 16 2012 13:31:46   dchatcha
+// P0186484 FN05 - SEG Trade Processing, new validations.
+//
+//    Rev 1.731   Mar 06 2012 10:47:12   dchatcha
+// P0186484 FN05 - SEG Trade Processing, new validation to make sure that only same fund\class would be allowed with guarantee override redcodes.
+//
+//    Rev 1.730   Mar 05 2012 13:45:30   if991250
+// moved ERR_INCREASE_NOT_ALLOWED_MISSED_PACS to ifastdbrkr
+//
+//    Rev 1.729   Mar 05 2012 11:09:54   if991250
+// added   ERR_INCREASE_NOT_ALLOWED_MISSED_PACS
+//
+//    Rev 1.728   Mar 05 2012 11:22:34   dchatcha
+// P0186484 FN05 - SEG Trade Processing.
+//
+//    Rev 1.727   Mar 02 2012 14:22:02   jankovii
+// IN 2859411 - P0186477_FN02_Interest Instruction-Err displayed on split type 'Amount' instrctn
+//
+//    Rev 1.726   Mar 02 2012 12:50:16   if991250
+// added ERR_COMMITMENT_PRODUCT_NOT_ACTIVE
+//
+//    Rev 1.725   Mar 02 2012 10:22:00   jankovii
+// IN 2859411 - P0186477_FN02_Interest Instruction-Err displayed on split type 'Amount' instrctn
+//
+//    Rev 1.723   Feb 15 2012 15:39:06   dchatcha
+// IN# 2837678 - REL12.2-PET0186484- New INA Contract Information screen issues as on 6 Feb 2012, fix typo on message description
+//
+//    Rev 1.722   Feb 10 2012 18:10:48   dchatcha
+// IN# 2837678 - REL12.2-PET0186484- New INA Contract Information screen issues as on 6 Feb 2012
+//
+//    Rev 1.721   Feb 09 2012 18:41:12   wp040100
+// P0194640 FN02 - Non-Resident Withholding Tax - Error Codes
+//
+//    Rev 1.720   Feb 07 2012 17:01:22   wp040100
+// P0194640 FN02 - Non-Resident Withholding Tax
+//
+//    Rev 1.719   Feb 06 2012 09:21:02   if991250
+// French translation
+//
+//    Rev 1.718   Feb 03 2012 17:44:50   dchatcha
+// IN# 2799812 - Contract Screen Issues.
+//
+//    Rev 1.717   Jan 27 2012 10:13:50   jankovii
+// IN 2817696 - P0186477FN03-Cash Sweep Configuration Issues
+//
+//    Rev 1.716   Jan 26 2012 19:33:44   wp040100
+// P0186477 FN03 - GIA-Investment History Changes - Bug Fix # 2817749
+//
+//    Rev 1.715   Jan 21 2012 09:43:00   dchatcha
+// IN# 2799812 - Contract Screen issues.
+//
+//    Rev 1.714   Jan 20 2012 15:55:56   wp040027
+// P0188394_Performance Fees - Order Entry
+//
+//    Rev 1.713   Jan 20 2012 09:24:30   jankovii
+// IN 2813487 - P0186477FN03 - Cash Sweep DSK Issues
+//
+//    Rev 1.712   Jan 17 2012 17:40:02   wp040027
+// P0188394_Performance Fees - Order Entry
+//
+//    Rev 1.711   Jan 16 2012 13:30:38   wp040027
+// P0188394_Performance Fees
+//
+//    Rev 1.710   Jan 09 2012 10:44:42   jankovii
+// P0186477 FN03- GIA Maturity/Cash Sweep Instructions
+//
+//    Rev 1.709   Dec 22 2011 07:22:50   kitticha
+// PETP0183105 FN02 IN2774076 - SDC is not applied redcode UP.
+//
+//    Rev 1.708   Dec 21 2011 15:18:34   jankovii
+// P0186477 FN03- GIA Maturity/Cash Sweep Instructions
+//
+//    Rev 1.707   Dec 19 2011 00:21:12   dchatcha
+// P0184543 FN01 - CDIC Fast Insurance Determination, change decriptions of new reason codes.
+//
+//    Rev 1.706   Dec 15 2011 10:19:54   jankovii
+// P0186477 FN03- GIA Maturity/Cash Sweep Instructions
+//
+//    Rev 1.705   Dec 14 2011 05:55:38   dchatcha
+// P0186477/FN03 - GIA - Purchase, validate trade fund\class against portfolio.
+//
+//    Rev 1.704   Dec 13 2011 03:55:36   dchatcha
+// P0184543 FN01 - CDIC Fast Insurance Determination
+//
+//    Rev 1.703   Dec 08 2011 00:16:44   wp040032
+//  P0183989 - Money Market Non Receipt
+//
+//    Rev 1.702   Dec 01 2011 06:53:34   dchatcha
+// P0186477/FN03 - GIA - Purchase
+//
+//    Rev 1.701   Nov 11 2011 15:28:08   jankovii
+// Fixed portoflio and plan message.
+//
+//    Rev 1.700   Nov 04 2011 07:52:38   kitticha
+// PETP0186486 FN01 IN2707425 - RRSP Loan issues2 - Modify message to 'Loan Number is missing'.
+//
+//    Rev 1.699   Nov 04 2011 07:18:42   kitticha
+// PETP0186486 FN01 IN2707425 - RRSP Loan issues2 - Modify message to 'Loan Number is missing'.
+//
+//    Rev 1.698   Oct 28 2011 04:45:52   dchatcha
+// IN# 2713809 - 3 Changes in code for IWT as per UTP Review.
+//
+//    Rev 1.697   Oct 26 2011 02:28:38   panatcha
+// fix error
+//
+//    Rev 1.696   Oct 25 2011 06:16:08   panatcha
+// IN2708311 - New Error Message should be "Beneficiary Address is Missing
+//
+//    Rev 1.695   Oct 21 2011 06:04:54   kitticha
+// PETP0188150 FN01 - Irish Withholding Tax Functionality.
+//
+//    Rev 1.694   Oct 14 2011 03:02:48   kitticha
+// PETP0186486 FN01 IN2685299 - RRSP Loan program issues.
+//
+//    Rev 1.693   Oct 07 2011 13:47:42   dchatcha
+// P0186477 FN01 - GIA Enhancements, Unable to change account portfolio with trade existed account.
+//
+//    Rev 1.692   Oct 07 2011 01:56:20   kitticha
+// PETP0183105 FN02 - Unclaimed Property Alberta.
+//
+//    Rev 1.691   Oct 06 2011 10:59:34   panatcha
+// P0185010FN01 - Beneficiary Allocations, EAP, LLP Withdrawals
+//
+//    Rev 1.690   Oct 04 2011 18:11:54   dchatcha
+// P0186477 FN01 - GIA Enhancements, display validate portfolio fields based on environment functionality(UAF).
+//
+//    Rev 1.689   Sep 02 2011 12:46:16   kitticha
+// PETP0186486 FN01 - RRSP Loan Program.
+//
+//    Rev 1.688   Aug 03 2011 12:14:12   wp040027
+// P0186774 - Mutual Fund Order Processing
+//
+//    Rev 1.687   Jul 20 2011 15:23:38   wp040027
+// PET P0186065 - Aggregated Amount Orders via Swift- Implementation of Rule 36 on Fund
+//
+//    Rev 1.686   Jul 20 2011 17:37:42   dchatcha
+// P0180786 FN01 - TFSA Estate and Right of Rescission Tax Reporting, adjust message description for annunitant instead account owner.
+//
+//    Rev 1.685   Jul 20 2011 04:37:46   panatcha
+// IN2591262 - the transfer beneficiary of record 2011 is mandatory
+//
+//    Rev 1.684   Jul 18 2011 11:02:16   dchatcha
+// P0180789 FN01 - TFSA Estate and Right of Rescission Tax Reporting, message description was overwritten, take it back.
+//
+//    Rev 1.683   Jul 18 2011 10:28:20   dchatcha
+// P0180789 FN01 - TFSA Estate and Right of Rescission Tax Reporting.
+//
+//    Rev 1.682   Jul 14 2011 08:03:52   panatcha
+// IN2584478 - Modification for warning message and TaxYear label.
+//
+//    Rev 1.681   Jul 07 2011 18:52:08   dchatcha
+// P0181953 FN01 - TFSA Amendment.
+//
+//    Rev 1.680   Jun 21 2011 03:33:30   panatcha
+// P0184541_FN01_InvescoQESItrans
+//
+//    Rev 1.679   Apr 20 2011 01:47:16   kitticha
+// PETP0181067 FN00 IN2483647 - SSG Social Code enhancement.
+//
+//    Rev 1.678   Apr 05 2011 05:47:44   kitticha
+// PETP0181067_FN00_IN2460780_Empire Autobatch Development on Cancelled SP and DC trades.
+//
+//    Rev 1.677   Mar 31 2011 11:07:32   wutipong
+// IN2452492 - RESP Transaction History Inquiry - Desktop Issue
+//
+//    Rev 1.676   Mar 21 2011 10:19:34   jankovii
+// PET181943 FN01 - XMLPhase 2 - Spelling mistake.
+//
+//    Rev 1.675   Mar 09 2011 06:28:06   wutipong
+// IN#2119425 - AFT Fund Broker Stop Date - Can't Modify
+//
+//    Rev 1.674   Mar 03 2011 15:47:02   jankovii
+// PET181943 FN01 - XMLPhase 2
+//
+//    Rev 1.673   Feb 07 2011 18:06:34   dchatcha
+// P0179308 FN01 - Multi Manager Subscription and Direct Debit Payment.
+//
+//    Rev 1.672   Jan 31 2011 14:43:24   dchatcha
+// P0179308 FN01 - Multi Manager Subscription and Direct Debit Payment.
+//
+//    Rev 1.671   Jan 22 2011 10:57:46   dchatcha
+// IN# 2398106 - R11.2-PETP0175716FN02-EPA Futured dated trade got settled, + remove CESG from CESG repayment reason error\warning message.
+//
+//    Rev 1.670   Jan 21 2011 03:36:10   dchatcha
+// IN# 2395228 - Correction of warning message.
+//
+//    Rev 1.669   Dec 21 2010 02:48:04   wichian
+// IN#2331866 - Add logic to prevent domestic user from enter systematic SWP and allocated systematic SWP in UNITS
+//
+//    Rev 1.668   Dec 14 2010 04:12:20   dchatcha
+// P0175716 FN02 - Client Name Redemption - EPA Auto Settlement.
+//
+//    Rev 1.667   Dec 01 2010 03:37:58   dchatcha
+// P0175716 FN02 - Client Name Redemption - EPA Auto Settlement.
+//
+//    Rev 1.666   Nov 29 2010 01:35:14   dchatcha
+// P0175716 FN02 - Client Name Redemption - EPA Auto Settlement.
+//
+//    Rev 1.665   Nov 26 2010 09:20:04   kitticha
+// IN#2291872 - Release 99, QESI project. Q1 and Q2 redemption cannot deplete more than balance.
+//
+//    Rev 1.664   Nov 09 2010 03:21:28   dchatcha
+// IN# 2304816 - Rel 100 QESI project. T06 special tax, add edit check instead remove  'Grant Repayment Reason' 'Q23' from available list.
+//
+//    Rev 1.663   Nov 08 2010 09:08:52   kitticha
+// Fixed Compile error - IN#2314478 - P173756FN02- No message display when processing transfer.
+//
+//    Rev 1.662   Nov 04 2010 11:09:40   kitticha
+// IN#2314478 - P173756FN02- No message display when processing transfer.
+//
+//    Rev 1.661   Oct 28 2010 04:00:56   kitticha
+// PET0165541 FN03 - QESI Phase3
+//
+//    Rev 1.660   Oct 14 2010 10:38:24   kitticha
+// PETP0172931_FN01_IN#2283060
+//
+//    Rev 1.659   Oct 08 2010 04:25:32   kitticha
+// PETP0172931_FN01_IN#2283060
+//
+//    Rev 1.658   Oct 07 2010 11:33:18   jankovii
+// PET0175377 FN01 AIP for Joint RESP Account
+//
+//    Rev 1.657   Oct 05 2010 11:47:00   jankovii
+// PET168727 FN22 - Trailer Fee Setup
+//
+//    Rev 1.656   Oct 04 2010 06:02:40   kitticha
+// PET0168176 FN01 Locked In Product Changes.
+//
+//    Rev 1.655   Sep 29 2010 11:28:30   jankovii
+// PET0175377 FN01 - AIP for Joint RESP Account
+//
+//    Rev 1.654   Sep 24 2010 14:25:18   jankovii
+// PET0175377 FN01 - AIP for Joint RESP Account
+//
+//    Rev 1.653   Sep 17 2010 05:14:32   kitticha
+// PETP0173756 FN02 Don't Bust the Rules.
+//
+//    Rev 1.652   Sep 02 2010 04:10:24   panatcha
+// IN1923112_PET0156612FN00_R96 fixed showing error msg on the allocation amount
+//
+//    Rev 1.651   Aug 20 2010 01:06:12   dchatcha
+// IN# 2209529 - User should not be able to add QESI Basic or QESI Increase for current year.
+//
+//    Rev 1.650   Aug 06 2010 13:49:00   jankovii
+// PET165541 FN03 SOC14 & SOC6
+//
+//    Rev 1.649   Jul 21 2010 01:17:24   dchatcha
+// PET0165541 FN09 QESI RESP phase2B - SOC04 - Eligible Transfer on RESP Transfer screen, code review, logic will be more simpler.
+//
+//    Rev 1.648   Jul 14 2010 03:29:42   wutipong
+// IN2184185 - Mispelling of the word "records"
+//
+//    Rev 1.647   Jun 28 2010 09:44:14   kitticha
+// in#2123752 - Additional specific error for PSE.
+//
+//    Rev 1.646   Jun 24 2010 06:42:34   dchatcha
+// PET0165541 FN09 QESI RESP phase2B - SOC04 - Eligible Transfer on RESP Transfer screen, change description of warning message.
+//
+//    Rev 1.645   Jun 23 2010 05:47:24   dchatcha
+// PET0165541 FN09 QESI RESP phase2B - SOC04 - Eligible Transfer on RESP Transfer screen.
+//
+//    Rev 1.644   Jun 18 2010 03:41:18   kitticha
+// iN#2123752 - PSE additional error.
+//
+//    Rev 1.643   Jun 08 2010 10:48:48   jankovii
+// IN 2124688 - PETP0165541 -  Dep Code 17 - Account Level Override.
+//
+//    Rev 1.642   Jun 04 2010 01:42:22   kitticha
+// IN#2123752 - Additional logic and validation for PSE.
+//
+//    Rev 1.641   May 31 2010 22:54:46   dchatcha
+// IN#2128812 - PETP0165541 FN 01 - Cancellation of processed transaction for RESP Accounts.
+//
+//    Rev 1.640   May 28 2010 10:01:00   dchatcha
+// PET0165541 FN02 QESI RESP phase2 - fix compile error.
+//
+//    Rev 1.639   May 27 2010 06:11:52   dchatcha
+// PET0165541 FN02 QESI RESP phase2 (checked in for pueng).
+//
+//    Rev 1.638   May 18 2010 11:53:10   dchatcha
+// RESP - Modify condition description to depend on trade type.
+//
+//    Rev 1.637   May 18 2010 10:19:14   jankovii
+// IN 2120701- PET165541 -Extra Error message when contribution exceeds limit
+//
+//    Rev 1.636   May 14 2010 16:09:00   jankovii
+// PET0165541 FN01 QESI RESP Trading.
+//
+//    Rev 1.635   May 12 2010 11:58:42   popescu
+// RESP/QESI - adding extra security to the EPP where used type
+//
+//    Rev 1.634   May 12 2010 07:55:02   popescu
+// RESP - Added TaxYear and related validation
+//
+//    Rev 1.633   May 10 2010 11:22:30   kitticha
+// IN#2112487 - Missing steps upon doing Red Code 60.
+//
+//    Rev 1.632   May 05 2010 16:08:04   jankovii
+// PET0165541 FN01 QESI RESP Trading.
+//
+//    Rev 1.631   May 04 2010 10:12:06   jankovii
+// PET0165541 FN01 QESI RESP Trading.
+//
+//    Rev 1.630   Apr 30 2010 05:28:28   dchatcha
+// PET0165541 FN01 QESI RESP Trading, wrong severity level.
+//
+//    Rev 1.629   Apr 30 2010 04:49:36   dchatcha
+// PET0165541 FN01 QESI RESP Trading, more conditions for view 405
+//
+//    Rev 1.628   Apr 29 2010 21:38:50   popescu
+// PET0165541 FN01 QESI RESP Trading - PSE conditions
+//
+//    Rev 1.627   Apr 27 2010 10:50:20   kitticha
+// PET0165541 FN01 QESI RESP Trading.
+//
+//    Rev 1.626   Apr 26 2010 11:06:12   kitticha
+// PET0165541 FN01 QESI RESP Trading.
+//
+//    Rev 1.625   Apr 26 2010 03:11:44   kitticha
+// P0165541 FN01 QESI RESP Trading.
+//
+//    Rev 1.624   Apr 26 2010 02:22:44   kitticha
+// P0169756 FN01 Statement and Confirm - correct some error message.
+//
+//    Rev 1.623   Apr 23 2010 09:25:48   jankovii
+// PET0165541 FN01 QESI Trading.
+//
+//    Rev 1.622   Apr 21 2010 12:24:40   dchatcha
+// PET0165541 FN01 QESI Trading - Additional error and warning.
+//
+//    Rev 1.621   Apr 19 2010 19:01:40   dchatcha
+// PET0165541 FN01 QESI Trading - Additional error and warning.
+//
+//    Rev 1.620   Apr 16 2010 09:30:50   kitticha
+// PET0165541 FN01 QESI Trading - Additional error and warning.
+//
+//    Rev 1.619   Apr 16 2010 08:22:06   kitticha
+// PET0165541 FN01 QESI Trading.
+//
+//    Rev 1.618   Apr 14 2010 09:37:46   jankovii
+// PET165541_FN01_QESI - RESP Gap_Dsk_Trading
+//
+//    Rev 1.617   Apr 07 2010 09:33:24   jankovii
+// PET165541_FN01_QESI - RESP Gap_Dsk_Trading
+//
+//    Rev 1.616   Apr 06 2010 12:34:52   dchatcha
+// P0169756 FN01 NI31-103 Statement and Confirm.
+//
+//    Rev 1.615   Mar 27 2010 19:51:44   jankovii
+// PET165541_FN01_QESI - RESP Gap_Dsk_Trading
+//
+//    Rev 1.614   Mar 27 2010 19:14:54   jankovii
+// PET165541_FN01_QESI - RESP Gap_Dsk_Trading
+//
+//    Rev 1.613   Mar 26 2010 15:56:48   jankovii
+// PET165541_FN01_QESI - RESP Gap_Dsk_Trading
+//
+//    Rev 1.612   Mar 26 2010 09:27:34   dchatcha
+// PET165541_FN01_QESI - RESP Gap_Dsk_NASU
+//
+//    Rev 1.611   Mar 25 2010 15:19:26   jankovii
+// PET165541_FN01_QESI - RESP Gap_Dsk_Trading
+//
+//    Rev 1.610   Mar 22 2010 15:21:34   jankovii
+// PET165541_FN01_QESI - RESP Gap_Dsk_Trading
+//
+//    Rev 1.609   Mar 12 2010 14:12:10   dchatcha
+// PET165541_FN01_QESI - RESP Gap_Dsk_NASU
+//
+//    Rev 1.608   Mar 08 2010 13:06:06   jankovii
+// PET165541_FN01_QESI - RESP Gap_Dsk_TRADING
+//
+//    Rev 1.607   Mar 03 2010 20:15:16   dchatcha
+// PET165541 FN01 - QESI RESP, and IN# 2017092 - R97_Static Data_Change DSK warning message for rej-error 1030
+//
+//    Rev 1.606   Feb 03 2010 18:19:06   dchatcha
+// IN# 1988872 - R97_Static Data_Cannot add Distrib Option identical to unverified deleted one.
+//
+//    Rev 1.605   Jan 15 2010 15:56:44   dchatcha
+// IN# 1975225 - DSK Error when setup Distribution with Broker's unverified bank info.
+//
+//    Rev 1.604   Dec 18 2009 10:35:10   jankovii
+// PET0166095 FN01 Validations on Money Out Transactions
+//
+//    Rev 1.603   Dec 07 2009 23:40:38   dchatcha
+// PET0166583 FN02 FN03 FN04 - Static Verification Phase 2. Correct wording of error message for CBO level and add more condition for data broker level.
+//
+//    Rev 1.602   Nov 17 2009 18:39:50   dchatcha
+// PET0166583 FN02 FN03 FN04 - Static Verification Phase 2.
+//
+//    Rev 1.601   Nov 17 2009 13:41:32   dchatcha
+// IN# 1896780 - Inactive Banking Warning Message, Erroe\warning message descruiption change for R96.
+//
+//    Rev 1.600   Nov 16 2009 15:53:00   jankovii
+// PET0166583 FN01 Static Data Changes_Banking information.
+//
+//    Rev 1.599   Nov 10 2009 09:43:08   jankovii
+// PET0166583 FN01 Static Data Changes_Banking information
+//
+//    Rev 1.598   Oct 26 2009 16:26:48   jankovii
+// PET157825 FN08 FN11 FN14 AMS Gaps
+//
+//    Rev 1.597   Oct 26 2009 09:29:58   dchatcha
+// IN# 1872743 - PET156681-FN14 Inactive Banking a/c warning message.
+//
+//    Rev 1.596   Oct 07 2009 12:42:12   dchatcha
+// IN# 1808372 - 95 - Investor Authorization - Error message not clear for few scenarios.
+//
+//    Rev 1.595   Oct 01 2009 11:57:48   dchatcha
+// P0163546 FN01 TA Automate Fund Transfer, Code review.
+//
+//    Rev 1.594   Sep 28 2009 07:00:48   dchatcha
+// P0163546 FN01 TA Automate Fund Transfer.
+//
+//    Rev 1.593   Sep 23 2009 02:50:26   dchatcha
+// IN#1825476 - error raised instead of warning.
+//
+//    Rev 1.592   Aug 21 2009 10:13:26   jankovii
+// IN 1795247 - R94 - Desktop does not validate  tax type rules, allows to setup Qualified LIF
+//
+//    Rev 1.591   Aug 20 2009 12:19:46   dchatcha
+// PET 156681 - FN 14 - Investor Authorization, description of error\warning message changed.
+//
+//    Rev 1.590   Aug 14 2009 10:51:56   dchatcha
+// PET 156681 - FN 14 - Investor Authorization, Settlement screen issue.
+//
+//    Rev 1.589   Aug 11 2009 12:05:22   jankovii
+// PET0164824 FN01 - Eiger iShares Orders and ETF Fields
+//
+//    Rev 1.588   Jul 30 2009 18:09:38   dchatcha
+// IN#1611516 - New edit at desktop trade level to prevent enter redemption, if there is improper default fee setup.
+//
+//    Rev 1.587   Jul 23 2009 08:14:24   dchatcha
+// PET156681 FN14 H36 Investor Authorization, Change more description of some CBO error.
+//
+//    Rev 1.586   Jul 22 2009 08:32:54   dchatcha
+// PET156681 FN14 H36 Investor Authorization, Change description of some CBO error.
+//
+//    Rev 1.585   Jul 13 2009 07:36:46   dchatcha
+// PET 156681 - FN 14 - Investor Authorization. Change error description to consistance with view side.
+//
+//    Rev 1.584   Jul 09 2009 09:21:00   dchatcha
+// PET 156681 - FN 14 - Investor Authorization.
+//
+//    Rev 1.583   Jul 09 2009 08:36:06   dchatcha
+// PET 156681 - FN 14 - Investor Authorization.
+//
+//    Rev 1.582   Jul 08 2009 13:45:58   jankovii
+// PET 160872 FN07 - Static Data Changes Banking information
+//
+//    Rev 1.581   Jul 08 2009 07:38:52   dchatcha
+// PET 156681 - FN 14 - Investor Authorization.
+//
+//    Rev 1.580   Jun 09 2009 05:21:14   kitticha
+// PET157837 FN02 - Country Schedule Daily Non Resident Schedule A
+//
+//    Rev 1.579   May 19 2009 14:05:46   jankovii
+// PET 159770 FN05 Auto Batching.
+//
+//    Rev 1.578   11 May 2009 09:40:58   sibuhatm
+// Added condition for validating Account designation is "Client" when selecting Redemption code "EF".
+//
+//    Rev 1.577   May 07 2009 13:44:14   jankovii
+// PET 159770 FN05 Auto Batching.
+//
+//    Rev 1.576   Apr 30 2009 02:57:24   dchatcha
+// IN 1673707 - R93 Regression - mifmarqa - inconsistent error msg.
+//
+//    Rev 1.575   Apr 13 2009 10:13:02   jankovii
+// PET 158825  FN04 - Manula RRIF Redemption.
+//
+//    Rev 1.574   Apr 02 2009 09:26:16   jankovii
+// IN 1643940 - Stop user change RIF deff of current year to next year
+//
+//    Rev 1.573   Mar 25 2009 07:09:44   kitticha
+// IN#1588682 - Small Enhancement - Feature search screen for Fund Broker Search.
+//
+//    Rev 1.572   Mar 06 2009 11:43:52   jankovii
+// IN 1549352 - RESIDENCE PROVINCE AND TAX JURISDICTION
+//
+//    Rev 1.571   Mar 03 2009 16:23:20   jankovii
+// PET0159508 FN03 ESG In Cash Transfer
+//
+//    Rev 1.570   Feb 23 2009 11:53:24   jankovii
+// IN 1596652 - RLSP/RLIF - DSK please issue ERROR when owner age < 55
+//
+//    Rev 1.569   Jan 30 2009 10:24:20   jankovii
+// IN 1543838 - AMS Rebalancing - AMS Mstr Setup -R91 - QA Testing
+//
+//    Rev 1.568   Jan 27 2009 06:29:30   daechach
+// IN 1548019 - New CBO level error codes for MT535/536.
+//
+//    Rev 1.567   Jan 20 2009 15:02:18   jankovii
+// PET 5517 FN94 - Foreign Exchange Allocated Capital Gains
+//
+//    Rev 1.566   Jan 12 2009 11:09:38   jankovii
+// IN 1549377 Estate and Death of Notification acct category can only be added by the system
+//
+//    Rev 1.565   Jan 08 2009 05:53:48   daechach
+// IN 1545482 - R91-MT535/MT536-users should not be able to create Clearing platform entities.
+//
+//    Rev 1.564   Jan 07 2009 06:32:34   daechach
+// PETP0155543 FN01 - Account Level Distribution Instructions.
+//
+//    Rev 1.563   Dec 15 2008 02:46:38   daechach
+// PET 0007773 Fn 01 - MT535/536 Enhancement (check in for Lu)
+//
+//    Rev 1.562   Dec 11 2008 23:28:26   sopitwek
+// PET22486 - FN03 - RESP Grant Commission
+//
+//    Rev 1.561   08 Dec 2008 12:34:36   popescu
+// Incident 1507900
+// Recipient Code Changes in Base and Desktop
+//
+//    Rev 1.560   Nov 28 2008 14:33:04   jankovii
+// PET 142196 FN01 Federal Restricted LIF and LIRA.
+//
+//    Rev 1.559   Nov 19 2008 14:19:28   wongsakw
+// IN1433224 - Changing  desktop warning message when updating address.
+//
+//    Rev 1.558   12 Nov 2008 15:36:18   kovacsro
+// IN#1482004 - PLS CORRECT THE SPELLING OF "RESTRICTED"
+//
+//    Rev 1.557   Nov 04 2008 06:21:58   phiwponp
+// IN 1337808 - Add error 761 in trade entry screen.
+//
+//    Rev 1.556   Oct 28 2008 09:05:40   phiwponp
+// PET22486FN45 - Fund on Funds Account Report.
+//
+//    Rev 1.555   Oct 08 2008 15:09:14   wongsakw
+// IN1433224 -- Changing  desktop warning message when updating address.
+//
+//    Rev 1.554   03 Oct 2008 15:49:02   kovacsro
+// PET142007.FN01_TFSA
+//
+//    Rev 1.553   Sep 29 2008 07:55:12   wongsakw
+// PET5517 FN71 Unclaimed Property - Return Mail
+//
+//    Rev 1.552   25 Sep 2008 15:46:34   kovacsro
+// PET142007 FN01 - TFSA one more condition (for same annuitant)
+//
+//    Rev 1.551   24 Sep 2008 14:37:58   kovacsro
+// PET142007 FN01 TFSA - added one more condition
+//
+//    Rev 1.550   23 Sep 2008 16:16:50   kovacsro
+// PET 142007 FN01 - TFSA
+//
+//    Rev 1.549   Sep 22 2008 09:30:10   wongsakw
+// PET5517 FN71
+//
+//    Rev 1.548   15 Sep 2008 09:08:34   kovacsro
+// IN#1408829 - Changed description for a Warning message
+//
+//    Rev 1.547   Aug 28 2008 14:40:50   jankovii
+// IN 1388930 - NASU flow does not update document list unless at least one document.
+//
+//    Rev 1.546   25 Aug 2008 11:59:32   kovacsro
+// PET142196.FN01_Federal LIF Locked-In RRSP
+//
+//    Rev 1.545   Aug 08 2008 11:41:26   wongsakw
+// IN 122816 - Pay Instruction Field No Longer Displayed -- Modifying conditions' message.
+//
+//    Rev 1.544   Aug 04 2008 05:36:08   daechach
+// in# 1222816 - Pay Instruction Field No Longer Displayed. (check in for Noom)
+//
+//    Rev 1.543   Jul 29 2008 14:48:28   daechach
+// in#1327144 - New ON LIF with effective date of Dec 31, 2007,new condition supports validation logic is introduced.
+//
+//    Rev 1.542   Jul 25 2008 14:41:44   jankovii
+// PET 59888 - AML Enhancement.
+//
+//    Rev 1.541   Jul 22 2008 09:29:30   daechach
+// in# 1309030 - Realignment transfer entry issues. synched up for R88.
+//
+//    Rev 1.540   Jun 23 2008 13:34:44   jankovii
+// PET 59888 FN01 - AML enhancement.
+//
+//    Rev 1.539   03 Jun 2008 11:35:34   kovacsro
+// PET6873 Cut off Time
+//
+//    Rev 1.538   27 May 2008 13:25:24   kovacsro
+// IN#1053526  changed message for ERR_SETTLEMENT_INSTRUCTIONS_EXPIRED_AS_OF
+//
+//    Rev 1.537   May 07 2008 19:24:02   wongsakw
+// PET5815 FN02 Realignment Transfer
+//
+//    Rev 1.536   01 May 2008 13:56:34   kovacsro
+// PET2255 FN47 - New Ontario LIF - finalized
+//
+//    Rev 1.535   28 Apr 2008 15:05:02   kovacsro
+// PET2255-FN47 - Ontario New LIF - modified the error messages
+//
+//    Rev 1.534   22 Apr 2008 11:23:54   kovacsro
+// IN#1053526  changed severity for ERR_SETTLEMENT_INSTRUCTIONS_EXPIRED_AS_OF
+//
+//    Rev 1.533   Apr 16 2008 18:56:50   daechach
+// PET2385 FN02&07 - Modified code regarding code review.
+//
+//    Rev 1.532   15 Apr 2008 11:39:00   kovacsro
+// PET2255-FN47 - Ontario New LIF
+//
+//    Rev 1.531   Apr 10 2008 11:03:54   jankovii
+// IN 1235879 - AIM database issue - Nominee Change Caused Locks.
+//
+//    Rev 1.530   Mar 05 2008 18:09:14   daechach
+// PET2385FN02&07 - Account Level Settlement Periods and Currency Holiday
+//
+//    Rev 1.529   Feb 27 2008 15:56:38   jankovii
+// IN 820350 - validation for phone/fax number length.
+//
+//    Rev 1.528   Feb 19 2008 15:59:40   jankovii
+// PET 2385 FN06 Bank details upload.
+//
+//    Rev 1.527   13 Feb 2008 10:52:18   kovacsro
+// IN#1101612 - added a new warning message
+//
+//    Rev 1.526   Feb 13 2008 09:38:50   jankovii
+// PET 2385 FN06 Bank details upload.
+//
+//    Rev 1.525   Jan 02 2008 10:25:32   daechach
+// Resynched new added conditions of in#1130286 - 'Net of fees' option not default for Min Pay out 2008 for Rel83
+//
+//    Rev 1.524   21 Dec 2007 15:53:38   kovacsro
+// PET2400FN01 - Account Level Distribution Instruction: changed the warning message for bulking
+//
+//    Rev 1.523   21 Dec 2007 14:43:00   kovacsro
+// PET2400FN01 - account level distribution instruction
+//
+//    Rev 1.522   Dec 05 2007 14:59:56   jankovii
+// IN 1098016 - Desktop Account Level AMS screen 'Status' Field.
+//
+//    Rev 1.521   Nov 26 2007 10:59:18   jankovii
+// PET 5685 FN25 - Age 71.
+//
+//    Rev 1.520   23 Nov 2007 11:32:14   popescu
+// Incident 943174 - added validation to pay type clearing if settlment instructions are expired
+//
+//    Rev 1.519   23 Nov 2007 11:01:46   kovacsro
+// PET5685 FN25 - age 71 changes for RRSP&LIRA
+//
+//    Rev 1.518   Nov 21 2007 12:08:30   smithdav
+// IN #1003565 - Soft edit to ensure next AMS
+//
+//    Rev 1.517   Nov 16 2007 13:08:40   jankovii
+// IN #1074083 - Error message when cancelling trade using date range split.
+//
+//    Rev 1.516   08 Nov 2007 10:24:08   kovacsro
+// IN#1054798 - added ERR_CASH_TRADE_NOT_ALLOWED_FOR_TAX_TYPE
+//
+//    Rev 1.515   Nov 06 2007 18:31:44   smithdav
+// IN1024380 -  Change AMS certificates edit to check at the fund level instead of the account level.
+//
+//    Rev 1.514   Oct 30 2007 11:26:12   jankovii
+// IN 1053528 & 1053527 - added warrning.
+//
+//    Rev 1.513   Oct 24 2007 20:12:50   smithdav
+// IN1024380 - AMSAcctLevel active Certificates edit.
+//
+//    Rev 1.512   19 Oct 2007 16:15:34   kovacsro
+// IN#1038318 - added rej erros / hard edit to prevent users from entering future dated Stop dates on AMS and modifying Effective Date for RB/RO default allocations on Allocation screen
+//
+//    Rev 1.511   17 Oct 2007 11:53:24   kovacsro
+// IN#1040650 - cleanup
+//
+//    Rev 1.510   16 Oct 2007 09:24:36   kovacsro
+// IN#1040650 - resetting an overridden Access ID is not allowed
+//
+//    Rev 1.509   15 Oct 2007 15:12:50   kovacsro
+// IN#1041113 added parameter to ERR_INVAID_STATUS_FOR_ACCESS_ID
+//
+//    Rev 1.508   15 Oct 2007 14:28:18   kovacsro
+// IN#1041113 - changed error message description for invalid access Id
+//
+//    Rev 1.507   12 Oct 2007 10:08:40   popescu
+// Incident 1003180 - Cosmetic-Error message for AMS setup on inactive account
+//
+//    Rev 1.506   Oct 10 2007 14:36:12   jankovii
+// IN 837879 - added error that will be used in 81 code.
+//
+//    Rev 1.505   Oct 08 2007 14:01:22   smithdav
+// IN  1005517,1020252 - LRSP logic
+//
+//    Rev 1.504   21 Sep 2007 14:07:20   kovacsro
+// IN1003607 - added ERR_INVALID_STATUS_FOR_ACCESS_ID;
+//
+//    Rev 1.503   20 Sep 2007 17:21:16   popescu
+// GAP 6 - do not allow AccessId override if flag from back-end is set to no.
+//
+//    Rev 1.502   20 Sep 2007 10:55:18   popescu
+// Incident 1002765 - fixed the validation for institutional code AMS
+//
+//    Rev 1.501   Sep 16 2007 15:30:10   jankovii
+// IN #990336 - User is unable to process manual/adhoc MFR trades.
+//
+//    Rev 1.500   14 Sep 2007 14:49:14   popescu
+// Incident 1003672 - setup restriction one AMS funds allocation for 100% is not allowed - soft edit
+//
+//    Rev 1.499   14 Sep 2007 12:21:56   popescu
+// Incident 1003672 - setup restriction one AMS funds allocation for 100% is not allowed
+//
+//    Rev 1.498   11 Sep 2007 14:43:02   popescu
+// Incident 1003183 - small fix to have the error for exchangeable funds pop-up.
+//
+//    Rev 1.497   Sep 11 2007 08:49:58   smithdav
+// IN 979244. exchange limitations.
+//
+//    Rev 1.496   Sep 06 2007 17:19:00   popescu
+// GAP 18 - added manual management fee rebate to manual dividend screen
+//
+//    Rev 1.495   31 Aug 2007 18:24:22   popescu
+// GAP6 - new conditions for validating access id/cif and updated the ACL error messages
+//
+//    Rev 1.494   Aug 22 2007 17:10:02   smithdav
+// IN 982850,  IN    - Add DayOfMonth field conditions to RRIF.
+//
+//    Rev 1.493   20 Aug 2007 17:22:18   popescu
+// Incident 972357 - pop a warning message if users do not choose to clone the AMS model
+//
+//    Rev 1.492   16 Aug 2007 12:51:10   popescu
+// Incident# 977474 - access id shhould not be created by the user
+//
+//    Rev 1.491   Aug 10 2007 17:06:52   smithdav
+// PET2360 FN76,91
+//
+//    Rev 1.490   Aug 08 2007 14:36:56   jankovii
+// Gaps 14 & 18 PET 2360- Management Fee.
+//
+//    Rev 1.489   Aug 08 2007 10:22:06   jankovii
+// GAP 29 RESP Bkk.
+//
+//    Rev 1.488   23 Jul 2007 16:49:34   popescu
+// PET 2360 - FN 20 - GAP 20 Soft cap functionality
+//
+//    Rev 1.487   Jul 17 2007 11:34:06   jankovii
+// PET 2372 FN02 - FDP New Data Elements, added err/warn.
+//
+//    Rev 1.486   Jul 06 2007 09:56:42   popescu
+// PET 2236 - Gap 6 - CIF
+//
+//    Rev 1.485   28 Jun 2007 16:42:34   popescu
+// AIM GAP 63 - BKK synch-up estate processing
+//
+//    Rev 1.484   27 Jun 2007 23:58:04   popescu
+// PET 2236 - Gap 50 - Private act
+//
+//    Rev 1.483   Jun 27 2007 14:24:24   porteanm
+// PET 2360 FN02 - AMS - Support for rej-errors 956 and 957.
+//
+//    Rev 1.482   Jun 25 2007 11:56:04   porteanm
+// PET 2360 FN02 - AMS - global level.
+//
+//    Rev 1.481   Jun 08 2007 13:39:50   porteanm
+// PET 2360 FN48 - GAP 48 Distributions and T-Flex - added 4 conditions.
+//
+//    Rev 1.480   May 04 2007 13:32:16   jankovii
+// PET 2321 FN01 - MT54X Default Pay Type.
+//
+//    Rev 1.479   May 01 2007 10:22:26   jankovii
+// IN 862766 - Payment instr.
+//
+//    Rev 1.478   Mar 21 2007 12:57:32   jankovii
+// PET2292 FN01 - Switch Settlement.
+//
+//    Rev 1.477   Mar 14 2007 14:49:00   jankovii
+// PET 2292 FN01 - Switch Settlement.
+//
+//    Rev 1.476   Feb 22 2007 16:43:10   ZHANGCEL
+// Incident #824405 -- Correct spelling mistakes for three conditions
+//
+//    Rev 1.475   Jan 26 2007 15:22:20   ZHANGCEL
+// PET2306 FB02 -- Add a new condition for PaymentInstruction
+//
+//    Rev 1.474   Jan 24 2007 16:44:16   ZHANGCEL
+// PET2306 FN02 -- Add new conditions for Payment Instructions
+//
+//    Rev 1.473   Dec 19 2006 11:32:08   jankovii
+// Incident #771914- Spelling mistakes at trade edit warning messages.
+//
+//    Rev 1.472   Dec 07 2006 13:09:44   jankovii
+// Incident #711561 - NSCC distribution option.
+//
+//    Rev 1.471   Dec 01 2006 13:46:56   ZHANGCEL
+// Incident #706688 - Added 3 conditions for Locked in Transfer
+//
+//    Rev 1.470   Nov 15 2006 16:56:56   popescu
+// Incident# 750524 - track the receipt of W9 forms
+//
+//    Rev 1.469   Nov 15 2006 14:26:12   jankovii
+// PET 2287 FN01 - Grupo Mundial Aggregated Trades.
+//
+//    Rev 1.468   Nov 14 2006 10:18:00   jankovii
+// Incident #754198 - fixed spelling mistake and set warning severity from no severity to warning.
+//
+//    Rev 1.467   Nov 02 2006 11:07:48   popescu
+// PET 2251/01 - added RBCD to Network Order - and few checks
+//
+//    Rev 1.466   Nov 01 2006 11:12:40   ZHANGCEL
+// PET2217 FN26 -- Add a new conditon for the banking duplicate check
+//
+//    Rev 1.465   Oct 30 2006 17:00:56   jankovii
+// PET 2185 FN04 - Trade restrictions.
+//
+//    Rev 1.464   Oct 25 2006 16:11:16   jankovii
+// PET 2185 FN04 - corrected spelling mistakes.
+//
+//    Rev 1.463   Oct 24 2006 17:27:34   porteanm
+// Incident 731541 - Corrected spelling.
+//
+//    Rev 1.462   Oct 24 2006 17:14:24   jankovii
+// PET 2185 FN04 - Trade Restricstions.
+//
+//    Rev 1.461   Oct 19 2006 14:17:14   jankovii
+// Incident 737656 - No validation for unique BIC code during new entity setup.
+//
+//    Rev 1.460   Oct 19 2006 13:36:42   ZHANGCEL
+// PET2217/13 - Add 6 conditions for Payment Instruction Validaton
+//
+//    Rev 1.459   Oct 03 2006 22:25:44   popescu
+// Incident #722094 - raise warn msgs if payment instr missing for either pw or id
+//
+//    Rev 1.458   Sep 30 2006 00:54:24   popescu
+// Incident 720294 - pay entity eff. dates
+//
+//    Rev 1.457   Sep 22 2006 17:59:00   ZHANGCEL
+// PET2212 FN10 - Add a condition to validate CurrencyOption
+//
+//    Rev 1.456   Sep 21 2006 17:03:10   popescu
+// STP 2217/13 Acct distribution redirect to broker payment type
+//
+//    Rev 1.455   Sep 20 2006 17:00:56   ZHANGCEL
+// PET2212 FN10 - Change message for ERR_CONSOL_NOT_VALID and ERR_CONSOL_NOT_VALID_FOR_DISTRIBUTION
+//
+//    Rev 1.454   Sep 11 2006 10:20:00   porteanm
+// PET2216 FN35 - RRIF Locked-In products - RRIF Unused Amt.
+//
+//    Rev 1.453   Sep 09 2006 15:24:52   popescu
+// STP 2129/13
+//
+//    Rev 1.452   Sep 05 2006 19:05:42   popescu
+// Incident# 693254 - settlement source field opened for TR/XR
+//
+//    Rev 1.451   Aug 28 2006 15:36:38   ZHANGCEL
+// PET2212 FN10 -- Added new conditions for Netting Bulking Redemption and Distribution Payment
+//
+//    Rev 1.450   Aug 24 2006 15:00:12   ZHANGCEL
+// Incident #694896 -- Correct "Assignee" to "Assigned" in error messages.
+//
+//    Rev 1.449   Jul 24 2006 15:52:00   porteanm
+// Incident 650931 - Syncup - Added ERR_ILLEGAL_REDEMPTION_CODE_FOR_ACCT_TAX_TYPE.
+//
+//    Rev 1.448   Jul 07 2006 16:13:02   ZHANGCEL
+// PET2145 FN01 -- Correct spelling mistakes for two conditions
+//
+//    Rev 1.447   Jul 04 2006 13:52:30   ZHANGCEL
+// PET 2145 FN01 -- Change Escorw related conditions to display Assignee in the message
+//
+//    Rev 1.446   Jun 22 2006 16:31:28   porteanm
+// Incident 642056 - Added ERR_GUAR_TRANS_EVENTS_EXIST.
+//
+//    Rev 1.445   Jun 22 2006 16:05:14   porteanm
+// PET2003 FN03 - For R71 3rd var - Added cbo warn WARN_SEG_MANUAL_EVENTS_SINCE_ORIGINAL_TRADE_DATE.
+//
+//    Rev 1.444   Jun 09 2006 14:44:18   popescu
+// Incident# 640084 - Added edit check where user cannot place a redemption if redemption code is 02 - Close Account and amount type is all free units.
+//
+//    Rev 1.443   Jun 07 2006 09:46:54   porteanm
+// Incident 638453 - Description for ERR_USER_DEFINED_MATURITY_DATE_CANNOT_BE_BLANK, WARN_USER_DEFINED_MATURITY_DATE_CANNOT_BE_BLANK.
+//
+//    Rev 1.442   Jun 06 2006 17:22:54   porteanm
+// PET 2102 FN01 - Renamed to WARN_INVALID_PROVINCE. Removed      ERR_USER_MATURITY_DATE_LATE_THAN_LEGAL_MATURITY_DATE. Added   ERR_USER_DEF_MAT_LESS,     ERR_USER_DEFINED_MATURITY_DATE_CANNOT_BE_BLANK, WARN_USER_DEFINED_MATURITY_DATE_CANNOT_BE_BLANK.
+//
+//    Rev 1.441   May 25 2006 17:40:34   ZHANGCEL
+// PET 2102 FN01 --  Change ERR_INVALID_PROVINCE from erro to warning;
+//
+//    Rev 1.440   May 10 2006 14:14:06   popescu
+// Incident# 617623 - added warning 710=WARN_CUSTOM_TRADING_SCHEDULE_IS_MISSING and added ERR_USER_MATURITY_DATE_LATE_THAN_LEGAL_MATURITY_DATE
+//
+//    Rev 1.439   May 10 2006 11:56:00   ZHANGCEL
+// PET2102 FN02 -- Added two new conditions for Flex Seg fund enhancement  in ContractInfo CBO
+//
+//    Rev 1.438   May 08 2006 13:31:18   jankovii
+// Manulife Flex PET2102 FN02 - Trade/Systematic Entry.
+//
+//    Rev 1.437   May 02 2006 14:22:50   jankovii
+// PET 2102 Manulife Flex - User Defined Maturity Dates.
+//
+//    Rev 1.436   Apr 26 2006 12:19:04   porteanm
+// Incident 605455 - Added WARN_ADDRESS_CODE_NOT_EFFECTIVE.
+//
+//    Rev 1.435   Mar 31 2006 13:56:28   jankovii
+// PET 1334 - Alternative Product.
+//
+//    Rev 1.434   Mar 27 2006 10:50:12   ZHANGCEL
+// PET2132 -- Add a new conditions for MFS BAFF File
+//
+//    Rev 1.433   Mar 22 2006 16:19:10   jankovii
+// EUSD Backdated trade validation. Updated wording in already existing error/warning messages.
+//
+//    Rev 1.432   Feb 15 2006 10:40:42   AGUILAAM
+// IN 542806 - raise error when MCHFile flag is not "Exclude" for third party fund trades
+//
+//    Rev 1.431   Feb 15 2006 10:17:10   ZHANGCEL
+// PET 1334 - FN01 -- Add an CBO condition for the ESG money movement
+//
+//    Rev 1.430   Feb 02 2006 10:23:52   AGUILAAM
+// IN 534084 - corrected error descriptions: "responsability code" to "responsibility date".
+//
+//    Rev 1.429   Jan 20 2006 11:08:34   AGUILAAM
+// IN 424704 - corrected error description to refer to Resp Date (not Resp Code)
+//
+//    Rev 1.428   Jan 13 2006 15:48:26   zhengcon
+// Incident #515283 -- Error Message when setting up RRIF payment in Acct No. 85926558, the error message ERR_RRIF_INFO_NOT_APPLICABLE should be under Ifastbp module, instead of ifastcbo
+//
+//    Rev 1.427   Dec 21 2005 11:25:24   popescu
+// Incident# 494407 - added suport for warning msg 685 - please cancel out money out
+//
+//    Rev 1.426   Dec 20 2005 14:43:38   jankovii
+// Incident #496604 - Support Vestima Trading for SSBG.
+//
+//    Rev 1.425   Dec 18 2005 15:09:24   porteanm
+// Incident 421704 - gap - TranshistDilutionAlloc update support.
+//
+//    Rev 1.424   Dec 16 2005 20:47:24   porteanm
+// Incident 421704 - gap - TranshistDilutionAlloc update support.
+//
+//    Rev 1.423   Dec 14 2005 14:11:50   porteanm
+// Incident 421704 - gap - TranshistDilutionAlloc update support - Finalized view 357.
+//
+//    Rev 1.422   Dec 14 2005 13:53:22   porteanm
+// Incident 421704 - gap - TranshistDilutionAlloc update support - Finalized view 357.
+//
+//    Rev 1.421   Dec 09 2005 15:48:24   porteanm
+// PET 1228 FN01 - Added ERR_SAVINGS_DIRECTIVE_SUBSEQUENT_MONEY_OUT_EXISTS.
+//
+//    Rev 1.420   Nov 25 2005 15:08:06   porteanm
+// PET1228 FN01 - Replaced ERR_WHERE_USE_TYPE_INVALID with ERR_WHERE_USE_TYPE_ACCOUNT_INVALID and ERR_WHERE_USE_TYPE_FUND_BROKER_INVALID.
+//
+//    Rev 1.419   Nov 09 2005 15:17:54   jankovii
+// PET1228 - added validation condition for Account and FundBroker in WhereUsed.
+//
+//    Rev 1.418   Nov 03 2005 15:10:26   porteanm
+// Incident 442910 - Contract Term - Modified WARN_USER_DEF_MAT_LESS.
+//
+//    Rev 1.417   Oct 05 2005 10:37:02   AGUILAAM
+// PET1286_FN02_Verification of Aggregated Order Fund Price
+//
+//    Rev 1.416   Sep 29 2005 18:57:14   popescu
+// Incident# 405610 - added new validation when a bank is cloned. User should not be able to copy a bank if the process date of the transaction (i.e. trade date, systematic effective date), is not between effective date and stop date of the bank instructions record. Also, the process date has to be in the last EFT bank instructions dates range.
+//
+//    Rev 1.415   Sep 09 2005 17:44:38   ZHANGCEL
+// PET1244 FN01 -- Add new conditions for seg fund evolution enhancement
+//
+//    Rev 1.414   Sep 06 2005 11:03:04   porteanm
+// Incident 395858 - Misleading error message on the Contract Info screen.
+//
+//    Rev 1.413   Sep 06 2005 10:32:04   yingbaol
+// PET1277,FN01:Add conditions for hold mail
+//
+//    Rev 1.412   Aug 31 2005 15:15:30   popescu
+// Incident# 393036 - changed the severity of ERR_MGMT_CO_NOT_AVAILABLE from Severe to Critical
+//
+//    Rev 1.411   Aug 31 2005 11:03:04   popescu
+// Incident# 393036 - changed the severity of ERR_MGMT_CO_NOT_AVAILABLE from Severe to Critical
+//
+//    Rev 1.410   Aug 29 2005 10:32:08   ZHANGCEL
+// Incident #390227 -- Change massage for WARN_ACCT_SWITCH_TO_NON_NSCC_BROKER
+//
+//    Rev 1.409   Aug 11 2005 10:48:06   Fengyong
+// Incident 373779 - add condition err_invalid_ISIN/KWN_Num
+//
+//    Rev 1.408   Aug 03 2005 10:17:02   Fengyong
+// Incident 370336 - remove please enter from accountable code required error message.
+//
+//    Rev 1.407   Jul 27 2005 17:27:44   ZHANGCEL
+// PET1141 - FN 05 -- Change message for conditon WARN_ACCT_SWITCH_TO_NSCC_BROKER
+//
+//    Rev 1.406   Jul 26 2005 11:14:42   Yingbaol
+// PET1203,FN04: Add condition for acqFeeOption
+//
+//    Rev 1.405   Jul 15 2005 13:57:24   ZHANGCEL
+// PET1141 - FN05 -- Add a conditon for the ParticipantId checking
+//
+//    Rev 1.404   Jul 07 2005 15:28:24   ZHANGCEL
+// PET1141-FN05 -- Change massage for WARN_ACCT_SWITCH_TO_NSCC_BROKER
+//
+//    Rev 1.403   Jul 07 2005 15:05:40   hernando
+// PET1250 FN01 - Added a parameter to ERR_CUT_OFF_TIME_DUPLICATE.
+//
+//    Rev 1.402   Jul 07 2005 11:29:40   Yingbaol
+// PET1235,FN01:add conditions for cancel transaction
+//
+//    Rev 1.401   Jul 06 2005 13:19:32   porteanm
+// PET1171 EUSD 1B - Added WARN_TRADE_BACKDATED_SUBSEQUENT_OUT_EXISTS.
+//
+//    Rev 1.400   Jul 06 2005 10:37:48   ZHANGCEL
+// PET1141 - FN05 -- NSCC Broker enhancement
+//
+//    Rev 1.399   Jun 29 2005 15:47:04   ZHANGCEL
+// PET1141 - FN05 -- NSCC Broker enhancement
+//
+//    Rev 1.398   Jun 24 2005 18:13:04   porteanm
+// PET1171 EUSD 1B - Added ERR_TRADE_BACKDATED_SUBSEQUENT_OUT_EXISTS.
+//
+//    Rev 1.397   Jun 23 2005 12:19:10   porteanm
+// Incident 341127 - Changed wording for ERR_ENTITY_MAY_USED_BY_OTHER_PLACES.
+// Added WARN_DUPLICATE_SIN.
+//
+//    Rev 1.396   Jun 17 2005 19:19:36   popescu
+// Incident 251672 - assignments of settle currency for full redemptions - (fund/class/amount are null)
+//
+//    Rev 1.395   Jun 16 2005 15:37:02   porteanm
+// PET1024 FN40 - Guarantee Adjustments.
+//
+//    Rev 1.394   Jun 15 2005 17:53:22   hernando
+// PET1250 FN01 - Added ERR_CUT_OFF_TIME_DUPLICATE; added ERR_REVERSAL_CODE_REQUIRED (Synch' up).
+//
+//    Rev 1.393   Jun 14 2005 16:48:40   porteanm
+// PET1024 FN40 - Guarantee Adjustments.
+//
+//    Rev 1.392   Jun 14 2005 16:16:58   porteanm
+// PET1024 FN40 - Guarantee Adjustments.
+//
+//    Rev 1.391   May 26 2005 15:35:50   porteanm
+// PET1203 FN05 - Class B NAV Share Lots - warning when adding/deleting NAV Share category when pending trades exist.
+//
+//    Rev 1.390   May 17 2005 14:41:40   porteanm
+// PET1203 FN05 - For 63 added ERR_PURCHASE_INVALID_DEPOSIT_TYPE_FOR_ALLOC.
+//
+//    Rev 1.389   May 16 2005 09:39:14   AGUILAAM
+// IN 299732 - inactive broker/branch/rep not allowed for systematics
+//
+//    Rev 1.388   May 06 2005 15:18:54   porteanm
+// PET1203 FN05 - For 63 added ERR_PURCH_NAV_ACCT_BEL_FUND_NAV_DEPOSIT_TYPE, WARN_PURCHASE_NON_BELL_FOR_DEPOSIT_27, ERR_TRANSFER_DEPOSIT_TYPE_NOT_APPLICABLE.
+//
+//    Rev 1.387   May 06 2005 13:38:20   porteanm
+// PET OPC Confirm Reprint - Added ERR_TRANS_REPRINT_ALL_COPIES_INACTIVE for Release 63.
+//
+//    Rev 1.386   Apr 29 2005 14:43:42   Fengyong
+// #Incident 293479 - Add condition for accteffectivedate validation.
+//
+//    Rev 1.385   Apr 28 2005 11:11:24   Fengyong
+// #28887 - Add condition for aggregate order 324 view return msgcode "WARN_LOSS_SITUATION"
+//
+//    Rev 1.384   Apr 25 2005 12:07:10   smithdav
+// Realigned error condition severities.
+//
+//    Rev 1.383   Apr 19 2005 17:57:48   porteanm
+// PET 1156 for Release 63 - RESP.
+//
+//    Rev 1.382   Apr 12 2005 10:25:50   porteanm
+// PET1190 FN14 - Message change for err and warn RED_AMT_MORE_THAN_HOLDING.
+//
+//    Rev 1.381   Apr 10 2005 16:08:04   popescu
+// Incident# 261420, allow multiple active bank accounts; raise warning at transaction level if shareholder has more then one active bank account
+//
+//    Rev 1.380   Apr 07 2005 16:53:44   porteanm
+// PET1190 FN14 - 2 New conditions.
+//
+//    Rev 1.379   Apr 06 2005 19:17:26   popescu
+// Incident #282933, missed req - raise a warning if user changes from acq fee option - model got changed
+//
+//    Rev 1.378   Apr 01 2005 16:25:52   Fengyong
+// PET1190 FN5 - Add condition accountable required.
+//
+//    Rev 1.377   Mar 18 2005 16:31:06   ZHANGCEL
+// Incident #268038 -- Changed message for ERR_PRICE_CANNOT_BE_ZERO and ERR_BROKER_STTL_AMOUNT_CANNOT_BE_ZERO
+//
+//    Rev 1.376   Mar 18 2005 14:42:02   georgeet
+// Incident # 263453 - Modified spelling in error code ERR_EFFECTIVE_DATE_CONTRACT_EARLIER_THAN_EFFECTIVE_DATE_MFACCOUNT.
+//
+//    Rev 1.375   Mar 17 2005 11:59:24   aguilaam
+// IN_234826 : year of 9999 is invalid actual review date
+//
+//    Rev 1.374   Mar 13 2005 14:27:08   hernando
+// PET1024 FN02 - Added
+// ERR_USER_DEF_MAT_GREATER,
+// WARN_USER_DEF_MAT_LESS,
+// ERR_CONTR_MAT_DATE_MISSING.
+//
+//    Rev 1.373   Mar 10 2005 13:05:26   yingbaol
+// PET1171,FN01: add conditions for duplicate where use
+//
+//    Rev 1.372   Mar 10 2005 10:24:16   porteanm
+// Incident 243157/243387 - Settle Source validation.
+//
+//    Rev 1.371   Mar 07 2005 18:24:58   Fengyong
+// PET1190FN04 - Add conditions 603-606, 609-911
+//
+//    Rev 1.370   Mar 07 2005 14:42:56   yingbaol
+// PET1171,FN01: add conditions for where used
+//
+//    Rev 1.369   Mar 07 2005 10:44:16   popescu
+// PET 1190/04 added invalid trade condition for aggregated orders
+//
+//    Rev 1.368   Mar 05 2005 14:12:58   porteanm
+// PET 1171 FN01 - EUSD Entity Address Update support
+//
+//    Rev 1.367   Mar 02 2005 09:34:18   popescu
+// Incident # 254204, client condition rate is displayed with a default value of zero, even if the set-up does not exist for it. user is warned if the value of the fee is left to zero
+//
+//    Rev 1.366   Feb 28 2005 12:06:22   georgeet
+// PET 1171 FN01 EU Saving Directive Tax Exemption.  Added new errors.
+//
+//    Rev 1.365   Feb 20 2005 17:30:28   hernando
+// PET1117 FN66-68 - Added the following conditions: ERR_MISSING_NETWORKID, ERR_MISSING_MSGPROCESSTYPE, ERR_MISSING_STARTDATE, ERR_MISSING_ENDDATE, ERR_MISSING_MSGPROCESSSTATUS, ERR_MISSING_SENDREFNUM, ERR_MISSING_TRANSNUM, ERR_MISSING_AGGRORDNUM, ERR_MISSING_ACTIVITYID, ERR_MISSING_MSGPROCESSCATEGORY.
+//
+//    Rev 1.364   Feb 04 2005 14:11:58   yingbaol
+// PET1117.FN67: add another condition for broker settlement amount as of Dana's email
+//
+//    Rev 1.363   Feb 04 2005 12:09:08   aguilaam
+// Magic # 234777 - changed severity of ERR_NO_TAXTYPE_RULES from severe to warning, same as base
+//
+//    Rev 1.362   Jan 31 2005 18:54:36   popescu
+// PET 1117/66/67/68 new conditions
+//
+//    Rev 1.361   Jan 28 2005 18:54:48   popescu
+// PET 1117/66, Investro, Swift, PWLD, corrected error messages
+//
+//    Rev 1.360   Jan 28 2005 17:44:48   Fengyong
+// PET1117FN66 - SWIFT - INVESTRO - PartenerWorld API
+//
+//    Rev 1.359   Jan 27 2005 20:25:00   popescu
+// PET 1117/66/67/68.
+//
+//    Rev 1.358   Jan 26 2005 17:55:04   popescu
+// PET 1117/66,67,68 Inv, Pwld,SWIFT
+//
+//    Rev 1.357   Jan 18 2005 12:53:42   popescu
+// PTS 10037935, added new rej-error code to control whether bank information country code is mandatory or not
+//
+//    Rev 1.356   Jan 18 2005 11:30:06   yingbaol
+// PET1117,FN67: add conditions for INVESTRO project.
+//
+//    Rev 1.355   Jan 04 2005 11:06:30   popescu
+// PTS 10037407, corrected field names for exchange fund broker eligibility. also, corrected the error message.
+//
+//    Rev 1.354   Dec 23 2004 15:15:16   popescu
+// PTS 10037421, correcte a spelling mistake for condition ERR_MAXIMUM_INPUT_AMT
+//
+//    Rev 1.353   Dec 22 2004 16:20:44   yingbaol
+// PTS10037024: change error message for suppress Fed./prov. Tax/ Tax on Min
+//
+//    Rev 1.352   Dec 22 2004 10:12:50   Fengyong
+// PET1117FN54 - modify condition message
+//
+//    Rev 1.351   Dec 15 2004 19:08:06   zhangcel
+// PET1117 FN 08 -- Added conditions for the Aggregated order validation
+//
+//    Rev 1.350   Dec 14 2004 17:39:04   popescu
+// PET 1117/06/56 added validation for trade cut-off date
+//
+//    Rev 1.349   Dec 09 2004 17:53:30   vadeanum
+// PET1117_FN21:  Fund Broker Settlement Instructions.
+//
+//    Rev 1.348   Dec 09 2004 15:32:34   Fengyong
+// PET1117FN54 - Add new condition ERR_ID_TYPE_REQUIRED_FOR_FUNDBROKER
+//
+//    Rev 1.347   Dec 08 2004 21:07:10   popescu
+// PET 1117/56, errors for fees
+//
+//    Rev 1.346   Dec 08 2004 12:49:34   popescu
+// PET 1117/06, adde threshold amount validation for trade amount
+//
+//    Rev 1.345   Dec 07 2004 16:30:54   hernando
+// PET1137 FN01 - Changed messages to include epost.
+//
+//    Rev 1.344   Dec 06 2004 19:28:36   popescu
+// PET 1117/06, added meaningful condition for not elig to trade mgtmt fee funds
+//
+//    Rev 1.343   Dec 03 2004 16:19:44   vadeanum
+// PET1117_FN21:  settlement instructions.
+//
+//    Rev 1.342   Dec 03 2004 15:47:50   zhangcel
+// PET1117 FN8 -- Add conditons for AggregatedOrder Screen
+//
+//    Rev 1.341   Dec 02 2004 11:35:46   yingbaol
+// PET1137,FN01: add conditions for EPOST
+//
+//    Rev 1.340   Dec 01 2004 16:01:26   Fengyong
+// PET1117FN54 - msg minor change
+//
+//    Rev 1.339   Dec 01 2004 13:44:36   popescu
+// PET 1117/21, minor msg change
+//
+//    Rev 1.338   Dec 01 2004 11:10:18   popescu
+// PTS 10036050, fee cannot be percent for red code 16,17 bearer certificate
+//
+//    Rev 1.337   Nov 25 2004 15:18:34   Fengyong
+// PET1117FN54 FundBroker: Add warning message when change name of a entity and the entity was used in more then one places
+//
+//    Rev 1.336   Nov 25 2004 13:25:02   vadeanum
+// PET1117 FN08 - Shareholder Fund Broker.
+//
+//    Rev 1.335   Nov 23 2004 13:15:38   popescu
+// PET 1117/06, new conditions for AcqFeeOption validation
+//
+//    Rev 1.334   Nov 23 2004 12:26:38   popescu
+// PET 1117/06, conditions for Acqfeeoption validation
+//
+//    Rev 1.333   Nov 19 2004 14:13:50   PURDYECH
+// PET 1117/56, new conditions for third party funds
+//
+//    Rev 1.332   Nov 18 2004 14:09:34   PURDYECH
+// PET 1117/06, new conditions
+//
+//    Rev 1.331   Nov 12 2004 16:21:28   PURDYECH
+// PTS 10033507 - amounttypes F,T,X,Y,M are valid if fromfund is BEL (different from ifast/base)
+//
+//    Rev 1.330   Nov 07 2004 16:14:58   PURDYECH
+// PET 1117/56, added conditions for warning the user that wkn and isin numbers are invalid
+//
+//    Rev 1.329   Nov 05 2004 15:48:32   PURDYECH
+// PET 1117/06, conditions for transaction fees validations
+//
+//    Rev 1.328   Nov 05 2004 10:46:24   PURDYECH
+// PTS10035274: Add one condition and change condition for FeeModel Option
+//
+//    Rev 1.327   Nov 04 2004 11:02:34   PURDYECH
+// PET1117 FN54 - Fund broker static temp check in for 59 build
+//
+//    Rev 1.326   Nov 02 2004 11:08:28   PURDYECH
+// PTS10035274 - validation between modeloption and feecode
+//
+//    Rev 1.325   Oct 29 2004 20:15:44   PURDYECH
+// PET 1117/06 conditions for ReinvestPurchase
+//
+//    Rev 1.324   Oct 27 2004 16:34:48   PURDYECH
+// PTS 10034817 - Added ERR_END_DATE_EARLIER_THAN_ALL_FUND_DIV_DATE
+//
+//    Rev 1.323   Oct 21 2004 13:48:30   PURDYECH
+// PTS10034860 - Error message fix
+//
+//    Rev 1.322   Oct 20 2004 10:45:20   PURDYECH
+// PTS 10034866 - Add a new condition: ERR_REDCODE_EMPTY
+//
+//    Rev 1.321   Oct 19 2004 17:31:24   PURDYECH
+// PET1010 FN02 - Conditions for WHTax. Plus generation for Yingbao's PET1145:add condition for broker address.
+//
+//    Rev 1.320   Oct 15 2004 18:25:50   PURDYECH
+// PTS10034771: add condition  for  DSTCEntityIdsTrxnBuilder
+//
+//    Rev 1.319   Oct 15 2004 14:48:04   PURDYECH
+// PTS 10034776 - spelling fix
+//
+//    Rev 1.318   Oct 12 2004 12:05:34   PURDYECH
+// PTS10034499 - Changed spelling.  Removed duplicate sentence.
+//
+//    Rev 1.317   Oct 12 2004 10:31:48   PURDYECH
+// PTS10034499: change warning message for stop settlement redemption.
+//
+//    Rev 1.316   Sep 30 2004 21:05:06   PURDYECH
+// PET 1117/06, SSB Germany - Trade processing
+//
+//    Rev 1.315   Sep 23 2004 09:56:12   PURDYECH
+// PET 1094 FN4 - Activest Bank File Interface, remove file processor from shareholder banking
+//
+//    Rev 1.314   Sep 21 2004 17:34:04   PURDYECH
+// Add condition ERR_STOPDATE_INVALID_FOR_BUYATNAV
+//
+//    Rev 1.313   Sep 21 2004 14:28:52   PURDYECH
+// PET1117, FN05: add conditions for FeeModelCode at shareholder level
+//
+//    Rev 1.312   Sep 17 2004 17:27:26   PURDYECH
+// PET1082 -- Added conditions for the date range overlaping
+//
+//    Rev 1.311   Sep 01 2004 17:03:44   PURDYECH
+// PET 991, FN 02, added support for Dutch and Italian; translations only for Dutch
+//
+//    Rev 1.310   Sep 01 2004 15:10:38   PURDYECH
+// PET1117 FN5 - client Fee
+//
+//    Rev 1.309   Sep 01 2004 13:53:52   PURDYECH
+// PET1124: change error message
+//
+//    Rev 1.308   Sep 01 2004 13:14:12   PURDYECH
+// PET10033507 - changed description to add matured units among valid amounttypes for full transfers ERR_INVALID_AMTTYPE_FOR_FULL_TRANSFER
+//
+//    Rev 1.307   Aug 27 2004 09:55:14   PURDYECH
+// PET1094-FN8 -- Add a new condition for the AdminFee RedCode validation
+//
+//    Rev 1.306   Aug 24 2004 16:21:02   PURDYECH
+// PET1094 FN8 -- Add a new condition for the AdminFee related validation
+//
+//    Rev 1.305   Aug 17 2004 17:29:36   PURDYECH
+// PTS TICKIT  10033003 -- Added a new condition for entity searching
+//
+//    Rev 1.304   Aug 11 2004 11:48:12   PURDYECH
+// PET1117_FN02:  Account Static enhancement for SSBG - added new acct categories, and contact person, registrationinfo fields
+//
+//    Rev 1.303   Aug 05 2004 09:37:18   PURDYECH
+// PET1124:add condition for stop redemption settlement flag.
+//
+//    Rev 1.302   Jul 08 2004 16:07:10   PURDYECH
+// PTS 10032006, check the trade minimum amount for to side funds, for rollovers transaction type
+//
+//    Rev 1.301   Jul 05 2004 15:49:24   PURDYECH
+// PTS 10031917 - AMS Trade/Live Run Date validation.
+//
+//    Rev 1.300   Jun 24 2004 14:22:16   PURDYECH
+// PTS 10031722 - for R56.1.2 - AMS Global - Round Fund/Class validation.
+//
+//    Rev 1.299   Jun 17 2004 10:50:54   PURDYECH
+// PST 10031460, the severity of the 'Not enough units...' message has been changed from error to warning if the user places a rollover in dollar amount. this affects redemption, too.
+//
+//    Rev 1.298   Jun 09 2004 15:00:32   PURDYECH
+// PTS 10031151 - Include Pending Trades in Report mode, Online.
+//
+//    Rev 1.297   May 31 2004 11:28:42   PURDYECH
+// PTS 10030640 -- Change message for ERR_EX_AMT_MORE_THAN_HOLDING
+//
+//    Rev 1.296   May 27 2004 17:07:06   PURDYECH
+// PTS 10030640 -- Change message for ERR_EX_AMT_MORE_THAN_HOLDING
+//
+//    Rev 1.295   May 26 2004 15:11:30   PURDYECH
+// PET 985, LSIF Trade entry
+//
+//    Rev 1.294   May 26 2004 11:04:32   PURDYECH
+// PTS10027992:add limit for BrokerCode,BranchCode and SalsRepCode based on the ifast setting.
+//
+//    Rev 1.293   May 18 2004 17:13:14   PURDYECH
+// PET 985, FN 01, Shareholder Tax Jurisdiction Warning
+//
+//    Rev 1.292   May 18 2004 14:55:20   PURDYECH
+// PTS10030155 - Added ERR_WARN_ACCTHOLDER_BIRTHDAY_MISSING_NOCHECK
+//
+//    Rev 1.291   May 17 2004 10:57:46   PURDYECH
+// PET 985, FN 01, LSIF Trade entry
+//
+//    Rev 1.290   May 14 2004 16:37:36   PURDYECH
+// PET1103 FN18 - Short Term Trading Fee support.
+//
+//    Rev 1.289   May 12 2004 09:06:24   PURDYECH
+// PET 985, FN 01, LSIF Trade Entry
+//
+//    Rev 1.288   May 10 2004 20:24:46   PURDYECH
+// PET 985, FN 01, LSIF Trade Entry
+//
+//    Rev 1.287   May 10 2004 13:44:22   PURDYECH
+// PET1103 FN18 - STTrading Fees support.
+//
+//    Rev 1.286   Apr 16 2004 11:10:38   PURDYECH
+// PTS10029249: change error message for ERR_START_DATE_BEFORE_EFFECTIVE_DATE_OF_FUND
+//
+//    Rev 1.285   Apr 08 2004 17:18:28   PURDYECH
+// Add 1,7,8 translation and PET944 FN01 NSCC Broker
+//
+//    Rev 1.284   Apr 08 2004 16:31:12   PURDYECH
+// PET1005 FN11 - For 56.1 - AMS Gaps.
+//
+//    Rev 1.283   Mar 31 2004 17:16:46   PURDYECH
+// PET944 FN01 NSCC broker matrix
+//
+//    Rev 1.282   Mar 17 2004 11:42:52   PURDYECH
+// PTS 10028159 - For 56.1 - Return Mail functionality.
+//
+//    Rev 1.281   Mar 17 2004 09:04:36   PURDYECH
+// PTS10021889:Add condition FeeCode can not coexist.
+//
+//    Rev 1.280   Mar 05 2004 13:50:46   PURDYECH
+// PET859 FN23 - ADL - Added  ERR_ADL_FEE_PERCENTAGE_FOR_DEFAULT_RECORD
+//
+//    Rev 1.279   Mar 02 2004 13:50:44   PURDYECH
+// PTS 10026434 - Added ERR_TRANSFER_FUNDS_INVALID_FOR_TIK.
+//
+//    Rev 1.278   Mar 02 2004 09:54:08   PURDYECH
+// PTS10027208: change error message according to Wendy's requirement.
+//
+//    Rev 1.277   Feb 22 2004 19:05:14   PURDYECH
+// PTS10026642 - Changed message.
+//
+//    Rev 1.276   Feb 18 2004 15:12:06   PURDYECH
+// PTS10027208:Add  WARN_CHANGE_CLEARINFID_PENDING
+//
+//    Rev 1.275   Feb 13 2004 13:50:54   PURDYECH
+// PET859 FN23 - ADL - Additional dates validations.
+//
+//    Rev 1.274   Feb 10 2004 16:41:08   PURDYECH
+// PET 859 FN23 - ADL - Fee Percentage validation
+//
+//    Rev 1.273   Feb 10 2004 14:13:16   PURDYECH
+// PTS10026642 - Added condition ERR_FUND_CLASS_NOT_IN_PORTFOLIO.
+//
+//    Rev 1.272   Feb 03 2004 17:46:34   PURDYECH
+// PET956_FN02 -- Added two new conditions for Redemption and Transfer/Exchange
+//
+//    Rev 1.271   Feb 03 2004 09:17:16   PURDYECH
+// Added *_CND_VERSION conditions for version label stamping.
+//
+//    Rev 1.270   Feb 03 2004 08:52:52   PURDYECH
+// PTS 10026456 - Limitation to "Realignment" Clearing Method as per Wendy's email - supporting conditions.
+//
+//    Rev 1.269   Jan 23 2004 16:12:22   PURDYECH
+// PTS 10026456 - Limitation to "Realignment" Clearing Method as per Wendy's email - supporting conditions.
+//
+//    Rev 1.268   Jan 21 2004 18:08:30   PURDYECH
+// PTS 10026237,
+// For allocated purchases the acquisition fee should be zero and split commissions default values are displayed as they are returned by view 158.
+// Also, if no repeated record is returned by 158 set the IFee to the Fee field value of the fixed section of view 158 and follow the same validation rules, as if split commissions would exist.
+//
+//    Rev 1.267   Jan 09 2004 17:00:12   PURDYECH
+// PTS 10025910 - For Rel 56 - Search for Business No - changed wording for ERR_INVALID_BUSINESSNo and WARN_INVALID_BUSINESSNO.
+//
+//    Rev 1.266   Jan 06 2004 16:33:58   PURDYECH
+// PET892 FN1 - Trade Settlement Location support - Suppress Code validation for MgmtFee Trans Type.
+//
+//
+//    Rev 1.265   Dec 30 2003 17:32:40   PURDYECH
+// pts 10025090 - changed severity from warning to severe-error for transfer-in-kind
+//
+//    Rev 1.264   Dec 23 2003 11:36:08   PURDYECH
+// PET892 FN1 - Trade Settlement Location support - one more condition for Pay type validation.
+//
+//    Rev 1.263   Dec 18 2003 14:33:28   PURDYECH
+// PET892 FN1 - Trade Settlement Location support - conditions for the Settlement Dialog.
+//
+//    Rev 1.262   Dec 17 2003 13:15:34   PURDYECH
+// PET892 FN1 - Trade Settlement Location support. - renamed condition ERR_PURCHASE_PAY_TYPE_INVALID_FOR_NON_CLEARING_ACCOUNT to ERR_TRADE_PAY_TYPE_INVALID_FOR_NON_CLEARING_ACCOUNT.
+//
+//    Rev 1.261   Dec 04 2003 15:10:46   PURDYECH
+// added condition ERR_INVALID_FIRE_FIGHTER_LOGON
+//
+//    Rev 1.260   Nov 30 2003 15:32:36   PURDYECH
+// PTS 10023617 - Added ERR_TRANSFER_BETWEEN_RRSP_INDIV_AND_RRSP_SPOUSAL_NOT_ALLOWED.
+//
+//    Rev 1.259   Nov 27 2003 11:29:02   PURDYECH
+// PTS 10023902 - Changed ERR_INVALID_CHARS from Warning to Error.
+//
+//    Rev 1.258   Nov 27 2003 10:54:48   PURDYECH
+// PET892 FN1 - Trade Settlement Location support - work in progress.
+//
+//    Rev 1.257   Nov 27 2003 09:20:42   PURDYECH
+// PET892 FN1 - Trade Settlement Location support - work in progress.
+//
+//    Rev 1.256   Nov 24 2003 10:58:14   PURDYECH
+// PET892 FN1 - Trade Settlement Location support - work in progress
+//
+//    Rev 1.255   Nov 19 2003 14:46:16   PURDYECH
+// added condition ERR_AMS_SETUP_FOR_PAC
+//
+//    Rev 1.254   Nov 11 2003 16:06:14   PURDYECH
+// Added error ERR_BANK_ACCOUNT_SHOULD_MATCH_SYSTEMATIC_CURRECNCY, used to stop copying banking records from default banking to sytematic if currencies do not match
+//
+//    Rev 1.253   Nov 11 2003 15:21:56   PURDYECH
+// PET892 FN1 - Added ERR_DUPLICATE_SETTLE_LOCATION, ERR_MULTIPLE_DEFAULT, and ERR_MISSING_DEFAULT.
+//
+//    Rev 1.252   Nov 08 2003 21:42:18   PURDYECH
+// PTS 10023438, performance issues fixes, do not call PopulateWhereUsed anymore, data is in memory
+//
+//    Rev 1.251   Nov 05 2003 14:20:56   PURDYECH
+// PTS 10023438, SIN should be required and valid if acct is RESP or family RESP and  entity is acct owner or beneficiary
+//
+//    Rev 1.250   Nov 05 2003 11:31:00   PURDYECH
+// PTS 10023031 - Unable to assign pre-existing AMS model to account AMS - Added specialized conditions for each type of error.
+//
+//    Rev 1.249   Oct 30 2003 16:52:18   PURDYECH
+// PTS 10023301 - Part II Extra error message - added ERR_RESP_BENEF_REASON_MUST_BE_CURRENT_BENEF_FOR_NEW_ENTITY.
+//
+//    Rev 1.248   Oct 30 2003 15:36:02   PURDYECH
+// PTS 10023301 - Part I Reason not saved - added ERR_RESP_BENEF_REASON_CANNOT_BE_MODIFIED.
+//
+//    Rev 1.247   Oct 29 2003 11:45:20   PURDYECH
+// Add Direct trading conditions
+//
+//    Rev 1.246   Oct 21 2003 15:09:42   PURDYECH
+// PTS ticket 10023020: Bug fix for the wire order redemption without a wire order number
+//
+//    Rev 1.245   Oct 16 2003 16:55:58   PURDYECH
+// PTS ticket 10023009: change the error message of ERR_AMOUNT_NOT_ALLOWED
+//
+//    Rev 1.244   Oct 15 2003 13:51:32   PURDYECH
+// PET859 FN08 - Added ERR_NAME_REQUIRED.
+//
+//    Rev 1.243   Oct 14 2003 16:51:38   PURDYECH
+// added 4 new error message for AMS setup for GIC/MPS funds.
+//
+//    Rev 1.242   Oct 14 2003 10:11:22   PURDYECH
+// PTS 10021935 - Allocation screen Percent Total is 200 - added
+// ERR_FULL_REDEMPTION_PERCENTAGE_MUST_BE_ZERO_FOR_EACH_FUND.
+//
+//    Rev 1.241   Oct 04 2003 12:05:20   PURDYECH
+// PTS 10022621 - Replaced message for WARN_NO_CHECK_ON_TAXRATE_FOR_NON_DOLLAR_AMTTYPE
+//
+//    Rev 1.240   Oct 03 2003 14:32:58   PURDYECH
+// Added conditions related to the financial institutions main, source of funds PET809, FN13, CIBC
+//
+//    Rev 1.239   Sep 20 2003 09:28:20   PURDYECH
+// added condition AGENT_ERR_AGENT_NOT_ACTIVE
+//
+//    Rev 1.238   Sep 18 2003 13:02:50   PURDYECH
+// PTS 10021733 - Withholding Tax Validation.
+//
+//    Rev 1.237   Sep 16 2003 16:08:42   PURDYECH
+// Aded ERR_FROM_TO_CURRENCIES_DO_NOT_MATCH when from/to fund currencies do not match
+//
+//    Rev 1.236   Sep 16 2003 15:45:48   PURDYECH
+// PTS ticket 10021741: Change the severity of ERR_SPOUSAL_CONTRIBUTOR_ENTITY_SHOULD_BE_SETUP from warning to critical error
+//
+//    Rev 1.235   Sep 12 2003 14:52:26   PURDYECH
+// PTS10020931 add conditions for RRIF
+//
+//    Rev 1.234   Sep 08 2003 09:17:12   PURDYECH
+// add conditions for Interest Accruals enhancement
+//
+//    Rev 1.233   Sep 05 2003 14:36:06   PURDYECH
+// Added ERR_TRANSFER_NOT_ALLOWED
+//
+//    Rev 1.232   Sep 04 2003 13:24:44   PURDYECH
+// added ERR_CANNOT_RESTART_CAPPED_FUND.
+//
+//    Rev 1.231   Sep 04 2003 10:56:08   PURDYECH
+// PET 809 F05 - Modified text for  ERR_REDEMPTION_FEE_SETUP_MISSING.
+//
+//    Rev 1.230   Aug 27 2003 13:56:50   PURDYECH
+// added condition ERR_AMS_CODE_RESTRICTED;
+//
+//    Rev 1.229   Aug 26 2003 15:35:22   PURDYECH
+// Made corrections.
+//
+//    Rev 1.228   Aug 25 2003 18:55:16   PURDYECH
+// new condition for non close account full redemption
+//
+//    Rev 1.227   Aug 25 2003 14:02:38   PURDYECH
+// added new condition for ams wire order validation
+//
+//    Rev 1.226   Aug 22 2003 14:58:12   PURDYECH
+// chnage ERR_REMOVE_SPOUSE_LINK_BEFORE_DELETE_OWNER
+// to from gui CBO level
+//
+//    Rev 1.225   Aug 21 2003 17:12:40   PURDYECH
+// Add new condition to cover the Demographic validation against Growth, Safety and Income total percentage
+//
+//    Rev 1.224   Aug 21 2003 13:45:52   PURDYECH
+// Add condition for KYC joint infor and change condition message for wireordernum required and other entity type need to be setup.
+//
+//    Rev 1.223   Aug 19 2003 09:59:08   PURDYECH
+// Add condition WireOrderNum required
+//
+//    Rev 1.222   Aug 16 2003 11:33:48   PURDYECH
+// added new AMS security messages
+//
+//    Rev 1.221   Aug 15 2003 14:17:06   PURDYECH
+// Add conditions for withholding tax
+//
+//    Rev 1.220   Aug 12 2003 15:19:04   PURDYECH
+// added new conditions for sales rep database and warning message for grandfathered ams
+//
+//    Rev 1.219   Aug 11 2003 11:37:00   PURDYECH
+// add conditions for account level set up
+//
+//    Rev 1.218   Aug 11 2003 09:42:44   PURDYECH
+// new error message for exchanges not allowed.   Modify AMS Limitiation message to be more descriptive.
+//
+//    Rev 1.217   Aug 07 2003 14:46:48   PURDYECH
+// Added ERR_NO_PAYMENT_INSTRUCTIONS_RECORD condition
+//
+//    Rev 1.216   Aug 07 2003 13:47:22   PURDYECH
+// PTS 10019546 - Corrected spelling and grammar.
+//
+//    Rev 1.215   Jul 30 2003 14:33:06   PURDYECH
+// added conditions for cibc ams
+//
+//    Rev 1.214   Jul 29 2003 17:04:00   PURDYECH
+// PTS 10020152 - Changed WARN_PAYOUT_AMOUNT_MAYBE_CHANGED message.
+//
+//    Rev 1.213   Jul 29 2003 16:51:06   PURDYECH
+// Add Warning message for invalidate business no.
+//
+//    Rev 1.212   Jul 28 2003 13:29:44   PURDYECH
+// change conditon for  ERR_REDEMPTION_FEE_SETUP_MISSING
+//
+//    Rev 1.211   Jul 25 2003 16:01:16   PURDYECH
+// Added ERR_DATE_OF_BIRTH_REQUIRED, WARN_DATE_OF_BIRTH_EMPTY, ERR_OCCUPATION_REQUIRED, and WARN_OCCUPATION_EMPTY.
+//
+//    Rev 1.210   Jul 25 2003 15:31:02   PURDYECH
+// PET 809 F05 - Added WARN_REDEMPTION_FEE_SETUP_MISSING.
+//
+//    Rev 1.209   Jul 24 2003 12:49:42   PURDYECH
+// Add new conditions to for AMSLmtOverride
+//
+//    Rev 1.208   Jul 23 2003 17:44:08   PURDYECH
+// PTS 10019851 - Added ERR_RESP_ONLY_ACT_BENF_MISSING.  Also fixed more errors for PTS 10019546.
+//
+//    Rev 1.207   Jul 23 2003 15:39:32   PURDYECH
+// added conditions for AMS
+//
+//    Rev 1.206   Jul 23 2003 11:48:42   PURDYECH
+// PTS 10019546 - Fixed errors.
+//
+//    Rev 1.205   Jul 22 2003 09:54:58   PURDYECH
+// Add two CND for AcctSetup
+//
+//    Rev 1.204   Jul 17 2003 16:23:56   PURDYECH
+// added condition for PTS#10014935
+//
+//    Rev 1.203   Jul 16 2003 15:47:56   PURDYECH
+// Added a warning condition for PTS 10018935
+//
+//    Rev 1.202   Jul 10 2003 21:21:18   PURDYECH
+// Fields and new condition ERR_NO_BANKING_RECORDS
+//
+//    Rev 1.201   Jul 08 2003 17:10:00   PURDYECH
+// PTS 10018768 - Added ERR_ACCT_NO_HOLDINGS_FOR_FUND.
+//
+//    Rev 1.200   Jul 07 2003 17:07:12   PURDYECH
+// PTS 10018768 - Added ERR_NOT_BACKDATED_NO_HOLDINGS, ERR_ACCT_NO_HOLDINGS, and WARN_ACCT_NO_HOLDINGS.
+//
+//    Rev 1.199   Jul 04 2003 14:59:44   PURDYECH
+// Added a new conditon for PTS ticket 10013951
+//
+//    Rev 1.198   Jun 30 2003 16:22:22   PURDYECH
+// PTS 10019154 - Changed text for ERR_RESP_TRADE_NOT_ALLOW.
+//
+//    Rev 1.197   Jun 27 2003 11:41:48   PURDYECH
+// PTS 10018533 - Added period to a condition message.
+//
+//    Rev 1.196   Jun 27 2003 10:02:32   PURDYECH
+// add condition ERR_TRANSFER_TO_ACCOUNT_IS_NOT_ALLOWED
+//
+//    Rev 1.195   Jun 26 2003 15:52:12   PURDYECH
+// PTS 10018764 - Removed extra period from a few messages.
+//
+//    Rev 1.194   Jun 26 2003 13:46:20   PURDYECH
+// New conditions were added for PTS 10016099 and for Ulli
+// PTS 10018764 - Removed extra period from message.
+//
+//    Rev 1.193   Jun 19 2003 17:16:56   PURDYECH
+// PTS 10018533 - Updated ERR_FUND_CLASS_NOT_EFFECTIVE, ERR_FUND_NOT_EFFECTIVE, and ERR_AMS_FUND_CLASS_INVALID.
+//
+//    Rev 1.192   Jun 18 2003 15:59:32   PURDYECH
+// added condition for pinnacle flat fee
+//
+//    Rev 1.191   Jun 17 2003 12:14:28   PURDYECH
+// PTS 10018370 - correct spelling mistake.
+//
+//    Rev 1.190   Jun 17 2003 11:38:38   PURDYECH
+// Changed text for ERR_VALUE_BETWEEN_0_AND_100 and ERR_RIF_OUT_OF_LIMITS_PERCENTAGE to match ERR_PERCENT_VALUE_INVALID.  Fixed spelling mistake in ERR_CANNOT_EXCLUDE_ALL.
+//
+//    Rev 1.189   Jun 17 2003 10:48:10   PURDYECH
+// added ERR_FEE_TYPE_SCALE_ONLY
+//
+//    Rev 1.188   Jun 16 2003 16:02:28   PURDYECH
+// Changed Condition message.
+//
+//    Rev 1.187   Jun 09 2003 15:42:24   PURDYECH
+// PTS ticket 10013247: added 6 conditions for RedCode validation in Trade ( Rule missing issue)
+//
+//    Rev 1.183   May 22 2003 13:43:12   PURDYECH
+// Added ERR_ACCT_INELIGIBILE_PAY_OPTION_WAIVED.
+//
+//    Rev 1.182   May 20 2003 14:45:48   PURDYECH
+// Modify text content of conditions:ERR_INVALID_AMTTYPE_FOR_FULL_TRANSFER and ERR_INVALID_AMTTYPE_TYPE_FOR_INVESTMENT_ALLOCATION (PTS 10016969)
+//
+//    Rev 1.181   May 08 2003 16:14:30   PURDYECH
+// added new condition for min age check of protected funds
+// Changed condition msg
+// ERR_TFR_PROTECTED_FUND_TO_DIFFERENT_SIN to
+// Transferring protected fund to a different beneficial owner.
+//
+//    Rev 1.180   May 05 2003 16:40:56   PURDYECH
+// Corrected spelling mistakes with ERR_COMM_RATE_LESS_THEN_ZERO, and ERR_COMM_RATE_GREATER_THEN_100.
+//
+//    Rev 1.178   Apr 29 2003 17:00:36   PURDYECH
+// Added condition ERR_SPLIT_COMMISSION_ONLY_DISCOUNTS_ALLOWED
+// for PTS 10016204
+//
+//    Rev 1.173   Apr 16 2003 15:04:14   PURDYECH
+// Add Gernan/Germany
+//
+//    Rev 1.172   Apr 12 2003 18:40:52   PURDYECH
+// Changed message for ERR_ACCT_ALLOC_ONE_ACCOUNT_ONLY.
+//
+//    Rev 1.170   Apr 09 2003 13:37:34   PURDYECH
+// reword error message for ticket#10015599
+//
+//    Rev 1.168   Apr 05 2003 15:33:20   PURDYECH
+// add NO_BROKER_INTER_ADDRESS
+//
+//    Rev 1.163   Mar 27 2003 11:04:02   PURDYECH
+// added condition for ams fund allocation validation
+//
+//    Rev 1.162   Mar 11 2003 14:07:14   PURDYECH
+// new conditions for account category and ams rebalance
+//
+//    Rev 1.161   Mar 07 2003 09:51:48   PURDYECH
+// New messages:
+// ERR_ENTITY_NATIONALITY_BLANK
+// WARN_ENTITY_NATIONALITY_BLANK
+//
+//    Rev 1.159   Feb 25 2003 16:25:02   PURDYECH
+// Added ERR_SECOND_DATE_EARLIER
+//
+//    Rev 1.158   Feb 20 2003 14:45:18   PURDYECH
+// changed msg of WARN_MARGIN_ACCT_LETTER_REQ.
+//
+//    Rev 1.156   Feb 17 2003 12:07:56   PURDYECH
+// added new conditions for new assignment codes
+//
+//    Rev 1.154   Feb 06 2003 18:19:50   PURDYECH
+// added new condition for capped funds ERR_AMT_CAPPED_FUND_INCREASE
+//
+//    Rev 1.149   Feb 04 2003 12:01:44   PURDYECH
+// restore error CLOSING_VALUE_ZERO; add new condition for ERR_NET_UNIT_PERCENT_NOT_ALLOW
+//
+//    Rev 1.148   Feb 03 2003 14:56:18   PURDYECH
+// Changed the Message of ERR_NET_SETTLEMENT
+//
+//    Rev 1.147   Jan 29 2003 14:14:14   PURDYECH
+// Added ERR_CLOSING_VALUE_ZERO.
+//
+//    Rev 1.142   Jan 22 2003 11:30:00   PURDYECH
+// added a new condition ERR_ACCOUNT_DELETED
+//
+//    Rev 1.141   Jan 21 2003 18:06:56   PURDYECH
+// add new condition for swp warning on min amount
+//
+//    Rev 1.138   Jan 14 2003 13:31:08   PURDYECH
+// Added a couple of conditions for FC rebalancing
+//
+//    Rev 1.133   Jan 04 2003 15:32:30   PURDYECH
+// add new condition and change message for AMS edit
+//
+//    Rev 1.129   Dec 19 2002 16:08:08   PURDYECH
+// Add condition: ERR_TRANSFER_TO_LIRA_NOT_ALLOWED_FOR_SHAREHOLDER_69
+//
+//    Rev 1.127   Nov 29 2002 12:37:22   PURDYECH
+// based on condition.mdb 1.11
+//
+//    Rev 1.122   Oct 09 2002 14:37:16   PURDYECH
+// add ERR_MAIL_OPTION_CANNOT_BE_ALL_NO
+//
+//    Rev 1.120   Sep 25 2002 10:06:58   PURDYECH
+// sync. up ERR_DUPLICATE_SIN_DIFFRENT_ENTITY
+//
+//    Rev 1.117   Sep 16 2002 11:51:10   PURDYECH
+// PTS 10009784: Added 3 conditons for AmtType validation
+//
+//    Rev 1.116   Aug 26 2002 14:33:26   PURDYECH
+// new condition for redemption settle currency checking
+//
+//    Rev 1.113   Aug 16 2002 14:04:18   PURDYECH
+// add 2 conditions for settlement security check
+//
+//    Rev 1.77   May 08 2002 16:30:54   PURDYECH
+// Latest Condition
+//
+//    Rev 1.58   Feb 01 2002 10:29:36   PURDYECH
+// new condition for in-kind transfer : PTS 10006924
+//
+//    Rev 1.57   Jan 18 2002 11:39:14   PURDYECH
+// Add french CND
+//
+//    Rev 1.35   Aug 17 2001 15:16:36   PURDYECH
+// Add full exchange indicate
+//
+//    Rev 1.16   May 07 2001 17:07:18   PURDYECH
+// new condition for split com
+//
+//    Rev 1.8   Mar 09 2001 11:22:02   PURDYECH
+// changed back to vers.1.6.
+//
+//    Rev 1.0   Jan 11 2001 16:23:36   PURDYECH
+// Initial revision.
+// Cycle=407
+ifastcbo.cnd

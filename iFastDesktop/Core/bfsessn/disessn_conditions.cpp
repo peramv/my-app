@@ -1,0 +1,32 @@
+// Computer Generated Condition File for Module: disessn
+
+
+#pragma message("including "__FILE__ )
+#ifndef PLATFORM_H
+   #include <win32\platform.h>
+#endif
+
+
+namespace CND_DISESSN
+{
+   CLASS_EXPORT const I_CHAR *DISESSN_CONDITION = I_( "DISESSN" );
+
+   //extern CLASS_EXPORT const long DISESSN_AWD_NOT_LOGGED_ON = 20000130;
+   //extern CLASS_EXPORT const long DISESSN_CHILD_NOT_REMOVED = 20000131;
+   //extern CLASS_EXPORT const long DISESSN_DEFAULT_LABEL_USED = 20000132;
+   //extern CLASS_EXPORT const long DISESSN_UNDEFINED_AWD_PARAMETER = 20000133;
+   //extern CLASS_EXPORT const long DISESSN_AWD_WORK_CREATED = 20000134;
+   //extern CLASS_EXPORT const long DIODBC_ERROR = 20000135;
+   //extern CLASS_EXPORT const long DIODBC_INFO = 20000136;
+   //extern CLASS_EXPORT const long DIODBC_CONNECT_ERROR = 20000137;
+
+	extern CLASS_EXPORT const long DIODBC_CONNECT_ERROR = 1100001;
+	extern CLASS_EXPORT const long DIODBC_ERROR = 1100002;
+	extern CLASS_EXPORT const long DIODBC_INFO = 1100003;
+	extern CLASS_EXPORT const long DISESSN_AWD_NOT_LOGGED_ON = 1100004;
+	extern CLASS_EXPORT const long DISESSN_AWD_WORK_CREATED = 1100005;
+	extern CLASS_EXPORT const long DISESSN_CHILD_NOT_REMOVED = 1100006;
+	extern CLASS_EXPORT const long DISESSN_DEFAULT_LABEL_USED = 1100007;
+	extern CLASS_EXPORT const long DISESSN_UNDEFINED_AWD_PARAMETER = 1100008;
+}
+

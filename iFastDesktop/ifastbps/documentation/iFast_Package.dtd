@@ -1,0 +1,351 @@
+<!-- Top level process elements -->
+<!ENTITY % TopLevelProcesses "( Purchase | Redemption | AccountDistributionProcess | AccountAllocationProcess | AccountSearch | SalesRepProcess | StatusReport | MgmtCoRefresh )">
+<!-- Condition severities -->
+<!ENTITY % SeverityList "(information | warning | severeError | criticalError)">
+<!-- Attribute entities for various element classes -->
+<!ENTITY % ProcessesAttrs "class   NMTOKEN                #FIXED &quot;process&quot;
+                           action  (submit|validateOnly)  &quot;submit&quot; ">
+<!ENTITY % CboAttrs "class        NMTOKEN                            #FIXED &quot;cbo&quot;
+                     action       (query|add|update|delete|replace)  &quot;query&quot;
+                     recordCount  CDATA                              #IMPLIED">
+<!ENTITY % CboKeyAttrs "class NMTOKEN #FIXED &quot;key&quot;">
+<!ENTITY % FieldParmAttrs "class     (field|parm)       &quot;field&quot;
+                           cache     (put|get|none)     &quot;none&quot;
+                           formatted (yes|no)           &quot;no&quot;">
+<!-- Top level iFAST_Package element -->
+<!ELEMENT iFAST_Package (UserId, UserPassword?, SessionId?, CompanyId?, Language?, Logoff?, Identifier?, Condition?, Batch+)>
+<!-- Batch element -->
+<!ELEMENT Batch (%TopLevelProcesses;)+>
+<!ATTLIST Batch
+	id ID #REQUIRED
+	ignoreWarnings (yes | no) "no"
+>
+<!-- Condition handling elements -->
+<!ELEMENT HighestSeverity EMPTY>
+<!ATTLIST HighestSeverity
+	severity %SeverityList; "severeError"
+>
+<!ELEMENT Condition (Code, Message, Correction?)>
+<!ATTLIST Condition
+	severity %SeverityList; "severeError"
+>
+<!ELEMENT Code (#PCDATA)>
+<!ELEMENT Message (#PCDATA)>
+<!ELEMENT Correction (#PCDATA)>
+<!-- Parm elements for user session management -->
+<!ELEMENT UserId (#PCDATA)>
+<!ATTLIST UserId
+	%FieldParmAttrs; 
+>
+<!ELEMENT UserPassword (#PCDATA)>
+<!ATTLIST UserPassword
+	%FieldParmAttrs; 
+>
+<!ELEMENT CompanyId (#PCDATA)>
+<!ATTLIST CompanyId
+	%FieldParmAttrs; 
+>
+<!ELEMENT SessionId (#PCDATA)>
+<!ATTLIST SessionId
+	%FieldParmAttrs; 
+>
+<!ELEMENT Language (#PCDATA)>
+<!ATTLIST Language
+	%FieldParmAttrs; 
+>
+<!ELEMENT Logoff (#PCDATA)>
+<!ATTLIST Logoff
+	%FieldParmAttrs; 
+>
+<!ELEMENT Identifier (#PCDATA)>
+<!ATTLIST Identifier
+	%FieldParmAttrs; 
+>
+<!-- Elements for status reporting -->
+<!ELEMENT StatusReport (Availability, Condition?)>
+<!ATTLIST StatusReport
+	%ProcessesAttrs; 
+>
+<!ELEMENT Availability (Inquiry?, Trading?, HighestSeverity?, Condition*)>
+<!ATTLIST Availability
+	%CboAttrs; 
+>
+<!ELEMENT Inquiry (#PCDATA)>
+<!ATTLIST Inquiry
+	%FieldParmAttrs; 
+>
+<!ELEMENT Trading (#PCDATA)>
+<!ATTLIST Trading
+	%FieldParmAttrs; 
+>
+<!-- Elements for trades -->
+<!ELEMENT Purchase (AccountNum?, TradesTransType?, TradesPayType?, Trade?, Condition?)>
+<!ATTLIST Purchase
+	%ProcessesAttrs; 
+>
+<!ELEMENT Redemption (AccountNum?, TradesTransType?, TradesPayType?, Trade?, Condition?)>
+<!ATTLIST Redemption
+	%ProcessesAttrs; 
+>
+<!ELEMENT TradeKey (TradeNum)>
+<!ATTLIST TradeKey
+	%CboKeyAttrs; 
+>
+<!ELEMENT Trade (TradeKey?, TradeNum?, FromFund?, FromClass?, SettleCurrency?, AmtType?, Amount?, ExchRate?, FlatPercent?, Fee?, FeeCurrency?, Remarks1?, DepositType?, EffectiveDate?, SettleDate?, ConfNum?, BODate?, BOTime?, BOZone?, FIDate?, FITime?, FIZone?, HighestSeverity?, Condition*)>
+<!ATTLIST Trade
+	%CboAttrs; 
+>
+<!-- Elements for account distributions -->
+<!ELEMENT AccountDistributionProcess (AccountNum?, AccountDistribution?, Condition?)>
+<!ATTLIST AccountDistributionProcess
+	%ProcessesAttrs; 
+>
+<!ELEMENT AccountDistributionKey (FundCode, ClassCode)>
+<!ATTLIST AccountDistributionKey
+	%CboKeyAttrs; 
+>
+<!ELEMENT AccountDistribution (AccountDistributionKey?, FundCode?, ClassCode?, BankAcctNum?, BankAcctType?, InstCode?, TransitNo?, PaymentReason?, SwiftCode?, RefNumber?, EffectiveDate?, HighestSeverity?, Condition*, DistributionAllocation*)>
+<!ATTLIST AccountDistribution
+	%CboAttrs; 
+>
+<!ELEMENT DistributionAllocationKey (FundToCode, ClassToCode)>
+<!ATTLIST DistributionAllocationKey
+	%CboKeyAttrs; 
+>
+<!ELEMENT DistributionAllocation (DistributionAllocationKey?, FundToCode?, ClassToCode?, Currency?, TransType?, DistributionPayType?, AllocPercent?, HighestSeverity?, Condition*)>
+<!ATTLIST DistributionAllocation
+	%CboAttrs; 
+>
+<!-- Elements for account allocations -->
+<!ELEMENT AccountAllocationProcess (AccountNum?, TransType?, EffectiveDate?, HighestSeverity?, Condition*, FundAllocation*)>
+<!ATTLIST AccountAllocationProcess
+	%ProcessesAttrs; 
+>
+<!ELEMENT FundAllocationKey ((FundCode, ClassCode) | ToFundNumber)>
+<!ATTLIST FundAllocationKey
+	%CboKeyAttrs; 
+>
+<!ELEMENT FundAllocation (FundAllocationKey?, FundCode?, ClassCode?, ToFundNumber?, Percentage?, HighestSeverity?, Condition*)>
+<!ATTLIST FundAllocation
+	%CboAttrs; 
+>
+<!-- Elements for account search -->
+<!ELEMENT AccountSearch (AltAccountNum?, BrokerCode?, OneAcctOnly?, Account?, Condition?)>
+<!ATTLIST AccountSearch
+	%ProcessesAttrs; 
+>
+<!ELEMENT AccountKey (AccountNum)>
+<!ATTLIST AccountKey
+	%CboKeyAttrs; 
+>
+<!ELEMENT Account (AccountKey?, AccountNum?, HighestSeverity?, Condition*)>
+<!ATTLIST Account
+	%CboAttrs; 
+>
+<!-- Elements for sales rep process-->
+<!ELEMENT SalesRepProcess (BrokerCode?, Slsrep?, SalesRep?, Condition?)>
+<!ATTLIST SalesRepProcess
+	%ProcessesAttrs; 
+>
+<!ELEMENT SalesRep (SlsRepArea?, PhoneNumber?, Email?, HighestSeverity?, Condition*)>
+<!ATTLIST SalesRep
+	%CboAttrs; 
+>
+<!-- Field/Parm elements -->
+<!ELEMENT AccountNum (#PCDATA)>
+<!ATTLIST AccountNum
+	%FieldParmAttrs; 
+>
+<!ELEMENT TradeNum (#PCDATA)>
+<!ATTLIST TradeNum
+	%FieldParmAttrs; 
+>
+<!ELEMENT TradesTransType (#PCDATA)>
+<!ATTLIST TradesTransType
+	%FieldParmAttrs; 
+>
+<!ELEMENT Amount (#PCDATA)>
+<!ATTLIST Amount
+	%FieldParmAttrs; 
+>
+<!ELEMENT SettleCurrency (#PCDATA)>
+<!ATTLIST SettleCurrency
+	%FieldParmAttrs; 
+>
+<!ELEMENT FromClass (#PCDATA)>
+<!ATTLIST FromClass
+	%FieldParmAttrs; 
+>
+<!ELEMENT FromFund (#PCDATA)>
+<!ATTLIST FromFund
+	%FieldParmAttrs; 
+>
+<!ELEMENT DepositType (#PCDATA)>
+<!ATTLIST DepositType
+	%FieldParmAttrs; 
+>
+<!ELEMENT AmtType (#PCDATA)>
+<!ATTLIST AmtType
+	%FieldParmAttrs; 
+>
+<!ELEMENT FlatPercent (#PCDATA)>
+<!ATTLIST FlatPercent
+	%FieldParmAttrs; 
+>
+<!ELEMENT ExchRate (#PCDATA)>
+<!ATTLIST ExchRate
+	%FieldParmAttrs; 
+>
+<!ELEMENT TradesPayType (#PCDATA)>
+<!ATTLIST TradesPayType
+	%FieldParmAttrs; 
+>
+<!ELEMENT Fee (#PCDATA)>
+<!ATTLIST Fee
+	%FieldParmAttrs; 
+>
+<!ELEMENT FeeCurrency (#PCDATA)>
+<!ATTLIST FeeCurrency
+	%FieldParmAttrs; 
+>
+<!ELEMENT Remarks1 (#PCDATA)>
+<!ATTLIST Remarks1
+	%FieldParmAttrs; 
+>
+<!ELEMENT ConfNum (#PCDATA)>
+<!ATTLIST ConfNum
+	%FieldParmAttrs; 
+>
+<!ELEMENT BODate (#PCDATA)>
+<!ATTLIST BODate
+	%FieldParmAttrs; 
+>
+<!ELEMENT BOTime (#PCDATA)>
+<!ATTLIST BOTime
+	%FieldParmAttrs; 
+>
+<!ELEMENT BOZone (#PCDATA)>
+<!ATTLIST BOZone
+	%FieldParmAttrs; 
+>
+<!ELEMENT FIDate (#PCDATA)>
+<!ATTLIST FIDate
+	%FieldParmAttrs; 
+>
+<!ELEMENT FITime (#PCDATA)>
+<!ATTLIST FITime
+	%FieldParmAttrs; 
+>
+<!ELEMENT FIZone (#PCDATA)>
+<!ATTLIST FIZone
+	%FieldParmAttrs; 
+>
+<!ELEMENT EffectiveDate (#PCDATA)>
+<!ATTLIST EffectiveDate
+	%FieldParmAttrs; 
+>
+<!ELEMENT SettleDate (#PCDATA)>
+<!ATTLIST SettleDate
+	%FieldParmAttrs; 
+>
+<!ELEMENT FundCode (#PCDATA)>
+<!ATTLIST FundCode
+	%FieldParmAttrs; 
+>
+<!ELEMENT ClassCode (#PCDATA)>
+<!ATTLIST ClassCode
+	%FieldParmAttrs; 
+>
+<!ELEMENT BankAcctNum (#PCDATA)>
+<!ATTLIST BankAcctNum
+	%FieldParmAttrs; 
+>
+<!ELEMENT BankAcctType (#PCDATA)>
+<!ATTLIST BankAcctType
+	%FieldParmAttrs; 
+>
+<!ELEMENT InstCode (#PCDATA)>
+<!ATTLIST InstCode
+	%FieldParmAttrs; 
+>
+<!ELEMENT TransitNo (#PCDATA)>
+<!ATTLIST TransitNo
+	%FieldParmAttrs; 
+>
+<!ELEMENT PaymentReason (#PCDATA)>
+<!ATTLIST PaymentReason
+	%FieldParmAttrs; 
+>
+<!ELEMENT SwiftCode (#PCDATA)>
+<!ATTLIST SwiftCode
+	%FieldParmAttrs; 
+>
+<!ELEMENT RefNumber (#PCDATA)>
+<!ATTLIST RefNumber
+	%FieldParmAttrs; 
+>
+<!ELEMENT FundToCode (#PCDATA)>
+<!ATTLIST FundToCode
+	%FieldParmAttrs; 
+>
+<!ELEMENT ClassToCode (#PCDATA)>
+<!ATTLIST ClassToCode
+	%FieldParmAttrs; 
+>
+<!ELEMENT ToFundNumber (#PCDATA)>
+<!ATTLIST ToFundNumber
+	%FieldParmAttrs; 
+>
+<!ELEMENT Currency (#PCDATA)>
+<!ATTLIST Currency
+	%FieldParmAttrs; 
+>
+<!ELEMENT TransType (#PCDATA)>
+<!ATTLIST TransType
+	%FieldParmAttrs; 
+>
+<!ELEMENT AllocPercent (#PCDATA)>
+<!ATTLIST AllocPercent
+	%FieldParmAttrs; 
+>
+<!ELEMENT DistributionPayType (#PCDATA)>
+<!ATTLIST DistributionPayType
+	%FieldParmAttrs; 
+>
+<!ELEMENT Percentage (#PCDATA)>
+<!ATTLIST Percentage
+	%FieldParmAttrs; 
+>
+<!ELEMENT AltAccountNum (#PCDATA)>
+<!ATTLIST AltAccountNum
+	%FieldParmAttrs; 
+>
+<!ELEMENT BrokerCode (#PCDATA)>
+<!ATTLIST BrokerCode
+	%FieldParmAttrs; 
+>
+<!ELEMENT OneAcctOnly (#PCDATA)>
+<!ATTLIST OneAcctOnly
+	%FieldParmAttrs; 
+>
+<!ELEMENT Slsrep (#PCDATA)>
+<!ATTLIST Slsrep
+	%FieldParmAttrs; 
+>
+<!ELEMENT SlsRepArea (#PCDATA)>
+<!ATTLIST SlsRepArea
+	%FieldParmAttrs; 
+>
+<!ELEMENT PhoneNumber (#PCDATA)>
+<!ATTLIST PhoneNumber
+	%FieldParmAttrs; 
+>
+<!ELEMENT Email (#PCDATA)>
+<!ATTLIST Email
+	%FieldParmAttrs; 
+>
+<!-- Elements for management co refresh -->
+<!ELEMENT MgmtCoRefresh (HighestSeverity?, Condition*, CompanyId)>
+<!ATTLIST MgmtCoRefresh
+	%ProcessesAttrs; 
+>

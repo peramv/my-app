@@ -1,0 +1,74 @@
+.wrapper
+{
+	text-align:left;	
+	width: 1000px;
+	height:500px;
+	margin: auto;
+	overflow:hidden;
+}
+
+.main
+{
+	overflow: hidden;	
+	width:100%;
+}
+
+
+#main-topic
+{	
+	height:25px;
+	width:100%;
+	overflow: hidden;
+}
+
+#main-topic span
+{
+	font-size: 18px;
+		
+}
+
+.main-box
+{
+	width:100%;
+	float:left;
+	overflow:hidden;
+}
+
+#main-filter
+{
+	padding: 5px;	
+	height: 180px;
+	overflow:hidden;	
+}
+
+#main-targetbox
+{
+	position:relative;
+	padding:5px;
+}
+
+#classList_TableDiv
+{
+	position:relative;
+	top:0px;
+	left:0px;
+	height:400px;
+	width:996px;		
+}
+
+.Desktop_Table_CELL
+{
+    height: auto;
+    min-height: 21px;
+}
+
+.Desktop_Table_ROW_ODD
+{
+    background-color:#D3D3D3;
+}
+
+.Desktop_Table_ROW_EVEN
+{
+    background-color:white;
+}
+

@@ -1,0 +1,106 @@
+/*********************************************************************************************
+ * @file	GuaranteeFee.Translation.js
+ * @author	Suchit Majumdar
+ * @desc	Translation JS file for GuaranteeFee screen.
+ *********************************************************************************************/
+
+DesktopWeb.ScreenTranslation = {
+	'enUS': {		
+		ContractType: "Contract Type"
+		,GWB: "GWB"
+		,MarketValue: "Market Value"
+		,FeeType: "Fee Type"
+		,Calculations: "Calculations"
+		,CalcDate: "Calc. Date"
+		,GWBCalc: "GWB Calc."
+		,MarketValueCalc: "Market Value Calc."
+		,FeeAmtCalculated: "Fee Amt Calculated"
+		,FeeAmtCollected: "Fee Amt Collected"
+		,Status: "Status"
+		,ReCalc: "Re-Calc"		
+		,Collections: "Collections"
+		,Collection: "Collection"
+		,Date: "Date"
+		,Fund: "Fund"
+		,Class: "Class"
+		,FCCalcAmount: "F/C Calc. Amount"
+		,FCCollectAmount: "F/C Collect Amount"
+		,TotalFee: "Total Fee"
+		,TransID: "Trans ID"
+		,TransNumber: "TransNumber"
+		,CreatedBy: "CreatedBy"
+		,Collect: "Collect"
+		,ReBook: "Re-Book"
+		,Details: "Details"
+		,CalculationDetails: "Calculation Details"
+		,FCFeeAmount: "F/C Fee Amount"
+		,FeeRate: "Fee Rate"
+		,AvgMEPMV: "Avg. M/E PMV %"
+		,Months: "Months"
+		,Month: "Month"
+		,FCMVCatCalc: "F/C MV Cat Calc"
+		,ContractMV: "Contract MV"
+		,CollectAmount: "Collect Amount"
+		,TradeDate: "Trade Date"
+		,Accountability: "Accountability"
+		,ManualCollection: "Manual Collection"
+		,RequireConfirm: "Require Confirm"
+		,CancelPayment: "Cancel Payment"
+		,ShowOnStatement: "Show on statement"
+		,ReversalCode: "Reversal Code"
+		,Remarks: "Remarks"
+		,CancelRequested: 'Cancel Requested'
+		,RebookRequested: 'Re-Book Requested'
+		,RecalcRequested: 'Re-Calc Requested'
+	}
+	,'frCA':{
+
+		ContractType: "Type de contrat"
+		,GWB: "IRG"
+		,MarketValue: "Val. march."
+		,FeeType: "Type de frais"
+		,Calculations: "Calculs"
+		,CalcDate: "Date de calc."
+		,GWBCalc: "Calc. IRG"
+		,MarketValueCalc: "Calc. val. march."
+		,FeeAmtCalculated: "Mont. de frais calc."
+		,FeeAmtCollected: "Mont. de frais perçu"
+		,Status: "Statut"
+		,ReCalc: "Recalc."		
+		,Collections: "Perceptions"
+		,Collection: "Perception"
+		,Date: "Date"
+		,Fund: "Fonds"
+		,Class: "Classe"
+		,FCCalcAmount: "Mont. calc. fo./cl."
+		,FCCollectAmount: "Mont. perçu fo./cl."
+		,TotalFee: "Frais totaux"
+		,TransID: "Code de trans."
+		,TransNumber: "No de trans."
+		,CreatedBy: "Créé par"
+		,Collect: "Percevoir"
+		,ReBook: "Reproduire"
+		,Details: "Détails"
+		,CalculationDetails: "Détails du calc."
+		,FCFeeAmount: "Mont. de frais fo./cl."
+		,FeeRate: "Taux de frais"
+		,AvgMEPMV: "% moyen de la VMP à la fin du mois"
+		,Months: "Mois"
+		,Month: "Mois"
+		,FCMVCatCalc: "VM fonds/classe au calcul"
+		,ContractMV: "VM du contrat"
+		,CollectAmount: "Montant perçu"
+		,TradeDate: "Date de trans."
+		,Accountability: "Comptabilité"
+		,ManualCollection: "Perception manuelle"
+		,RequireConfirm: "Confirm. requise"
+		,CancelPayment: "Annuler paiement"
+		,ShowOnStatement: "Afficher sur le relevé"
+		,ReversalCode: "Code de renversement"
+		,Remarks: "Remarques"
+		,CancelRequested: 'Annulation demandée'
+		,RebookRequested: 'Reproduction demandée'
+		,RecalcRequested: 'Recalcul demandé'		
+	}
+}
+

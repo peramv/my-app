@@ -1,0 +1,1 @@
+call makeWebcodeRelease uat ssbmo

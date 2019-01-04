@@ -1,0 +1,523 @@
+<!-- ---------------------------------------------------------------------
+//
+//  FILE        : dsttabs.htc
+//
+//  DESCRIPTION :
+//
+//  PROPERTIES  :
+//
+//  tabWidth
+//
+//  METHODS     :
+//
+//	 showTab			//shows tab
+//	 getReferenceToTab	//get reference to tab content area
+//
+//  EVENTS      :
+//
+//	 onselectedindexchange	//fires when tab selection changes
+//	 onerror				//fires when error occurs
+//
+//  COPYRIGHT   :
+//
+//   The computer systems, procedures, data bases and programs
+//   created and maintained by DST Systems, Inc., are proprietary
+//   in nature and as such are confidential.  Any unauthorized
+//   use or disclosure of such information may result in civil
+//   liabilities.
+//
+//   Copyright© 2004 by DST Systems, Inc.
+//   All rights reserved.
+//
+//-------------------------------------------------------------------- -->
+<public:property name="tabWidth"      value="125"/>
+<public:property name="selectedTab"   get="getSelectedTab"/>
+
+<public:method name="getReferenceToTab"/>
+<public:method name="showTab"/>
+
+<public:event name="onerror"               id=errorID />
+<public:event name="onselectedindexchange" id=selectedIndexChangeID />
+
+<public:attach event="oncontentready" onevent="init();"/>
+
+<SCRIPT LANGUAGE="JScript">
+var _base;
+var _currTab;		//current tab selected
+var _oTabMain;		//table that surrounds the whole tab structure
+var _oTabHeader;		//table that contains the tab headers
+var _oTabBody;		//table row that contains tab body
+
+function init()
+{
+	// scan the documents stylesheets to find the url to the .HTC file
+	for(var i=0;i<element.document.styleSheets.length;i++)
+	{
+		var item=element.document.styleSheets(i);
+		for(var j=0;j<item.rules.length;j++)
+		{
+			var url=item.rules(j).style.behavior.match(/url\(.*dsttabs.htc\)/i);
+			if(url!=null)
+			{
+				_base=url[0].replace(/url\((.*)dsttabs.htc\)/i,"$1");
+				break;
+			}
+		}
+	}
+
+	// create Table containing everything (tab Header and tab body)
+	_oTabMain=element.document.createElement("TABLE");
+	//_oTabMain.id=element.getAttribute("id");
+	_oTabMain.cellPadding=0;
+	_oTabMain.cellSpacing=0;
+	_oTabMain.style.height="100%";
+	_oTabMain.style.width="100%";
+	_oTabMain.style.padding="0";
+	_oTabMain.style.margin="0";
+	element.insertAdjacentElement("afterEnd",_oTabMain);
+
+	// create row/table containing tab headers
+	var oTR=_oTabMain.insertRow();
+	var oTD=oTR.insertCell();
+	oTD.style.verticalAlign="top";
+	oTD.style.width="100%";
+	oTD.style.height="1%";
+
+	// create tab Header table in first row of main table
+	_oTabHeader=element.document.createElement("TABLE");
+	_oTabHeader.id="oTabHeader";
+	_oTabHeader.cellPadding=0;
+	_oTabHeader.cellSpacing=0;
+	_oTabHeader.style.width="100%";
+	_oTabHeader.style.tableLayout="fixed";
+	oTD.insertAdjacentElement("beforeEnd",_oTabHeader);
+
+	// create row containing tab body in second row of main table
+	var oTR=_oTabMain.insertRow();
+	_oTabBody=oTR.insertCell();
+	_oTabBody.id="oTabContent";
+	_oTabBody.style.verticalAlign="top";
+	_oTabBody.style.width="100%";
+	_oTabBody.style.height="99%";
+	_oTabBody.style.padding="8px";
+	_oTabBody.style.borderLeft="1px solid black";
+	_oTabBody.style.borderRight="1px solid black";
+	_oTabBody.style.borderBottom="1px solid black";
+
+	var xmlDoc=element.XMLDocument;
+	if(xmlDoc.parseError!=0)
+	{
+		returnError("3000",getXmlError(xmlDoc));
+		return;
+	}
+	var tabs=xmlDoc.selectNodes("//tab");
+	var numTabs=tabs.length;
+
+	if(numTabs>0)
+	{
+		//add as many columns as tabs.
+		for(var index=0;index<numTabs;index++)
+		{
+			//filler cell
+			var oCol=element.document.createElement("COL");
+			oCol.style.width="4px";
+			_oTabHeader.insertAdjacentElement("BeforeEnd",oCol);
+
+			//tab cell
+			var oCol=element.document.createElement("COL");
+			oCol.style.width=tabWidth;
+			_oTabHeader.insertAdjacentElement("BeforeEnd",oCol);
+		}
+		//add one column after tabs
+		var oCol=element.document.createElement("COL");
+		oCol.style.width="4px";
+		_oTabHeader.insertAdjacentElement("BeforeEnd",oCol);
+
+		//add one ending column after all tabs to fill the rest of body area
+		var oCol=element.document.createElement("COL");
+		oCol.style.width="1600px";
+		_oTabHeader.insertAdjacentElement("BeforeEnd",oCol);
+
+		var oHeaderRow=_oTabHeader.insertRow();
+
+		for(var i=0;i<numTabs;i++)
+		{
+			var tabItem=tabs.item(i);
+
+			//add 4px filler image before each tab
+			var oTD=oHeaderRow.insertCell();
+			oTD.innerHTML="&nbsp;";
+			oTD.style.width="4px";
+			oTD.style.cursor="default";
+			oTD.style.borderBottom="1px solid black";
+
+			// create the cell for holding tab table
+			var oTD=oHeaderRow.insertCell();
+			oTD.style.width=tabWidth;
+
+			// create the table for holding all images and text of tab
+			var oTabTable=element.document.createElement("TABLE");
+			oTabTable.id=tabItem.getAttribute("id");
+			oTabTable.name=tabItem.getAttribute("name");
+			oTabTable.cellPadding=0;
+			oTabTable.cellSpacing=0;
+			oTabTable.style.padding="0";
+			oTabTable.style.margin="0";
+			oTabTable.style.height="100%";
+			oTabTable.style.tableLayout="fixed";
+			oTabTable.attachEvent("onselectstart",onSelectStart);
+			oTD.insertAdjacentElement("beforeEnd",oTabTable);
+
+			//set what type of data will be loaded to tab body and how.
+			if(null!=tabItem.getAttribute("href"))
+			{
+				oTabTable.setAttribute("href",tabItem.getAttribute("href"));
+				oTabTable.setAttribute("type","HREF");
+			}
+			else if(null!=tabItem.getAttribute("xml")&&null!=tabItem.getAttribute("xml"))
+			{
+				oTabTable.setAttribute("xml",tabItem.getAttribute("xml"));
+				oTabTable.setAttribute("xsl",tabItem.getAttribute("xsl"));
+				oTabTable.setAttribute("type","XML");
+			}
+			else
+			{
+				oTabTable.type="HTML";
+			}
+
+			// create columns for left, center and right images in each tab
+			var oCol=element.document.createElement("COL");
+			oCol.style.width="6px";
+			oTabTable.insertAdjacentElement("BeforeEnd",oCol);
+			var oCol=element.document.createElement("COL");
+			oCol.style.width=tabWidth-12;
+			oTabTable.insertAdjacentElement("BeforeEnd",oCol);
+			var oCol=element.document.createElement("COL");
+			oCol.style.width="6px";
+			oTabTable.insertAdjacentElement("BeforeEnd",oCol);
+
+			// create top row in tab
+			var oTopRow=oTabTable.insertRow();
+
+			// create top left corner cell in tab
+			var oTD=oTopRow.insertCell();
+			oTD.innerHTML="&nbsp;";
+			oTD.style.height="6px";
+			oTD.style.width="6px";
+
+			// create top center cell in tab
+			var oTD=oTopRow.insertCell();
+			oTD.innerHTML="&nbsp;";
+			oTD.style.height="6px";
+			oTD.style.width=tabWidth-12;
+			oTD.style.borderTop="1px solid black";
+
+			// create top right corner cell in tab	
+			var oTD=oTopRow.insertCell();
+			oTD.innerHTML="&nbsp;";
+			oTD.style.height="6px";
+			oTD.style.width="6px";
+
+			// create center row in tab
+			var oCenterRow=oTabTable.insertRow();
+
+			// create center left cell in tab
+			var oTD=oCenterRow.insertCell();
+			oTD.innerHTML="&nbsp;";
+			oTD.style.width="6px";
+			oTD.style.borderLeft="1px solid black";
+
+			// create center center cell in tab
+			var oTD=oCenterRow.insertCell();
+			oTD.noWrap="true";
+			oTD.align="center";
+			oTD.innerHTML=tabItem.getAttribute("name");
+			oTD.style.width=tabWidth;
+
+			// create center right cell in tab
+			var oTD=oCenterRow.insertCell();
+			oTD.innerHTML="&nbsp;";
+			oTD.style.width="6px";
+			oTD.style.borderRight="1px solid black";
+
+			// create bottom row in tab
+			var oBottomRow=oTabTable.insertRow();
+
+			// create bottom cell in tab
+			var oTD=oBottomRow.insertCell();
+			oTD.colSpan=3;
+			oTD.style.width=tabWidth;
+			oTD.style.height="6px";
+			oTD.style.borderLeft="1px solid black";
+			oTD.style.borderRight="1px solid black";
+			oTD.style.fontSize="1px";
+			oTD.innerHTML="&nbsp;";
+
+			if("true"==tabItem.getAttribute("selected"))
+			{
+				oTabTable.style.cursor="default";
+				oTabTable.detachEvent("onclick",onClickTab);
+				oTabTable.detachEvent("onkeypress",onKeyPress);
+				oTabTable.selected="true";
+
+				oTopRow.childNodes[1].style.backgroundColor="";
+				oTopRow.firstChild.style.background="url("+_base+"transparent-left-corner.gif) no-repeat fixed 100% left";
+				oTopRow.lastChild.style.background="url("+_base+"transparent-right-corner.gif) no-repeat fixed 100% left";
+				
+				oCenterRow.childNodes[1].tabIndex=-1;
+				oCenterRow.style.backgroundColor="";
+				
+				oBottomRow.style.backgroundColor="";
+				oBottomRow.firstChild.style.borderBottom="";
+				
+				_currTab=oTabTable;
+			}
+			else
+			{
+				oTabTable.style.cursor="hand";
+				oTabTable.attachEvent("onclick",onClickTab);
+				oTabTable.attachEvent("onkeypress",onKeyPress);
+				oTabTable.selected="false";
+
+				oTopRow.childNodes[1].style.backgroundColor="darkkhaki";
+				oTopRow.firstChild.style.background="url("+_base+"darkkhaki-left-corner.gif) no-repeat fixed 100% left";
+				oTopRow.lastChild.style.background="url("+_base+"darkkhaki-right-corner.gif) no-repeat fixed 100% left";
+				
+				oCenterRow.childNodes[1].tabIndex=0;
+				oCenterRow.style.backgroundColor="darkkhaki";
+				
+				oBottomRow.style.backgroundColor="darkkhaki";
+				oBottomRow.firstChild.style.borderBottom="1px solid black";
+			}
+
+		}
+
+		//add 4px filler area after last tabs
+		var oTD=oHeaderRow.insertCell();
+		oTD.style.width="4px";
+		//oTD.style.width="100%";
+		oTD.innerHTML="&nbsp;";
+		oTD.style.borderBottom="1px solid black";
+
+		//add 100% filler area after all tabs
+		var oTD=oHeaderRow.insertCell();
+		oTD.style.width="100%";
+		oTD.innerHTML="&nbsp;";
+		oTD.style.borderBottom="1px solid black";
+		showTab(_currTab.id);
+	}
+}
+
+function onSelectStart(e)
+{
+	//disable bubble up selection
+	return false;
+}
+
+function onKeyPress(e)
+{
+	if(e.keyCode==13) //Enter key
+	{
+		onClickTab(e);
+		//disable bubble up onKeyDown
+		return false;
+	}
+}
+
+function onClickTab(e)
+{
+	var newTab=null;
+	if ("TABLE"==e.srcElement.tagName)
+	{
+		newTab=e.srcElement;
+	}
+	else
+	{
+		newTab=e.srcElement.parentElement;
+		while("TABLE"!=newTab.tagName)
+		{
+			newTab=newTab.parentElement;
+		}
+	}
+
+	showTab(newTab.id);
+}
+
+function showTab(tabid)
+{
+	if(!changeTab(tabid)) return;
+	
+	// hide all tab contents
+	var oTabContent=_oTabMain.all.item("oTabContent");
+	var oDivColl=oTabContent.getElementsByTagName("DIV");
+	for(var i=0;i<oDivColl.length;i++)
+	{
+		var oCurDiv=oDivColl[i];
+		if(oCurDiv.id.substr(0,11)=="tabcontent_")
+		{
+			oCurDiv.style.display="none";
+		}
+	}
+
+	// load the new tab if needed
+	var divID="tabcontent_"+tabid;
+	var oDiv=_oTabMain.all.item(divID);
+	if(oDiv==null)
+	{
+		var tabHTML;
+		var type=_currTab.type;
+
+		switch(type)
+		{
+			case "HREF":
+				// make a GET request for the new tab
+				var httpRequest=new ActiveXObject("MSXML2.XMLHTTP");
+				httpRequest.open("GET",_currTab.href,false);
+				httpRequest.send();
+				tabHTML=httpRequest.responseText;
+				break;
+			case "XML":
+				var targetXML=new ActiveXObject("Msxml2.DOMDocument");
+				targetXML.async=false;
+				var targetXSL=new ActiveXObject("Msxml2.DOMDocument");
+				targetXSL.async=false;
+				if(targetXML.load(_currTab.xml)&&targetXSL.load(_currTab.xsl))
+				{
+					tabHTML=targetXML.transformNode(targetXSL);
+				}
+				break;
+			case "HTML":
+				var oTabNode=element.XMLDocument.selectSingleNode("//tab[@id='"+tabid+"']");
+				var tmp=new String(oTabNode.xml);
+				tmp=tmp.replace(/<tab[ ].*>/gim,"");
+				tmp=tmp.replace(/<\/tab>/gim,"");
+				tmp=tmp.replace(/<\!\[CDATA\[/gim,"");
+				tmp=tmp.replace(/\]\]>/gim,"");
+				tabHTML=tmp;
+				break;
+			default:
+		}
+
+		// create a new div to hold the response
+		oDiv=element.document.createElement("DIV");
+		oDiv.id=divID;
+		oDiv.style.padding="0";
+		oDiv.style.margin="0";
+		oDiv.style.overflow="hidden";
+		oDiv.style.width="100%";
+		oDiv.style.height="100%";
+		oDiv.style.overflowY="auto";
+
+		// insert the new div into the page
+		_oTabBody.appendChild(oDiv);
+		oDiv.innerHTML=tabHTML;
+	}
+	else
+	{
+		oDiv.style.display="inline";
+	}
+	fireSelectedIndexChange(tabid);
+}
+
+
+//Changes the current selected tab color and selects the new tab and changes the color.
+function changeTab(tabid)
+{
+	var newTab=_oTabHeader.all.item(tabid);
+	if(null==newTab)
+	{
+		returnError("3010","Invalid tabid:"+tabid);
+		return false;
+	}
+
+	_currTab.style.cursor="hand";
+	_currTab.attachEvent("onclick",onClickTab);
+	_currTab.attachEvent("onkeypress",onKeyPress);
+	_currTab.selected="false";
+
+	//top row
+	_currTab.childNodes[3].childNodes[0].childNodes[1].style.backgroundColor="#CCCCCC";
+	_currTab.childNodes[3].childNodes[0].firstChild.style.background="url("+_base+"transparent-left-corner.gif) no-repeat fixed 100% left";
+	_currTab.childNodes[3].childNodes[0].lastChild.style.background="url("+_base+"transparent-right-corner.gif) no-repeat fixed 100% left";
+
+	//center row
+	_currTab.childNodes[3].childNodes[1].childNodes[1].tabIndex=0;
+	_currTab.childNodes[3].childNodes[1].style.backgroundColor="#CCCCCC";
+
+	//bottom row
+	_currTab.childNodes[3].childNodes[2].style.backgroundColor="#CCCCCC";
+	_currTab.childNodes[3].childNodes[2].firstChild.style.borderBottom="1px solid black";
+
+	newTab.style.cursor="default";
+	newTab.detachEvent("onclick",onClickTab);
+	newTab.detachEvent("onkeypress",onKeyPress);
+	newTab.selected="true";
+
+	//top row
+	newTab.childNodes[3].childNodes[0].childNodes[1].style.backgroundColor="";
+	newTab.childNodes[3].childNodes[0].firstChild.style.background="url("+_base+"transparent-left-corner.gif) no-repeat fixed 100% left";
+	newTab.childNodes[3].childNodes[0].lastChild.style.background="url("+_base+"transparent-right-corner.gif) no-repeat fixed 100% left";
+
+	//center row
+	newTab.childNodes[3].childNodes[1].childNodes[1].tabIndex=-1;
+	newTab.childNodes[3].childNodes[1].style.backgroundColor="";
+
+	//bottom row
+	newTab.childNodes[3].childNodes[2].style.backgroundColor="";
+	newTab.childNodes[3].childNodes[2].firstChild.style.borderBottom="";
+
+	_currTab=newTab;
+
+	return true;
+}
+
+function getReferenceToTab(tabid)
+{
+	var divID="tabcontent_"+tabid;
+	var oDiv=_oTabMain.all.item(divID);
+	return oDiv;
+}
+
+function fireSelectedIndexChange(tabid)
+{
+	var oEvent=createEventObject();
+	oEvent.selectedTabId=tabid;
+	selectedIndexChangeID.fire(oEvent);
+}
+
+function returnError(code,message)
+{
+	var oEvent=createEventObject();
+	oEvent.code=code;
+	oEvent.message=message;
+	errorID.fire(oEvent);
+}
+
+/******************************************************************************
+ * NAME:          getXmlError
+ *
+ * PARAMETERS:    XML DOM Document object
+ *
+ * RETURNS:       String. The concatenated parse error strings
+ *
+ * DESCRIPTION:   Generates a string representation of the XML parse error.
+ * 
+ * REMARKS:       
+ *****************************************************************************/
+function getXmlError(oDoc)
+{
+	return oDoc.parseError.errorCode+
+		"\nfilepos: "+oDoc.parseError.filepos+
+		"\nline: "+oDoc.parseError.line+
+		"\nlinepos: "+oDoc.parseError.linepos+
+		"\nreason: "+oDoc.parseError.reason+
+		"\nsrcText: "+oDoc.parseError.srcText+
+		"\nurl: "+oDoc.parseError.url+
+		"\n\n"+element.innerHTML;
+}
+
+function getSelectedTab()
+{
+	return _currTab.id;
+}
+</script>

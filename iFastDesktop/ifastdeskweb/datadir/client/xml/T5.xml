@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SmartPDF>
+	<layout>
+		<simple-page-master>
+			<page-height>11in</page-height>
+			<page-width>8.5in</page-width>
+			<margin-left>0.5in</margin-left>
+			<margin-right>0.5in</margin-right>
+			<margin-bottom>0.5in</margin-bottom>
+			<margin-top>0.5in</margin-top>
+			<margin>.5cm</margin>
+			<master-name>TaxForms</master-name>
+		</simple-page-master>
+		<region-body>
+			<margin>.5cm</margin>
+		</region-body>
+	</layout>
+	<page>
+		<pagename>TaxForms</pagename>
+		<section-name>xsl-region-body</section-name>
+		<section>
+			<control>
+				<position/>
+				<type>image</type>
+				<description>Background Image</description>
+				<top/>
+				<left/>
+				<content-height>11in</content-height>
+				<content-width>8.5in</content-width>
+				<height>1063px</height>
+				<width>2550px</width>
+				<viewMapping/>
+				<dir>images</dir>
+				<imageKey>backgroundImagePage1</imageKey>
+				<defaultValue>.hum</defaultValue>
+			</control>
+			<control>
+				<type>multi-line</type>
+				<position>absolute</position>
+				<description>Recipient Name Address</description>
+				<top>150pt</top>
+				<left>50pt</left>
+				<height>50pt</height>
+				<width>125pt</width>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>rRecipient Name</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxName</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control><control>
+					<position/>
+					<type>text</type>
+					<description>T5_ADD_LABEL(ITF)</description>
+						<RequiresFormatting>yes</RequiresFormatting>
+						<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/inTrustName</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>rRecipient Name</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/jntAcctName</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr1</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr2</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr3</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr4</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr5</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+			</control>
+			<control>
+				<type>multi-line</type>
+				<position>absolute</position>
+				<description>Recipient Name Address</description>
+				<top>400pt</top>
+				<left>50pt</left>
+				<height>50pt</height>
+				<width>125pt</width>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>rRecipient Name</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxName</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control><control>
+					<position/>
+					<type>text</type>
+					<description>T5_ADD_LABEL(ITF)</description>
+						<RequiresFormatting>yes</RequiresFormatting>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/inTrustName</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>rRecipient Name</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/jntAcctName</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr1</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr2</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr3</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr4</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr5</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+			</control>
+			<control>
+				<type>multi-line</type>
+				<position>absolute</position>
+				<description>Client Name Address</description>
+				<top>150pt</top>
+				<left>360pt</left>
+				<height>50pt</height>
+				<width>125pt</width>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>client Name</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/clientName</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/clientAddr1</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/clientAddr2</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/clientAddr3</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+			<!-- 	<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/clientSIN</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control> -->
+			</control>
+			<control>
+				<type>multi-line</type>
+				<position>absolute</position>
+				<description>Client Name Address</description>
+				<top>400pt</top>
+				<left>360pt</left>
+				<height>10pt</height>
+				<width>125pt</width>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>client Name</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/clientName</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/clientAddr1</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/clientAddr2</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/clientAddr3</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control>
+				<!-- <control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/clientSIN</viewMapping>
+					<font>Helvetica</font>
+					<font-size>7pt</font-size>
+					<defaultValue/>
+				</control> -->
+			</control>
+			<!-- END ADDRESSES -->
+			<!-- account above table -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>T5_ADD_ACCT_LABEL</description>
+				<RequiresFormatting>yes</RequiresFormatting>
+				<top>590px</top>
+				<left>36px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/acct</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			
+			<!-- actual amount of eligible dividends 24 -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>actual amount of eligible dividends 24 </description>
+				<top>60px</top>
+				<left>72px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/elgCdnDiv</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>actual amount of eligible dividends 24 </description>
+				<top>310px</top>
+				<left>72px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/elgCdnDiv</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!-- actual amount of eligible dividends 25 -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>B25 – Elig Tax Amt Div 25 </description>
+				<top>60px</top>
+				<left>172px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/elgTaxAmDiv</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>B25 – Elig Tax Amt Div</description>
+				<top>310px</top>
+				<left>172px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/elgTaxAmDiv</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!-- aB26 – Elig Div Tax Crd -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>B26 – Elig Div Tax Crd </description>
+				<top>60px</top>
+				<left>282px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/elgDivTxCrd</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>B26 – Elig Div Tax Crd</description>
+				<top>310px</top>
+				<left>282px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/elgDivTxCrd</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!-- B13 – Interest Cdn Sources -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>B13 – Interest Cdn Sources</description>
+				<top>60px</top>
+				<left>387px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/intCdnSrc</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>B13 – Interest Cdn Sources</description>
+				<top>310px</top>
+				<left>387px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/intCdnSrc</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!-- B18 – Capital Gain -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>B18 – Capital Gain</description>
+				<top>60px</top>
+				<left>475px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/capGain</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>B18 – Capital Gain</description>
+				<top>310px</top>
+				<left>475px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/capGain</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!-- aB10 – Actual Amt of Divs other than elig -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>B10 – Actual Amt of Divs other than elig </description>
+				<top>88px</top>
+				<left>72px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/inelgCdnDiv</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>B10 – Actual Amt of Divs other than elig </description>
+				<top>339px</top>
+				<left>72px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/inelgCdnDiv</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!-- B11 – Taxable Amount of Div other than elig-->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>B11 – Taxable Amount of Div other than elig </description>
+				<top>88px</top>
+				<left>172px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/inelgTxAmDiv</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>B11 – Taxable Amount of Div other than elig </description>
+				<top>339px</top>
+				<left>172px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/inelgTxAmDiv</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!-- B12 – Div Tax Crd for Divs other than elig-->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>B12 – Div Tax Crd for Divs other than elig </description>
+				<top>88px</top>
+				<left>282px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/inelgTxCrd</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>B12 – Div Tax Crd for Divs other than elig </description>
+				<top>339px</top>
+				<left>282px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/inelgTxCrd</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+<!-- Slip-2:Return of Capital footnote-->
+			<control>
+				<position>absolute</position>
+				<RequiresFormatting>no</RequiresFormatting>
+				<type>text</type>
+				<description>Return of Capital</description>
+				<top>180px</top>
+				<left>360px</left>
+				<height/>
+				<width/>
+				<viewMapping>"Return of Capital"</viewMapping>
+				<font>Helvetica</font>
+				<font-size>6pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<RequiresFormatting>no</RequiresFormatting>
+				<type>text</type>
+				<description>Return of Capital</description>
+				<top>180px</top>
+				<left>435px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/ROC</viewMapping>
+				<font>Helvetica</font>
+				<font-size>6pt</font-size>
+				<defaultValue/>
+			</control>
+
+			<control>
+				<position>absolute</position>
+				<RequiresFormatting>no</RequiresFormatting>
+				<type>text</type>
+				<description>Return of Capital</description>
+				<top>430px</top>
+				<left>360px</left>
+				<height/>
+				<width/>
+				<viewMapping>"Return of Capital"</viewMapping>
+				<font>Helvetica</font>
+				<font-size>6pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<RequiresFormatting>no</RequiresFormatting>
+				<type>text</type>
+				<description>Return of Capital</description>
+				<top>430px</top>
+				<left>435px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TotalsRow/ROC</viewMapping>
+				<font>Helvetica</font>
+				<font-size>6pt</font-size>
+				<defaultValue/>
+			</control>
+			<!--End Return of Capital footnote-->			
+			<!-- Report Code (Status) -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Report Code (Status) </description>
+				<top>88px</top>
+				<left>362px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/rptCode</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Report Code (Status) </description>
+				<top>339px</top>
+				<left>362px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/rptCode</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			
+			<!-- other info box 1-->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>other info box 1- </description>
+				<top>116px</top>
+				<left>132px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/OtherBoxes/boxNum1</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>other info box 1- </description>
+				<top>116px</top>
+				<left>186px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/OtherBoxes/boxVal1</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>other info box 1-</description>
+				<top>366px</top>
+				<left>132px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/OtherBoxes/boxNum1</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>other info box 1-</description>
+				<top>366px</top>
+				<left>186px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/OtherBoxes/boxVal1</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!-- other info box 2-->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>other info box 2- </description>
+				<top>116px</top>
+				<left>276px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/OtherBoxes/boxNum2</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>other info box 2- </description>
+				<top>116px</top>
+				<left>330px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/OtherBoxes/boxVal2</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>other info box 2-</description>
+				<top>366px</top>
+				<left>276px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/OtherBoxes/boxNum2</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>other info box 2-</description>
+				<top>366px</top>
+				<left>330px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/OtherBoxes/boxVal2</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!-- other info box 3-->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>other info box 3- </description>
+				<top>116px</top>
+				<left>422px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/OtherBoxes/boxNum3</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>other info box 3- </description>
+				<top>116px</top>
+				<left>478px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/OtherBoxes/boxVal3</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>other info box 3-</description>
+				<top>366px</top>
+				<left>422px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/OtherBoxes/boxNum3</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>other info box 3-</description>
+				<top>366px</top>
+				<left>478px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/OtherBoxes/boxVal3</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!-- Recipient ID NumberSIN  -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>tax id num</description>
+				<RequiresFormatting>yes</RequiresFormatting>
+				<top>88px</top>
+				<left>412px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/taxIdNum</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>tax Id num</description>
+				<RequiresFormatting>yes</RequiresFormatting>
+				<top>339px</top>
+				<left>412px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/taxIdNum</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+
+			
+			<!-- Recipient Type (beneficiary code) 23 -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Recipient Type (beneficiary code) 23 </description>
+				<top>88px</top>
+				<left>520px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/benCode</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Recipient Type (beneficiary code) 23 </description>
+				<top>339px</top>
+				<left>520px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/benCode</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!-- foreign currency 27-->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description> foreign currency 27 </description>
+				<top>208px</top>
+				<left>172px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/curr</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description> foreign currency 27  </description>
+				<top>457px</top>
+				<left>172px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/curr</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!-- status rpctCodeD -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<RequiresFormatting>yes</RequiresFormatting>
+				<description>rptCodeD</description>
+				<top>251px</top>
+				<left>220px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/rptCodeD</viewMapping>
+				<font>Helvetica-Bold</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>rptCodeD</description>
+				<top>519px</top>
+				<left>220px</left>
+				<height/>
+				<width/>
+				<RequiresFormatting>yes</RequiresFormatting>
+				<viewMapping>//TaxFormDtls/rptCodeD</viewMapping>
+				<font>Helvetica-Bold</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!--recipient acct-->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description> recipient acct </description>
+				<top>208px</top>
+				<left>342px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/acct</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>recipient acct </description>
+				<top>457px</top>
+				<left>352px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/acct</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!-- acc xref int -->
+			<!-- a/c -->
+			<control>
+				<type>concatenate</type>
+				
+				
+				<top>183px</top>
+				 <right>540px</right>
+				<bottom>3000px</bottom>
+				<left>360px</left>
+				<text-align>left</text-align>		
+				
+				
+				<font>Helvetica-Bold</font>
+				<font-size>7pt</font-size>
+				<control>
+					<position>absolute</position>
+					<type>text</type>
+					<description>T5_ADD_LABEL(Acct)</description>
+					<RequiresFormatting>yes</RequiresFormatting>
+					<viewMapping>//TaxFormDtls/acct</viewMapping>
+					<defaultValue/>
+				</control>
+				<!-- xref -->
+				<control>
+					<position>absolute</position>
+					<type>text</type>
+					<description>T5_ADD_LABEL(Xref)</description>
+					<RequiresFormatting>yes</RequiresFormatting>
+					<viewMapping>//TaxFormDtls/altAcct</viewMapping>
+					<defaultValue/>
+				</control>
+				<!-- int-->
+				<control>
+					<position>absolute</position>
+					<type>text</type>
+					<description>T5_ADD_LABEL(Int)</description>
+					<RequiresFormatting>yes</RequiresFormatting>
+					<viewMapping>//TaxFormDtls/intAcct</viewMapping>
+					<defaultValue/>
+				</control>
+			</control>
+			<!-- acc xref int -->
+			<!-- a/c -->
+			<control>
+				<type>concatenate</type>
+				<top>433px</top>
+				<height/>
+				<width/>
+				 <right>540px</right>
+				 
+				<bottom>3000px</bottom>
+				 <left>360px</left> 
+				<text-align>left</text-align>					
+				
+				<font>Helvetica-Bold</font>
+				<font-size>7pt</font-size>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>T5_ADD_LABEL(Acct)</description>
+					<RequiresFormatting>yes</RequiresFormatting>
+					<viewMapping>//TaxFormDtls/acct</viewMapping>
+					<defaultValue/>
+				</control>
+				<!-- xref -->
+				<control>
+					<position/>
+					<type>text</type>
+					<description>T5_ADD_LABEL(Xref)</description>
+					<RequiresFormatting>yes</RequiresFormatting>
+					<viewMapping>//TaxFormDtls/altAcct</viewMapping>
+					<defaultValue/>
+				</control>
+				<!-- int-->
+				<control>
+					<position/>
+					<type>text</type>
+					<description>T5_ADD_LABEL(Int)</description>
+					<RequiresFormatting>yes</RequiresFormatting>
+					<viewMapping>//TaxFormDtls/intAcct</viewMapping>
+					<defaultValue/>
+				</control>
+			</control>
+			<!--year-->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>year</description>
+				<top>34px</top>
+				<left>365px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/yearEnd</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>year</description>
+				<top>283px</top>
+				<left>365px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/yearEnd</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue/>
+			</control>
+			<!-- TABLE -->
+			<control>
+				<position>absolute</position>
+				<type>table</type>
+				<description>Date</description>
+				<top>594px</top>
+				<left>36px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/TaxFundDtls</viewMapping>
+				<columnWidths>
+					<col name="fundName" width="1.6in" header-text-align="center" data-text-align="left" font-size="12px" font="Helvetica-Bold" data-font-size-override="7px"/>
+					<col name="inelgCdnDiv" width="0.6in" header-text-align="center" data-text-align="right" font-size="5px" font="Helvetica-Bold"/>
+					<col name="inelgTxAmDiv" width="0.6in" header-text-align="center" data-text-align="right" font-size="5px" font="Helvetica-Bold"/>
+					<col name="inelgTxCrd" width="0.58in" header-text-align="center" data-text-align="right" font-size="5px" font="Helvetica-Bold"/>
+					<col name="otherInc" width="0.58in" header-text-align="center" data-text-align="right"  font-size="5px" font="Helvetica-Bold"/>
+					<col name="capGain" width="0.6in" header-text-align="center" data-text-align="right" font-size="5px" font="Helvetica-Bold"/>
+					<col name="elgCdnDiv" width="0.58in" header-text-align="center" data-text-align="right" font-size="5px" font="Helvetica-Bold"/>
+					<col name="elgTaxAmDiv" width="0.6in" header-text-align="center" data-text-align="right" font-size="5px" font="Helvetica-Bold"/>
+					<col name="elgDivTxCrd" width="0.6in" header-text-align="center" data-text-align="right" font-size="5px" font="Helvetica-Bold"/>
+					<col name="ROC" width="0.62in" header-text-align="center" data-text-align="right" font-size="5px" font="Helvetica-Bold"/>
+				</columnWidths>
+				<font>Helvetica</font>
+				<font-size>6pt</font-size>
+				<lastRowFont>Helvetica</lastRowFont>
+			
+				<defaultValue/>
+			</control>
+		</section>
+	</page>
+	<page>
+		<pagename>TaxForms</pagename>
+		<section-name>xsl-region-body</section-name>
+		<section>
+			<control>
+				<position/>
+				<type>image</type>
+				<description>Background Image</description>
+				<top/>
+				<left/>
+				<content-height>11in</content-height>
+				<content-width>8.5in</content-width>
+				<!-- height>1063px</height>
+				<width>2550px</width -->
+				<viewMapping/>
+				<dir>images</dir>
+				<imageKey>backgroundImageLegal</imageKey>
+				<defaultValue>.hum</defaultValue>
+			</control>
+		</section>
+	</page>
+</SmartPDF>

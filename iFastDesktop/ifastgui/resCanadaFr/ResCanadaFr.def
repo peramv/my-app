@@ -1,0 +1,7 @@
+; ResCanadaFr.def : Declares the module parameters for the DLL.
+
+LIBRARY      "ResCanadaFr"
+; DESCRIPTION  'ResCanada Windows Dynamic Link Library French Language'
+
+EXPORTS
+    ; Explicit exports can go here

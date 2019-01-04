@@ -1,0 +1,38 @@
+/*********************************************************************************************
+ * @file	
+ * @author 	 
+ * @desc	 
+ *********************************************************************************************/
+
+#adjustmentContainer
+{
+	background: white; 
+	border-left: 1px solid #d0d0d0;
+	border-right: 1px solid #d0d0d0;
+	border-bottom:1px solid #d0d0d0;
+	padding: 4px;
+}
+
+#adjustmentContainer .x-panel-body 
+{
+	background: white !important; 	
+}
+
+.readonly-notional
+{
+	border: none !important;
+	background: none !important;	
+	color: black !important;
+	filter: none !important;
+}
+
+
+
+
+
+
+
+
+
+
+

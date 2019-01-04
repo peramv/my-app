@@ -1,0 +1,8 @@
+[Not using AWD]
+   file = session_no_awd
+   type = Ini
+
+[Use AWD Integration]
+   file = AWDIntegration
+   type = Ini
+   

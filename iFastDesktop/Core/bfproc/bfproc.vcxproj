@@ -1,0 +1,502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="SmartHeap Release|Win32">
+      <Configuration>SmartHeap Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="SmartHeap Symbols|Win32">
+      <Configuration>SmartHeap Symbols</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName />
+    <SccLocalPath />
+    <ProjectGuid>{C99E5373-82AD-48C0-B67B-B0F4474D7092}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110_xp</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110_xp</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\../../bin/debug\</OutDir>
+    <IntDir>.\debug\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>bfproc_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">
+    <OutDir>.\../../bin/releaseSH\</OutDir>
+    <IntDir>.\releaseSH\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">
+    <OutDir>.\../../bin/relSym\</OutDir>
+    <IntDir>.\relSym\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\../../bin/release\</OutDir>
+    <IntDir>.\release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.;..;../ifdscore;../ifdscore/win32;../3rdparty/boost;../3rdparty/decnumber/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\debug/bfproc.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\debug/</AssemblerListingLocation>
+      <ObjectFileName>.\debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>bfdata_d.lib;bfcbo_d.lib;bfsessn_d.lib;bfawdi_d.lib;bfutil_d.lib;ifdscore_D.lib;version.lib;boost_thread-vc110-mt-gd-1_54.lib;libboost_thread-vc110-mt-gd-1_54.lib;libboost_system-vc110-mt-gd-1_54.lib;libboost_date_time-vc110-mt-gd-1_54.lib;libboost_chrono-vc110-mt-gd-1_54.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/debug/bfproc_d.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>../../lib/debug;../3rdparty/boost/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\../../bin/debug/bfproc_d.pdb</ProgramDatabaseFile>
+      <ImportLibrary>../../lib/debug/bfproc_d.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+      <DataExecutionPrevention>false</DataExecutionPrevention>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/debug/bfproc.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <PostBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Finished building bfproc (Debug) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Building bfproc (Debug) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>.;..;../ifdscore;../ifdscore/win32;../3rdparty/boost;../3rdparty/decnumber/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\releaseSH/bfproc.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\releaseSH/</AssemblerListingLocation>
+      <ObjectFileName>.\releaseSH/</ObjectFileName>
+      <ProgramDataBaseFileName>.\releaseSH/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <CompileAs>Default</CompileAs>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>shdsmpmt.lib;bfdata_sh.lib;bfsessn_sh.lib;bfawdi_sh.lib;bfcbo_sh.lib;bfutil_sh.lib;ifdscore_sh.lib;version.lib;boost_thread.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/releaseSH/bfproc_sh.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>../3rdparty/smartheap;../../lib/releaseSH;../3rdparty/boost/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\../../bin/releaseSH/bfproc_sh.pdb</ProgramDatabaseFile>
+      <ImportLibrary>../../lib/releaseSH/bfproc_sh.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/releaseSH/bfproc.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <PostBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Finished building bfproc (SmartHeap Release) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Building bfproc (SmartHeap Release) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.;..;../ifdscore;../ifdscore/win32;../3rdparty/boost;../3rdparty/decnumber/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\relSym/bfproc.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\relSym/</AssemblerListingLocation>
+      <ObjectFileName>.\relSym/</ObjectFileName>
+      <ProgramDataBaseFileName>.\relSym/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>shdsmpmt.lib;bfdata_sym.lib;bfsessn_sym.lib;bfawdi_sym.lib;bfcbo_sym.lib;bfutil_sym.lib;ifdscore_sym.lib;version.lib;boost_thread.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/relSym/bfproc_sym.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>../../lib/relSym;../3rdparty/smartheap;../3rdparty/boost/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\../../bin/relSym/bfproc_sym.pdb</ProgramDatabaseFile>
+      <ImportLibrary>../../lib/relSym/bfproc_sym.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/relSym/bfproc.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <PostBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Finished building bfproc (SmartHeap Symbols) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Building bfproc (SmartHeap Symbols) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>.;..;../ifdscore;../ifdscore/win32;../3rdparty/boost;../3rdparty/decnumber/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderOutputFile>.\release/bfproc.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\release/</AssemblerListingLocation>
+      <ObjectFileName>.\release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>bfdata.lib;bfsessn.lib;bfawdi.lib;bfcbo.lib;bfutil.lib;ifdscore.lib;version.lib;boost_thread-vc110-mt-1_54.lib;libboost_thread-vc110-mt-1_54.lib;libboost_system-vc110-mt-1_54.lib;libboost_date_time-vc110-mt-1_54.lib;libboost_chrono-vc110-mt-1_54.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\../../bin/release/bfproc.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>../../lib/release;../3rdparty/boost/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\../../bin/release/bfproc.pdb</ProgramDatabaseFile>
+      <ImportLibrary>../../lib/release/bfproc.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+      <DataExecutionPrevention>false</DataExecutionPrevention>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/release/bfproc.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <PostBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Finished building bfproc (Release) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Building bfproc (Release) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AbstractCommandDispatcher.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="AbstractListDetails.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="AbstractProcess.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="bfcontainerid.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="bfprocessfactory.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="bpbase_conditions.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BPSessionTags.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="CommandDispatcher.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="commandtraits.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="FieldDetails.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="GenericInterface.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="GenericInterfaceContainer.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="InterProcessData.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="ListDetails.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="ProcessManager.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="SubstituteListDetails.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BPBASE_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="bfproc.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AbstractCommandDispatcher.hpp" />
+    <ClInclude Include="AbstractFactory.hpp" />
+    <ClInclude Include="AbstractListDetails.hpp" />
+    <ClInclude Include="AbstractProcess.hpp" />
+    <ClInclude Include="AbstractProcessConstants.h" />
+    <ClInclude Include="abstractprocesscreator.hpp" />
+    <ClInclude Include="bfcontainerid.hpp" />
+    <ClInclude Include="bfprocessfactory.hpp" />
+    <ClInclude Include="BPGlobal.h" />
+    <ClInclude Include="BPSessionTags.h" />
+    <ClInclude Include="Command.hpp" />
+    <ClInclude Include="CommandDispatcher.hpp" />
+    <ClInclude Include="CommandEnum.h" />
+    <ClInclude Include="commandtraits.hpp" />
+    <ClInclude Include="concretedialogcreator.hpp" />
+    <ClInclude Include="concreteprocesscreator.hpp" />
+    <ClInclude Include="FieldDetails.hpp" />
+    <ClInclude Include="GenericInterface.hpp" />
+    <ClInclude Include="GenericInterfaceContainer.hpp" />
+    <ClInclude Include="InterProcessData.hpp" />
+    <ClInclude Include="ListDetails.hpp" />
+    <ClInclude Include="ProcessManager.hpp" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SubstituteListDetails.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\bfawdi\bfawdi.vcxproj">
+      <Project>{4f3238d5-d29f-463b-88b5-62b96cf0ea3a}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\bfcbo\bfcbo.vcxproj">
+      <Project>{e0804744-a49c-4a76-8e50-13bc17da3f6c}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\bfdata\bfdata.vcxproj">
+      <Project>{96b4c987-8d0f-4a81-be29-2a6af2334393}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\bfsessn\bfsessn.vcxproj">
+      <Project>{11b5c29c-626a-4c98-a632-948ec7075653}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\ifdscore\ifdscore.vcxproj">
+      <Project>{811acbd3-dda5-4661-9eff-cec364e715cb}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SonicMQS>
+<SonicMQ>
+        <brokerurl>tcp://msgeuu2.ifdsgroup.ca:26140</brokerurl>
+        <inqQue>Online_UAT.ZTS.Direct.SingleRequest</inqQue>
+        <timeout>20000</timeout>
+        <mdb></mdb>
+        <SEPARATOR>�</SEPARATOR>
+        <SSL_CA_CERTIFICATES_DIR>nnn</SSL_CA_CERTIFICATES_DIR>
+        <SSL_CERTIFICATE_CHAIN>nnn</SSL_CERTIFICATE_CHAIN>
+        <SSL_PRIVATE_KEY>nnn</SSL_PRIVATE_KEY>
+        <SSL_CERTIFICATE_CHAIN_FORM>PKCS12</SSL_CERTIFICATE_CHAIN_FORM>
+</SonicMQ>
+</SonicMQS>
+
+

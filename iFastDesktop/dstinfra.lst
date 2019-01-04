@@ -1,0 +1,16 @@
+bin\release\diawd23U.dll
+bin\debug\diawd23U_D.dll
+bin\release\DIAWDIU.dll
+bin\debug\diawdiU_D.dll
+bin\release\DICOREU.dll
+bin\debug\DICOREU_D.dll
+bin\release\DIDBRKRU.dll
+bin\debug\DIDBRKRU_D.dll
+bin\release\diviewu.dll
+bin\debug\diviewU_D.dll
+bin\debug\icudt18l.DLL
+bin\release\icudt18l.dll
+bin\release\icuin18.dll
+bin\debug\icuin18d.dll
+bin\release\icuuc18.dll
+bin\debug\icuuc18d.dll

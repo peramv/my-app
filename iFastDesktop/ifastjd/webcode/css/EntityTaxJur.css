@@ -1,0 +1,93 @@
+/* DSK Common stuff - start*/
+
+.wrapper
+{
+	text-align:left;	
+	width:850px;
+	height:300px;
+	margin: auto;
+	overflow-x:hidden;	
+}
+
+.main
+{	
+    overflow:hidden;
+	width:100%;
+}
+
+#main-topic
+{	
+    display:none;
+}
+
+
+/* DSK Common stuff - end*/
+
+.ScreenSectionDiv
+{
+    position:relative;
+    width:100%;
+    margin-bottom:18px;        
+}
+
+.ScreenButtonsDiv
+{
+    margin-top:10px;
+    text-align:center;
+}
+
+.SectionRowDiv
+{
+    height:30px;
+    width:100%;
+}
+
+.FldLabelSpan
+{       
+    width:140px;
+    height:100%;
+    padding-top:6px;
+    padding-left:5px;
+    text-align:left;
+}
+
+.FldValueSpan
+{
+    height:100%;
+    padding-right:5px;
+    text-align:left;
+    width:200px;
+    font-size:13px;    
+}
+
+
+.FldInput
+{
+    width:130px;    
+}
+
+.right
+{
+    text-align:right;
+}
+
+.left
+{
+    text-align:left;
+}
+
+.dateFld
+{
+    position:absolute; 
+    top:2px; 
+    left:0px;
+}
+
+.ActionButtonsDiv
+{
+    width:100%;
+    position:absolute;
+    top:260px;
+    text-align:right;
+    padding-right:30px;
+}

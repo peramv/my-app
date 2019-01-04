@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="SmartHeap Release|Win32">
+      <Configuration>SmartHeap Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="SmartHeap Symbols|Win32">
+      <Configuration>SmartHeap Symbols</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <Keyword>MakeFileProj</Keyword>
+    <ProjectGuid>{2CAE1800-94B2-484F-8768-3CC20F7F1F62}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\.\</OutDir>
+    <IntDir>.\release\</IntDir>
+    <NMakeBuildCommandLine>nmake /nologo /f "ifast_dataimpl_gen.mak"</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake /nologo /f "ifast_dataimpl_gen.mak" /a</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>nmake /nologo /f "ifast_dataimpl_gen.mak" CLEAN</NMakeCleanCommandLine>
+    <NMakeOutput>ifast_dataimpl.mak</NMakeOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\.\</OutDir>
+    <IntDir>.\debug\</IntDir>
+    <NMakeBuildCommandLine>nmake /nologo /f "ifast_dataimpl_gen.mak"</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake /nologo /f "ifast_dataimpl_gen.mak" /a</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>nmake /nologo /f "ifast_dataimpl_gen.mak" CLEAN</NMakeCleanCommandLine>
+    <NMakeOutput>ifast_dataimpl.target</NMakeOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">
+    <OutDir>.\.\</OutDir>
+    <IntDir>.\releaseSH\</IntDir>
+    <NMakeBuildCommandLine>nmake /nologo /f "ifast_dataimpl_gen.mak"</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake /nologo /f "ifast_dataimpl_gen.mak" /a</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>nmake /nologo /f "ifast_dataimpl_gen.mak" CLEAN</NMakeCleanCommandLine>
+    <NMakeOutput>ifast_dataimpl.mak</NMakeOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">
+    <OutDir>.\../bin/relSym\</OutDir>
+    <IntDir>.\relSym\</IntDir>
+    <NMakeBuildCommandLine>nmake /nologo /f "ifast_dataimpl_gen.mak"</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake /nologo /f "ifast_dataimpl_gen.mak" /a</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>nmake /nologo /f "ifast_dataimpl_gen.mak" CLEAN</NMakeCleanCommandLine>
+    <NMakeOutput>ifast_dataimpl.mak</NMakeOutput>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ifast bpserver build configuration -->
+<ifast_bpserver>
+    <options>
+        <config>Debug</config>
+        <config>Smartheap</config>
+        <config>Symbols</config>
+    </options>
+    <get>
+          <dir><target>.</target></dir>
+          <dir><target>core\3rdparty</target></dir>
+          <dir><target>core\3rdparty\bin</target></dir>
+          <dir><target>core\bfawdi</target></dir>
+          <dir><target>core\bfawdi\win32</target></dir>
+          <dir><target>core\bf</target></dir>
+          <dir><target>core\bf\log</target></dir>
+          <dir><target>core\bfcbo</target></dir>
+          <dir><target>core\bfconmgr</target></dir>
+          <dir><target>core\bfdata</target></dir>
+          <dir><target>core\bfdbrkr</target></dir>
+          <dir><target>core\bfproc</target></dir>
+          <dir><target>core\bfsessn</target></dir>
+          <dir><target>core\bfsessn\win32</target></dir>
+          <dir><target>core\bfutil</target></dir>
+          <dir><target>core\data</target></dir>
+          <dir><target>core\ifdscore</target></dir>
+          <dir><target>core\ifdscore\win32</target></dir>
+          <dir><target>core\srvbase</target></dir>
+          <dir><target>core\xparser</target></dir>
+          <dir><target>data</target></dir>
+          <dir><target>dataimpl</target></dir>
+          <dir><target>ifastawd</target></dir>
+          <dir><target>ifastdbrkr</target></dir>
+          <dir><target>ifastcbo</target></dir>
+          <dir><target>ifastbp</target></dir>
+          <dir><target>ifastids</target></dir>
+          <dir><target>ifastbps</target></dir>
+          <dir><target>ifastxparser</target></dir>
+    </get>
+    <build>
+        <compiler>vc71</compiler>
+        <workspace>ifastbps</workspace>
+        <project>ifastbps</project>
+        <branderproject>ifastcbo</branderproject>
+        <brandername>ifast</brandername>
+    </build>
+    <documentation>
+    </documentation>
+    <distribution>
+        <basename>ifast_bpserver</basename>
+        <debug>
+            <relocationlist>ifast_bpserver.debug.manifest</relocationlist>
+            <distribution>ifastlocal</distribution>
+        </debug>
+        <smartheap>
+            <relocationlist>ifast_bpserver.sh.manifest</relocationlist>
+            <packagedir>.</packagedir>
+            <packagetype>exe</packagetype>
+            <distribution>ifastlocal</distribution>
+        </smartheap>
+        <symbols>
+            <relocationlist>ifast_bpserver.sym.manifest</relocationlist>
+            <packagedir>.</packagedir>
+            <packagetype>exe</packagetype>
+            <distribution>ifastlocal</distribution>
+        </symbols>
+    </distribution>
+</ifast_bpserver>
+<!-- end ifast bpserver build configuration -->
+

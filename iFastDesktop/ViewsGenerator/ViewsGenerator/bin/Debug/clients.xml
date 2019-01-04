@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Market Market_Id="1" Market_Name="No Market">
+    <Client Client_Id="1">No Client</Client>
+  </Market>
+  <Market Market_Id="2" Market_Name="Japan">
+    <Client Client_Id="1">No Client</Client>
+    <Client Client_Id="2">morgangui</Client>
+    <Client Client_Id="3">morganqa</Client>
+  </Market>
+  <Market Market_Id="3" Market_Name="Canada">
+    <Client Client_Id="1">No Client</Client>
+    <Client Client_Id="2">CFDS</Client>
+    <Client Client_Id="3">rch</Client>
+    <Client Client_Id="4">aicseg</Client>
+    <Client Client_Id="5">synergy</Client>
+    <Client Client_Id="6">nce</Client>
+    <Client Client_Id="7">artisan</Client>
+    <Client Client_Id="8">pbi</Client>
+    <Client Client_Id="9">zenith</Client>
+    <Client Client_Id="10">stone</Client>
+    <Client Client_Id="11">clb</Client>
+    <Client Client_Id="12">manuseg</Client>
+    <Client Client_Id="13">mmf</Client>
+    <Client Client_Id="14">bob</Client>
+    <Client Client_Id="15">cib</Client>
+    <Client Client_Id="16">dyn</Client>
+    <Client Client_Id="17">aim</Client>
+    <Client Client_Id="18">fdp</Client>
+    <Client Client_Id="19">ats</Client>
+    <Client Client_Id="20">sbf</Client>
+  </Market>
+  <Market Market_Id="4" Market_Name="Lux">
+    <Client Client_Id="1">No Client</Client>
+    <Client Client_Id="2">gmx</Client>
+    <Client Client_Id="3">pbi</Client>
+  </Market>
+</Root>

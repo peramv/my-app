@@ -1,0 +1,1211 @@
+<!-- ---------------------------------------------------------------------
+//
+//  FILE        : dstdatepicker.htc
+//
+//  DESCRIPTION :
+//
+//  PROPERTIES  :
+//
+//   height - sets height of calendar ?? is this ever used
+//   width - sets width of calendar ?? is this ever used
+//
+//   showDropDown - determines if dropdown portion of calendar can be shown.
+//
+//  METHODS     :
+//
+//   disable - disables or enables the control
+//
+//  EVENTS      :
+//
+//   onchange = fires when value has changed
+//   onerror - fires when an error has occured
+//
+//  COPYRIGHT   :
+//
+//   The computer systems, procedures, data bases and programs
+//   created and maintained by DST Systems, Inc., are proprietary
+//   in nature and as such are confidential.  Any unauthorized
+//   use or disclosure of such information may result in civil
+//   liabilities.
+//
+//   Copyright© 2004 by DST Systems, Inc.
+//   All rights reserved.
+//
+//-------------------------------------------------------------------- -->
+<public:property name="bgColor" value="window"/>
+<public:property name="height"/>
+<public:property name="width"/>
+<public:property name="showBorder" value="true"/>
+<public:property name="showDropDown" value="true"/>
+
+<public:property name="dateFormat" value="dmy"/>
+
+<public:attach event="oncontentready" onevent="init();"/>
+<public:event name="onchange" ID=onChange />
+<public:event name="onerror" ID=errorID />
+
+<public:method name="disable"/>
+
+<script>
+var _base;
+var _mainTable;
+var _img;
+var _popup;
+//used to deteremine if popup is open, couldn't use isOpen() method on popup because popup closed every time it lost focus.
+var _popupIsOpen="false";
+var _monthList;
+var _yearPopup;
+var _spinner;
+
+var _calendar; // calendar table object
+var _currMonth; // zero based month currently displayed on calendar (i.e. 0=January)
+var _currYear; // year currently displayed on calendar
+var _selectedDate;
+
+var _columnWidth=31;
+
+function init()
+{
+	element.maxLength=10;
+	element.validDate=true
+	element.attachEvent("onpropertychange", onPropChange);
+	element.attachEvent("onchange",onDateChange);
+	element.attachEvent("onkeypress",onKeyPressText);
+	element.attachEvent("onfocus",onFocus);
+	
+	// scan the documents stylesheets to find the url to the .HTC file
+	for(var i=0;i<element.document.styleSheets.length;i++)
+	{
+		var item=element.document.styleSheets(i);
+		for(var j=0;j<item.rules.length;j++)
+		{
+			var url=item.rules(j).style.behavior.match(/url\(.*dstdatepicker.htc\)/i);
+			if(url!=null)
+			{
+				_base=url[0].replace(/url\((.*)dstdatepicker.htc\)/i,"$1");
+				break;
+			}
+		}
+	}
+
+	if(showDropDown=="true")
+	{
+		var saveWidth=element.width==null?"100%":element.width;
+
+		element.style.margin="0";
+		element.style.padding="0";
+		element.style.border="0";
+
+		_mainTable=document.createElement("TABLE");
+		_mainTable.cellspacing=0;
+		_mainTable.cellpadding=0;
+		_mainTable.border=0;
+		_mainTable.tabIndex=-1;
+		_mainTable.style.padding="1px";
+		_mainTable.style.margin="1px";
+		_mainTable.style.width=saveWidth;
+		_mainTable.style.borderCollapse="collapse";
+		_mainTable.style.tableLayout="fixed";
+		_mainTable.attachEvent("onblur",onLostFocusDiv);
+		element.insertAdjacentElement("afterEnd",_mainTable);
+
+		var oTR=_mainTable.insertRow();
+		var oTD1=oTR.insertCell();
+		oTD1.insertAdjacentElement("afterBegin",element);
+
+		var oTD2=oTR.insertCell();
+		_img=document.createElement("IMG");
+		_img.style.height=18;	//element.clientHeight+2
+		_img.style.width=18;
+		_img.style.margin=0;
+		_img.style.padding="1px";
+		_img.border="0";
+		_img.attachEvent("onclick",onClickButton);
+		oTD2.insertAdjacentElement("beforeEnd",_img);
+
+		oTD2.style.setExpression("width",_img.uniqueID+".offsetHeight+2");
+	}
+	else
+	{
+		element.style.border="1px solid black";
+	}
+	disable(element.disabled);
+	readOnly(element.readOnly);
+}
+
+function onPropChange(e)
+{
+	var propertyName=e.propertyName;
+
+	if(propertyName.toLowerCase()=="readonly")
+	{
+		readOnly(element.readOnly);
+	}
+}
+
+var prevClickEvent = null;
+function onClickButton(e)
+{       
+    if ( !disabled )
+    {
+        // there is a bug causing this to run multiple times after a single click
+        // so we ensure we only pay attention when the event if first sent       
+        if ( e != prevClickEvent )
+        {        
+        	setCalendarVisibility();
+        	_mainTable.setActive();    		    
+    	}
+    	prevClickEvent = e;
+    }
+}
+
+function setCalendarVisibility()
+{    
+	if(_popup!=null&&_popupIsOpen=="true")
+	{
+		_popup.hide();
+		_popupIsOpen="false";
+	}
+	else
+	{	    	 
+	    _selectedDate = buildDateObjFromElementValue();
+		
+		if(_popup==null)
+		{
+			createPopup();
+		}
+		
+		_popup.show(0, _mainTable.offsetHeight, _columnWidth*7, 190, _mainTable);
+		_popupIsOpen="true";		
+		updateCalendar(_selectedDate.getMonth(),_selectedDate.getFullYear());
+		_calendar.setActive();
+	}
+}
+
+function createPopup()
+{
+	_popup=window.createPopup();
+	_popup.document.body.style.margin="0";
+	_popup.document.body.style.padding="0";
+
+	creatStyleSheet();
+	addStylesToPopup(_popup);
+
+	var oDIV=_popup.document.createElement("DIV");
+	oDIV.style.border="1px solid black";
+	oDIV.style.padding="3px";
+	oDIV.style.position="absolute";
+	oDIV.style.width="100%";
+	oDIV.style.height="100%";
+	oDIV.style.backgroundColor="white";
+	oDIV.style.cursor="default";
+	oDIV.attachEvent("onkeydown",onKeyDownCal);
+	oDIV.attachEvent("oncontextmenu",onContextMenu);
+	_popup.document.body.insertAdjacentElement("beforeEnd",oDIV);
+
+	_calendar=_popup.document.createElement("TABLE");
+	_calendar.cellPadding="0";
+	_calendar.cellSpacing="0";
+	_calendar.id="calendar";
+	_calendar.tableLayout="fixed";
+	_calendar.attachEvent("onselectstart",onSelectStart);
+	oDIV.insertAdjacentElement("beforeEnd",_calendar);
+
+	var oCOLGROUP=_popup.document.createElement("COLGROUP");
+	for(var i=0;i<7;i++)
+	{
+		var oCOL=_popup.document.createElement("COL");
+		oCOL.width=_columnWidth+"px";
+		oCOLGROUP.insertAdjacentElement("beforeEnd",oCOL);
+	}
+	_calendar.insertAdjacentElement("beforeEnd",oCOLGROUP);
+
+	// add month name and selector
+	var oTR=_calendar.insertRow();
+	var oTD=oTR.insertCell();
+	oTD.colSpan=7;
+	var mnthTABLE=_popup.document.createElement("TABLE");
+	mnthTABLE.style.width="100%";
+	mnthTABLE.cellSpacing=0;
+	mnthTABLE.cellPadding=0;
+	oTD.insertAdjacentElement("beforeEnd",mnthTABLE);
+	var oTR=mnthTABLE.insertRow();
+	oTR.className="month";
+
+	// previous month button
+	var oTD=oTR.insertCell();
+	oTD.width="1%";
+	var oIMG=_popup.document.createElement("IMG");
+	oIMG.src=_base+"dstdatepicker_left.gif";
+	oIMG.style.margin="4px";
+	oIMG.style.cursor="hand";
+	oIMG.attachEvent("onclick",onClickPrevMonth);
+	oTD.insertAdjacentElement("beforeEnd",oIMG);
+
+	// month text
+	var oTD=oTR.insertCell();
+	oTD.id="tdMonthName";
+	oTD.width="52%";
+	oTD.attachEvent("onclick",onClickMonth);
+	oTD.align="right";
+
+	// comma text
+	var oTD=oTR.insertCell();
+	oTD.innerText=", ";
+	oTD.width="1%";
+	oTD.align="left";
+	
+	// year text
+	var oTD=oTR.insertCell();
+	oTD.id="tdYear";
+	oTD.width="45%";
+	oTD.style.padding="4px";
+	oTD.attachEvent("onclick",onClickYear);
+	oTD.align="left";
+
+	// next month button
+	var oTD=oTR.insertCell();
+	oTD.width="1%";
+	var oIMG=_popup.document.createElement("IMG");
+	oIMG.src=_base+"dstdatepicker_right.gif";
+	oIMG.style.margin="4px";
+	oIMG.style.cursor="hand";
+	oIMG.attachEvent("onclick",onClickNextMonth);
+	oTD.insertAdjacentElement("beforeEnd",oIMG);
+
+	// add weekday header
+	var oTR=_calendar.insertRow();
+	var weekdays=new Array("Sun","Mon","Tue","Wed","Thu","Fri","Sat");
+	for(var i=0;i<weekdays.length;i++)
+	{
+		var oTD=oTR.insertCell();
+		oTD.className="weekday";
+		oTD.innerText=weekdays[i];
+	}
+
+	for(var row=0;row<6;row++) // always display 6 weeks
+	{
+		var oTR=_calendar.insertRow();
+		for(var col=0;col<7;col++) // loop through each day of the current week
+		{
+			var oTD=oTR.insertCell();
+			oTD.attachEvent("onclick",onSelectDate);
+		}
+	}
+
+	// add Today static text at bottom
+	var oTR=_calendar.insertRow();
+	var oTD=oTR.insertCell();
+	var oIMG=_popup.document.createElement("IMG");
+	oIMG.src=_base+"dstdatepicker_today.gif";
+	oIMG.style.marginTop="3px";
+	oIMG.style.marginRight="3px";
+	oTD.insertAdjacentElement("beforeEnd",oIMG);
+	var oTD=oTR.insertCell();
+	oTD.colSpan=6;
+	oTD.className="todaysDate";
+}
+
+function creatStyleSheet()
+{
+	//  If it's not already created, create a style sheet.
+	if(!_popup.document.body.BehaviorStyleSheet)
+	{
+		_popup.document.body.BehaviorStyleSheet=_popup.document.createStyleSheet();
+	}
+	var StyleInfo=_popup.document.body.BehaviorStyleSheet;
+
+//	var ruleButton="border:1 solid black;";
+//	var ruleButtonHover="border:1 solid black;background-color:rgb(197,197,197);";
+//	if(width!=null)
+//	{
+//		ruleButton+="width:"+width+";";
+//		ruleButtonHover+="width:"+width+";";
+//	}
+//	
+//	StyleInfo.addRule(".button_"+uniqueID,ruleButton);
+//	StyleInfo.addRule(".button-hover_"+uniqueID,ruleButtonHover);
+
+	StyleInfo.addRule(".weekday","color:activecaption;border-bottom:1px solid black;font-family:Tahoma;font-size:12px;padding-left:2px;padding-right:2px");
+	StyleInfo.addRule(".month","background-color:activecaption;color:white;font-family:Tahoma;font-size:12px;font-weight:bold;height:30px");
+	StyleInfo.addRule(".thisMonth","font-family:Tahoma;font-size:12px;text-align:center;padding:3px;color:black;");
+	StyleInfo.addRule(".otherMonth","font-family:Tahoma;font-size:12px;text-align:center;padding:3px;color:rgb(172,168,153);");
+	StyleInfo.addRule(".todaysDate","font-family:Tahoma;font-size:12px;font-weight:bold;");
+}
+
+function onSelectStart(e)
+{
+	//disable bubble up selection
+	return false;
+}
+
+function onContextMenu(e)
+{
+	var contextMenu=_popup.document.parentWindow.createPopup();
+	contextMenu.document.body.style.margin="0";
+	contextMenu.document.body.style.padding="0";
+
+	addStylesToPopup(contextMenu);
+
+	var oDIV=contextMenu.document.createElement("DIV");
+	oDIV.style.border="1px solid rgb(172,168,153)";
+	oDIV.style.padding="3px";
+	oDIV.style.position="absolute";
+	oDIV.style.width="100%";
+	oDIV.style.height="100%";
+	oDIV.style.backgroundColor="white";
+	oDIV.style.cursor="default";
+	contextMenu.document.body.insertAdjacentElement("beforeEnd",oDIV);
+
+	var oTable=contextMenu.document.createElement("TABLE");
+	oTable.cellPadding="0";
+	oTable.cellSpacing="0";
+	oTable.tableLayout="fixed";
+	oTable.width="100%";
+	oTable.height="100%";
+	oTable.attachEvent("onselectstart",onSelectStart);
+	oDIV.insertAdjacentElement("beforeEnd",oTable);
+
+	var oTR=oTable.insertRow();
+	var oTD=oTR.insertCell();
+	oTD.innerText="Go to today";
+	oTD.style.padding="2px 10px";
+	oTD.attachEvent("onclick",onClickGoToToday);
+	oTD.attachEvent("onmouseover",onMouseoverContextMenuItem);
+	oTD.attachEvent("onmouseout",onMouseoutContextMenuItem);
+
+	contextMenu.show(e.screenX,e.screenY,110,26);
+	return false;
+}
+
+function onLostFocusDiv(e)
+{
+	var focused=null;
+	try{focused=element.document.activeElement;} catch(e) {} // issues when this document no longer has focus
+	if(focused!=null)
+	{
+		p=0;
+		//calculate the index of what Node we have found in search
+		while (focused.parentElement!=null&&p<10)
+		{
+			//prevent lossing focus if the user is still within the combobox _mainTable.
+			if(focused.uniqueID==_mainTable.uniqueID||focused.uniqueID==element.uniqueID||focused.uniqueID==_img.uniqueID)
+			{
+				//disable onLostFocusDiv()
+				//the focus is still within div or popup.
+				return false;
+			}
+			focused=focused.parentElement;
+			p=p+1;
+		}
+		//if focus is not within datapicker div or popup hide the popup.
+		hidePopup();
+	}
+	else
+	{
+		hidePopup();
+	}
+}
+
+function hidePopup()
+{
+	if(_popup!=null&&_popupIsOpen=="true")
+	{
+		element.focus();
+		_popup.hide();
+		_popupIsOpen="false";
+	}
+	else
+	{
+		element.focus();
+		element.style.backgroundColor="";
+		element.style.color="";
+	}
+}
+
+function onClickMonth(e)
+{
+	_monthList=_popup.document.parentWindow.createPopup();
+	_monthList.document.body.style.margin="0";
+	_monthList.document.body.style.padding="0";
+
+	addStylesToPopup(_monthList);
+
+	var oDIV=_monthList.document.createElement("DIV");
+	oDIV.style.border="1px solid rgb(172,168,153)";
+	oDIV.style.padding="3px";
+	oDIV.style.position="absolute";
+	oDIV.style.width="100%";
+	oDIV.style.height="100%";
+	oDIV.style.backgroundColor="white";
+	oDIV.style.cursor="default";
+	_monthList.document.body.insertAdjacentElement("beforeEnd",oDIV);
+
+	var oTable=_monthList.document.createElement("TABLE");
+	oTable.cellPadding="0";
+	oTable.cellSpacing="0";
+	oTable.tableLayout="fixed";
+	oTable.width="100%";
+	oTable.height="100%";
+	oTable.attachEvent("onselectstart",onSelectStart);	
+	oDIV.insertAdjacentElement("beforeEnd",oTable);
+
+	// add months
+	for(var i=0;i<12;i++)
+	{
+		var oTR=oTable.insertRow();
+		var oTD=oTR.insertCell();
+		oTD.innerText=getMonthName(i);
+		oTD.style.padding="2px 10px";
+		oTD.month=i;
+		oTD.attachEvent("onclick",onClickPopupMonth);
+		oTD.attachEvent("onmouseover",onMouseoverContextMenuItem);
+		oTD.attachEvent("onkeydown",onKeyDownContextMenuItem);
+	}
+	_monthList.show(e.screenX,e.screenY,100,224);
+	oTable.rows(11).cells(0).setActive();
+}
+
+function onClickPopupMonth(e)
+{
+	_monthList.hide();
+	changeMonth(e.srcElement.month,_currYear);
+}
+
+function onMouseoverContextMenuItem(e)
+{
+	var oTable=e.srcElement.parentElement.parentElement.parentElement;
+	//deselect all rows
+	for(i=0;i<12;i++)
+	{
+		oTable.rows(i).cells(0).style.color="";
+		oTable.rows(i).cells(0).style.backgroundColor="";
+	}
+	e.srcElement.style.color="white";
+	e.srcElement.style.backgroundColor="highlight";
+	e.srcElement.setActive();
+}
+
+function onKeyDownContextMenuItem(e)
+{
+	var oTD=e.srcElement;
+	if(38==e.keyCode) //up
+	{
+		oTD.parentElement.firstChild.style.color="";
+		oTD.parentElement.firstChild.style.backgroundColor="";
+		if(0==oTD.parentElement.rowIndex)
+		{
+			oTD=oTD.parentElement.parentElement.parentElement.rows(11).cells(0);
+		}
+		else
+		{
+			oTD=oTD.parentElement.previousSibling.firstChild;
+		}
+		oTD.style.color="white";
+		oTD.style.backgroundColor="rgb(49,106,197)";
+		oTD.setActive();
+	}
+	else if(40==e.keyCode) //down
+	{
+		oTD.parentElement.firstChild.style.color="";
+		oTD.parentElement.firstChild.style.backgroundColor="";
+		if(11==oTD.parentElement.rowIndex)
+		{
+			oTD=oTD.parentElement.parentElement.parentElement.rows(0).cells(0);
+		}
+		else
+		{
+			oTD=oTD.parentElement.nextSibling.firstChild;
+		}
+		oTD.style.color="white";
+		oTD.style.backgroundColor="rgb(49,106,197)";
+		oTD.setActive();
+	}
+	else if(13==e.keyCode) //enter
+	{
+		if(oTD.style.color=="white") //checks to see if it is selected
+		{
+			changeMonth(oTD.month,_currYear);
+		}
+		_monthList.hide();
+	}
+
+	return false;
+}
+
+function onClickYear(e)
+{
+	if (null==_yearPopup)
+	{
+		_yearPopup=_popup.document.parentWindow.createPopup();
+		_yearPopup.document.body.style.margin="0";
+		_yearPopup.document.body.style.padding="0";
+		_yearPopup.document.body.style.backgroundColor="activecaption";
+
+		addStylesToPopup(_yearPopup);
+
+		_spinner=_yearPopup.document.createElement("INPUT");
+		_spinner.type="text";
+		_spinner.className="dstspinner";
+		_spinner.minimum="1950";
+		_spinner.maximum="3000";
+		_spinner.spinnerwidth="100%";
+		_spinner.attachEvent("onchange",onSpinnerChange);
+		_spinner.attachEvent("onerror",onSpinnerError);
+		_yearPopup.document.body.insertAdjacentElement("beforeEnd",_spinner);
+	}
+	_spinner.value=_currYear;
+	_yearPopup.show(0, 2, e.srcElement.offsetWidth, e.srcElement.offsetHeight-2, e.srcElement );
+	return false;
+}
+
+function onSpinnerError()
+{
+	fireError(window.event.code,window.event.message);
+}
+
+function onSpinnerChange(e)
+{
+	if(undefined!=_spinner.value&&null!=_spinner.value)
+	{
+		_calendar.all.item("tdYear").innerHTML=_spinner.value;
+		var holdDate=_selectedDate.getDate();
+		//change holdDate to last day of month if holdDate > than the # of days in next month
+		var daysInMonth=getDaysInMonth(_currMonth,_spinner.value);
+		if(holdDate>daysInMonth)
+		{
+			holdDate=daysInMonth;
+		}
+		_selectedDate=new Date(_spinner.value,_currMonth,holdDate);
+		updateCalendar(_selectedDate.getMonth(),_selectedDate.getFullYear());
+	}
+}
+
+function onClickGoToToday(e)
+{
+	var now=new Date();
+	_selectedDate=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+	updateCalendar(_selectedDate.getMonth(),_selectedDate.getFullYear());
+}
+
+function onKeyDownCal(e)
+{
+	var rc=false;
+	switch (e.keyCode)
+	{
+		case 37:
+		{
+			prevDay();
+			break;
+		}
+		case 38:
+		{
+			prevWeek();
+			break;
+		}
+		case 39:
+		{
+			nextDay();
+			break;
+		}
+		case 40:
+		{
+			nextWeek();
+			break;
+		}
+		default:
+		{
+			rc=true;
+			break;
+		}
+	}
+	return rc; 
+}
+
+function prevDay()
+{	
+	_selectedDate.setDate(_selectedDate.getDate()-1);
+	updateCalendar(_selectedDate.getMonth(),_selectedDate.getFullYear());
+}
+
+function nextDay()
+{	
+	_selectedDate.setDate(_selectedDate.getDate()+1);
+	updateCalendar(_selectedDate.getMonth(),_selectedDate.getFullYear());
+}
+
+function prevWeek()
+{	
+	_selectedDate.setDate(_selectedDate.getDate()-7);
+	updateCalendar(_selectedDate.getMonth(),_selectedDate.getFullYear());
+}
+
+function nextWeek()
+{
+	_selectedDate.setDate(_selectedDate.getDate()+7);
+	updateCalendar(_selectedDate.getMonth(),_selectedDate.getFullYear());
+}
+
+function onClickPrevMonth(e)
+{
+	var month=_currMonth==0?11:_currMonth-1;
+	var year=_currMonth==0?_currYear-1:_currYear;
+	changeMonth(month,year);
+}
+
+function onClickNextMonth(e)
+{
+	var month=_currMonth==11?0:_currMonth+1;
+	var year=_currMonth==11?_currYear+1:_currYear;
+	changeMonth(month,year);
+}
+
+function changeMonth(month,year)
+{
+	var holdDate=_selectedDate.getDate();
+	//change holdDate to last day of month if holdDate > than the # of days in next month
+	var daysInMonth=getDaysInMonth(month,year);
+	if(holdDate>daysInMonth)
+	{
+		holdDate=daysInMonth;
+	}
+	_selectedDate=new Date(year,month,holdDate);
+	updateCalendar(month,year);
+}
+
+function onClickToday(e)
+{	
+	setElementValue( new Date() );	
+	element.select();
+	_popup.hide();
+	_popupIsOpen="false";
+	fireOnChange();
+}
+
+function onSelectDate(e)
+{
+	var srcElement=e.srcElement;
+	while(srcElement.tagName!="TD") srcElement=srcElement.parentElement;
+	var date=new Date(srcElement.date);
+
+	setElementValue( date );
+	element.select();
+	_popup.hide();
+	_popupIsOpen="false";
+	fireOnChange();
+}
+
+/*
+ * month = zero base month (0...11)
+ */
+function updateCalendar(month,year)
+{
+	_currMonth=month;
+	_currYear=year;
+
+	// month name and year
+	_calendar.all.item("tdMonthName").innerHTML=getMonthName(month);
+	_calendar.all.item("tdYear").innerHTML=year;
+
+	var firstOfTheMonth=new Date(year,month,1);
+	var dayOfWeek=firstOfTheMonth.getDay();
+	
+	var curDate=new Date(year,month,1);
+	curDate.setDate(1-dayOfWeek);
+	
+	var now=new Date();
+	var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+
+	for(var row=0;row<6;row++)
+	{
+		var oTR=_calendar.rows(row+2);
+		for(var col=0;col<7;col++)
+		{
+			var oTD=oTR.cells(col);
+
+			oTD.removeAttribute("STYLE",false); //remove all styles previously set for the td and not case sensitive;
+
+			oTD.innerHTML=curDate.getDate();
+			oTD.className=curDate.getMonth()==month?"thisMonth":"otherMonth";
+			oTD.date=curDate.valueOf();
+			
+			if(_selectedDate.valueOf()==curDate.valueOf())
+			{
+				oTD.style.background="activecaption url("+_base+"dstdatepicker_selected.gif) no-repeat fixed center center";
+				oTD.style.color="white";
+			}
+
+			if(curDate.valueOf()==today.valueOf())
+			{
+				// put image over top of today's date
+				var oIMG=_popup.document.createElement("IMG");
+				oIMG.src=_base+"dstdatepicker_today.gif";
+				oIMG.style.position="absolute";
+				oIMG.style.top=oTD.offsetTop;
+				oIMG.style.left=oTD.offsetLeft;
+				oIMG.style.margin="6px";
+				oTD.insertAdjacentElement("beforeEnd",oIMG);
+			}
+				
+			curDate.setDate(curDate.getDate()+1);
+		}
+	}
+	var oTD=_calendar.rows(8).cells(1);
+	
+	if ( dateFormat == "dmy")
+	{	 
+	    oTD.innerHTML="Today: " + today.getDate() + "/" + (today.getMonth()+1) + "/" + today.getFullYear();
+	}
+	else if ( dateFormat == "mdy" )
+	{
+	    oTD.innerHTML="Today: " + (today.getMonth()+1) + "/" + today.getDate() + "/" + today.getFullYear();
+	}
+	else
+	{
+	    alert( "ERROR: unknown date format specified " );
+	}	
+}
+
+function getDaysInMonth(month,year)
+{
+	var days=new Array(31,((year%4==0&&year%100!=0)||year%400==0?29:28),31,30,31,30,31,31,30,31,30,31);
+	return days[month];
+}
+
+function getMonthName(month)
+{
+	var months=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+	return months[month];
+}
+
+function onDateChange()
+{
+	if(element.value=="")
+	{
+		return;
+	}
+	
+	var holdDate=element.value;
+	//Create regular expression pattern for "/"
+	var re1=/\//g;
+	var r1=holdDate.match(re1);
+	//Create regular expression pattern for "-"
+	var re2=/-/g;
+	var r2=holdDate.match(re2);
+	
+	var monthStr = null;
+	var dayStr = null;
+	var yearStr = null;
+	
+	if(null==r1&&null==r2) // no divider used in date string entered
+	{		
+		switch (holdDate.length)
+		{
+			case 8:
+				if ( dateFormat == "dmy" )
+				{
+    				dayStr = holdDate.substr(0,2);
+    				monthStr = holdDate.substr(2,2);				
+    				yearStr = holdDate.substr(4,4);
+    		    }
+    		    else if ( dateFormat == "mdy" )
+    		    {
+    		    	monthStr = holdDate.substr(0,2);
+    				dayStr = holdDate.substr(2,2);				
+    				yearStr = holdDate.substr(4,4);
+    		    }
+    		    else
+    		    {
+    		        alert( "ERROR: unknown date format specified " );
+    		        element.validDate = false;
+    		        return false;
+    		    }
+    		    				
+				break;
+            /*				
+			case 7:
+				// format  dmmyyyy
+				dayStr = holdDate.substr(0,1);
+				monthStr = holdDate.substr(1,2);				
+				yearStr = holdDate.substr(3,4);				
+				break;
+			case 6:
+				// format  mmyyyy
+				dayStr = "01";
+				monthStr = holdDate.substr(0,2);				
+				yearStr = holdDate.substr(2,4);				
+				break;
+			case 5:
+				// format  myyyy
+				dayStr = "01";
+				monthStr = "0" + holdDate.substr(0,1);				
+				yearStr = holdDate.substr(1,4);				
+				break;
+		    */
+			default:
+				alert("Invalid date entry");
+				element.validDate = false;				
+				return false;
+		}
+	}
+	/*
+	else if((null!=r1 && 1==r1.length && null==r2) || (null==r1 && null!=r2 && 1==r2.length)) // one divider
+	{
+		var dateArray = null;
+		if(r1 != null)
+		{
+			dateArray = holdDate.split("/");
+		}
+		else
+		{
+			dateArray = holdDate.split("-");
+		}
+		
+		dayStr = "01";
+		monthStr = dateArray[0];		
+		yearStr = dateArray[1];
+		
+		if(monthStr.length == 1)
+		{
+			monthStr = "0" + monthStr;			
+		}
+		
+		if(yearStr.length == 2)
+		{
+			if(parseInt(yearStr) < 50)
+			{
+				yearStr = "20" + yearStr;
+			}	
+			else
+			{
+				yearStr = "19" +  yearStr;
+			}
+		}
+		
+		if(monthStr.length == 0 || monthStr.length > 2 || yearStr.length < 2 || yearStr.length > 4)
+		{
+			alert("Invalid date entry")
+			element.validDate = false;
+			return false;
+		}		
+	}*/
+	// dividers used in date string, ie. dd-mm-yyyy
+	else if((null!=r1 && 2==r1.length && null==r2) || (null==r1 && null!=r2 && 2==r2.length))
+	{		
+		var dateArray = null;
+		
+		// used "/"		
+		if(r1 != null)
+		{
+			dateArray = holdDate.split("/");	
+		}
+		// used "-"
+		else
+		{
+			dateArray = holdDate.split("-");
+		}
+		
+		if ( dateFormat == "dmy" )
+		{
+    		dayStr = dateArray[0];		
+    		monthStr = dateArray[1];		
+    		yearStr = dateArray[2];
+    	}
+    	else if ( dateFormat = "mdy" )
+    	{
+    		monthStr = dateArray[0];		
+    		dayStr = dateArray[1];		
+    		yearStr = dateArray[2];
+    	}
+    	else
+    	{
+    	    alert( "ERROR: unknown date format specified " ); 
+    	    element.validDate = false;
+    	    return false;
+    	}
+    	
+		
+		if(dayStr.length == 1)
+		{
+			dayStr = "0" + dayStr;
+		}
+		
+		if(monthStr.length == 1)
+		{
+			monthStr = "0" + monthStr;
+		}
+		
+		if(yearStr.length == 2)
+		{
+			if(parseInt(yearStr) < 50)
+			{
+				yearStr = "20" + yearStr;
+			}
+			else
+			{
+				yearStr = "19" +  yearStr;
+			}
+		}
+		
+		if(dayStr.length == 0 || dayStr.length > 2 || monthStr.length == 0 || monthStr.length > 2 || yearStr.length < 2 || yearStr.length > 4)
+		{
+			alert("Invalid date entry");
+			element.validDate = false;
+			return false;
+		}
+	}
+	
+	if(dayStr.length == 2 && monthStr.length == 2 && yearStr.length == 4)
+	{
+		var monthVal = (monthStr.charAt(0) == "0") ? parseInt(monthStr.charAt(1)) : parseInt(monthStr);
+		
+		var dayVal = (dayStr.charAt(0) == "0") ? parseInt(dayStr.charAt(1)) : parseInt(dayStr)
+		if(dayVal <= getDaysInMonth(monthVal - 1, parseInt(yearStr)))
+		{	
+		    setElementValue( new Date ( monthStr + "/" + dayStr + "/" + yearStr ) ); 					
+			element.validDate = true;			
+			return true;			
+		}
+		else
+		{
+			alert("Invalid date entry");
+			element.validDate = false;
+			return false;
+		}
+	}
+	else
+	{
+		alert("Invalid date entry");
+		element.validDate = false;
+		return false;
+	}
+}
+
+
+function onKeyPressText(e)
+{
+	if(e.keyCode==13)
+	{
+		onDateChange();
+		return true;
+	}
+	var temp=String.fromCharCode(e.keyCode);	
+	if (null!=temp&&""<temp)
+	{
+		// checks for a digit "-" and "/".
+		return /\d|-|\//.test(temp);		
+	}
+	else
+	{
+		return true;
+	}
+}
+
+function fireError(code,message)
+{
+	var oEvent=createEventObject();
+	oEvent.code=code;
+	oEvent.message=message;
+	errorID.fire(oEvent);
+}
+
+function fireOnChange()
+{
+	var oEvent=createEventObject();
+	onChange.fire(oEvent);
+}
+
+function disable(disabled)
+{
+	element.disabled=disabled;
+	if(disabled)
+	{
+		element.readOnly=false;
+		element.style.backgroundColor="rgb(236,233,216)";
+		if(showDropDown=="true")
+		{
+			_mainTable.style.backgroundColor="rgb(236,233,216)";
+			_mainTable.style.border="1px solid rgb(201,199,186)";
+			_mainTable.disabled=true;
+			_img.src=_base+"dstdatepicker_disabled_dropdown.gif";					
+			_img.detachEvent("onclick",onClickButton);
+			_mainTable.detachEvent("onblur",onLostFocusDiv);
+		}
+		else
+		{
+			element.style.border="1px solid rgb(201,199,186)";
+		}
+	}
+	else
+	{
+		if(element.readOnly)
+		{
+			readOnly(element.readOnly);
+		}
+		else
+		{
+			element.style.backgroundColor=bgColor;
+			if(showDropDown=="true")
+			{
+				_mainTable.style.backgroundColor=bgColor;
+				_mainTable.style.border="1px solid black";
+				_mainTable.disabled=false;
+				_img.src=_base+"dstdatepicker_dropdown.gif";				
+				_img.attachEvent("onclick",onClickButton);
+				_mainTable.attachEvent("onblur",onLostFocusDiv);
+			}
+			else
+			{
+				element.style.border="1px solid black";
+			}
+		}
+	}
+}
+
+function readOnly(readOnly)
+{
+	element.readOnly=readOnly;
+	if(readOnly)
+	{
+		element.disabled=false;
+		element.style.backgroundColor="rgb(236,233,216)";
+		if(showDropDown=="true")
+		{
+			_mainTable.style.backgroundColor="rgb(236,233,216)";
+			_mainTable.style.border="1px solid black";
+			_mainTable.disabled=false;
+			_img.src=_base+"dstdatepicker_disabled_dropdown.gif";
+			_img.detachEvent("onclick",onClickButton);
+			_mainTable.detachEvent("onblur",onLostFocusDiv);
+		}
+		else
+		{
+			element.style.border="1px solid black";
+		}
+	}
+	else
+	{
+		if(element.disabled)
+		{
+			disable(element.disabled);
+		}
+		else
+		{
+			element.style.backgroundColor=bgColor;
+			if(showDropDown=="true")
+			{
+				_mainTable.style.backgroundColor=bgColor;
+				if(isTrue(showBorder))
+				{
+					_mainTable.style.border="1px solid black";
+				}
+				else
+				{
+					_mainTable.style.borderStyle="none";
+				}
+				_img.src=_base+"dstdatepicker_dropdown.gif";
+				_img.attachEvent("onclick",onClickButton);
+				_mainTable.attachEvent("onblur",onLostFocusDiv);
+			}
+			else
+			{
+				if(isTrue(showBorder))
+				{
+					_mainTable.style.border="1px solid black";
+				}
+				else
+				{
+					_mainTable.style.borderStyle="none";
+				}
+			}
+		}
+	}
+}
+
+function isTrue(vValue)
+{
+	var temp=vValue.toString().toLowerCase();
+	return temp=="true";
+}
+
+function addStylesToPopup(popup)
+{
+	var oStylesheet=popup.document.createStyleSheet();
+	for(var i=0;i<element.document.styleSheets.length;i++)
+	{
+		var item=element.document.styleSheets(i);
+		for(var j=0;j<item.rules.length;j++)
+		{
+			var oRule=item.rules(j);
+			oStylesheet.addRule(oRule.selectorText,oRule.style.cssText);
+		}
+	}
+}
+
+function onFocus(e)
+{	
+	e.srcElement.select();	
+}
+
+
+function buildDateObjFromElementValue()
+{
+    var retDate = null;
+    
+    if ( element.value==null || element.value.length == 0 || isNaN( new Date( element.value ) ) )
+	{
+		var now = new Date();
+		retDate = new Date( now.getFullYear(), now.getMonth(), now.getDate() );
+	}	
+	else
+	{ 	    	   
+        var dateArray = element.value.split( "/" );               
+	    if ( dateFormat == "dmy" )
+	    {
+            var yearVal = parseInt( dateArray[2] );
+            var monVal = (dateArray[1].charAt(0) == "0") ? parseInt(dateArray[1].charAt(1)) - 1 : parseInt(dateArray[1]) - 1;
+            var dayVal = (dateArray[0].charAt(0) == "0") ? parseInt(dateArray[0].charAt(1)) : parseInt(dateArray[0]); 
+
+    		retDate = new Date( yearVal, monVal, dayVal );
+        }
+        else if ( dateFormat == "mdy" )         
+        {
+            var yearVal = parseInt( dateArray[2] );
+            var monVal = (dateArray[0].charAt(0) == "0") ? parseInt(dateArray[0].charAt(1)) - 1 : parseInt(dateArray[0]) - 1;
+            var dayVal = (dateArray[1].charAt(0) == "0") ? parseInt(dateArray[1].charAt(1)) : parseInt(dateArray[1]); 
+
+    		retDate = new Date( yearVal, monVal, dayVal );            
+        }
+        else
+        {
+            alert( "ERROR: unknown date format specified " );
+        }
+	}
+	
+	return retDate;
+}
+
+
+
+function setElementValue( dateObj )
+{
+    var dayStr  = ( dateObj.getDate() < 10 ) ? "0" + dateObj.getDate() : dateObj.getDate();
+    var monVal = dateObj.getMonth() + 1;
+    var monStr  = ( monVal + 1 < 10 ) ? "0" + monVal : monVal;
+    var yearStr = dateObj.getFullYear(); 
+    
+    if ( dateFormat == "dmy" )
+    {
+    	element.value = dayStr + "/" + monStr + "/" + yearStr;
+    }
+    else if ( dateFormat == "mdy" )         
+    {
+        element.value = monStr + "/" + dayStr + "/" + yearStr;
+    }
+    else
+    {
+        alert( "ERROR: unknown date format specified " );
+    }
+}
+
+</script>

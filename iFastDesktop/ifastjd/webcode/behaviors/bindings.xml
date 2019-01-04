@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<bindings xmlns="http://www.mozilla.org/xbl">
+
+<!-- provide the default path to moz-behaviors.xml (keep the #behavior suffix) -->
+<binding id="behavior" extends="moz-behaviors.xml#behavior"/>
+
+<!-- demonstrations -->
+<binding id="drag-box.htc" extends="#behavior"/>
+<binding id="dstmask.htc" extends="#behavior"/>
+
+</bindings>

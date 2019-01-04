@@ -1,0 +1,2039 @@
+
+#ifndef SOM_AWDDateField_xh
+#define SOM_AWDDateField_xh
+
+class AWDDateField;
+
+#define AWDDateField_MajorVersion 2
+#define AWDDateField_MinorVersion 3
+
+/*
+ * Passthru lines: File: "C.xh", "before"
+ */
+#include "field.xh"
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_AWDBaseField_xh
+#include <field.xh>
+#endif
+
+#ifndef AWDDateField_API
+#define AWDDateField_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+class SOMClass;
+class SOMObject;
+class AWDConnection;
+class AWDException;
+class AWDApplication;
+class AWDPersist;
+class AWDBase;
+class iostream;
+class AWDData;
+class AWDDate;
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the AWDDateField Class */
+SOMEXTERN
+#if (defined(SOM_Module_awddate_Source) || defined(AWDDateField_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDDateField))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK AWDDateFieldNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the AWDDateField class object, and the methods it introduces. */
+SOMEXTERN struct AWDDateFieldClassDataStructure {
+	SOMClass *classObject;
+	somMToken day;
+	somMToken initDateFieldObject;
+	somMToken isLeapYear;
+	somMToken month;
+	somMToken setDay;
+	somMToken setMonth;
+	somMToken setYear;
+	somMToken verifyDay;
+	somMToken verifyMonth;
+	somMToken verifyYear;
+	somMToken year;
+	somMToken date_withName;
+	somMToken date_withNameandNumber;
+	somMToken date_withNameandValue;
+	somMToken date_withNameNumberandStatus;
+	somMToken date_withNameNumberandValue;
+	somMToken date_withNameNumberStatusandValue;
+	somMToken date_withPersist;
+	somMToken date_withField;
+}
+#if !(defined(SOM_Module_awddate_Source) || defined(AWDDateField_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDDateField))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDDateFieldClassData;
+#define _AWDDateField AWDDateFieldClassData.classObject
+
+/* The API to parentMtabs for AWDDateField, and the instance data it introduces. */
+SOMEXTERN struct AWDDateFieldCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_awddate_Source) || defined(AWDDateField_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDDateField))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDDateFieldCClassData;
+
+/*
+ * -- Typedefs for AWDDateField Method Procedures
+ */
+extern "C" {
+typedef string   SOMLINK somTP_AWDDateField_day(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_day *somTD_AWDDateField_day;
+typedef void   SOMLINK somTP_AWDDateField_initDateFieldObject(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_initDateFieldObject *somTD_AWDDateField_initDateFieldObject;
+typedef boolean   SOMLINK somTP_AWDDateField_isLeapYear(AWDDateField *somSelf, Environment *ev,
+		string year);
+typedef somTP_AWDDateField_isLeapYear *somTD_AWDDateField_isLeapYear;
+typedef string   SOMLINK somTP_AWDDateField_month(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_month *somTD_AWDDateField_month;
+typedef boolean   SOMLINK somTP_AWDDateField_setDay(AWDDateField *somSelf, Environment *ev,
+		string day);
+typedef somTP_AWDDateField_setDay *somTD_AWDDateField_setDay;
+typedef boolean   SOMLINK somTP_AWDDateField_setMonth(AWDDateField *somSelf, Environment *ev,
+		string month);
+typedef somTP_AWDDateField_setMonth *somTD_AWDDateField_setMonth;
+typedef boolean   SOMLINK somTP_AWDDateField_setYear(AWDDateField *somSelf, Environment *ev,
+		string year);
+typedef somTP_AWDDateField_setYear *somTD_AWDDateField_setYear;
+typedef boolean   SOMLINK somTP_AWDDateField_verifyDay(AWDDateField *somSelf, Environment *ev,
+		string day);
+typedef somTP_AWDDateField_verifyDay *somTD_AWDDateField_verifyDay;
+typedef boolean   SOMLINK somTP_AWDDateField_verifyMonth(AWDDateField *somSelf, Environment *ev,
+		string month);
+typedef somTP_AWDDateField_verifyMonth *somTD_AWDDateField_verifyMonth;
+typedef boolean   SOMLINK somTP_AWDDateField_verifyYear(AWDDateField *somSelf, Environment *ev,
+		string year);
+typedef somTP_AWDDateField_verifyYear *somTD_AWDDateField_verifyYear;
+typedef string   SOMLINK somTP_AWDDateField_year(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_year *somTD_AWDDateField_year;
+typedef void   SOMLINK somTP_AWDDateField_date_withName(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName);
+typedef somTP_AWDDateField_date_withName *somTD_AWDDateField_date_withName;
+typedef void   SOMLINK somTP_AWDDateField_date_withNameandNumber(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber);
+typedef somTP_AWDDateField_date_withNameandNumber *somTD_AWDDateField_date_withNameandNumber;
+typedef void   SOMLINK somTP_AWDDateField_date_withNameandValue(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		string value);
+typedef somTP_AWDDateField_date_withNameandValue *somTD_AWDDateField_date_withNameandValue;
+typedef void   SOMLINK somTP_AWDDateField_date_withNameNumberandStatus(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status);
+typedef somTP_AWDDateField_date_withNameNumberandStatus *somTD_AWDDateField_date_withNameNumberandStatus;
+typedef void   SOMLINK somTP_AWDDateField_date_withNameNumberandValue(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		string value);
+typedef somTP_AWDDateField_date_withNameNumberandValue *somTD_AWDDateField_date_withNameNumberandValue;
+typedef void   SOMLINK somTP_AWDDateField_date_withNameNumberStatusandValue(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status,
+		string value);
+typedef somTP_AWDDateField_date_withNameNumberStatusandValue *somTD_AWDDateField_date_withNameNumberStatusandValue;
+typedef void   SOMLINK somTP_AWDDateField_date_withPersist(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDPersist* pPersist);
+typedef somTP_AWDDateField_date_withPersist *somTD_AWDDateField_date_withPersist;
+typedef void   SOMLINK somTP_AWDDateField_date_withField(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDBaseField* pField);
+typedef somTP_AWDDateField_date_withField *somTD_AWDDateField_date_withField;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef string   SOMLINK somTP_AWDDateField_asString(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_asString *somTD_AWDDateField_asString;
+typedef string   SOMLINK somTP_AWDDateField_asStringWithMask(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_asStringWithMask *somTD_AWDDateField_asStringWithMask;
+typedef string   SOMLINK somTP_AWDDateField_blankMask(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_blankMask *somTD_AWDDateField_blankMask;
+typedef string   SOMLINK somTP_AWDDateField_blankString(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_blankString *somTD_AWDDateField_blankString;
+typedef short   SOMLINK somTP_AWDDateField_compare(AWDDateField *somSelf, Environment *ev,
+		AWDBaseField* pField);
+typedef somTP_AWDDateField_compare *somTD_AWDDateField_compare;
+typedef boolean   SOMLINK somTP_AWDDateField_determineStatus(AWDDateField *somSelf, Environment *ev,
+		string newValue);
+typedef somTP_AWDDateField_determineStatus *somTD_AWDDateField_determineStatus;
+typedef unsigned short   SOMLINK somTP_AWDDateField_displayLength(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_displayLength *somTD_AWDDateField_displayLength;
+typedef void   SOMLINK somTP_AWDDateField_fetchProperties(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_fetchProperties *somTD_AWDDateField_fetchProperties;
+typedef AWDBaseField_STATUS   SOMLINK somTP_AWDDateField_getStatus(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_getStatus *somTD_AWDDateField_getStatus;
+typedef void   SOMLINK somTP_AWDDateField_initBaseFieldObject(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_initBaseFieldObject *somTD_AWDDateField_initBaseFieldObject;
+typedef boolean   SOMLINK somTP_AWDDateField_isBlank(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_isBlank *somTD_AWDDateField_isBlank;
+typedef boolean   SOMLINK somTP_AWDDateField_isChanged(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_isChanged *somTD_AWDDateField_isChanged;
+typedef boolean   SOMLINK somTP_AWDDateField_isNew(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_isNew *somTD_AWDDateField_isNew;
+typedef string   SOMLINK somTP_AWDDateField_mask(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_mask *somTD_AWDDateField_mask;
+typedef AWDMask*   SOMLINK somTP_AWDDateField_maskObject(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_maskObject *somTD_AWDDateField_maskObject;
+typedef string   SOMLINK somTP_AWDDateField_name(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_name *somTD_AWDDateField_name;
+typedef void   SOMLINK somTP_AWDDateField_newMask(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_newMask *somTD_AWDDateField_newMask;
+typedef boolean   SOMLINK somTP_AWDDateField_padValue(AWDDateField *somSelf, Environment *ev,
+		AWDMask_DIRECTION direction);
+typedef somTP_AWDDateField_padValue *somTD_AWDDateField_padValue;
+typedef AWDData*   SOMLINK somTP_AWDDateField_properties(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_properties *somTD_AWDDateField_properties;
+typedef unsigned short   SOMLINK somTP_AWDDateField_sequenceNumber(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_sequenceNumber *somTD_AWDDateField_sequenceNumber;
+typedef boolean   SOMLINK somTP_AWDDateField_setLocalMask(AWDDateField *somSelf, Environment *ev,
+		string localmask);
+typedef somTP_AWDDateField_setLocalMask *somTD_AWDDateField_setLocalMask;
+typedef boolean   SOMLINK somTP_AWDDateField_setName(AWDDateField *somSelf, Environment *ev,
+		string aName);
+typedef somTP_AWDDateField_setName *somTD_AWDDateField_setName;
+typedef void   SOMLINK somTP_AWDDateField_setSequenceNumber(AWDDateField *somSelf, Environment *ev,
+		unsigned short seqNumber);
+typedef somTP_AWDDateField_setSequenceNumber *somTD_AWDDateField_setSequenceNumber;
+typedef void   SOMLINK somTP_AWDDateField_setStatus(AWDDateField *somSelf, Environment *ev,
+		AWDBaseField_STATUS status);
+typedef somTP_AWDDateField_setStatus *somTD_AWDDateField_setStatus;
+typedef boolean   SOMLINK somTP_AWDDateField_setValueFromMaskedString(AWDDateField *somSelf, Environment *ev,
+		string value);
+typedef somTP_AWDDateField_setValueFromMaskedString *somTD_AWDDateField_setValueFromMaskedString;
+typedef boolean   SOMLINK somTP_AWDDateField_setValueFromString(AWDDateField *somSelf, Environment *ev,
+		string value);
+typedef somTP_AWDDateField_setValueFromString *somTD_AWDDateField_setValueFromString;
+typedef unsigned short   SOMLINK somTP_AWDDateField_storeLength(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_storeLength *somTD_AWDDateField_storeLength;
+typedef boolean   SOMLINK somTP_AWDDateField_verify(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_verify *somTD_AWDDateField_verify;
+typedef void   SOMLINK somTP_AWDDateField_withName(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName);
+typedef somTP_AWDDateField_withName *somTD_AWDDateField_withName;
+typedef void   SOMLINK somTP_AWDDateField_withNameandNumber(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber);
+typedef somTP_AWDDateField_withNameandNumber *somTD_AWDDateField_withNameandNumber;
+typedef void   SOMLINK somTP_AWDDateField_withNameandValue(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		string value);
+typedef somTP_AWDDateField_withNameandValue *somTD_AWDDateField_withNameandValue;
+typedef void   SOMLINK somTP_AWDDateField_withNameNumberandStatus(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status);
+typedef somTP_AWDDateField_withNameNumberandStatus *somTD_AWDDateField_withNameNumberandStatus;
+typedef void   SOMLINK somTP_AWDDateField_withNameNumberandValue(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		string value);
+typedef somTP_AWDDateField_withNameNumberandValue *somTD_AWDDateField_withNameNumberandValue;
+typedef void   SOMLINK somTP_AWDDateField_withNameNumberStatusandValue(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status,
+		string value);
+typedef somTP_AWDDateField_withNameNumberStatusandValue *somTD_AWDDateField_withNameNumberStatusandValue;
+typedef void   SOMLINK somTP_AWDDateField_withPersist(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDPersist* pPersist);
+typedef somTP_AWDDateField_withPersist *somTD_AWDDateField_withPersist;
+typedef void   SOMLINK somTP_AWDDateField_withField(AWDDateField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDBaseField* pField);
+typedef somTP_AWDDateField_withField *somTD_AWDDateField_withField;
+typedef boolean   SOMLINK somTP_AWDDateField_hasLocalMask(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_hasLocalMask *somTD_AWDDateField_hasLocalMask;
+typedef void   SOMLINK somTP_AWDDateField_somDefaultInit(AWDDateField *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_AWDDateField_somDefaultInit *somTD_AWDDateField_somDefaultInit;
+typedef void   SOMLINK somTP_AWDDateField_somDestruct(AWDDateField *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_AWDDateField_somDestruct *somTD_AWDDateField_somDestruct;
+typedef void   SOMLINK somTP_AWDDateField_store(AWDDateField *somSelf, Environment *ev,
+		AWDPersist* pPersist);
+typedef somTP_AWDDateField_store *somTD_AWDDateField_store;
+typedef void   SOMLINK somTP_AWDDateField_restore(AWDDateField *somSelf, Environment *ev,
+		AWDPersist* pPersist);
+typedef somTP_AWDDateField_restore *somTD_AWDDateField_restore;
+typedef somf_MLinkable*   SOMLINK somTP_AWDDateField_somfMLinkableInit(AWDDateField *somSelf, Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p);
+typedef somTP_AWDDateField_somfMLinkableInit *somTD_AWDDateField_somfMLinkableInit;
+typedef somf_MLinkable*   SOMLINK somTP_AWDDateField_somfGetNext(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_somfGetNext *somTD_AWDDateField_somfGetNext;
+typedef void   SOMLINK somTP_AWDDateField_somfSetNext(AWDDateField *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_AWDDateField_somfSetNext *somTD_AWDDateField_somfSetNext;
+typedef somf_MLinkable*   SOMLINK somTP_AWDDateField_somfGetPrevious(AWDDateField *somSelf, Environment *ev);
+typedef somTP_AWDDateField_somfGetPrevious *somTD_AWDDateField_somfGetPrevious;
+typedef void   SOMLINK somTP_AWDDateField_somfSetPrevious(AWDDateField *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_AWDDateField_somfSetPrevious *somTD_AWDDateField_somfSetPrevious;
+typedef void   SOMLINK somTP_AWDDateField_somInit(AWDDateField *somSelf);
+typedef somTP_AWDDateField_somInit *somTD_AWDDateField_somInit;
+typedef void   SOMLINK somTP_AWDDateField_somDefaultCopyInit(AWDDateField *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDateField_somDefaultCopyInit *somTD_AWDDateField_somDefaultCopyInit;
+typedef AWDDateField*   SOMLINK somTP_AWDDateField_somDefaultAssign(AWDDateField *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDateField_somDefaultAssign *somTD_AWDDateField_somDefaultAssign;
+typedef void   SOMLINK somTP_AWDDateField_somDefaultConstCopyInit(AWDDateField *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDateField_somDefaultConstCopyInit *somTD_AWDDateField_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_AWDDateField_somDefaultVCopyInit(AWDDateField *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDateField_somDefaultVCopyInit *somTD_AWDDateField_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_AWDDateField_somDefaultConstVCopyInit(AWDDateField *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDateField_somDefaultConstVCopyInit *somTD_AWDDateField_somDefaultConstVCopyInit;
+typedef AWDDateField*   SOMLINK somTP_AWDDateField_somDefaultConstAssign(AWDDateField *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDateField_somDefaultConstAssign *somTD_AWDDateField_somDefaultConstAssign;
+typedef AWDDateField*   SOMLINK somTP_AWDDateField_somDefaultVAssign(AWDDateField *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDateField_somDefaultVAssign *somTD_AWDDateField_somDefaultVAssign;
+typedef AWDDateField*   SOMLINK somTP_AWDDateField_somDefaultConstVAssign(AWDDateField *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDateField_somDefaultConstVAssign *somTD_AWDDateField_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_AWDDateField_somFree(AWDDateField *somSelf);
+typedef somTP_AWDDateField_somFree *somTD_AWDDateField_somFree;
+typedef void   SOMLINK somTP_AWDDateField_somUninit(AWDDateField *somSelf);
+typedef somTP_AWDDateField_somUninit *somTD_AWDDateField_somUninit;
+typedef SOMClass*   SOMLINK somTP_AWDDateField_somGetClass(AWDDateField *somSelf);
+typedef somTP_AWDDateField_somGetClass *somTD_AWDDateField_somGetClass;
+typedef string   SOMLINK somTP_AWDDateField_somGetClassName(AWDDateField *somSelf);
+typedef somTP_AWDDateField_somGetClassName *somTD_AWDDateField_somGetClassName;
+typedef long   SOMLINK somTP_AWDDateField_somGetSize(AWDDateField *somSelf);
+typedef somTP_AWDDateField_somGetSize *somTD_AWDDateField_somGetSize;
+typedef boolean   SOMLINK somTP_AWDDateField_somIsA(AWDDateField *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDDateField_somIsA *somTD_AWDDateField_somIsA;
+typedef boolean   SOMLINK somTP_AWDDateField_somIsInstanceOf(AWDDateField *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDDateField_somIsInstanceOf *somTD_AWDDateField_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_AWDDateField_somRespondsTo(AWDDateField *somSelf,
+		somId mId);
+typedef somTP_AWDDateField_somRespondsTo *somTD_AWDDateField_somRespondsTo;
+typedef boolean   SOMLINK somTP_AWDDateField_somDispatch(AWDDateField *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDDateField_somDispatch *somTD_AWDDateField_somDispatch;
+typedef boolean   SOMLINK somTP_AWDDateField_somClassDispatch(AWDDateField *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDDateField_somClassDispatch *somTD_AWDDateField_somClassDispatch;
+typedef boolean   SOMLINK somTP_AWDDateField_somCastObj(AWDDateField *somSelf,
+		SOMClass* cls);
+typedef somTP_AWDDateField_somCastObj *somTD_AWDDateField_somCastObj;
+typedef boolean   SOMLINK somTP_AWDDateField_somResetObj(AWDDateField *somSelf);
+typedef somTP_AWDDateField_somResetObj *somTD_AWDDateField_somResetObj;
+typedef SOMObject*   SOMLINK somTP_AWDDateField_somPrintSelf(AWDDateField *somSelf);
+typedef somTP_AWDDateField_somPrintSelf *somTD_AWDDateField_somPrintSelf;
+typedef void   SOMLINK somTP_AWDDateField_somDumpSelf(AWDDateField *somSelf,
+		long level);
+typedef somTP_AWDDateField_somDumpSelf *somTD_AWDDateField_somDumpSelf;
+typedef void   SOMLINK somTP_AWDDateField_somDumpSelfInt(AWDDateField *somSelf,
+		long level);
+typedef somTP_AWDDateField_somDumpSelfInt *somTD_AWDDateField_somDumpSelfInt;
+}
+
+#endif /* AWDDateField_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for AWDDateField
+ */
+class AWDDateField : public AWDBaseField
+{
+public:
+
+// AWDDateField::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_AWDDateField) AWDDateFieldNewClass(AWDDateField_MajorVersion,AWDDateField_MinorVersion);
+   return (void*)
+      SOM_Resolve(_AWDDateField,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_AWDDateField));
+}
+
+// AWDDateField::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+AWDDateField()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDDateFieldCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+AWDDateField(AWDDateField* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDDateFieldCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDDateField(const AWDDateField* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDDateFieldCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDDateField(Environment *ev,string aName) 
+{
+   date_withName(ev,0,aName);
+}
+
+AWDDateField(Environment *ev,string aName,unsigned short seqNumber) 
+{
+   date_withNameandNumber(ev,0,aName,seqNumber);
+}
+
+AWDDateField(Environment *ev,string aName,string value) 
+{
+   date_withNameandValue(ev,0,aName,value);
+}
+
+AWDDateField(Environment *ev,string aName,unsigned short seqNumber,AWDBaseField_STATUS status) 
+{
+   date_withNameNumberandStatus(ev,0,aName,seqNumber,status);
+}
+
+AWDDateField(Environment *ev,string aName,unsigned short seqNumber,string value) 
+{
+   date_withNameNumberandValue(ev,0,aName,seqNumber,value);
+}
+
+AWDDateField(Environment *ev,string aName,unsigned short seqNumber,AWDBaseField_STATUS status,string value) 
+{
+   date_withNameNumberStatusandValue(ev,0,aName,seqNumber,status,value);
+}
+
+AWDDateField(Environment *ev,AWDPersist* pPersist) 
+{
+   date_withPersist(ev,0,pPersist);
+}
+
+AWDDateField(Environment *ev,AWDBaseField* pField) 
+{
+   date_withField(ev,0,pField);
+}
+
+
+/* method: day */
+string   day(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDDateField,day)
+	(this, ev);
+}
+
+
+/* method: initDateFieldObject */
+void   initDateFieldObject(Environment *ev)
+{
+   SOM_ResolveD(this,AWDDateField,AWDDateField,initDateFieldObject)
+	(this, ev);
+}
+
+
+/* method: isLeapYear */
+boolean   isLeapYear(Environment *ev,
+		string year)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDDateField,isLeapYear)
+	(this, ev,year);
+}
+
+
+/* method: month */
+string   month(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDDateField,month)
+	(this, ev);
+}
+
+
+/* method: setDay */
+boolean   setDay(Environment *ev,
+		string day)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDDateField,setDay)
+	(this, ev,day);
+}
+
+
+/* method: setMonth */
+boolean   setMonth(Environment *ev,
+		string month)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDDateField,setMonth)
+	(this, ev,month);
+}
+
+
+/* method: setYear */
+boolean   setYear(Environment *ev,
+		string year)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDDateField,setYear)
+	(this, ev,year);
+}
+
+
+/* method: verifyDay */
+boolean   verifyDay(Environment *ev,
+		string day)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDDateField,verifyDay)
+	(this, ev,day);
+}
+
+
+/* method: verifyMonth */
+boolean   verifyMonth(Environment *ev,
+		string month)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDDateField,verifyMonth)
+	(this, ev,month);
+}
+
+
+/* method: verifyYear */
+boolean   verifyYear(Environment *ev,
+		string year)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDDateField,verifyYear)
+	(this, ev,year);
+}
+
+
+/* method: year */
+string   year(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDDateField,year)
+	(this, ev);
+}
+
+
+/* initializer method: date_withName */
+void   date_withName(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName)
+{
+   SOM_ResolveD(this,AWDDateField,AWDDateField,date_withName)
+	(this, ev,ctrl,aName);
+}
+
+
+/* initializer method: date_withNameandNumber */
+void   date_withNameandNumber(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber)
+{
+   SOM_ResolveD(this,AWDDateField,AWDDateField,date_withNameandNumber)
+	(this, ev,ctrl,aName,seqNumber);
+}
+
+
+/* initializer method: date_withNameandValue */
+void   date_withNameandValue(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		string value)
+{
+   SOM_ResolveD(this,AWDDateField,AWDDateField,date_withNameandValue)
+	(this, ev,ctrl,aName,value);
+}
+
+
+/* initializer method: date_withNameNumberandStatus */
+void   date_withNameNumberandStatus(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status)
+{
+   SOM_ResolveD(this,AWDDateField,AWDDateField,date_withNameNumberandStatus)
+	(this, ev,ctrl,aName,seqNumber,status);
+}
+
+
+/* initializer method: date_withNameNumberandValue */
+void   date_withNameNumberandValue(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		string value)
+{
+   SOM_ResolveD(this,AWDDateField,AWDDateField,date_withNameNumberandValue)
+	(this, ev,ctrl,aName,seqNumber,value);
+}
+
+
+/* initializer method: date_withNameNumberStatusandValue */
+void   date_withNameNumberStatusandValue(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status,
+		string value)
+{
+   SOM_ResolveD(this,AWDDateField,AWDDateField,date_withNameNumberStatusandValue)
+	(this, ev,ctrl,aName,seqNumber,status,value);
+}
+
+
+/* initializer method: date_withPersist */
+void   date_withPersist(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDDateField,AWDDateField,date_withPersist)
+	(this, ev,ctrl,pPersist);
+}
+
+
+/* initializer method: date_withField */
+void   date_withField(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDBaseField* pField)
+{
+   SOM_ResolveD(this,AWDDateField,AWDDateField,date_withField)
+	(this, ev,ctrl,pField);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* method: asString */
+string   asString(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,asString)
+	(this, ev);
+}
+
+
+/* method: asStringWithMask */
+string   asStringWithMask(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,asStringWithMask)
+	(this, ev);
+}
+
+
+/* method: blankMask */
+string   blankMask(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,blankMask)
+	(this, ev);
+}
+
+
+/* method: blankString */
+string   blankString(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,blankString)
+	(this, ev);
+}
+
+
+/* method: compare */
+short   compare(Environment *ev,
+		AWDBaseField* pField)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,compare)
+	(this, ev,pField);
+}
+
+
+/* method: determineStatus */
+boolean   determineStatus(Environment *ev,
+		string newValue)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,determineStatus)
+	(this, ev,newValue);
+}
+
+
+/* method: displayLength */
+unsigned short   displayLength(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,displayLength)
+	(this, ev);
+}
+
+
+/* method: fetchProperties */
+void   fetchProperties(Environment *ev)
+{
+   SOM_ResolveD(this,AWDDateField,AWDBaseField,fetchProperties)
+	(this, ev);
+}
+
+
+/* method: getStatus */
+AWDBaseField_STATUS   getStatus(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,getStatus)
+	(this, ev);
+}
+
+
+/* method: initBaseFieldObject */
+void   initBaseFieldObject(Environment *ev)
+{
+   SOM_ResolveD(this,AWDDateField,AWDBaseField,initBaseFieldObject)
+	(this, ev);
+}
+
+
+/* method: isBlank */
+boolean   isBlank(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,isBlank)
+	(this, ev);
+}
+
+
+/* method: isChanged */
+boolean   isChanged(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,isChanged)
+	(this, ev);
+}
+
+
+/* method: isNew */
+boolean   isNew(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,isNew)
+	(this, ev);
+}
+
+
+/* method: mask */
+string   mask(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,mask)
+	(this, ev);
+}
+
+
+/* method: maskObject */
+AWDMask*   maskObject(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,maskObject)
+	(this, ev);
+}
+
+
+/* method: name */
+string   name(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,name)
+	(this, ev);
+}
+
+
+/* method: newMask */
+void   newMask(Environment *ev)
+{
+   SOM_ResolveD(this,AWDDateField,AWDBaseField,newMask)
+	(this, ev);
+}
+
+
+/* method: padValue */
+boolean   padValue(Environment *ev,
+		AWDMask_DIRECTION direction)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,padValue)
+	(this, ev,direction);
+}
+
+
+/* method: properties */
+AWDData*   properties(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,properties)
+	(this, ev);
+}
+
+
+/* method: sequenceNumber */
+unsigned short   sequenceNumber(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,sequenceNumber)
+	(this, ev);
+}
+
+
+/* method: setLocalMask */
+boolean   setLocalMask(Environment *ev,
+		string localmask)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,setLocalMask)
+	(this, ev,localmask);
+}
+
+
+/* method: setName */
+boolean   setName(Environment *ev,
+		string aName)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,setName)
+	(this, ev,aName);
+}
+
+
+/* method: setSequenceNumber */
+void   setSequenceNumber(Environment *ev,
+		unsigned short seqNumber)
+{
+   SOM_ResolveD(this,AWDDateField,AWDBaseField,setSequenceNumber)
+	(this, ev,seqNumber);
+}
+
+
+/* method: setStatus */
+void   setStatus(Environment *ev,
+		AWDBaseField_STATUS status)
+{
+   SOM_ResolveD(this,AWDDateField,AWDBaseField,setStatus)
+	(this, ev,status);
+}
+
+
+/* method: setValueFromMaskedString */
+boolean   setValueFromMaskedString(Environment *ev,
+		string value)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,setValueFromMaskedString)
+	(this, ev,value);
+}
+
+
+/* method: setValueFromString */
+boolean   setValueFromString(Environment *ev,
+		string value)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,setValueFromString)
+	(this, ev,value);
+}
+
+
+/* method: storeLength */
+unsigned short   storeLength(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,storeLength)
+	(this, ev);
+}
+
+
+/* method: verify */
+boolean   verify(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,verify)
+	(this, ev);
+}
+
+
+/* initializer method: withName */
+void   withName(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName)
+{
+   SOM_ResolveD(this,AWDDateField,AWDBaseField,withName)
+	(this, ev,ctrl,aName);
+}
+
+
+/* initializer method: withNameandNumber */
+void   withNameandNumber(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber)
+{
+   SOM_ResolveD(this,AWDDateField,AWDBaseField,withNameandNumber)
+	(this, ev,ctrl,aName,seqNumber);
+}
+
+
+/* initializer method: withNameandValue */
+void   withNameandValue(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		string value)
+{
+   SOM_ResolveD(this,AWDDateField,AWDBaseField,withNameandValue)
+	(this, ev,ctrl,aName,value);
+}
+
+
+/* initializer method: withNameNumberandStatus */
+void   withNameNumberandStatus(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status)
+{
+   SOM_ResolveD(this,AWDDateField,AWDBaseField,withNameNumberandStatus)
+	(this, ev,ctrl,aName,seqNumber,status);
+}
+
+
+/* initializer method: withNameNumberandValue */
+void   withNameNumberandValue(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		string value)
+{
+   SOM_ResolveD(this,AWDDateField,AWDBaseField,withNameNumberandValue)
+	(this, ev,ctrl,aName,seqNumber,value);
+}
+
+
+/* initializer method: withNameNumberStatusandValue */
+void   withNameNumberStatusandValue(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status,
+		string value)
+{
+   SOM_ResolveD(this,AWDDateField,AWDBaseField,withNameNumberStatusandValue)
+	(this, ev,ctrl,aName,seqNumber,status,value);
+}
+
+
+/* initializer method: withPersist */
+void   withPersist(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDDateField,AWDBaseField,withPersist)
+	(this, ev,ctrl,pPersist);
+}
+
+
+/* initializer method: withField */
+void   withField(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDBaseField* pField)
+{
+   SOM_ResolveD(this,AWDDateField,AWDBaseField,withField)
+	(this, ev,ctrl,pField);
+}
+
+
+/* method: hasLocalMask */
+boolean   hasLocalMask(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,AWDBaseField,hasLocalMask)
+	(this, ev);
+}
+
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDDateField,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDDateField,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* method: store */
+void   store(Environment *ev,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDDateField,AWDCommon,store)
+	(this, ev,pPersist);
+}
+
+
+/* method: restore */
+void   restore(Environment *ev,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDDateField,AWDCommon,restore)
+	(this, ev,pPersist);
+}
+
+
+/* method: somfMLinkableInit */
+somf_MLinkable*   somfMLinkableInit(Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p)
+{
+   return SOM_ResolveD(this,AWDDateField,somf_MLinkable,somfMLinkableInit)
+	(this, ev,n,p);
+}
+
+
+/* method: somfGetNext */
+somf_MLinkable*   somfGetNext(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,somf_MLinkable,somfGetNext)
+	(this, ev);
+}
+
+
+/* method: somfSetNext */
+void   somfSetNext(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,AWDDateField,somf_MLinkable,somfSetNext)
+	(this, ev,aLink);
+}
+
+
+/* method: somfGetPrevious */
+somf_MLinkable*   somfGetPrevious(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDateField,somf_MLinkable,somfGetPrevious)
+	(this, ev);
+}
+
+
+/* method: somfSetPrevious */
+void   somfSetPrevious(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,AWDDateField,somf_MLinkable,somfSetPrevious)
+	(this, ev,aLink);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,AWDDateField,SOMObject,somInit)
+	(this);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDDateField,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+AWDDateField*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDDateField,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDDateField,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDDateField,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDDateField,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+AWDDateField*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDDateField,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+AWDDateField*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDDateField,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+AWDDateField*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDDateField,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,AWDDateField,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,AWDDateField,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,AWDDateField,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,AWDDateField,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,AWDDateField,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDDateField,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDDateField,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,AWDDateField,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   AWDDateField_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDDateField,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDDateField,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   AWDDateField_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDDateField,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDDateField,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,AWDDateField,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,AWDDateField,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,AWDDateField,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,AWDDateField,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,AWDDateField,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* AWDDateField */
+
+
+
+#endif       /* SOM_AWDDateField_xh */
+
+#ifndef SOM_AWDDate_xh
+#define SOM_AWDDate_xh
+
+class AWDDate;
+
+#define AWDDate_MajorVersion 2
+#define AWDDate_MinorVersion 3
+
+/*
+ * Passthru lines: File: "C.xh", "before"
+ */
+
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_SOMObject_xh
+#include <somobj.xh>
+#endif
+
+#ifndef AWDDate_API
+#define AWDDate_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the AWDDate Class */
+SOMEXTERN
+#if (defined(SOM_Module_awddate_Source) || defined(AWDDate_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDDate))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK AWDDateNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the AWDDate class object, and the methods it introduces. */
+SOMEXTERN struct AWDDateClassDataStructure {
+	SOMClass *classObject;
+	somMToken blankDate;
+	somMToken date;
+	somMToken day;
+	somMToken initDateObject;
+	somMToken isLeapYear;
+	somMToken month;
+	somMToken setDate;
+	somMToken setDay;
+	somMToken setMonth;
+	somMToken setYear;
+	somMToken verifyDay;
+	somMToken verifyMonth;
+	somMToken verifyYear;
+	somMToken year;
+	somMToken date_withDate;
+	somMToken date_withDateObject;
+}
+#if !(defined(SOM_Module_awddate_Source) || defined(AWDDate_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDDate))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDDateClassData;
+#define _AWDDate AWDDateClassData.classObject
+
+/* The API to parentMtabs for AWDDate, and the instance data it introduces. */
+SOMEXTERN struct AWDDateCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_awddate_Source) || defined(AWDDate_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDDate))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDDateCClassData;
+
+/*
+ * -- Typedefs for AWDDate Method Procedures
+ */
+extern "C" {
+typedef string   SOMLINK somTP_AWDDate_blankDate(AWDDate *somSelf, Environment *ev);
+typedef somTP_AWDDate_blankDate *somTD_AWDDate_blankDate;
+typedef string   SOMLINK somTP_AWDDate_date(AWDDate *somSelf, Environment *ev);
+typedef somTP_AWDDate_date *somTD_AWDDate_date;
+typedef string   SOMLINK somTP_AWDDate_day(AWDDate *somSelf, Environment *ev);
+typedef somTP_AWDDate_day *somTD_AWDDate_day;
+typedef void   SOMLINK somTP_AWDDate_initDateObject(AWDDate *somSelf, Environment *ev);
+typedef somTP_AWDDate_initDateObject *somTD_AWDDate_initDateObject;
+typedef boolean   SOMLINK somTP_AWDDate_isLeapYear(AWDDate *somSelf, Environment *ev,
+		string year);
+typedef somTP_AWDDate_isLeapYear *somTD_AWDDate_isLeapYear;
+typedef string   SOMLINK somTP_AWDDate_month(AWDDate *somSelf, Environment *ev);
+typedef somTP_AWDDate_month *somTD_AWDDate_month;
+typedef boolean   SOMLINK somTP_AWDDate_setDate(AWDDate *somSelf, Environment *ev,
+		string date);
+typedef somTP_AWDDate_setDate *somTD_AWDDate_setDate;
+typedef boolean   SOMLINK somTP_AWDDate_setDay(AWDDate *somSelf, Environment *ev,
+		string day);
+typedef somTP_AWDDate_setDay *somTD_AWDDate_setDay;
+typedef boolean   SOMLINK somTP_AWDDate_setMonth(AWDDate *somSelf, Environment *ev,
+		string month);
+typedef somTP_AWDDate_setMonth *somTD_AWDDate_setMonth;
+typedef boolean   SOMLINK somTP_AWDDate_setYear(AWDDate *somSelf, Environment *ev,
+		string year);
+typedef somTP_AWDDate_setYear *somTD_AWDDate_setYear;
+typedef boolean   SOMLINK somTP_AWDDate_verifyDay(AWDDate *somSelf, Environment *ev,
+		string day);
+typedef somTP_AWDDate_verifyDay *somTD_AWDDate_verifyDay;
+typedef boolean   SOMLINK somTP_AWDDate_verifyMonth(AWDDate *somSelf, Environment *ev,
+		string month);
+typedef somTP_AWDDate_verifyMonth *somTD_AWDDate_verifyMonth;
+typedef boolean   SOMLINK somTP_AWDDate_verifyYear(AWDDate *somSelf, Environment *ev,
+		string year);
+typedef somTP_AWDDate_verifyYear *somTD_AWDDate_verifyYear;
+typedef string   SOMLINK somTP_AWDDate_year(AWDDate *somSelf, Environment *ev);
+typedef somTP_AWDDate_year *somTD_AWDDate_year;
+typedef void   SOMLINK somTP_AWDDate_date_withDate(AWDDate *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string date);
+typedef somTP_AWDDate_date_withDate *somTD_AWDDate_date_withDate;
+typedef void   SOMLINK somTP_AWDDate_date_withDateObject(AWDDate *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDData* pDate);
+typedef somTP_AWDDate_date_withDateObject *somTD_AWDDate_date_withDateObject;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef void   SOMLINK somTP_AWDDate_somDefaultInit(AWDDate *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_AWDDate_somDefaultInit *somTD_AWDDate_somDefaultInit;
+typedef void   SOMLINK somTP_AWDDate_somDestruct(AWDDate *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_AWDDate_somDestruct *somTD_AWDDate_somDestruct;
+typedef void   SOMLINK somTP_AWDDate_somDefaultCopyInit(AWDDate *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDate_somDefaultCopyInit *somTD_AWDDate_somDefaultCopyInit;
+typedef AWDDate*   SOMLINK somTP_AWDDate_somDefaultAssign(AWDDate *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDate_somDefaultAssign *somTD_AWDDate_somDefaultAssign;
+typedef void   SOMLINK somTP_AWDDate_somDefaultConstCopyInit(AWDDate *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDate_somDefaultConstCopyInit *somTD_AWDDate_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_AWDDate_somDefaultVCopyInit(AWDDate *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDate_somDefaultVCopyInit *somTD_AWDDate_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_AWDDate_somDefaultConstVCopyInit(AWDDate *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDate_somDefaultConstVCopyInit *somTD_AWDDate_somDefaultConstVCopyInit;
+typedef AWDDate*   SOMLINK somTP_AWDDate_somDefaultConstAssign(AWDDate *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDate_somDefaultConstAssign *somTD_AWDDate_somDefaultConstAssign;
+typedef AWDDate*   SOMLINK somTP_AWDDate_somDefaultVAssign(AWDDate *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDate_somDefaultVAssign *somTD_AWDDate_somDefaultVAssign;
+typedef AWDDate*   SOMLINK somTP_AWDDate_somDefaultConstVAssign(AWDDate *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDDate_somDefaultConstVAssign *somTD_AWDDate_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_AWDDate_somInit(AWDDate *somSelf);
+typedef somTP_AWDDate_somInit *somTD_AWDDate_somInit;
+typedef void   SOMLINK somTP_AWDDate_somFree(AWDDate *somSelf);
+typedef somTP_AWDDate_somFree *somTD_AWDDate_somFree;
+typedef void   SOMLINK somTP_AWDDate_somUninit(AWDDate *somSelf);
+typedef somTP_AWDDate_somUninit *somTD_AWDDate_somUninit;
+typedef SOMClass*   SOMLINK somTP_AWDDate_somGetClass(AWDDate *somSelf);
+typedef somTP_AWDDate_somGetClass *somTD_AWDDate_somGetClass;
+typedef string   SOMLINK somTP_AWDDate_somGetClassName(AWDDate *somSelf);
+typedef somTP_AWDDate_somGetClassName *somTD_AWDDate_somGetClassName;
+typedef long   SOMLINK somTP_AWDDate_somGetSize(AWDDate *somSelf);
+typedef somTP_AWDDate_somGetSize *somTD_AWDDate_somGetSize;
+typedef boolean   SOMLINK somTP_AWDDate_somIsA(AWDDate *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDDate_somIsA *somTD_AWDDate_somIsA;
+typedef boolean   SOMLINK somTP_AWDDate_somIsInstanceOf(AWDDate *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDDate_somIsInstanceOf *somTD_AWDDate_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_AWDDate_somRespondsTo(AWDDate *somSelf,
+		somId mId);
+typedef somTP_AWDDate_somRespondsTo *somTD_AWDDate_somRespondsTo;
+typedef boolean   SOMLINK somTP_AWDDate_somDispatch(AWDDate *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDDate_somDispatch *somTD_AWDDate_somDispatch;
+typedef boolean   SOMLINK somTP_AWDDate_somClassDispatch(AWDDate *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDDate_somClassDispatch *somTD_AWDDate_somClassDispatch;
+typedef boolean   SOMLINK somTP_AWDDate_somCastObj(AWDDate *somSelf,
+		SOMClass* cls);
+typedef somTP_AWDDate_somCastObj *somTD_AWDDate_somCastObj;
+typedef boolean   SOMLINK somTP_AWDDate_somResetObj(AWDDate *somSelf);
+typedef somTP_AWDDate_somResetObj *somTD_AWDDate_somResetObj;
+typedef SOMObject*   SOMLINK somTP_AWDDate_somPrintSelf(AWDDate *somSelf);
+typedef somTP_AWDDate_somPrintSelf *somTD_AWDDate_somPrintSelf;
+typedef void   SOMLINK somTP_AWDDate_somDumpSelf(AWDDate *somSelf,
+		long level);
+typedef somTP_AWDDate_somDumpSelf *somTD_AWDDate_somDumpSelf;
+typedef void   SOMLINK somTP_AWDDate_somDumpSelfInt(AWDDate *somSelf,
+		long level);
+typedef somTP_AWDDate_somDumpSelfInt *somTD_AWDDate_somDumpSelfInt;
+}
+
+#endif /* AWDDate_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for AWDDate
+ */
+class AWDDate : public SOMObject
+{
+public:
+
+// AWDDate::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_AWDDate) AWDDateNewClass(AWDDate_MajorVersion,AWDDate_MinorVersion);
+   return (void*)
+      SOM_Resolve(_AWDDate,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_AWDDate));
+}
+
+// AWDDate::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+AWDDate()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDDateCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+AWDDate(AWDDate* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDDateCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDDate(const AWDDate* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDDateCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDDate(Environment *ev,string date) 
+{
+   date_withDate(ev,0,date);
+}
+
+AWDDate(Environment *ev,AWDData* pDate) 
+{
+   date_withDateObject(ev,0,pDate);
+}
+
+
+/* method: blankDate */
+string   blankDate(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDate,AWDDate,blankDate)
+	(this, ev);
+}
+
+
+/* method: date */
+string   date(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDate,AWDDate,date)
+	(this, ev);
+}
+
+
+/* method: day */
+string   day(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDate,AWDDate,day)
+	(this, ev);
+}
+
+
+/* method: initDateObject */
+void   initDateObject(Environment *ev)
+{
+   SOM_ResolveD(this,AWDDate,AWDDate,initDateObject)
+	(this, ev);
+}
+
+
+/* method: isLeapYear */
+boolean   isLeapYear(Environment *ev,
+		string year)
+{
+   return SOM_ResolveD(this,AWDDate,AWDDate,isLeapYear)
+	(this, ev,year);
+}
+
+
+/* method: month */
+string   month(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDate,AWDDate,month)
+	(this, ev);
+}
+
+
+/* method: setDate */
+boolean   setDate(Environment *ev,
+		string date)
+{
+   return SOM_ResolveD(this,AWDDate,AWDDate,setDate)
+	(this, ev,date);
+}
+
+
+/* method: setDay */
+boolean   setDay(Environment *ev,
+		string day)
+{
+   return SOM_ResolveD(this,AWDDate,AWDDate,setDay)
+	(this, ev,day);
+}
+
+
+/* method: setMonth */
+boolean   setMonth(Environment *ev,
+		string month)
+{
+   return SOM_ResolveD(this,AWDDate,AWDDate,setMonth)
+	(this, ev,month);
+}
+
+
+/* method: setYear */
+boolean   setYear(Environment *ev,
+		string year)
+{
+   return SOM_ResolveD(this,AWDDate,AWDDate,setYear)
+	(this, ev,year);
+}
+
+
+/* method: verifyDay */
+boolean   verifyDay(Environment *ev,
+		string day)
+{
+   return SOM_ResolveD(this,AWDDate,AWDDate,verifyDay)
+	(this, ev,day);
+}
+
+
+/* method: verifyMonth */
+boolean   verifyMonth(Environment *ev,
+		string month)
+{
+   return SOM_ResolveD(this,AWDDate,AWDDate,verifyMonth)
+	(this, ev,month);
+}
+
+
+/* method: verifyYear */
+boolean   verifyYear(Environment *ev,
+		string year)
+{
+   return SOM_ResolveD(this,AWDDate,AWDDate,verifyYear)
+	(this, ev,year);
+}
+
+
+/* method: year */
+string   year(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDDate,AWDDate,year)
+	(this, ev);
+}
+
+
+/* initializer method: date_withDate */
+void   date_withDate(Environment *ev,
+		somInitCtrl* ctrl,
+		string date)
+{
+   SOM_ResolveD(this,AWDDate,AWDDate,date_withDate)
+	(this, ev,ctrl,date);
+}
+
+
+/* initializer method: date_withDateObject */
+void   date_withDateObject(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDData* pDate)
+{
+   SOM_ResolveD(this,AWDDate,AWDDate,date_withDateObject)
+	(this, ev,ctrl,pDate);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDDate,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDDate,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDDate,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+AWDDate*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDDate,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDDate,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDDate,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDDate,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+AWDDate*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDDate,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+AWDDate*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDDate,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+AWDDate*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDDate,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,AWDDate,SOMObject,somInit)
+	(this);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,AWDDate,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,AWDDate,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,AWDDate,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,AWDDate,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,AWDDate,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDDate,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDDate,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,AWDDate,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   AWDDate_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDDate,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDDate,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   AWDDate_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDDate,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDDate,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,AWDDate,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,AWDDate,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,AWDDate,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,AWDDate,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,AWDDate,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* AWDDate */
+
+
+
+#endif       /* SOM_AWDDate_xh */

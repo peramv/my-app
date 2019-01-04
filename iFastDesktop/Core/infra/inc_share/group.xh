@@ -1,0 +1,1302 @@
+
+#ifndef SOM_AWDGroupField_xh
+#define SOM_AWDGroupField_xh
+
+class AWDGroupField;
+
+#define AWDGroupField_MajorVersion 2
+#define AWDGroupField_MinorVersion 3
+
+/*
+ * Passthru lines: File: "C.xh", "before"
+ */
+#include "field.xh"
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_AWDBaseField_xh
+#include <field.xh>
+#endif
+
+#ifndef AWDGroupField_API
+#define AWDGroupField_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+class SOMClass;
+class SOMObject;
+class AWDConnection;
+class AWDException;
+class AWDApplication;
+class AWDPersist;
+class AWDBase;
+class iostream;
+class AWDData;
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the AWDGroupField Class */
+SOMEXTERN
+#if (defined(SOM_Module_group_Source) || defined(AWDGroupField_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDGroupField))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK AWDGroupFieldNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the AWDGroupField class object, and the methods it introduces. */
+SOMEXTERN struct AWDGroupFieldClassDataStructure {
+	SOMClass *classObject;
+	somMToken compareGroup;
+	somMToken initGroupFieldObject;
+	somMToken numberofSubfields;
+	somMToken setSubfieldValue;
+	somMToken setSubfieldValueByName;
+	somMToken setupSubfields;
+	somMToken subfield;
+	somMToken subfieldByName;
+	somMToken group_withName;
+	somMToken group_withNameandNumber;
+	somMToken group_withNameandValue;
+	somMToken group_withNameNumberandStatus;
+	somMToken group_withNameNumberandValue;
+	somMToken group_withNameNumberStatusandValue;
+	somMToken group_withPersist;
+	somMToken group_withField;
+}
+#if !(defined(SOM_Module_group_Source) || defined(AWDGroupField_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDGroupField))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDGroupFieldClassData;
+#define _AWDGroupField AWDGroupFieldClassData.classObject
+
+/* The API to parentMtabs for AWDGroupField, and the instance data it introduces. */
+SOMEXTERN struct AWDGroupFieldCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_group_Source) || defined(AWDGroupField_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDGroupField))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDGroupFieldCClassData;
+
+/*
+ * -- Typedefs for AWDGroupField Method Procedures
+ */
+extern "C" {
+typedef short   SOMLINK somTP_AWDGroupField_compareGroup(AWDGroupField *somSelf, Environment *ev,
+		AWDGroupField* pGroup);
+typedef somTP_AWDGroupField_compareGroup *somTD_AWDGroupField_compareGroup;
+typedef void   SOMLINK somTP_AWDGroupField_initGroupFieldObject(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_initGroupFieldObject *somTD_AWDGroupField_initGroupFieldObject;
+typedef unsigned short   SOMLINK somTP_AWDGroupField_numberofSubfields(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_numberofSubfields *somTD_AWDGroupField_numberofSubfields;
+typedef boolean   SOMLINK somTP_AWDGroupField_setSubfieldValue(AWDGroupField *somSelf, Environment *ev,
+		unsigned short sequenceNum,
+		string value);
+typedef somTP_AWDGroupField_setSubfieldValue *somTD_AWDGroupField_setSubfieldValue;
+typedef boolean   SOMLINK somTP_AWDGroupField_setSubfieldValueByName(AWDGroupField *somSelf, Environment *ev,
+		string aName,
+		string value);
+typedef somTP_AWDGroupField_setSubfieldValueByName *somTD_AWDGroupField_setSubfieldValueByName;
+typedef boolean   SOMLINK somTP_AWDGroupField_setupSubfields(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_setupSubfields *somTD_AWDGroupField_setupSubfields;
+typedef AWDBaseField*   SOMLINK somTP_AWDGroupField_subfield(AWDGroupField *somSelf, Environment *ev,
+		unsigned short sequenceNum);
+typedef somTP_AWDGroupField_subfield *somTD_AWDGroupField_subfield;
+typedef AWDBaseField*   SOMLINK somTP_AWDGroupField_subfieldByName(AWDGroupField *somSelf, Environment *ev,
+		string aName);
+typedef somTP_AWDGroupField_subfieldByName *somTD_AWDGroupField_subfieldByName;
+typedef void   SOMLINK somTP_AWDGroupField_group_withName(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName);
+typedef somTP_AWDGroupField_group_withName *somTD_AWDGroupField_group_withName;
+typedef void   SOMLINK somTP_AWDGroupField_group_withNameandNumber(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber);
+typedef somTP_AWDGroupField_group_withNameandNumber *somTD_AWDGroupField_group_withNameandNumber;
+typedef void   SOMLINK somTP_AWDGroupField_group_withNameandValue(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		string value);
+typedef somTP_AWDGroupField_group_withNameandValue *somTD_AWDGroupField_group_withNameandValue;
+typedef void   SOMLINK somTP_AWDGroupField_group_withNameNumberandStatus(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status);
+typedef somTP_AWDGroupField_group_withNameNumberandStatus *somTD_AWDGroupField_group_withNameNumberandStatus;
+typedef void   SOMLINK somTP_AWDGroupField_group_withNameNumberandValue(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		string value);
+typedef somTP_AWDGroupField_group_withNameNumberandValue *somTD_AWDGroupField_group_withNameNumberandValue;
+typedef void   SOMLINK somTP_AWDGroupField_group_withNameNumberStatusandValue(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status,
+		string value);
+typedef somTP_AWDGroupField_group_withNameNumberStatusandValue *somTD_AWDGroupField_group_withNameNumberStatusandValue;
+typedef void   SOMLINK somTP_AWDGroupField_group_withPersist(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDPersist* pPersist);
+typedef somTP_AWDGroupField_group_withPersist *somTD_AWDGroupField_group_withPersist;
+typedef void   SOMLINK somTP_AWDGroupField_group_withField(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDBaseField* pField);
+typedef somTP_AWDGroupField_group_withField *somTD_AWDGroupField_group_withField;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef string   SOMLINK somTP_AWDGroupField_asString(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_asString *somTD_AWDGroupField_asString;
+typedef string   SOMLINK somTP_AWDGroupField_asStringWithMask(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_asStringWithMask *somTD_AWDGroupField_asStringWithMask;
+typedef string   SOMLINK somTP_AWDGroupField_blankMask(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_blankMask *somTD_AWDGroupField_blankMask;
+typedef string   SOMLINK somTP_AWDGroupField_blankString(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_blankString *somTD_AWDGroupField_blankString;
+typedef short   SOMLINK somTP_AWDGroupField_compare(AWDGroupField *somSelf, Environment *ev,
+		AWDBaseField* pField);
+typedef somTP_AWDGroupField_compare *somTD_AWDGroupField_compare;
+typedef boolean   SOMLINK somTP_AWDGroupField_determineStatus(AWDGroupField *somSelf, Environment *ev,
+		string newValue);
+typedef somTP_AWDGroupField_determineStatus *somTD_AWDGroupField_determineStatus;
+typedef unsigned short   SOMLINK somTP_AWDGroupField_displayLength(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_displayLength *somTD_AWDGroupField_displayLength;
+typedef void   SOMLINK somTP_AWDGroupField_fetchProperties(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_fetchProperties *somTD_AWDGroupField_fetchProperties;
+typedef AWDBaseField_STATUS   SOMLINK somTP_AWDGroupField_getStatus(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_getStatus *somTD_AWDGroupField_getStatus;
+typedef void   SOMLINK somTP_AWDGroupField_initBaseFieldObject(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_initBaseFieldObject *somTD_AWDGroupField_initBaseFieldObject;
+typedef boolean   SOMLINK somTP_AWDGroupField_isBlank(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_isBlank *somTD_AWDGroupField_isBlank;
+typedef boolean   SOMLINK somTP_AWDGroupField_isChanged(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_isChanged *somTD_AWDGroupField_isChanged;
+typedef boolean   SOMLINK somTP_AWDGroupField_isNew(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_isNew *somTD_AWDGroupField_isNew;
+typedef string   SOMLINK somTP_AWDGroupField_mask(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_mask *somTD_AWDGroupField_mask;
+typedef AWDMask*   SOMLINK somTP_AWDGroupField_maskObject(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_maskObject *somTD_AWDGroupField_maskObject;
+typedef string   SOMLINK somTP_AWDGroupField_name(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_name *somTD_AWDGroupField_name;
+typedef void   SOMLINK somTP_AWDGroupField_newMask(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_newMask *somTD_AWDGroupField_newMask;
+typedef boolean   SOMLINK somTP_AWDGroupField_padValue(AWDGroupField *somSelf, Environment *ev,
+		AWDMask_DIRECTION direction);
+typedef somTP_AWDGroupField_padValue *somTD_AWDGroupField_padValue;
+typedef AWDData*   SOMLINK somTP_AWDGroupField_properties(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_properties *somTD_AWDGroupField_properties;
+typedef unsigned short   SOMLINK somTP_AWDGroupField_sequenceNumber(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_sequenceNumber *somTD_AWDGroupField_sequenceNumber;
+typedef boolean   SOMLINK somTP_AWDGroupField_setLocalMask(AWDGroupField *somSelf, Environment *ev,
+		string localmask);
+typedef somTP_AWDGroupField_setLocalMask *somTD_AWDGroupField_setLocalMask;
+typedef boolean   SOMLINK somTP_AWDGroupField_setName(AWDGroupField *somSelf, Environment *ev,
+		string aName);
+typedef somTP_AWDGroupField_setName *somTD_AWDGroupField_setName;
+typedef void   SOMLINK somTP_AWDGroupField_setSequenceNumber(AWDGroupField *somSelf, Environment *ev,
+		unsigned short seqNumber);
+typedef somTP_AWDGroupField_setSequenceNumber *somTD_AWDGroupField_setSequenceNumber;
+typedef void   SOMLINK somTP_AWDGroupField_setStatus(AWDGroupField *somSelf, Environment *ev,
+		AWDBaseField_STATUS status);
+typedef somTP_AWDGroupField_setStatus *somTD_AWDGroupField_setStatus;
+typedef boolean   SOMLINK somTP_AWDGroupField_setValueFromMaskedString(AWDGroupField *somSelf, Environment *ev,
+		string value);
+typedef somTP_AWDGroupField_setValueFromMaskedString *somTD_AWDGroupField_setValueFromMaskedString;
+typedef boolean   SOMLINK somTP_AWDGroupField_setValueFromString(AWDGroupField *somSelf, Environment *ev,
+		string value);
+typedef somTP_AWDGroupField_setValueFromString *somTD_AWDGroupField_setValueFromString;
+typedef unsigned short   SOMLINK somTP_AWDGroupField_storeLength(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_storeLength *somTD_AWDGroupField_storeLength;
+typedef boolean   SOMLINK somTP_AWDGroupField_verify(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_verify *somTD_AWDGroupField_verify;
+typedef void   SOMLINK somTP_AWDGroupField_withName(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName);
+typedef somTP_AWDGroupField_withName *somTD_AWDGroupField_withName;
+typedef void   SOMLINK somTP_AWDGroupField_withNameandNumber(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber);
+typedef somTP_AWDGroupField_withNameandNumber *somTD_AWDGroupField_withNameandNumber;
+typedef void   SOMLINK somTP_AWDGroupField_withNameandValue(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		string value);
+typedef somTP_AWDGroupField_withNameandValue *somTD_AWDGroupField_withNameandValue;
+typedef void   SOMLINK somTP_AWDGroupField_withNameNumberandStatus(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status);
+typedef somTP_AWDGroupField_withNameNumberandStatus *somTD_AWDGroupField_withNameNumberandStatus;
+typedef void   SOMLINK somTP_AWDGroupField_withNameNumberandValue(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		string value);
+typedef somTP_AWDGroupField_withNameNumberandValue *somTD_AWDGroupField_withNameNumberandValue;
+typedef void   SOMLINK somTP_AWDGroupField_withNameNumberStatusandValue(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status,
+		string value);
+typedef somTP_AWDGroupField_withNameNumberStatusandValue *somTD_AWDGroupField_withNameNumberStatusandValue;
+typedef void   SOMLINK somTP_AWDGroupField_withPersist(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDPersist* pPersist);
+typedef somTP_AWDGroupField_withPersist *somTD_AWDGroupField_withPersist;
+typedef void   SOMLINK somTP_AWDGroupField_withField(AWDGroupField *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDBaseField* pField);
+typedef somTP_AWDGroupField_withField *somTD_AWDGroupField_withField;
+typedef boolean   SOMLINK somTP_AWDGroupField_hasLocalMask(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_hasLocalMask *somTD_AWDGroupField_hasLocalMask;
+typedef void   SOMLINK somTP_AWDGroupField_somDefaultInit(AWDGroupField *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_AWDGroupField_somDefaultInit *somTD_AWDGroupField_somDefaultInit;
+typedef void   SOMLINK somTP_AWDGroupField_somDestruct(AWDGroupField *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_AWDGroupField_somDestruct *somTD_AWDGroupField_somDestruct;
+typedef void   SOMLINK somTP_AWDGroupField_store(AWDGroupField *somSelf, Environment *ev,
+		AWDPersist* pPersist);
+typedef somTP_AWDGroupField_store *somTD_AWDGroupField_store;
+typedef void   SOMLINK somTP_AWDGroupField_restore(AWDGroupField *somSelf, Environment *ev,
+		AWDPersist* pPersist);
+typedef somTP_AWDGroupField_restore *somTD_AWDGroupField_restore;
+typedef somf_MLinkable*   SOMLINK somTP_AWDGroupField_somfMLinkableInit(AWDGroupField *somSelf, Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p);
+typedef somTP_AWDGroupField_somfMLinkableInit *somTD_AWDGroupField_somfMLinkableInit;
+typedef somf_MLinkable*   SOMLINK somTP_AWDGroupField_somfGetNext(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_somfGetNext *somTD_AWDGroupField_somfGetNext;
+typedef void   SOMLINK somTP_AWDGroupField_somfSetNext(AWDGroupField *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_AWDGroupField_somfSetNext *somTD_AWDGroupField_somfSetNext;
+typedef somf_MLinkable*   SOMLINK somTP_AWDGroupField_somfGetPrevious(AWDGroupField *somSelf, Environment *ev);
+typedef somTP_AWDGroupField_somfGetPrevious *somTD_AWDGroupField_somfGetPrevious;
+typedef void   SOMLINK somTP_AWDGroupField_somfSetPrevious(AWDGroupField *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_AWDGroupField_somfSetPrevious *somTD_AWDGroupField_somfSetPrevious;
+typedef void   SOMLINK somTP_AWDGroupField_somInit(AWDGroupField *somSelf);
+typedef somTP_AWDGroupField_somInit *somTD_AWDGroupField_somInit;
+typedef void   SOMLINK somTP_AWDGroupField_somDefaultCopyInit(AWDGroupField *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDGroupField_somDefaultCopyInit *somTD_AWDGroupField_somDefaultCopyInit;
+typedef AWDGroupField*   SOMLINK somTP_AWDGroupField_somDefaultAssign(AWDGroupField *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDGroupField_somDefaultAssign *somTD_AWDGroupField_somDefaultAssign;
+typedef void   SOMLINK somTP_AWDGroupField_somDefaultConstCopyInit(AWDGroupField *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDGroupField_somDefaultConstCopyInit *somTD_AWDGroupField_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_AWDGroupField_somDefaultVCopyInit(AWDGroupField *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDGroupField_somDefaultVCopyInit *somTD_AWDGroupField_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_AWDGroupField_somDefaultConstVCopyInit(AWDGroupField *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDGroupField_somDefaultConstVCopyInit *somTD_AWDGroupField_somDefaultConstVCopyInit;
+typedef AWDGroupField*   SOMLINK somTP_AWDGroupField_somDefaultConstAssign(AWDGroupField *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDGroupField_somDefaultConstAssign *somTD_AWDGroupField_somDefaultConstAssign;
+typedef AWDGroupField*   SOMLINK somTP_AWDGroupField_somDefaultVAssign(AWDGroupField *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDGroupField_somDefaultVAssign *somTD_AWDGroupField_somDefaultVAssign;
+typedef AWDGroupField*   SOMLINK somTP_AWDGroupField_somDefaultConstVAssign(AWDGroupField *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDGroupField_somDefaultConstVAssign *somTD_AWDGroupField_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_AWDGroupField_somFree(AWDGroupField *somSelf);
+typedef somTP_AWDGroupField_somFree *somTD_AWDGroupField_somFree;
+typedef void   SOMLINK somTP_AWDGroupField_somUninit(AWDGroupField *somSelf);
+typedef somTP_AWDGroupField_somUninit *somTD_AWDGroupField_somUninit;
+typedef SOMClass*   SOMLINK somTP_AWDGroupField_somGetClass(AWDGroupField *somSelf);
+typedef somTP_AWDGroupField_somGetClass *somTD_AWDGroupField_somGetClass;
+typedef string   SOMLINK somTP_AWDGroupField_somGetClassName(AWDGroupField *somSelf);
+typedef somTP_AWDGroupField_somGetClassName *somTD_AWDGroupField_somGetClassName;
+typedef long   SOMLINK somTP_AWDGroupField_somGetSize(AWDGroupField *somSelf);
+typedef somTP_AWDGroupField_somGetSize *somTD_AWDGroupField_somGetSize;
+typedef boolean   SOMLINK somTP_AWDGroupField_somIsA(AWDGroupField *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDGroupField_somIsA *somTD_AWDGroupField_somIsA;
+typedef boolean   SOMLINK somTP_AWDGroupField_somIsInstanceOf(AWDGroupField *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDGroupField_somIsInstanceOf *somTD_AWDGroupField_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_AWDGroupField_somRespondsTo(AWDGroupField *somSelf,
+		somId mId);
+typedef somTP_AWDGroupField_somRespondsTo *somTD_AWDGroupField_somRespondsTo;
+typedef boolean   SOMLINK somTP_AWDGroupField_somDispatch(AWDGroupField *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDGroupField_somDispatch *somTD_AWDGroupField_somDispatch;
+typedef boolean   SOMLINK somTP_AWDGroupField_somClassDispatch(AWDGroupField *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDGroupField_somClassDispatch *somTD_AWDGroupField_somClassDispatch;
+typedef boolean   SOMLINK somTP_AWDGroupField_somCastObj(AWDGroupField *somSelf,
+		SOMClass* cls);
+typedef somTP_AWDGroupField_somCastObj *somTD_AWDGroupField_somCastObj;
+typedef boolean   SOMLINK somTP_AWDGroupField_somResetObj(AWDGroupField *somSelf);
+typedef somTP_AWDGroupField_somResetObj *somTD_AWDGroupField_somResetObj;
+typedef SOMObject*   SOMLINK somTP_AWDGroupField_somPrintSelf(AWDGroupField *somSelf);
+typedef somTP_AWDGroupField_somPrintSelf *somTD_AWDGroupField_somPrintSelf;
+typedef void   SOMLINK somTP_AWDGroupField_somDumpSelf(AWDGroupField *somSelf,
+		long level);
+typedef somTP_AWDGroupField_somDumpSelf *somTD_AWDGroupField_somDumpSelf;
+typedef void   SOMLINK somTP_AWDGroupField_somDumpSelfInt(AWDGroupField *somSelf,
+		long level);
+typedef somTP_AWDGroupField_somDumpSelfInt *somTD_AWDGroupField_somDumpSelfInt;
+}
+
+#endif /* AWDGroupField_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for AWDGroupField
+ */
+class AWDGroupField : public AWDBaseField
+{
+public:
+
+// AWDGroupField::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_AWDGroupField) AWDGroupFieldNewClass(AWDGroupField_MajorVersion,AWDGroupField_MinorVersion);
+   return (void*)
+      SOM_Resolve(_AWDGroupField,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_AWDGroupField));
+}
+
+// AWDGroupField::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+AWDGroupField()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDGroupFieldCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+AWDGroupField(AWDGroupField* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDGroupFieldCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDGroupField(const AWDGroupField* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDGroupFieldCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDGroupField(Environment *ev,string aName) 
+{
+   group_withName(ev,0,aName);
+}
+
+AWDGroupField(Environment *ev,string aName,unsigned short seqNumber) 
+{
+   group_withNameandNumber(ev,0,aName,seqNumber);
+}
+
+AWDGroupField(Environment *ev,string aName,string value) 
+{
+   group_withNameandValue(ev,0,aName,value);
+}
+
+AWDGroupField(Environment *ev,string aName,unsigned short seqNumber,AWDBaseField_STATUS status) 
+{
+   group_withNameNumberandStatus(ev,0,aName,seqNumber,status);
+}
+
+AWDGroupField(Environment *ev,string aName,unsigned short seqNumber,string value) 
+{
+   group_withNameNumberandValue(ev,0,aName,seqNumber,value);
+}
+
+AWDGroupField(Environment *ev,string aName,unsigned short seqNumber,AWDBaseField_STATUS status,string value) 
+{
+   group_withNameNumberStatusandValue(ev,0,aName,seqNumber,status,value);
+}
+
+AWDGroupField(Environment *ev,AWDPersist* pPersist) 
+{
+   group_withPersist(ev,0,pPersist);
+}
+
+AWDGroupField(Environment *ev,AWDBaseField* pField) 
+{
+   group_withField(ev,0,pField);
+}
+
+
+/* method: compareGroup */
+short   compareGroup(Environment *ev,
+		AWDGroupField* pGroup)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDGroupField,compareGroup)
+	(this, ev,pGroup);
+}
+
+
+/* method: initGroupFieldObject */
+void   initGroupFieldObject(Environment *ev)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDGroupField,initGroupFieldObject)
+	(this, ev);
+}
+
+
+/* method: numberofSubfields */
+unsigned short   numberofSubfields(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDGroupField,numberofSubfields)
+	(this, ev);
+}
+
+
+/* method: setSubfieldValue */
+boolean   setSubfieldValue(Environment *ev,
+		unsigned short sequenceNum,
+		string value)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDGroupField,setSubfieldValue)
+	(this, ev,sequenceNum,value);
+}
+
+
+/* method: setSubfieldValueByName */
+boolean   setSubfieldValueByName(Environment *ev,
+		string aName,
+		string value)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDGroupField,setSubfieldValueByName)
+	(this, ev,aName,value);
+}
+
+
+/* method: setupSubfields */
+boolean   setupSubfields(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDGroupField,setupSubfields)
+	(this, ev);
+}
+
+
+/* method: subfield */
+AWDBaseField*   subfield(Environment *ev,
+		unsigned short sequenceNum)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDGroupField,subfield)
+	(this, ev,sequenceNum);
+}
+
+
+/* method: subfieldByName */
+AWDBaseField*   subfieldByName(Environment *ev,
+		string aName)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDGroupField,subfieldByName)
+	(this, ev,aName);
+}
+
+
+/* initializer method: group_withName */
+void   group_withName(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDGroupField,group_withName)
+	(this, ev,ctrl,aName);
+}
+
+
+/* initializer method: group_withNameandNumber */
+void   group_withNameandNumber(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDGroupField,group_withNameandNumber)
+	(this, ev,ctrl,aName,seqNumber);
+}
+
+
+/* initializer method: group_withNameandValue */
+void   group_withNameandValue(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		string value)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDGroupField,group_withNameandValue)
+	(this, ev,ctrl,aName,value);
+}
+
+
+/* initializer method: group_withNameNumberandStatus */
+void   group_withNameNumberandStatus(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDGroupField,group_withNameNumberandStatus)
+	(this, ev,ctrl,aName,seqNumber,status);
+}
+
+
+/* initializer method: group_withNameNumberandValue */
+void   group_withNameNumberandValue(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		string value)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDGroupField,group_withNameNumberandValue)
+	(this, ev,ctrl,aName,seqNumber,value);
+}
+
+
+/* initializer method: group_withNameNumberStatusandValue */
+void   group_withNameNumberStatusandValue(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status,
+		string value)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDGroupField,group_withNameNumberStatusandValue)
+	(this, ev,ctrl,aName,seqNumber,status,value);
+}
+
+
+/* initializer method: group_withPersist */
+void   group_withPersist(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDGroupField,group_withPersist)
+	(this, ev,ctrl,pPersist);
+}
+
+
+/* initializer method: group_withField */
+void   group_withField(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDBaseField* pField)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDGroupField,group_withField)
+	(this, ev,ctrl,pField);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* method: asString */
+string   asString(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,asString)
+	(this, ev);
+}
+
+
+/* method: asStringWithMask */
+string   asStringWithMask(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,asStringWithMask)
+	(this, ev);
+}
+
+
+/* method: blankMask */
+string   blankMask(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,blankMask)
+	(this, ev);
+}
+
+
+/* method: blankString */
+string   blankString(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,blankString)
+	(this, ev);
+}
+
+
+/* method: compare */
+short   compare(Environment *ev,
+		AWDBaseField* pField)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,compare)
+	(this, ev,pField);
+}
+
+
+/* method: determineStatus */
+boolean   determineStatus(Environment *ev,
+		string newValue)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,determineStatus)
+	(this, ev,newValue);
+}
+
+
+/* method: displayLength */
+unsigned short   displayLength(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,displayLength)
+	(this, ev);
+}
+
+
+/* method: fetchProperties */
+void   fetchProperties(Environment *ev)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDBaseField,fetchProperties)
+	(this, ev);
+}
+
+
+/* method: getStatus */
+AWDBaseField_STATUS   getStatus(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,getStatus)
+	(this, ev);
+}
+
+
+/* method: initBaseFieldObject */
+void   initBaseFieldObject(Environment *ev)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDBaseField,initBaseFieldObject)
+	(this, ev);
+}
+
+
+/* method: isBlank */
+boolean   isBlank(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,isBlank)
+	(this, ev);
+}
+
+
+/* method: isChanged */
+boolean   isChanged(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,isChanged)
+	(this, ev);
+}
+
+
+/* method: isNew */
+boolean   isNew(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,isNew)
+	(this, ev);
+}
+
+
+/* method: mask */
+string   mask(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,mask)
+	(this, ev);
+}
+
+
+/* method: maskObject */
+AWDMask*   maskObject(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,maskObject)
+	(this, ev);
+}
+
+
+/* method: name */
+string   name(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,name)
+	(this, ev);
+}
+
+
+/* method: newMask */
+void   newMask(Environment *ev)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDBaseField,newMask)
+	(this, ev);
+}
+
+
+/* method: padValue */
+boolean   padValue(Environment *ev,
+		AWDMask_DIRECTION direction)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,padValue)
+	(this, ev,direction);
+}
+
+
+/* method: properties */
+AWDData*   properties(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,properties)
+	(this, ev);
+}
+
+
+/* method: sequenceNumber */
+unsigned short   sequenceNumber(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,sequenceNumber)
+	(this, ev);
+}
+
+
+/* method: setLocalMask */
+boolean   setLocalMask(Environment *ev,
+		string localmask)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,setLocalMask)
+	(this, ev,localmask);
+}
+
+
+/* method: setName */
+boolean   setName(Environment *ev,
+		string aName)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,setName)
+	(this, ev,aName);
+}
+
+
+/* method: setSequenceNumber */
+void   setSequenceNumber(Environment *ev,
+		unsigned short seqNumber)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDBaseField,setSequenceNumber)
+	(this, ev,seqNumber);
+}
+
+
+/* method: setStatus */
+void   setStatus(Environment *ev,
+		AWDBaseField_STATUS status)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDBaseField,setStatus)
+	(this, ev,status);
+}
+
+
+/* method: setValueFromMaskedString */
+boolean   setValueFromMaskedString(Environment *ev,
+		string value)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,setValueFromMaskedString)
+	(this, ev,value);
+}
+
+
+/* method: setValueFromString */
+boolean   setValueFromString(Environment *ev,
+		string value)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,setValueFromString)
+	(this, ev,value);
+}
+
+
+/* method: storeLength */
+unsigned short   storeLength(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,storeLength)
+	(this, ev);
+}
+
+
+/* method: verify */
+boolean   verify(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,verify)
+	(this, ev);
+}
+
+
+/* initializer method: withName */
+void   withName(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDBaseField,withName)
+	(this, ev,ctrl,aName);
+}
+
+
+/* initializer method: withNameandNumber */
+void   withNameandNumber(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDBaseField,withNameandNumber)
+	(this, ev,ctrl,aName,seqNumber);
+}
+
+
+/* initializer method: withNameandValue */
+void   withNameandValue(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		string value)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDBaseField,withNameandValue)
+	(this, ev,ctrl,aName,value);
+}
+
+
+/* initializer method: withNameNumberandStatus */
+void   withNameNumberandStatus(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDBaseField,withNameNumberandStatus)
+	(this, ev,ctrl,aName,seqNumber,status);
+}
+
+
+/* initializer method: withNameNumberandValue */
+void   withNameNumberandValue(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		string value)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDBaseField,withNameNumberandValue)
+	(this, ev,ctrl,aName,seqNumber,value);
+}
+
+
+/* initializer method: withNameNumberStatusandValue */
+void   withNameNumberStatusandValue(Environment *ev,
+		somInitCtrl* ctrl,
+		string aName,
+		unsigned short seqNumber,
+		AWDBaseField_STATUS status,
+		string value)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDBaseField,withNameNumberStatusandValue)
+	(this, ev,ctrl,aName,seqNumber,status,value);
+}
+
+
+/* initializer method: withPersist */
+void   withPersist(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDBaseField,withPersist)
+	(this, ev,ctrl,pPersist);
+}
+
+
+/* initializer method: withField */
+void   withField(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDBaseField* pField)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDBaseField,withField)
+	(this, ev,ctrl,pField);
+}
+
+
+/* method: hasLocalMask */
+boolean   hasLocalMask(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,AWDBaseField,hasLocalMask)
+	(this, ev);
+}
+
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDGroupField,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDGroupField,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* method: store */
+void   store(Environment *ev,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDCommon,store)
+	(this, ev,pPersist);
+}
+
+
+/* method: restore */
+void   restore(Environment *ev,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDGroupField,AWDCommon,restore)
+	(this, ev,pPersist);
+}
+
+
+/* method: somfMLinkableInit */
+somf_MLinkable*   somfMLinkableInit(Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p)
+{
+   return SOM_ResolveD(this,AWDGroupField,somf_MLinkable,somfMLinkableInit)
+	(this, ev,n,p);
+}
+
+
+/* method: somfGetNext */
+somf_MLinkable*   somfGetNext(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,somf_MLinkable,somfGetNext)
+	(this, ev);
+}
+
+
+/* method: somfSetNext */
+void   somfSetNext(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,AWDGroupField,somf_MLinkable,somfSetNext)
+	(this, ev,aLink);
+}
+
+
+/* method: somfGetPrevious */
+somf_MLinkable*   somfGetPrevious(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDGroupField,somf_MLinkable,somfGetPrevious)
+	(this, ev);
+}
+
+
+/* method: somfSetPrevious */
+void   somfSetPrevious(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,AWDGroupField,somf_MLinkable,somfSetPrevious)
+	(this, ev,aLink);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,AWDGroupField,SOMObject,somInit)
+	(this);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDGroupField,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+AWDGroupField*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDGroupField,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDGroupField,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDGroupField,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDGroupField,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+AWDGroupField*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDGroupField,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+AWDGroupField*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDGroupField,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+AWDGroupField*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDGroupField,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,AWDGroupField,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,AWDGroupField,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,AWDGroupField,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,AWDGroupField,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,AWDGroupField,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDGroupField,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDGroupField,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,AWDGroupField,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   AWDGroupField_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDGroupField,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDGroupField,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   AWDGroupField_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDGroupField,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDGroupField,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,AWDGroupField,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,AWDGroupField,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,AWDGroupField,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,AWDGroupField,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,AWDGroupField,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* AWDGroupField */
+
+
+
+#endif       /* SOM_AWDGroupField_xh */

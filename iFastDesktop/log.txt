@@ -1,0 +1,12 @@
+M       ifastjd\webcode\js\screens\AcctGovFile.Controller.js
+M       ifastjd\webcode\js\screens\AcctGovFile.Translation.js
+M       ifastjd\webcode\js\screens\AcctTaxAlloc.Controller.js
+M       ifastjd\webcode\js\screens\AcctTaxAlloc.Resources.js
+M       ifastjd\webcode\js\screens\AcctGovFile.Resources.js
+M       ifastcbo\Entity.cpp
+M       ifastcbo\ifastcbo_conditions.cpp
+M       ifastcbo\EntityIds.cpp
+M       data\ifastcbo.cnd
+M       data\ifast_fields.mdb
+M       data\ifast_conditions.mdb
+ M      .

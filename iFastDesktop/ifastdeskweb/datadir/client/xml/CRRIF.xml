@@ -1,0 +1,932 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SmartPDF>
+	<layout>
+		<simple-page-master>
+			<page-height>11in</page-height>
+			<page-width>8.5in</page-width>
+			<margin-left>0.5in</margin-left>
+			<margin-right>0.5in</margin-right>
+			<margin-bottom>0.5in</margin-bottom>
+			<margin-top>0.5in</margin-top>
+			<margin>.5cm</margin>
+			<master-name>ContributionReceipx</master-name>
+		</simple-page-master>
+		<region-body>
+			<margin>.5cm</margin>
+		</region-body>
+	</layout>
+	<page>
+		<pagename>ContributionReceipx</pagename>
+		<section-name>xsl-region-body</section-name>
+		<section>
+			<control>
+				<position/>
+				<type>image</type>
+				<description>Background Image</description>
+				<top/>
+				<left/>
+				<content-height>11in</content-height>
+				<content-width>8.5in</content-width>
+				<height>1063px</height>
+				<width>2550px</width>
+				<viewMapping/>
+				<dir>images</dir>
+				<image>ContributionReceipt.jpg</image>
+				<imageKey>backgroundImagePage1</imageKey>
+				<defaultValue>..\images\CRRIF.jpg</defaultValue>
+			</control>
+			<!-- ISSUE DATE -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Date</description>
+				<top>58px</top>
+				<left>100px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/issueDate</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>December 3,2008</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Date</description>
+				<top>320px</top>
+				<left>100px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/issueDate</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>December 3,2008</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Date</description>
+				<top>584px</top>
+				<left>100px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/issueDate</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>December 3,2008</defaultValue>
+			</control>
+			<!--END ISSUE DATE -->
+			<!-- CONTRIB SIN -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>SIN</description>
+				<top>78px</top>
+				<left>333px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/contribSIN</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>123 456 789</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>SIN</description>
+				<top>605px</top>
+				<left>333px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/contribSIN</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>123 456 789</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>SIN</description>
+				<top>341px</top>
+				<left>333px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/contribSIN</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>123 456 789</defaultValue>
+			</control>
+			<!-- END CONTRIB SIN -->
+			<!-- ANNUIT SIN -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>SIN</description>
+				<top>78px</top>
+				<left>400px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/annuitSIN</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<font-weight>900</font-weight>
+				<defaultValue>123 456 789</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>SIN</description>
+				<top>341px</top>
+				<left>400px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/annuitSIN</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+			
+				<defaultValue>123 456 789</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>SIN</description>
+				<top>605px</top>
+				<left>400px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/annuitSIN</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				
+				<defaultValue>123 456 789</defaultValue>
+			</control>
+		
+			
+			<!-- ANNUIT SIN-->
+			<!--- STATUS -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>STATUS</description>
+				<top>222px</top>
+				<left>130px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/rcptStatD</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>123 456 789</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>STATUS</description>
+				<top>485px</top>
+				<left>130px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/rcptStatD</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>123 456 789</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>STATUS</description>
+				<top>749px</top>
+				<left>130px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/rcptStatD</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>123 456 789</defaultValue>
+			</control>
+			<!-- END STATUS-->
+			<!-- ACCT NUMBER -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Account Number</description>
+				<top>75px</top>
+				<left>133px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/acct</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>123456789</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Account Number</description>
+				<top>338px</top>
+				<left>133px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/acct</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>123456789</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Account Number</description>
+				<top>601px</top>
+				<left>133px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/acct</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>123456789</defaultValue>
+			</control>
+			<!-- END ACCT NUMBER -->
+			<!-- PERIOD COVERED -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Period Covered</description>
+				<top>100px</top>
+				<left>28px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/prdCoveredE</viewMapping>
+				<font>Helvetica-Bold</font>
+				<font-size>8pt</font-size>
+				<defaultValue>Remainder of the Year 2008</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Period Covered</description>
+				<top>626px</top>
+				<left>28px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/prdCoveredE</viewMapping>
+				<font>Helvetica-Bold</font>
+				<font-size>8pt</font-size>
+				<defaultValue>Remainder of the Year 2008</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Period Covered</description>
+				<top>362px</top>
+				<left>28px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/prdCoveredE</viewMapping>
+				<font>Helvetica-Bold</font>
+				<font-size>8pt</font-size>
+				<defaultValue>Remainder of the Year 2008</defaultValue>
+			</control>
+			<!-- END PERIOD COVERED -->
+			<!-- AMOUNT -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Amount</description>
+				<RequiresFormatting>yes</RequiresFormatting>
+				<top>104px</top>
+				<left>480px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/amount</viewMapping>
+				<font>Helvetica-Bold</font>
+				<font-size>8pt</font-size>
+				<defaultValue>$10 000.00</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Amount</description>
+				<RequiresFormatting>yes</RequiresFormatting>
+				<top>365px</top>
+				<left>480px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/amount</viewMapping>
+				<font>Helvetica-Bold</font>
+				<font-size>8pt</font-size>
+				<defaultValue>$10 000.00</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Amount</description>
+				<RequiresFormatting>yes</RequiresFormatting>
+				<top>630px</top>
+				<left>480px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/amount</viewMapping>
+				<font>Helvetica-Bold</font>
+				<font-size>8pt</font-size>
+				<defaultValue>$10 000.00</defaultValue>
+			</control>
+			<!-- END AMOUNT -->
+			<!-- ANNUIT ADDRESS -->
+			<control>
+				<type>multi-line</type>
+				<position>absolute</position>
+				<description>Name Address</description>
+				<top>127px</top>
+				<left>330px</left>
+				<height>50px</height>
+				<width>125px</width>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitNameNotSame</viewMapping>
+					<defaultValue>30 Adelaide Street East</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitNameSame</viewMapping>
+					<defaultValue>30 Adelaide Street East</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr1</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr2</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr3</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr4</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr5</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitProv</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitCountry</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitPstl</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+			</control>
+			<control>
+				<type>multi-line</type>
+				<position>absolute</position>
+				<description>Name Address</description>
+				<top>653px</top>
+				<left>330px</left>
+				<height>50px</height>
+				<width>125px</width>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitNameSame</viewMapping>
+					<defaultValue>Same as contributor</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitNameNotSame</viewMapping>
+					<defaultValue>John Smith</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr1</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr2</viewMapping>
+					<defaultValue>30 Adelaide</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr3</viewMapping>
+					<defaultValue>30 Adelaide</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr4</viewMapping>
+					<defaultValue>30 Adelaide</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr5</viewMapping>
+					<defaultValue>30 Adelaide</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitProv</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitCountry</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitPstl</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+			</control>
+			<control>
+				<type>multi-line</type>
+				<position>absolute</position>
+				<description>Name Address</description>
+				<top>390px</top>
+				<left>330px</left>
+				<height>50px</height>
+				<width>125px</width>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitNameNotSame</viewMapping>
+					<defaultValue>John Smith</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitNameSame</viewMapping>
+					<defaultValue>Same as Contributor</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr1</viewMapping>
+					<defaultValue>30 Adelaide</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr2</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr3</viewMapping>
+					<defaultValue>30 Adelaide</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr4</viewMapping>
+					<defaultValue>30 Adelaide</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitAddr5</viewMapping>
+					<defaultValue>30 Adelaide</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitProv</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitCountry</viewMapping>
+					<defaultValue>Canada</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/annuitPstl</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+			</control>
+			<!-- END ANNUIT ADDRESS -->
+			<!-- CONTRIB ADDRESS -->
+			<control>
+				<type>multi-line</type>
+				<position>absolute</position>
+				<description>Name Address</description>
+				<top>135px</top>
+				<left>50px</left>
+				<height>50px</height>
+				<width>125px</width>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribName</viewMapping>
+					<defaultValue>John Smith</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr1</viewMapping>
+					<defaultValue>30 Adelaide Street East</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr2</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr3</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr4</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr5</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribProv</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribCountry</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribPstl</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+			</control>
+			<control>
+				<type>multi-line</type>
+				<position>absolute</position>
+				<description>Name Address</description>
+				<top>398px</top>
+				<left>50px</left>
+				<height>50px</height>
+				<width>125px</width>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribName</viewMapping>
+					<defaultValue>John Smith</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr1</viewMapping>
+					<defaultValue>30 Adelaide Street East</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr2</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr3</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr4</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr5</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribProv</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribCountry</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribPstl</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+			</control>
+			<control>
+				<type>multi-line</type>
+				<position>absolute</position>
+				<description>Name Address</description>
+				<top>661px</top>
+				<left>50px</left>
+				<height>50px</height>
+				<width>125px</width>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribName</viewMapping>
+					<defaultValue>John Smith</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr1</viewMapping>
+					<defaultValue>30 Adelaide Street East</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr2</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr3</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr4</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribAddr5</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribProv</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribCountry</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<font>Helvetica-Bold</font>
+					<font-size>8pt</font-size>
+					<viewMapping>//ContribReceipt/contribPstl</viewMapping>
+					<defaultValue>Toronto ON M5C 3G9</defaultValue>
+				</control>
+			</control>
+			<!-- END CONTRIB ADDRESS -->
+			<!-- RECEIPT NUM -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Receipt#</description>
+				<top>223px</top>
+				<left>44px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/rcptNum</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>157444</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Receipt#</description>
+				<top>486px</top>
+				<left>44px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/rcptNum</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>157444</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Receipt#</description>
+				<top>750px</top>
+				<left>44px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/rcptNum</viewMapping>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<defaultValue>157444</defaultValue>
+			</control>
+			<!-- RECEIPT TYPE -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Receipt Type</description>
+				<top>78px</top>
+				<left>500px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/rcptTypeD</viewMapping>
+				<!-- receipt type rcptTypeD -->
+				<font>Helvetica-Bold</font>
+				<font-size>8pt</font-size>
+				<defaultValue>157444</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Receipt Type</description>
+				<top>341px</top>
+				<left>500px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/rcptTypeD</viewMapping>
+				<!-- receipt type rcptTypeD -->
+				<font>Helvetica-Bold</font>
+				<font-size>8pt</font-size>
+				<defaultValue>157444</defaultValue>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Receipt Type</description>
+				<top>605px</top>
+				<left>500px</left>
+				<height/>
+				<width/>
+				<viewMapping>//ContribReceipt/rcptTypeD</viewMapping>
+				<!-- receipt type rcptTypeD -->
+				<font>Helvetica-Bold</font>
+				<font-size>8pt</font-size>
+				<defaultValue>157444</defaultValue>
+			</control>
+		</section>
+	</page>
+</SmartPDF>

@@ -1,0 +1,151 @@
+
+
+
+#classList_TableDiv
+{
+	position:relative;
+	top:0px;
+	left:0px;
+	height:300px;
+	width:900px;		
+}
+
+.Desktop_Table_CELL
+{
+    height: auto;
+    min-height: 21px;
+}
+
+#ruleTypePopupDiv
+{
+    z-index: 5000;  
+}
+
+#appToPopupDiv
+{
+    z-index: 5000;    
+}
+
+.listSelected, .listNormal
+{
+    width:100%;
+    margin: 1px 1px 1px 1px;    
+    padding-top:3px;
+    padding-left:2px;    
+}
+
+.listNormal
+{
+    color: black;    
+}
+
+.listSelected
+{
+    background-color: #5376B5;
+    color: white;
+}
+
+.SectionActionButtonsDiv
+{
+	padding-top:5px;
+	padding-right:10px;
+	text-align:right;	
+	width:900px;
+	padding-bottom:20px;
+}
+
+.applicableData
+{
+    width: 580px;
+}
+
+.applicableTitle_med
+{
+    font-weight: bolder;
+    text-align: center;
+}
+
+.applicableTitle_xlrg
+{
+    font-weight: bolder;
+    text-align: center;
+    width: 580px;
+}
+
+.PopupButtonsDiv
+{
+    width:100%;
+	height:30px;
+	padding-top:20px;
+	text-align:center;
+}
+
+.rowContentDiv
+{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.leftDiv
+{
+    float: left;
+    width: 200px;
+}
+
+.midDiv
+{
+    float: left;
+    width: 96px;
+}
+
+.rightDiv
+{
+    float: right;
+    width: 200px;
+}
+
+.titleRow
+{
+    text-align: center;
+    font-weight: bolder;
+}
+
+.listDiv
+{
+    height: 300px;
+    overflow-y: scroll;
+    border: solid 1px black;
+    text-overflow: ellipsis;
+    background:white;
+}
+
+.btnDiv
+{
+    height: 300px;
+    text-align: center;
+}
+
+.popupCap
+{
+    text-align: left;
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
+
+.limitEditBtn
+{
+    height:22px;
+	font-size:12px;
+	width:60px;
+}
+
+.popupBtn
+{
+    width:60px;
+    font-weight:bold;
+    font-size:15px;
+    height:25px;
+}
+
+
+

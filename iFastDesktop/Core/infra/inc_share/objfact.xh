@@ -1,0 +1,599 @@
+
+#ifndef SOM_AWDObjectFactory_xh
+#define SOM_AWDObjectFactory_xh
+
+class AWDObjectFactory;
+
+#define AWDObjectFactory_MajorVersion 2
+#define AWDObjectFactory_MinorVersion 3
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_SOMObject_xh
+#include <somobj.xh>
+#endif
+
+#ifndef AWDObjectFactory_API
+#define AWDObjectFactory_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+class SOMClass;
+class SOMObject;
+class AWDBase;
+class AWDApplication;
+class AWDCommon;
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the AWDObjectFactory Class */
+SOMEXTERN
+#if (defined(SOM_Module_objfact_Source) || defined(AWDObjectFactory_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDObjectFactory))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK AWDObjectFactoryNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the AWDObjectFactory class object, and the methods it introduces. */
+SOMEXTERN struct AWDObjectFactoryClassDataStructure {
+	SOMClass *classObject;
+	somMToken makeFromKey;
+	somMToken makeFromArray;
+	somMToken makeFromStruct;
+	somMToken makeFromStructandArray;
+	somMToken makeFromClassName;
+	somMToken makeFromObject;
+	somMToken makeFromHandle;
+	somMToken makeFromRecordCode;
+}
+#if !(defined(SOM_Module_objfact_Source) || defined(AWDObjectFactory_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDObjectFactory))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDObjectFactoryClassData;
+#define _AWDObjectFactory AWDObjectFactoryClassData.classObject
+
+/* The API to parentMtabs for AWDObjectFactory, and the instance data it introduces. */
+SOMEXTERN struct AWDObjectFactoryCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_objfact_Source) || defined(AWDObjectFactory_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDObjectFactory))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDObjectFactoryCClassData;
+
+/*
+ * -- Typedefs for AWDObjectFactory Method Procedures
+ */
+extern "C" {
+typedef AWDBase*   SOMLINK somTP_AWDObjectFactory_makeFromClassName(AWDObjectFactory *somSelf, Environment *ev,
+		string className);
+typedef somTP_AWDObjectFactory_makeFromClassName *somTD_AWDObjectFactory_makeFromClassName;
+typedef AWDBase*   SOMLINK somTP_AWDObjectFactory_makeFromKey(AWDObjectFactory *somSelf, Environment *ev,
+		AWD_AWDOBJECTKEYSTRCT* pKey);
+typedef somTP_AWDObjectFactory_makeFromKey *somTD_AWDObjectFactory_makeFromKey;
+typedef AWDBase*   SOMLINK somTP_AWDObjectFactory_makeFromArray(AWDObjectFactory *somSelf, Environment *ev,
+		AWD_AWDLOBARRAYSTRCT* pAwdLobArray);
+typedef somTP_AWDObjectFactory_makeFromArray *somTD_AWDObjectFactory_makeFromArray;
+typedef AWDBase*   SOMLINK somTP_AWDObjectFactory_makeFromStruct(AWDObjectFactory *somSelf, Environment *ev,
+		AWD_AWDOBJECTSTRCT* pAwdObj);
+typedef somTP_AWDObjectFactory_makeFromStruct *somTD_AWDObjectFactory_makeFromStruct;
+typedef AWDBase*   SOMLINK somTP_AWDObjectFactory_makeFromStructandArray(AWDObjectFactory *somSelf, Environment *ev,
+		AWD_AWDOBJECTSTRCT* pAwdObj,
+		AWD_AWDLOBARRAYSTRCT* pAwdLobArray);
+typedef somTP_AWDObjectFactory_makeFromStructandArray *somTD_AWDObjectFactory_makeFromStructandArray;
+typedef AWDBase*   SOMLINK somTP_AWDObjectFactory_makeFromObject(AWDObjectFactory *somSelf, Environment *ev,
+		AWDBase* obj);
+typedef somTP_AWDObjectFactory_makeFromObject *somTD_AWDObjectFactory_makeFromObject;
+typedef AWDCommon*   SOMLINK somTP_AWDObjectFactory_makeFromHandle(AWDObjectFactory *somSelf, Environment *ev,
+		unsigned long ulHandle);
+typedef somTP_AWDObjectFactory_makeFromHandle *somTD_AWDObjectFactory_makeFromHandle;
+typedef AWDBase*   SOMLINK somTP_AWDObjectFactory_makeFromRecordCode(AWDObjectFactory *somSelf, Environment *ev,
+		char cRecordCode);
+typedef somTP_AWDObjectFactory_makeFromRecordCode *somTD_AWDObjectFactory_makeFromRecordCode;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef void   SOMLINK somTP_AWDObjectFactory_somDefaultInit(AWDObjectFactory *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_AWDObjectFactory_somDefaultInit *somTD_AWDObjectFactory_somDefaultInit;
+typedef void   SOMLINK somTP_AWDObjectFactory_somDestruct(AWDObjectFactory *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_AWDObjectFactory_somDestruct *somTD_AWDObjectFactory_somDestruct;
+typedef void   SOMLINK somTP_AWDObjectFactory_somDefaultCopyInit(AWDObjectFactory *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDObjectFactory_somDefaultCopyInit *somTD_AWDObjectFactory_somDefaultCopyInit;
+typedef AWDObjectFactory*   SOMLINK somTP_AWDObjectFactory_somDefaultAssign(AWDObjectFactory *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDObjectFactory_somDefaultAssign *somTD_AWDObjectFactory_somDefaultAssign;
+typedef void   SOMLINK somTP_AWDObjectFactory_somDefaultConstCopyInit(AWDObjectFactory *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDObjectFactory_somDefaultConstCopyInit *somTD_AWDObjectFactory_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_AWDObjectFactory_somDefaultVCopyInit(AWDObjectFactory *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDObjectFactory_somDefaultVCopyInit *somTD_AWDObjectFactory_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_AWDObjectFactory_somDefaultConstVCopyInit(AWDObjectFactory *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDObjectFactory_somDefaultConstVCopyInit *somTD_AWDObjectFactory_somDefaultConstVCopyInit;
+typedef AWDObjectFactory*   SOMLINK somTP_AWDObjectFactory_somDefaultConstAssign(AWDObjectFactory *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDObjectFactory_somDefaultConstAssign *somTD_AWDObjectFactory_somDefaultConstAssign;
+typedef AWDObjectFactory*   SOMLINK somTP_AWDObjectFactory_somDefaultVAssign(AWDObjectFactory *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDObjectFactory_somDefaultVAssign *somTD_AWDObjectFactory_somDefaultVAssign;
+typedef AWDObjectFactory*   SOMLINK somTP_AWDObjectFactory_somDefaultConstVAssign(AWDObjectFactory *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDObjectFactory_somDefaultConstVAssign *somTD_AWDObjectFactory_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_AWDObjectFactory_somInit(AWDObjectFactory *somSelf);
+typedef somTP_AWDObjectFactory_somInit *somTD_AWDObjectFactory_somInit;
+typedef void   SOMLINK somTP_AWDObjectFactory_somFree(AWDObjectFactory *somSelf);
+typedef somTP_AWDObjectFactory_somFree *somTD_AWDObjectFactory_somFree;
+typedef void   SOMLINK somTP_AWDObjectFactory_somUninit(AWDObjectFactory *somSelf);
+typedef somTP_AWDObjectFactory_somUninit *somTD_AWDObjectFactory_somUninit;
+typedef SOMClass*   SOMLINK somTP_AWDObjectFactory_somGetClass(AWDObjectFactory *somSelf);
+typedef somTP_AWDObjectFactory_somGetClass *somTD_AWDObjectFactory_somGetClass;
+typedef string   SOMLINK somTP_AWDObjectFactory_somGetClassName(AWDObjectFactory *somSelf);
+typedef somTP_AWDObjectFactory_somGetClassName *somTD_AWDObjectFactory_somGetClassName;
+typedef long   SOMLINK somTP_AWDObjectFactory_somGetSize(AWDObjectFactory *somSelf);
+typedef somTP_AWDObjectFactory_somGetSize *somTD_AWDObjectFactory_somGetSize;
+typedef boolean   SOMLINK somTP_AWDObjectFactory_somIsA(AWDObjectFactory *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDObjectFactory_somIsA *somTD_AWDObjectFactory_somIsA;
+typedef boolean   SOMLINK somTP_AWDObjectFactory_somIsInstanceOf(AWDObjectFactory *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDObjectFactory_somIsInstanceOf *somTD_AWDObjectFactory_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_AWDObjectFactory_somRespondsTo(AWDObjectFactory *somSelf,
+		somId mId);
+typedef somTP_AWDObjectFactory_somRespondsTo *somTD_AWDObjectFactory_somRespondsTo;
+typedef boolean   SOMLINK somTP_AWDObjectFactory_somDispatch(AWDObjectFactory *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDObjectFactory_somDispatch *somTD_AWDObjectFactory_somDispatch;
+typedef boolean   SOMLINK somTP_AWDObjectFactory_somClassDispatch(AWDObjectFactory *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDObjectFactory_somClassDispatch *somTD_AWDObjectFactory_somClassDispatch;
+typedef boolean   SOMLINK somTP_AWDObjectFactory_somCastObj(AWDObjectFactory *somSelf,
+		SOMClass* cls);
+typedef somTP_AWDObjectFactory_somCastObj *somTD_AWDObjectFactory_somCastObj;
+typedef boolean   SOMLINK somTP_AWDObjectFactory_somResetObj(AWDObjectFactory *somSelf);
+typedef somTP_AWDObjectFactory_somResetObj *somTD_AWDObjectFactory_somResetObj;
+typedef SOMObject*   SOMLINK somTP_AWDObjectFactory_somPrintSelf(AWDObjectFactory *somSelf);
+typedef somTP_AWDObjectFactory_somPrintSelf *somTD_AWDObjectFactory_somPrintSelf;
+typedef void   SOMLINK somTP_AWDObjectFactory_somDumpSelf(AWDObjectFactory *somSelf,
+		long level);
+typedef somTP_AWDObjectFactory_somDumpSelf *somTD_AWDObjectFactory_somDumpSelf;
+typedef void   SOMLINK somTP_AWDObjectFactory_somDumpSelfInt(AWDObjectFactory *somSelf,
+		long level);
+typedef somTP_AWDObjectFactory_somDumpSelfInt *somTD_AWDObjectFactory_somDumpSelfInt;
+}
+
+#endif /* AWDObjectFactory_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for AWDObjectFactory
+ */
+class AWDObjectFactory : public SOMObject
+{
+public:
+
+// AWDObjectFactory::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_AWDObjectFactory) AWDObjectFactoryNewClass(AWDObjectFactory_MajorVersion,AWDObjectFactory_MinorVersion);
+   return (void*)
+      SOM_Resolve(_AWDObjectFactory,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_AWDObjectFactory));
+}
+
+// AWDObjectFactory::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+AWDObjectFactory()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDObjectFactoryCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+AWDObjectFactory(AWDObjectFactory* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDObjectFactoryCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDObjectFactory(const AWDObjectFactory* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDObjectFactoryCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+
+/* method: makeFromClassName */
+AWDBase*   makeFromClassName(Environment *ev,
+		string className)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,AWDObjectFactory,makeFromClassName)
+	(this, ev,className);
+}
+
+
+/* method: makeFromKey */
+AWDBase*   makeFromKey(Environment *ev,
+		AWD_AWDOBJECTKEYSTRCT* pKey)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,AWDObjectFactory,makeFromKey)
+	(this, ev,pKey);
+}
+
+
+/* method: makeFromArray */
+AWDBase*   makeFromArray(Environment *ev,
+		AWD_AWDLOBARRAYSTRCT* pAwdLobArray)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,AWDObjectFactory,makeFromArray)
+	(this, ev,pAwdLobArray);
+}
+
+
+/* method: makeFromStruct */
+AWDBase*   makeFromStruct(Environment *ev,
+		AWD_AWDOBJECTSTRCT* pAwdObj)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,AWDObjectFactory,makeFromStruct)
+	(this, ev,pAwdObj);
+}
+
+
+/* method: makeFromStructandArray */
+AWDBase*   makeFromStructandArray(Environment *ev,
+		AWD_AWDOBJECTSTRCT* pAwdObj,
+		AWD_AWDLOBARRAYSTRCT* pAwdLobArray)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,AWDObjectFactory,makeFromStructandArray)
+	(this, ev,pAwdObj,pAwdLobArray);
+}
+
+
+/* method: makeFromObject */
+AWDBase*   makeFromObject(Environment *ev,
+		AWDBase* obj)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,AWDObjectFactory,makeFromObject)
+	(this, ev,obj);
+}
+
+
+/* method: makeFromHandle */
+AWDCommon*   makeFromHandle(Environment *ev,
+		unsigned long ulHandle)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,AWDObjectFactory,makeFromHandle)
+	(this, ev,ulHandle);
+}
+
+
+/* method: makeFromRecordCode */
+AWDBase*   makeFromRecordCode(Environment *ev,
+		char cRecordCode)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,AWDObjectFactory,makeFromRecordCode)
+	(this, ev,cRecordCode);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDObjectFactory,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDObjectFactory,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDObjectFactory,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+AWDObjectFactory*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDObjectFactory,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDObjectFactory,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDObjectFactory,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+AWDObjectFactory*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+AWDObjectFactory*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+AWDObjectFactory*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,AWDObjectFactory,SOMObject,somInit)
+	(this);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,AWDObjectFactory,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,AWDObjectFactory,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   AWDObjectFactory_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDObjectFactory,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   AWDObjectFactory_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDObjectFactory,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,AWDObjectFactory,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,AWDObjectFactory,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,AWDObjectFactory,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* AWDObjectFactory */
+
+
+
+#endif       /* SOM_AWDObjectFactory_xh */

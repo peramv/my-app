@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+    ProjectType="Visual C++"
+    Version="7.10"
+    Name="ifastgui_Japan"
+    Keyword="MakeFileProj">
+    <Platforms>
+        <Platform
+            Name="Win32"/>
+    </Platforms>
+    <Configurations>
+        <Configuration
+            Name="Debug|Win32"
+            OutputDirectory=".\debug"
+            IntermediateDirectory=".\debug"
+            ConfigurationType="10"
+            UseOfMFC="0"
+            ATLMinimizesCRunTimeLibraryUsage="FALSE">
+            <Tool
+                Name="VCCustomBuildTool"/>
+            <Tool
+                Name="VCMIDLTool"
+                TypeLibraryName=".\debug/ifastgui_Japan.tlb"
+                HeaderFileName=""/>
+            <Tool
+                Name="VCPostBuildEventTool"/>
+            <Tool
+                Name="VCPreBuildEventTool"/>
+        </Configuration>
+        <Configuration
+            Name="Release|Win32"
+            OutputDirectory=".\Release"
+            IntermediateDirectory=".\Release"
+            ConfigurationType="10"
+            UseOfMFC="0"
+            ATLMinimizesCRunTimeLibraryUsage="FALSE">
+            <Tool
+                Name="VCCustomBuildTool"/>
+            <Tool
+                Name="VCMIDLTool"
+                TypeLibraryName=".\Release/ifastgui_Japan.tlb"
+                HeaderFileName=""/>
+            <Tool
+                Name="VCPostBuildEventTool"/>
+            <Tool
+                Name="VCPreBuildEventTool"/>
+        </Configuration>
+    </Configurations>
+    <References>
+    </References>
+    <Files>
+    </Files>
+    <Globals>
+    </Globals>
+</VisualStudioProject>

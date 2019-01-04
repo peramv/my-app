@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScreensConfig>
+	<ScreenDefList>
+		<ScreenDef>
+			<screenName>Select</screenName>
+			<screenLabel>Class Select</screenLabel>			
+		</ScreenDef>
+		<ScreenDef>
+			<screenName>Summary</screenName>
+			<screenLabel>Class Summary</screenLabel>			
+		</ScreenDef>
+		<ScreenDef>
+			<screenName>BasicInfo</screenName>
+			<screenLabel>Basic Information</screenLabel>			
+		</ScreenDef>
+		<ScreenDef>
+			<screenName>TradeConf</screenName>
+			<screenLabel>Trade Configuration</screenLabel>			
+		</ScreenDef>
+		<ScreenDef>
+			<screenName>DistrConf</screenName>
+			<screenLabel>Distribution Configuration</screenLabel>			
+		</ScreenDef>
+		<ScreenDef>
+			<screenName>PriceInfo</screenName>
+			<screenLabel>Price Information</screenLabel>			
+		</ScreenDef>
+		<ScreenDef>
+			<screenName>FeeConf</screenName>
+			<screenLabel>Fee Configuration</screenLabel>			
+		</ScreenDef>
+		<ScreenDef>
+			<screenName>TradeDayCtrls</screenName>
+			<screenLabel>Trade Day Controls</screenLabel>			
+		</ScreenDef>
+	</ScreenDefList>
+	<DetailsScreenSequence>
+		<screenName>BasicInfo</screenName>
+		<screenName>TradeConf</screenName>
+		<screenName>DistrConf</screenName>
+		<screenName>PriceInfo</screenName>
+		<screenName>FeeConf</screenName>
+		<screenName>TradeDayCtrls</screenName>
+	</DetailsScreenSequence>
+</ScreensConfig>

@@ -1,0 +1,182 @@
+.wrapper
+{
+	text-align:left;	
+	width:750px;
+	height:400px;
+	margin: auto;
+	overflow-x:hidden;	
+}
+
+.main
+{
+	overflow: hidden;	
+	width:100%;
+}
+
+#title
+{
+	display:none;
+}
+
+#filter-InputDiv
+{
+	width:100%;
+	height:50px;
+	overflow:hidden;		
+}
+
+#postalCodeLabel
+{
+	width:100px;
+}
+
+#postalCodeLookupFld
+{
+	text-transform:uppercase;
+}
+
+#searchBtn
+{
+	position:relative;
+	left:30px;
+}
+
+#filter-ResultDiv
+{
+	position:relative;	
+	width:100%;
+	height:100px;
+	padding-left:15px;
+	padding-top:5px;
+	padding-bottom:10px;
+	border:1px solid gray;			
+}
+
+#noSearchLbl
+{
+	padding-top:25px;
+	color:gray;
+}
+
+#ResultLabel
+{
+	position:absolute;
+	left:25px;
+	top:-9px;
+	width:98px;
+	color:gray;	
+}
+
+.addressSectionDiv
+{
+	height:140px;
+	width:100%;	
+	overflow:hidden;
+}
+
+.addressSectionLabelDiv
+{
+	height:25px;
+	padding-left:20px;
+	padding-top:7px;
+}
+
+.AddressList_TableDiv
+{
+	position:relative;
+	top:0px;
+	left:0px;
+	height:110px;
+	width:720px;		
+}
+
+#addressEntrySectionDiv
+{
+	width:100%;
+	height:165px;	
+	overflow:hidden;
+	padding-top:10px;
+}
+
+#addressEntryDiv
+{
+	float:left;
+	width:300px;
+	height:165px;
+	padding-left:15px;
+}
+
+#addressDisplayDiv
+{
+	float:right;
+	width:450px;
+	height:130px;
+	padding-left:10px;
+	padding-top:10px;
+	border:1px solid gray;
+}
+
+.addressEntryItemDiv
+{
+	position:relative;
+	height:27px;
+	width:100%;	
+}
+
+.oddEvenFlag
+{
+	position:absolute;
+	font-size:16px;
+	top:0px;
+	left:95px;
+}
+
+ .oddEvenOnlyLabel
+ {
+ 	font-size:10px;
+ 	width:100%;
+ 	text-align:right;
+ 	padding-right:20px; 	
+ }
+
+.addressEntryLabel
+{	
+	width:150px;
+}
+
+.addressEntryFld
+{
+	width:100px;
+	text-transform:uppercase;
+}
+
+.addressDisplayItemDiv
+{		
+	width:100%;
+	height:28px;	
+}
+
+.addressDisplayItemLabel
+{
+	width:85px;
+	font-style:italic;
+	height:28px;
+	padding-top:2px;
+}
+
+.addressDisplayItem
+{
+	font-size:16px;
+	height:28px;	
+}
+
+#cityLabel
+{
+	width:220px
+}
+
+#main-closebtnline
+{
+	text-align:center;
+	padding-top:30px;
+}

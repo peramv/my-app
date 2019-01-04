@@ -1,0 +1,176 @@
+<root><processControl><job name="XalanInfo" oldID="919"><name>XalanInfo</name><description></description><configData><config><jobVersion>1.3-2007-05-07</jobVersion><lastChangedID>Paul</lastChangedID><lastChangedName></lastChangedName><startLeft>1005</startLeft><startTop>345</startTop><startWidth>1200</startWidth><startHeight>495</startHeight><note><left>2670</left><top>2280</top><width>1695</width><height>495</height><text>fetch Xalan info</text></note><note><left>2670</left><top>4485</top><width>1695</width><height>495</height><text>Return info as a simple HTML</text></note></config>
+				<![CDATA[PABjAG8AbgBmAGkAZwA+ADwAagBvAGIAVgBlAHIAcwBpAG8AbgA+ADEALgAzAC0AMgAwADAA
+NwAtADAANQAtADAANwA8AC8AagBvAGIAVgBlAHIAcwBpAG8AbgA+ADwAbABhAHMAdABDAGgA
+YQBuAGcAZQBkAEkARAA+AFAAYQB1AGwAPAAvAGwAYQBzAHQAQwBoAGEAbgBnAGUAZABJAEQA
+PgA8AGwAYQBzAHQAQwBoAGEAbgBnAGUAZABOAGEAbQBlAD4APAAvAGwAYQBzAHQAQwBoAGEA
+bgBnAGUAZABOAGEAbQBlAD4APABzAHQAYQByAHQATABlAGYAdAA+ADEAMAAwADUAPAAvAHMA
+dABhAHIAdABMAGUAZgB0AD4APABzAHQAYQByAHQAVABvAHAAPgAzADQANQA8AC8AcwB0AGEA
+cgB0AFQAbwBwAD4APABzAHQAYQByAHQAVwBpAGQAdABoAD4AMQAyADAAMAA8AC8AcwB0AGEA
+cgB0AFcAaQBkAHQAaAA+ADwAcwB0AGEAcgB0AEgAZQBpAGcAaAB0AD4ANAA5ADUAPAAvAHMA
+dABhAHIAdABIAGUAaQBnAGgAdAA+ADwAbgBvAHQAZQA+ADwAbABlAGYAdAA+ADIANgA3ADAA
+PAAvAGwAZQBmAHQAPgA8AHQAbwBwAD4AMgAyADgAMAA8AC8AdABvAHAAPgA8AHcAaQBkAHQA
+aAA+ADEANgA5ADUAPAAvAHcAaQBkAHQAaAA+ADwAaABlAGkAZwBoAHQAPgA0ADkANQA8AC8A
+aABlAGkAZwBoAHQAPgA8AHQAZQB4AHQAPgBmAGUAdABjAGgAIABYAGEAbABhAG4AIABpAG4A
+ZgBvADwALwB0AGUAeAB0AD4APAAvAG4AbwB0AGUAPgA8AG4AbwB0AGUAPgA8AGwAZQBmAHQA
+PgAyADYANwAwADwALwBsAGUAZgB0AD4APAB0AG8AcAA+ADQANAA4ADUAPAAvAHQAbwBwAD4A
+PAB3AGkAZAB0AGgAPgAxADYAOQA1ADwALwB3AGkAZAB0AGgAPgA8AGgAZQBpAGcAaAB0AD4A
+NAA5ADUAPAAvAGgAZQBpAGcAaAB0AD4APAB0AGUAeAB0AD4AUgBlAHQAdQByAG4AIABpAG4A
+ZgBvACAAYQBzACAAYQAgAHMAaQBtAHAAbABlACAASABUAE0ATAA8AC8AdABlAHgAdAA+ADwA
+LwBuAG8AdABlAD4APAAvAGMAbwBuAGYAaQBnAD4ADQAK
+]]></configData><jobFlow><processStep name="TransformNode                                     " oldID="15350" sortID="2116365"><stepType>2</stepType><initialStep>-1</initialStep><name>TransformNode                                     </name><description>Transform the Whiteboard                          </description><taskOrJobID>34</taskOrJobID><configInfo><Param1>.</Param1><Param2>.</Param2><Param3><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:xalan="http://xml.apache.org/xalan" exclude-result-prefixes="xalan">
+								<xsl:output indent="yes"/>
+								<xsl:template match="/">
+									<out>
+										<xsl:copy-of select="xalan:checkEnvironment()"/>
+									</out>
+								</xsl:template>
+							</xsl:stylesheet></Param3><![CDATA[LgDHAC4AxwA8AD8AeABtAGwAIAB2AGUAcgBzAGkAbwBuAD0AIgAxAC4AMAAiAD8APgANAAoA
+PAB4AHMAbAA6AHMAdAB5AGwAZQBzAGgAZQBlAHQAIAB4AG0AbABuAHMAOgB4AHMAbAA9ACIA
+aAB0AHQAcAA6AC8ALwB3AHcAdwAuAHcAMwAuAG8AcgBnAC8AMQA5ADkAOQAvAFgAUwBMAC8A
+VAByAGEAbgBzAGYAbwByAG0AIgAgAHYAZQByAHMAaQBvAG4APQAiADEALgAwACIADQAKACAA
+IAAgACAAeABtAGwAbgBzADoAeABhAGwAYQBuAD0AIgBoAHQAdABwADoALwAvAHgAbQBsAC4A
+YQBwAGEAYwBoAGUALgBvAHIAZwAvAHgAYQBsAGEAbgAiAA0ACgAgACAAIAAgAGUAeABjAGwA
+dQBkAGUALQByAGUAcwB1AGwAdAAtAHAAcgBlAGYAaQB4AGUAcwA9ACIAeABhAGwAYQBuACIA
+PgANAAoAPAB4AHMAbAA6AG8AdQB0AHAAdQB0ACAAaQBuAGQAZQBuAHQAPQAiAHkAZQBzACIA
+LwA+AA0ACgAgAA0ACgA8AHgAcwBsADoAdABlAG0AcABsAGEAdABlACAAbQBhAHQAYwBoAD0A
+IgAvACIAPgANAAoAIAAgADwAbwB1AHQAPgANAAoAIAAgACAAIAA8AHgAcwBsADoAYwBvAHAA
+eQAtAG8AZgAgAHMAZQBsAGUAYwB0AD0AIgB4AGEAbABhAG4AOgBjAGgAZQBjAGsARQBuAHYA
+aQByAG8AbgBtAGUAbgB0ACgAKQAiAC8APgANAAoAIAAgADwALwBvAHUAdAA+AA0ACgA8AC8A
+eABzAGwAOgB0AGUAbQBwAGwAYQB0AGUAPgANAAoAPAAvAHgAcwBsADoAcwB0AHkAbABlAHMA
+aABlAGUAdAA+
+]]></configInfo><guiData><node name="Key_15350"><left>1365</left><top>2115</top><width>555</width><height>555</height><link linkKey="LNK24273828" newLinkKey="LNK15350_EQ_0"/></node><![CDATA[PABuAG8AZABlACAAbgBhAG0AZQA9ACIASwBlAHkAXwAxADUAMwA1ADAAIgA+ADwAbABlAGYA
+dAA+ADEAMwA2ADUAPAAvAGwAZQBmAHQAPgA8AHQAbwBwAD4AMgAxADEANQA8AC8AdABvAHAA
+PgA8AHcAaQBkAHQAaAA+ADUANQA1ADwALwB3AGkAZAB0AGgAPgA8AGgAZQBpAGcAaAB0AD4A
+NQA1ADUAPAAvAGgAZQBpAGcAaAB0AD4APABsAGkAbgBrACAAbABpAG4AawBLAGUAeQA9ACIA
+TABOAEsAMgA0ADIANwAzADgAMgA4ACIAIABuAGUAdwBMAGkAbgBrAEsAZQB5AD0AIgBMAE4A
+SwAxADUAMwA1ADAAXwBFAFEAXwAwACIALwA+ADwALwBuAG8AZABlAD4=
+]]></guiData><taskName>TransformNode</taskName><processStepLinks><link><operator>= </operator><returnCode>0</returnCode><nextProcessStep>TransformNode                                     </nextProcessStep><nextProcessID>15351</nextProcessID></link></processStepLinks></processStep><processStep name="TransformNode                                     " oldID="15351" sortID="4306350"><stepType>2</stepType><initialStep>0</initialStep><name>TransformNode                                     </name><description>Transform the Whiteboard                          </description><taskOrJobID>34</taskOrJobID><configInfo><Param1>.</Param1><Param2>.</Param2><Param3><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+								<xsl:output method="xml" version="1.0" encoding="UTF-16" indent="yes"/>
+								<xsl:template match="/">
+									<responseInfo>
+										<responseNode>.//responseHTML/*</responseNode>
+										<headers>
+											<header>
+												<name>Content-Type</name>
+												<value>text/html</value>
+											</header>
+											<header>
+												<name>Cache-Control</name>
+												<value>no-cache</value>
+											</header>
+										</headers>
+										<responseHTML>
+											<html>
+												<b>XALAN Version: </b>
+												<br/>
+												<xsl:for-each select="//item">
+													<b><xsl:value-of select="@key"/></b>:
+             <xsl:value-of select="."/>
+													<br/>
+												</xsl:for-each>
+											</html>
+										</responseHTML>
+									</responseInfo>
+								</xsl:template>
+							</xsl:stylesheet>
+						</Param3><![CDATA[LgDHAC4AxwA8AD8AeABtAGwAIAB2AGUAcgBzAGkAbwBuAD0AIgAxAC4AMAAiAD8APgANAAoA
+PAB4AHMAbAA6AHMAdAB5AGwAZQBzAGgAZQBlAHQAIAB4AG0AbABuAHMAOgB4AHMAbAA9ACIA
+aAB0AHQAcAA6AC8ALwB3AHcAdwAuAHcAMwAuAG8AcgBnAC8AMQA5ADkAOQAvAFgAUwBMAC8A
+VAByAGEAbgBzAGYAbwByAG0AIgAgAHYAZQByAHMAaQBvAG4AIAA9ACAAIgAxAC4AMAAiAD4A
+DQAKAA0ACgAJADwAeABzAGwAOgBvAHUAdABwAHUAdAAgAG0AZQB0AGgAbwBkAD0AIgB4AG0A
+bAAiACAAdgBlAHIAcwBpAG8AbgA9ACIAMQAuADAAIgAgAGUAbgBjAG8AZABpAG4AZwA9ACIA
+VQBUAEYALQAxADYAIgAgAGkAbgBkAGUAbgB0AD0AIgB5AGUAcwAiAC8APgANAAoACQANAAoA
+CQA8AHgAcwBsADoAdABlAG0AcABsAGEAdABlACAAbQBhAHQAYwBoAD0AIgAvACIAPgANAAoA
+CQAJADwAcgBlAHMAcABvAG4AcwBlAEkAbgBmAG8APgANAAoACQAJAAkAPAByAGUAcwBwAG8A
+bgBzAGUATgBvAGQAZQA+AC4ALwAvAHIAZQBzAHAAbwBuAHMAZQBIAFQATQBMAC8AKgA8AC8A
+cgBlAHMAcABvAG4AcwBlAE4AbwBkAGUAPgANAAoACQAJAAkAPABoAGUAYQBkAGUAcgBzAD4A
+DQAKAAkACQAJAAkAPABoAGUAYQBkAGUAcgA+AA0ACgAJAAkACQAJAAkAPABuAGEAbQBlAD4A
+QwBvAG4AdABlAG4AdAAtAFQAeQBwAGUAPAAvAG4AYQBtAGUAPgANAAoACQAJAAkACQAJADwA
+dgBhAGwAdQBlAD4AdABlAHgAdAAvAGgAdABtAGwAPAAvAHYAYQBsAHUAZQA+AA0ACgAJAAkA
+CQAJADwALwBoAGUAYQBkAGUAcgA+AA0ACgAJAAkACQAJADwAaABlAGEAZABlAHIAPgANAAoA
+CQAJAAkACQAJADwAbgBhAG0AZQA+AEMAYQBjAGgAZQAtAEMAbwBuAHQAcgBvAGwAPAAvAG4A
+YQBtAGUAPgANAAoACQAJAAkACQAJADwAdgBhAGwAdQBlAD4AbgBvAC0AYwBhAGMAaABlADwA
+LwB2AGEAbAB1AGUAPgANAAoACQAJAAkACQA8AC8AaABlAGEAZABlAHIAPgANAAoACQAJAAkA
+PAAvAGgAZQBhAGQAZQByAHMAPgANAAoACQAJAAkAPAByAGUAcwBwAG8AbgBzAGUASABUAE0A
+TAA+AA0ACgAgACAAIAAgACAAIAAgACAAPABoAHQAbQBsAD4ADQAKACAAIAAgACAAIAAgACAA
+IAAgACAAIAA8AGIAPgBYAEEATABBAE4AIABWAGUAcgBzAGkAbwBuADoAIAA8AC8AYgA+AA0A
+CgAgACAAIAAgACAAIAAgACAAIAAgACAAPABiAHIALwA+AA0ACgAgACAAIAAgACAAIAAgACAA
+IAAgACAAPAB4AHMAbAA6AGYAbwByAC0AZQBhAGMAaAAgAHMAZQBsAGUAYwB0AD0AIgAvAC8A
+aQB0AGUAbQAiAD4ADQAKACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAPABiAD4APAB4AHMA
+bAA6AHYAYQBsAHUAZQAtAG8AZgAgAHMAZQBsAGUAYwB0AD0AIgBAAGsAZQB5ACIALwA+ADwA
+LwBiAD4AOgANAAoAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAA8AHgAcwBsADoAdgBhAGwA
+dQBlAC0AbwBmACAAcwBlAGwAZQBjAHQAPQAiAC4AIgAvAD4ADQAKACAAIAAgACAAIAAgACAA
+IAAgACAAIAAgACAAPABiAHIALwA+AA0ACgAgACAAIAAgACAAIAAgACAAIAAgACAAPAAvAHgA
+cwBsADoAZgBvAHIALQBlAGEAYwBoAD4ADQAKACAAIAAgACAAIAAgACAAIAA8AC8AaAB0AG0A
+bAA+AA0ACgAJAAkACQA8AC8AcgBlAHMAcABvAG4AcwBlAEgAVABNAEwAPgANAAoACQAJADwA
+LwByAGUAcwBwAG8AbgBzAGUASQBuAGYAbwA+AA0ACgANAAoAIAAgADwALwB4AHMAbAA6AHQA
+ZQBtAHAAbABhAHQAZQA+AA0ACgA8AC8AeABzAGwAOgBzAHQAeQBsAGUAcwBoAGUAZQB0AD4A
+DQAK
+]]></configInfo><guiData><node name="Key_15351"><left>1350</left><top>4305</top><width>555</width><height>555</height></node><![CDATA[PABuAG8AZABlACAAbgBhAG0AZQA9ACIASwBlAHkAXwAxADUAMwA1ADEAIgA+ADwAbABlAGYA
+dAA+ADEAMwA1ADAAPAAvAGwAZQBmAHQAPgA8AHQAbwBwAD4ANAAzADAANQA8AC8AdABvAHAA
+PgA8AHcAaQBkAHQAaAA+ADUANQA1ADwALwB3AGkAZAB0AGgAPgA8AGgAZQBpAGcAaAB0AD4A
+NQA1ADUAPAAvAGgAZQBpAGcAaAB0AD4APAAvAG4AbwBkAGUAPg==
+]]></guiData><taskName>TransformNode</taskName><processStepLinks/></processStep></jobFlow></job><task name="TransformNode" oldID="34"><name>TransformNode</name><description>Transform the Whiteboard</description><programID>GenericTasksEx.TransformNode</programID><className>com.dstsystems.de.contact.tasks.TransformNode</className><imageData><![CDATA[Qk0aDQAAAAAAADYAAAAoAAAAIQAAACEAAAABABgAAAAAAOQMAAAAAAAAAAAAAAAAAAAAAAAA
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////AP//////////
+//////////////////////3///////////////////3//////////////v3////+/v/+////
+/v/+//3///////////79///////////+/////////v///////wD/////////////////////
+/////////////v///////////////////////////////////v/9///9//79////////////
+//7///7//////v////////////////////////8A////////////////////////////////
+///+///+///+/////////////f///////v7+//76/f/+//3///7///7////++///////////
+///+///+/v7+///////+//7/////AP//////////////////////////////////////////
+//////////////////////D0/+zq9uXi2vj29v3//vz+/v/+/////////v/+///+////////
+/////////////////wD/////////////////////////////////////////////////////
+//7///7///72+P+CjP+Aic3Hxrjo5ub//v///////////v////////7+/v7////////+/v7/
+//////8A///////////////////////////////////+/////////////////////////f//
+/f//fI/+Din7R1TWpaWx1dLO9fnz///////+//7////////+//7///7////+//7/////AP//
+///////////////////////////////////+///+///////+/v////////3///3//+rn/xk0
+/wIP/x8r73h4xLCxtdrb0ff79f7+/v/+///+/v///////////////v///wD/////////////
+///////////////////9//////////7//fj++fD99+z69Onz7uXf4eLV1to6WfIAHP8AE/4A
+Df0vMel3d8WppbjW2s7z9ub8+vn///7///7//v////////8A/f////////////7//f/+////
+/f////79/fHr6uHewtHapb7Yh67UeKDRY47RTXnUO2jbMlnjED73ASb8Axv/ABP/AQf/AgD+
+JSfqW1zOjYy+wsLC4uLQ7e7k+Pb1/v/9////AP////////3//v3////////9/OXi3qDN22G9
+4DCo4xyZ6Q6N8AOB+ABx/QJg/wBW/ABI/wA9/QE1/gMu/wAj/QAa/wER/gAJ/wAA/gIA/hAR
+9S0u5FRVzYKBxbKyxNXW0vDw8AD9//7//v/7//7///7p8fF50uArzu4FwfIAuf0BsvwApP0A
+mf4Aiv4AfP8Acf4BZf8CWf0AS/8AQf8BNf4AKv8DH/8AFv4CD/8ACPwBAf8BAP0BAf8BAv4U
+FvdIR/GmpPD39voA//7//f///v3/v/L0J+XyAOD5ANv+AdL+AMX/ALn9Aq7/AqD+AJb/AIj+
+AXr/AGr9AFv/AE/+AUT9Aj3+ADL+ACb/Ah3/AA7/AgD+BQv+ISL/XFv+sK//6On+9vn++vv/
+////AP///////8D9+RX2+QDz/QDs/QLg/gHZ/ADO/AHE/gC1/gGq/wCc/wCK/QJ//wx8/iJ9
+/jR8/yJn/gJF/wA6/QAq/wIV/xMo/E1Z/5+k+fT0/////////P/+//3///7+/v///wD//v/t
+//9B/v8A/fwA+P0B8P0A6P4A3v4C0/0Byv0Av/4CsP0ir/9rw/+d0v2z2P7M5P/v9v9DhfwB
+S/0COf4OPvxmf/3Gyv3//v/9//79///////+/v7///79//////////8A/v7+tv7+Av79Af38
+AP39A/T9Ae39AOb8ANz8ANL+CsP7dtH24/b+//7//P7+/f////7/2er/Gmz/AE77S374zNb+
++f3+/v3//f////7//v7+//////7//f///P3/////////AP///qn//wD//QD//QD++wD6/wDz
+/QDq/gLi/gHV+ILR5P///P3////9/////v/+///+/3i1+RJ1+5W7+/v9/v/+/////v3////+
+//////v///3//v///v/+/////v///v///wD////C/v0I//sC/v0A//wA/f8A+foC8v0A5/8w
+1eji3t3///79//////////////73/P+DwP/T5fz////////7//////////7/////////////
+//////////////////////8A/v3/+f/+TP/8A//+AP/+AP7+Af38APX/AO79VszX3djZ/f//
+/v3///7//f////7/9Pr/9/r///////7////+//7////+/f//////////////////////////
+////////////AP/////+/bT+/g///QD+/QD//AD//wD7/gD2/D7P3sjDxf//+/3///3///7/
+/f///////P/+//z+/v///v3///////////3/////////////////////////////////////
+/wD8/v79//////6C//0A//8D//0A//oC/f4A+/4N6PKitbrr5+b9//////////79//////7/
+//79///9/////v/////////9//////////////////////////////////////8A//7/////
+/f/+////ev7+AP79A//+AP/9AP38Avj+V8nQyr2/+vr6//3////+/f/////////+///////+
+//7//P7////8//7/////////////////////////////////////AP/////+/f3///z//fv/
+/4D+/xD//AD+/gD+/QH9/xDx9IC3utfLx/z+/v////////3///3///////z9///+/f///vz/
+/f/+/////////////////////////////////////wD///7//v////7////////9//60//8g
+//sA/v0A/v0A/vwe6e6Vs7jazs7//v/////////9//78//3///7+//v9////////////////
+//////////////////////////////8A/f////////7/+//////+/////f//3P79Yf/+AP79
+AP7+APr/JOLtkbS3zcXF9/X1//////////7//P7//////f///////f/+////////////////
+////////////////////AP////////////////////////////////n//sH//jj+/AP+/QL4
+/wzm83G7wb65uu3o5/////////////////////////3/////////////////////////////
+/////////wD//////////////////////////////////v/9/v/7//62/f9K+v8P9v4A7PlH
+yNepu7zk2dvz9PL8+vr//v/9//////////7///////////////////////////////////8A
+/////////////////////////////////f/+///////////+/f//yfz+hPf/T/P/Xer5l9bk
+xeDk9PT0///+/f/+//////7+////////////////////////////////////AP//////////
+//////////////////////////3//v79//////z+/v/////+/fn//sb6/8n8/+j9///+/v//
+/v////////3//////////////////////////////////////wD/////////////////////
+/////////////v/////+/v79///////+/v7////9/////////v///v/////8//36//7//v//
+//////////////////////////////////////8A////////////////////////////////
+/f/+///+//7///7+/f///////v/9/f///////f/+//79////+//////+///+////////////
+////////////////////////////AP////////////////////////////////////////z/
+/f/+///////////+//////3///////3//v/////////////////+////////////////////
+/////////////////wD////////////////////////////////////9///////9///9///9
+//////////7//////v/9///////9/////v7////9//7/////////////////////////////
+//////8=
+]]></imageData><taskReturns><returnCode><code>0</code><description>Transform was successful                          </description></returnCode><returnCode><code>1</code><description>Source node not found                             </description></returnCode><returnCode><code>2</code><description>Target node not found                             </description></returnCode><returnCode><code>3</code><description>Transform node failed                             </description></returnCode><returnCode><code>998</code><description>Unknown error                                     </description></returnCode></taskReturns></task></processControl></root>

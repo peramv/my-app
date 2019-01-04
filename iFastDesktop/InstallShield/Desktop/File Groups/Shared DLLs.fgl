@@ -1,0 +1,12 @@
+[TopDir]
+file0=H:\mfdstcRelease\SharedDll\msvcp60.dll
+file1=H:\mfdstcRelease\SharedDll\mfc42.doc
+file2=H:\mfdstcRelease\SharedDll\mfc42u.dll
+file3=H:\mfdstcRelease\SharedDll\MSVCIRT.DLL
+file4=H:\mfdstcRelease\SharedDll\msvcrt.dll
+file5=H:\mfdstcRelease\SharedDll\mfc42.dll
+
+[General]
+Type=FILELIST
+Version=1.00.000
+

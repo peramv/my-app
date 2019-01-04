@@ -1,0 +1,29 @@
+﻿#pragma once
+
+#include "ConditionObject.h"
+
+namespace CND
+{
+	class CIFast_IFast_ifastcbo_warn_id_type_not_applicable_for_account_proprietory : public CConditionObject
+	{
+	public:
+		CIFast_IFast_ifastcbo_warn_id_type_not_applicable_for_account_proprietory() { }
+		~CIFast_IFast_ifastcbo_warn_id_type_not_applicable_for_account_proprietory() { }
+
+	public:
+		// General
+		virtual DString GetConditionName() const { return DString(I_("WARN_ID_TYPE_NOT_APPLICABLE_FOR_ACCOUNT_PROPRIETORY")); }
+		virtual DString GetGroupName() const { return DString(I_("iFast")); }
+		virtual DString GetModuleName() const { return DString(I_("ifastcbo")); }
+		virtual int GetSeverity() const { return 5; }
+
+		// Messages
+		virtual DString GetMessage_EN_US() const { return DString(I_("%ID_TYPE% is not applicable for this account.")); }
+
+        // Actions
+		virtual DString GetAction_EN_US() const { return DString(I_("Please review individual or sole propietorship of the account.")); }
+	};
+}
+
+
+

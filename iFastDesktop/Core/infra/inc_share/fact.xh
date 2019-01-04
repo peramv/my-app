@@ -1,0 +1,518 @@
+
+#ifndef SOM_AWDFieldFactory_xh
+#define SOM_AWDFieldFactory_xh
+
+class AWDFieldFactory;
+
+#define AWDFieldFactory_MajorVersion 2
+#define AWDFieldFactory_MinorVersion 3
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_SOMObject_xh
+#include <somobj.xh>
+#endif
+
+#ifndef AWDFieldFactory_API
+#define AWDFieldFactory_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+class SOMClass;
+class SOMObject;
+class AWDApplication;
+class AWDBaseField;
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the AWDFieldFactory Class */
+SOMEXTERN
+#if (defined(SOM_Module_fact_Source) || defined(AWDFieldFactory_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDFieldFactory))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK AWDFieldFactoryNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the AWDFieldFactory class object, and the methods it introduces. */
+SOMEXTERN struct AWDFieldFactoryClassDataStructure {
+	SOMClass *classObject;
+	somMToken makeField;
+	somMToken makeFieldFromField;
+}
+#if !(defined(SOM_Module_fact_Source) || defined(AWDFieldFactory_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDFieldFactory))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDFieldFactoryClassData;
+#define _AWDFieldFactory AWDFieldFactoryClassData.classObject
+
+/* The API to parentMtabs for AWDFieldFactory, and the instance data it introduces. */
+SOMEXTERN struct AWDFieldFactoryCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_fact_Source) || defined(AWDFieldFactory_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDFieldFactory))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDFieldFactoryCClassData;
+
+/*
+ * -- Typedefs for AWDFieldFactory Method Procedures
+ */
+extern "C" {
+typedef AWDBaseField*   SOMLINK somTP_AWDFieldFactory_makeField(AWDFieldFactory *somSelf, Environment *ev,
+		string pszDataName);
+typedef somTP_AWDFieldFactory_makeField *somTD_AWDFieldFactory_makeField;
+typedef AWDBaseField*   SOMLINK somTP_AWDFieldFactory_makeFieldFromField(AWDFieldFactory *somSelf, Environment *ev,
+		AWDBaseField* pField);
+typedef somTP_AWDFieldFactory_makeFieldFromField *somTD_AWDFieldFactory_makeFieldFromField;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef void   SOMLINK somTP_AWDFieldFactory_somDefaultInit(AWDFieldFactory *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_AWDFieldFactory_somDefaultInit *somTD_AWDFieldFactory_somDefaultInit;
+typedef void   SOMLINK somTP_AWDFieldFactory_somDestruct(AWDFieldFactory *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_AWDFieldFactory_somDestruct *somTD_AWDFieldFactory_somDestruct;
+typedef void   SOMLINK somTP_AWDFieldFactory_somDefaultCopyInit(AWDFieldFactory *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDFieldFactory_somDefaultCopyInit *somTD_AWDFieldFactory_somDefaultCopyInit;
+typedef AWDFieldFactory*   SOMLINK somTP_AWDFieldFactory_somDefaultAssign(AWDFieldFactory *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDFieldFactory_somDefaultAssign *somTD_AWDFieldFactory_somDefaultAssign;
+typedef void   SOMLINK somTP_AWDFieldFactory_somDefaultConstCopyInit(AWDFieldFactory *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDFieldFactory_somDefaultConstCopyInit *somTD_AWDFieldFactory_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_AWDFieldFactory_somDefaultVCopyInit(AWDFieldFactory *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDFieldFactory_somDefaultVCopyInit *somTD_AWDFieldFactory_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_AWDFieldFactory_somDefaultConstVCopyInit(AWDFieldFactory *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDFieldFactory_somDefaultConstVCopyInit *somTD_AWDFieldFactory_somDefaultConstVCopyInit;
+typedef AWDFieldFactory*   SOMLINK somTP_AWDFieldFactory_somDefaultConstAssign(AWDFieldFactory *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDFieldFactory_somDefaultConstAssign *somTD_AWDFieldFactory_somDefaultConstAssign;
+typedef AWDFieldFactory*   SOMLINK somTP_AWDFieldFactory_somDefaultVAssign(AWDFieldFactory *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDFieldFactory_somDefaultVAssign *somTD_AWDFieldFactory_somDefaultVAssign;
+typedef AWDFieldFactory*   SOMLINK somTP_AWDFieldFactory_somDefaultConstVAssign(AWDFieldFactory *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDFieldFactory_somDefaultConstVAssign *somTD_AWDFieldFactory_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_AWDFieldFactory_somInit(AWDFieldFactory *somSelf);
+typedef somTP_AWDFieldFactory_somInit *somTD_AWDFieldFactory_somInit;
+typedef void   SOMLINK somTP_AWDFieldFactory_somFree(AWDFieldFactory *somSelf);
+typedef somTP_AWDFieldFactory_somFree *somTD_AWDFieldFactory_somFree;
+typedef void   SOMLINK somTP_AWDFieldFactory_somUninit(AWDFieldFactory *somSelf);
+typedef somTP_AWDFieldFactory_somUninit *somTD_AWDFieldFactory_somUninit;
+typedef SOMClass*   SOMLINK somTP_AWDFieldFactory_somGetClass(AWDFieldFactory *somSelf);
+typedef somTP_AWDFieldFactory_somGetClass *somTD_AWDFieldFactory_somGetClass;
+typedef string   SOMLINK somTP_AWDFieldFactory_somGetClassName(AWDFieldFactory *somSelf);
+typedef somTP_AWDFieldFactory_somGetClassName *somTD_AWDFieldFactory_somGetClassName;
+typedef long   SOMLINK somTP_AWDFieldFactory_somGetSize(AWDFieldFactory *somSelf);
+typedef somTP_AWDFieldFactory_somGetSize *somTD_AWDFieldFactory_somGetSize;
+typedef boolean   SOMLINK somTP_AWDFieldFactory_somIsA(AWDFieldFactory *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDFieldFactory_somIsA *somTD_AWDFieldFactory_somIsA;
+typedef boolean   SOMLINK somTP_AWDFieldFactory_somIsInstanceOf(AWDFieldFactory *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDFieldFactory_somIsInstanceOf *somTD_AWDFieldFactory_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_AWDFieldFactory_somRespondsTo(AWDFieldFactory *somSelf,
+		somId mId);
+typedef somTP_AWDFieldFactory_somRespondsTo *somTD_AWDFieldFactory_somRespondsTo;
+typedef boolean   SOMLINK somTP_AWDFieldFactory_somDispatch(AWDFieldFactory *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDFieldFactory_somDispatch *somTD_AWDFieldFactory_somDispatch;
+typedef boolean   SOMLINK somTP_AWDFieldFactory_somClassDispatch(AWDFieldFactory *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDFieldFactory_somClassDispatch *somTD_AWDFieldFactory_somClassDispatch;
+typedef boolean   SOMLINK somTP_AWDFieldFactory_somCastObj(AWDFieldFactory *somSelf,
+		SOMClass* cls);
+typedef somTP_AWDFieldFactory_somCastObj *somTD_AWDFieldFactory_somCastObj;
+typedef boolean   SOMLINK somTP_AWDFieldFactory_somResetObj(AWDFieldFactory *somSelf);
+typedef somTP_AWDFieldFactory_somResetObj *somTD_AWDFieldFactory_somResetObj;
+typedef SOMObject*   SOMLINK somTP_AWDFieldFactory_somPrintSelf(AWDFieldFactory *somSelf);
+typedef somTP_AWDFieldFactory_somPrintSelf *somTD_AWDFieldFactory_somPrintSelf;
+typedef void   SOMLINK somTP_AWDFieldFactory_somDumpSelf(AWDFieldFactory *somSelf,
+		long level);
+typedef somTP_AWDFieldFactory_somDumpSelf *somTD_AWDFieldFactory_somDumpSelf;
+typedef void   SOMLINK somTP_AWDFieldFactory_somDumpSelfInt(AWDFieldFactory *somSelf,
+		long level);
+typedef somTP_AWDFieldFactory_somDumpSelfInt *somTD_AWDFieldFactory_somDumpSelfInt;
+}
+
+#endif /* AWDFieldFactory_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for AWDFieldFactory
+ */
+class AWDFieldFactory : public SOMObject
+{
+public:
+
+// AWDFieldFactory::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_AWDFieldFactory) AWDFieldFactoryNewClass(AWDFieldFactory_MajorVersion,AWDFieldFactory_MinorVersion);
+   return (void*)
+      SOM_Resolve(_AWDFieldFactory,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_AWDFieldFactory));
+}
+
+// AWDFieldFactory::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+AWDFieldFactory()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDFieldFactoryCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+AWDFieldFactory(AWDFieldFactory* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDFieldFactoryCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDFieldFactory(const AWDFieldFactory* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDFieldFactoryCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+
+/* method: makeField */
+AWDBaseField*   makeField(Environment *ev,
+		string pszDataName)
+{
+   return SOM_ResolveD(this,AWDFieldFactory,AWDFieldFactory,makeField)
+	(this, ev,pszDataName);
+}
+
+
+/* method: makeFieldFromField */
+AWDBaseField*   makeFieldFromField(Environment *ev,
+		AWDBaseField* pField)
+{
+   return SOM_ResolveD(this,AWDFieldFactory,AWDFieldFactory,makeFieldFromField)
+	(this, ev,pField);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDFieldFactory,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDFieldFactory,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDFieldFactory,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+AWDFieldFactory*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDFieldFactory,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDFieldFactory,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDFieldFactory,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+AWDFieldFactory*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+AWDFieldFactory*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+AWDFieldFactory*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,AWDFieldFactory,SOMObject,somInit)
+	(this);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,AWDFieldFactory,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,AWDFieldFactory,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   AWDFieldFactory_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDFieldFactory,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   AWDFieldFactory_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDFieldFactory,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,AWDFieldFactory,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,AWDFieldFactory,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,AWDFieldFactory,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* AWDFieldFactory */
+
+
+
+#endif       /* SOM_AWDFieldFactory_xh */

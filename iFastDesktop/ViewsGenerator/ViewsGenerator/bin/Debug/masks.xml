@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Mask Group_Id="1" Mask_Id="1" Mask_Name="No Mask">
+    <Language_Mask Language_Id="1">No Mask</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="2" Mask_Name="Imported mask: %%%%%%%.%%%%%%%%">
+    <Language_Mask Language_Id="1">%%%%%%%.%%%%%%%% </Language_Mask>
+    <Language_Mask Language_Id="2">%%%%%%%.%%%%%%%% </Language_Mask>
+    <Language_Mask Language_Id="4">%%%%%%%.%%%%%%%%</Language_Mask>
+    <Language_Mask Language_Id="5">%%%%%%%.%%%%%%%% </Language_Mask>
+    <Language_Mask Language_Id="6">%%%%%%%.%%%%%%%% </Language_Mask>
+    <Language_Mask Language_Id="7">%%%%%%%.%%%%%%%% </Language_Mask>
+    <Language_Mask Language_Id="8">%%%%%%%.%%%%%%%% </Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="3" Mask_Name="Imported mask: 9999999999999">
+    <Language_Mask Language_Id="1">9999999999999</Language_Mask>
+    <Language_Mask Language_Id="2">9999999999999</Language_Mask>
+    <Language_Mask Language_Id="4">9999999999999</Language_Mask>
+    <Language_Mask Language_Id="5">9999999999999</Language_Mask>
+    <Language_Mask Language_Id="6">9999999999999</Language_Mask>
+    <Language_Mask Language_Id="7">9999999999999</Language_Mask>
+    <Language_Mask Language_Id="8">9999999999999</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="4" Mask_Name="Imported mask: 9999999">
+    <Language_Mask Language_Id="1">9999999</Language_Mask>
+    <Language_Mask Language_Id="2">9999999</Language_Mask>
+    <Language_Mask Language_Id="4">9999999</Language_Mask>
+    <Language_Mask Language_Id="5">9999999</Language_Mask>
+    <Language_Mask Language_Id="6">9999999</Language_Mask>
+    <Language_Mask Language_Id="7">9999999</Language_Mask>
+    <Language_Mask Language_Id="8">9999999</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="5" Mask_Name="Imported mask: $$,$$$,$$$,$$$,$$$.99">
+    <Language_Mask Language_Id="1">$$,$$$,$$$,$$$,$$$.00</Language_Mask>
+    <Language_Mask Language_Id="2">$$,$$$,$$$,$$$,$$$.00</Language_Mask>
+    <Language_Mask Language_Id="4">$$,$$$,$$$,$$$,$$$.00</Language_Mask>
+    <Language_Mask Language_Id="5">$$,$$$,$$$,$$$,$$$.00</Language_Mask>
+    <Language_Mask Language_Id="6">$$,$$$,$$$,$$$,$$$.00</Language_Mask>
+    <Language_Mask Language_Id="7">$$,$$$,$$$,$$$,$$$.00</Language_Mask>
+    <Language_Mask Language_Id="8">$$,$$$,$$$,$$$,$$$.00</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="6" Mask_Name="Imported mask: 999999999">
+    <Language_Mask Language_Id="1">999999999</Language_Mask>
+    <Language_Mask Language_Id="2">999999999</Language_Mask>
+    <Language_Mask Language_Id="4">999999999</Language_Mask>
+    <Language_Mask Language_Id="5">999999999</Language_Mask>
+    <Language_Mask Language_Id="6">999999999</Language_Mask>
+    <Language_Mask Language_Id="7">999999999</Language_Mask>
+    <Language_Mask Language_Id="8">999999999</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="7" Mask_Name="Imported mask: 999">
+    <Language_Mask Language_Id="1">999</Language_Mask>
+    <Language_Mask Language_Id="2">999</Language_Mask>
+    <Language_Mask Language_Id="4">999</Language_Mask>
+    <Language_Mask Language_Id="5">999</Language_Mask>
+    <Language_Mask Language_Id="6">999</Language_Mask>
+    <Language_Mask Language_Id="7">999</Language_Mask>
+    <Language_Mask Language_Id="8">999</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="8" Mask_Name="DBTDecimal Host Mask">
+    <Language_Mask Language_Id="1">##########.####</Language_Mask>
+    <Language_Mask Language_Id="2">##########.####</Language_Mask>
+    <Language_Mask Language_Id="4">##########.####</Language_Mask>
+    <Language_Mask Language_Id="5">##########.####</Language_Mask>
+    <Language_Mask Language_Id="6">##########.####</Language_Mask>
+    <Language_Mask Language_Id="7">##########.####</Language_Mask>
+    <Language_Mask Language_Id="8">##########.####</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="9" Mask_Name="DBTDecimal Display Mask">
+    <Language_Mask Language_Id="1">#######,##0.####</Language_Mask>
+    <Language_Mask Language_Id="2">#######,##0.####</Language_Mask>
+    <Language_Mask Language_Id="4">#######,##0.####</Language_Mask>
+    <Language_Mask Language_Id="5">#######,##0.####</Language_Mask>
+    <Language_Mask Language_Id="6">#######,##0.####</Language_Mask>
+    <Language_Mask Language_Id="7">#######,##0.####</Language_Mask>
+    <Language_Mask Language_Id="8">#######,##0.####</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="10" Mask_Name="DBTDate Host Mask">
+    <Language_Mask Language_Id="1">yyyyMMdd</Language_Mask>
+    <Language_Mask Language_Id="2">yyyyMMdd</Language_Mask>
+    <Language_Mask Language_Id="4">yyyyMMdd</Language_Mask>
+    <Language_Mask Language_Id="5">yyyyMMdd</Language_Mask>
+    <Language_Mask Language_Id="6">yyyyMMdd</Language_Mask>
+    <Language_Mask Language_Id="7">yyyyMMdd</Language_Mask>
+    <Language_Mask Language_Id="8">yyyyMMdd</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="11" Mask_Name="DBTDate Display Mask">
+    <Language_Mask Language_Id="1">E, MM / dd / yyyy</Language_Mask>
+    <Language_Mask Language_Id="2">E, MM / dd / yyyy</Language_Mask>
+    <Language_Mask Language_Id="4">E, MM / dd / yyyy</Language_Mask>
+    <Language_Mask Language_Id="5">E, MM / dd / yyyy</Language_Mask>
+    <Language_Mask Language_Id="6">E, MM / dd / yyyy</Language_Mask>
+    <Language_Mask Language_Id="7">E, MM / dd / yyyy</Language_Mask>
+    <Language_Mask Language_Id="8">E, MM / dd / yyyy</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="12" Mask_Name="DBTTime Host Mask">
+    <Language_Mask Language_Id="1">HHmmss</Language_Mask>
+    <Language_Mask Language_Id="2">HHmmss</Language_Mask>
+    <Language_Mask Language_Id="4">HHmmss</Language_Mask>
+    <Language_Mask Language_Id="5">HHmmss</Language_Mask>
+    <Language_Mask Language_Id="6">HHmmss</Language_Mask>
+    <Language_Mask Language_Id="7">HHmmss</Language_Mask>
+    <Language_Mask Language_Id="8">HHmmss</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="13" Mask_Name="DBTTime Display Mask">
+    <Language_Mask Language_Id="1">hh:mm:ss a</Language_Mask>
+    <Language_Mask Language_Id="2">hh:mm:ss a</Language_Mask>
+    <Language_Mask Language_Id="4">hh:mm:ss a</Language_Mask>
+    <Language_Mask Language_Id="5">hh:mm:ss a</Language_Mask>
+    <Language_Mask Language_Id="6">hh:mm:ss a</Language_Mask>
+    <Language_Mask Language_Id="7">hh:mm:ss a</Language_Mask>
+    <Language_Mask Language_Id="8">hh:mm:ss a</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="14" Mask_Name="DBTPercent Host Mask">
+    <Language_Mask Language_Id="1">####.###</Language_Mask>
+    <Language_Mask Language_Id="2">####.###</Language_Mask>
+    <Language_Mask Language_Id="4">####.###</Language_Mask>
+    <Language_Mask Language_Id="5">####.###</Language_Mask>
+    <Language_Mask Language_Id="6">####.###</Language_Mask>
+    <Language_Mask Language_Id="7">####.###</Language_Mask>
+    <Language_Mask Language_Id="8">####.###</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="15" Mask_Name="DBTPercent Display Mask">
+    <Language_Mask Language_Id="1">###0.0##%</Language_Mask>
+    <Language_Mask Language_Id="2">###0.0##%</Language_Mask>
+    <Language_Mask Language_Id="4">###0.0##%</Language_Mask>
+    <Language_Mask Language_Id="5">###0.0##%</Language_Mask>
+    <Language_Mask Language_Id="6">###0.0##%</Language_Mask>
+    <Language_Mask Language_Id="7">###0.0##%</Language_Mask>
+    <Language_Mask Language_Id="8">###0.0##%</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="16" Mask_Name="DBTCurrency Host Mask">
+    <Language_Mask Language_Id="1">##########.##</Language_Mask>
+    <Language_Mask Language_Id="2">##########.##</Language_Mask>
+    <Language_Mask Language_Id="4">##########.##</Language_Mask>
+    <Language_Mask Language_Id="5">##########.##</Language_Mask>
+    <Language_Mask Language_Id="6">##########.##</Language_Mask>
+    <Language_Mask Language_Id="7">##########.##</Language_Mask>
+    <Language_Mask Language_Id="8">##########.##</Language_Mask>
+  </Mask>
+  <Mask Group_Id="1" Mask_Id="17" Mask_Name="DBTCurrency Display Mask">
+    <Language_Mask Language_Id="1">¤#######,##0.00</Language_Mask>
+    <Language_Mask Language_Id="2">¤#######,##0.00</Language_Mask>
+    <Language_Mask Language_Id="4">¤#######,##0.00</Language_Mask>
+    <Language_Mask Language_Id="5">¤#######,##0.00</Language_Mask>
+    <Language_Mask Language_Id="6">¤#######,##0.00</Language_Mask>
+    <Language_Mask Language_Id="7">¤#######,##0.00</Language_Mask>
+    <Language_Mask Language_Id="8">¤#######,##0.00</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="1" Mask_Name="Imported mask: 9,999,999,999,999.9999999999">
+    <Language_Mask Language_Id="1">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="2">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="4">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="5">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,###,##0.0000000000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="2" Mask_Name="Imported mask: 9,999,999,999">
+    <Language_Mask Language_Id="1">#,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="2">#,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="4">#,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="5">#,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,##0</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="3" Mask_Name="Imported mask: 9999999999">
+    <Language_Mask Language_Id="1">9999999999</Language_Mask>
+    <Language_Mask Language_Id="2">9999999999</Language_Mask>
+    <Language_Mask Language_Id="4">9999999999</Language_Mask>
+    <Language_Mask Language_Id="5">9999999999</Language_Mask>
+    <Language_Mask Language_Id="6">9999999999</Language_Mask>
+    <Language_Mask Language_Id="7">9999999999</Language_Mask>
+    <Language_Mask Language_Id="8">9999999999</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="4" Mask_Name="Imported mask: ##/##/####">
+    <Language_Mask Language_Id="1">##/##/####</Language_Mask>
+    <Language_Mask Language_Id="2">##/##/####</Language_Mask>
+    <Language_Mask Language_Id="4">##/##/####</Language_Mask>
+    <Language_Mask Language_Id="5">##/##/####</Language_Mask>
+    <Language_Mask Language_Id="6">##/##/####</Language_Mask>
+    <Language_Mask Language_Id="7">##/##/####</Language_Mask>
+    <Language_Mask Language_Id="8">##/##/####</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="5" Mask_Name="Imported mask: 9,999,999,999,999.99">
+    <Language_Mask Language_Id="1">#,###,###,###,##0.00</Language_Mask>
+    <Language_Mask Language_Id="2">#,###,###,###,##0.00</Language_Mask>
+    <Language_Mask Language_Id="4">#,###,###,###,##0.00</Language_Mask>
+    <Language_Mask Language_Id="5">#,###,###,###,##0.00</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,###,##0.00</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,###,##0.00</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,###,##0.00</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="6" Mask_Name="Imported mask: 9,999,999,999,999.999">
+    <Language_Mask Language_Id="1">#,###,###,###,##0.000</Language_Mask>
+    <Language_Mask Language_Id="2">#,###,###,###,##0.000</Language_Mask>
+    <Language_Mask Language_Id="4">#,###,###,###,##0.000</Language_Mask>
+    <Language_Mask Language_Id="5">#,###,###,###,##0.000</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,###,##0.000</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,###,##0.000</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,###,##0.000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="7" Mask_Name="Imported mask: 999.9999">
+    <Language_Mask Language_Id="1">##0.0000</Language_Mask>
+    <Language_Mask Language_Id="2">##0.0000</Language_Mask>
+    <Language_Mask Language_Id="4">##0.0000</Language_Mask>
+    <Language_Mask Language_Id="5">##0.0000</Language_Mask>
+    <Language_Mask Language_Id="6">##0.0000</Language_Mask>
+    <Language_Mask Language_Id="7">##0.0000</Language_Mask>
+    <Language_Mask Language_Id="8">##0.0000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="8" Mask_Name="Imported mask: 9,999,999,999,999.9999">
+    <Language_Mask Language_Id="1">#,###,###,###,##0.0000</Language_Mask>
+    <Language_Mask Language_Id="2">#,###,###,###,##0.0000</Language_Mask>
+    <Language_Mask Language_Id="4">#,###,###,###,##0.0000</Language_Mask>
+    <Language_Mask Language_Id="5">#,###,###,###,##0.0000</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,###,##0.0000</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,###,##0.0000</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,###,##0.0000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="9" Mask_Name="Imported mask: 9,999,999,999,999.9">
+    <Language_Mask Language_Id="1">#,###,###,###,##0.0</Language_Mask>
+    <Language_Mask Language_Id="2">#,###,###,###,##0.0</Language_Mask>
+    <Language_Mask Language_Id="4">#,###,###,###,##0.0</Language_Mask>
+    <Language_Mask Language_Id="5">#,###,###,###,##0.0</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,###,##0.0</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,###,##0.0</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,###,##0.0</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="10" Mask_Name="Imported mask: 9,999,999,999,999.0060006099">
+    <Language_Mask Language_Id="1">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="2">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="4">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="5">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,###,##0.0000000000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="11" Mask_Name="Ten dec 9,999,999,999,999.9999999999">
+    <Language_Mask Language_Id="1">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="2">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="4">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="5">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,###,##0.0000000000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="12" Mask_Name="8-decimals">
+    <Language_Mask Language_Id="1">#,###,###,###,##0.00000000</Language_Mask>
+    <Language_Mask Language_Id="2">#,###,###,###,##0.00000000</Language_Mask>
+    <Language_Mask Language_Id="4">#,###,###,###,##0.00000000</Language_Mask>
+    <Language_Mask Language_Id="5">#,###,###,###,##0.00000000</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,###,##0.00000000</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,###,##0.00000000</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,###,##0.00000000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="13" Mask_Name="enUS-Date dd/MM/yyyy">
+    <Language_Mask Language_Id="1">dd/MM/yyyy</Language_Mask>
+    <Language_Mask Language_Id="2">dd/MM/yyyy</Language_Mask>
+    <Language_Mask Language_Id="4">dd/MM/yyyy</Language_Mask>
+    <Language_Mask Language_Id="5">dd/MM/yyyy</Language_Mask>
+    <Language_Mask Language_Id="6">dd/MM/yyyy</Language_Mask>
+    <Language_Mask Language_Id="7">dd/MM/yyyy</Language_Mask>
+    <Language_Mask Language_Id="8">dd/MM/yyyy</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="14" Mask_Name="Decimal #,###,###,###,##0.00">
+    <Language_Mask Language_Id="1">#,###,###,###,###,###,###,##0.00</Language_Mask>
+    <Language_Mask Language_Id="2">#,###,###,###,##0.00</Language_Mask>
+    <Language_Mask Language_Id="4">#,###,###,###,##0.00</Language_Mask>
+    <Language_Mask Language_Id="5">#,###,###,###,##0.00</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,###,##0.00</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,###,###,###,###,##0.00</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,###,###,###,###,##0.00</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="15" Mask_Name="Decimal #,###,###,###,##0.0000">
+    <Language_Mask Language_Id="1">#,###,###,###,###,###,###,##0.0000</Language_Mask>
+    <Language_Mask Language_Id="2">#,###,###,###,##0.0000</Language_Mask>
+    <Language_Mask Language_Id="4">#,###,###,###,##0.0000</Language_Mask>
+    <Language_Mask Language_Id="5">#,###,###,###,##0.0000</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,###,##0.0000</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,###,###,###,###,##0.0000</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,###,###,###,###,##0.0000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="16" Mask_Name="No decimals #,###,###,###,##0">
+    <Language_Mask Language_Id="1">#,###,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="2">#,###,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="4">#,###,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="5">#,###,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,###,##0</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="17" Mask_Name="10 decimals #,###,###,###,##0.0000000000">
+    <Language_Mask Language_Id="1">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="2">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="4">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="5">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,###,##0.0000000000</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,###,##0.0000000000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="18" Mask_Name="15 digits ##############0">
+    <Language_Mask Language_Id="1">##############0</Language_Mask>
+    <Language_Mask Language_Id="2">##############0</Language_Mask>
+    <Language_Mask Language_Id="4">##############0</Language_Mask>
+    <Language_Mask Language_Id="5">##############0</Language_Mask>
+    <Language_Mask Language_Id="6">##############0</Language_Mask>
+    <Language_Mask Language_Id="7">##############0</Language_Mask>
+    <Language_Mask Language_Id="8">##############0</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="19" Mask_Name="#0">
+    <Language_Mask Language_Id="1">#0</Language_Mask>
+    <Language_Mask Language_Id="2">#0</Language_Mask>
+    <Language_Mask Language_Id="4">#0</Language_Mask>
+    <Language_Mask Language_Id="5">#0</Language_Mask>
+    <Language_Mask Language_Id="6">#0</Language_Mask>
+    <Language_Mask Language_Id="7">#0</Language_Mask>
+    <Language_Mask Language_Id="8">#0</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="20" Mask_Name="# 15 digits - #######00000000">
+    <Language_Mask Language_Id="1">#######00000000</Language_Mask>
+    <Language_Mask Language_Id="2">#######00000000</Language_Mask>
+    <Language_Mask Language_Id="4">#######00000000</Language_Mask>
+    <Language_Mask Language_Id="5">#######00000000</Language_Mask>
+    <Language_Mask Language_Id="6">#######00000000</Language_Mask>
+    <Language_Mask Language_Id="7">#######00000000</Language_Mask>
+    <Language_Mask Language_Id="8">#######00000000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="21" Mask_Name="# 15 digits - #########000000">
+    <Language_Mask Language_Id="1">#########000000</Language_Mask>
+    <Language_Mask Language_Id="2">#########000000</Language_Mask>
+    <Language_Mask Language_Id="4">#########000000</Language_Mask>
+    <Language_Mask Language_Id="5">#########000000</Language_Mask>
+    <Language_Mask Language_Id="6">#########000000</Language_Mask>
+    <Language_Mask Language_Id="7">#########000000</Language_Mask>
+    <Language_Mask Language_Id="8">#########000000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="22" Mask_Name="8 decimal ##############0.00000000">
+    <Language_Mask Language_Id="1">##############0.00000000</Language_Mask>
+    <Language_Mask Language_Id="2">##############0.00000000</Language_Mask>
+    <Language_Mask Language_Id="4">##############0.00000000</Language_Mask>
+    <Language_Mask Language_Id="5">##############0.00000000</Language_Mask>
+    <Language_Mask Language_Id="6">##############0.00000000</Language_Mask>
+    <Language_Mask Language_Id="7">##############0.00000000</Language_Mask>
+    <Language_Mask Language_Id="8">##############0.00000000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="23" Mask_Name="8 digits with leading 0 - 00000000">
+    <Language_Mask Language_Id="1">00000000</Language_Mask>
+    <Language_Mask Language_Id="2">00000000</Language_Mask>
+    <Language_Mask Language_Id="4">00000000</Language_Mask>
+    <Language_Mask Language_Id="5">00000000</Language_Mask>
+    <Language_Mask Language_Id="6">00000000</Language_Mask>
+    <Language_Mask Language_Id="7">00000000</Language_Mask>
+    <Language_Mask Language_Id="8">00000000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="24" Mask_Name="4 digits with leading 0 - 0000">
+    <Language_Mask Language_Id="1">0000</Language_Mask>
+    <Language_Mask Language_Id="2">0000</Language_Mask>
+    <Language_Mask Language_Id="4">0000</Language_Mask>
+    <Language_Mask Language_Id="5">0000</Language_Mask>
+    <Language_Mask Language_Id="6">0000</Language_Mask>
+    <Language_Mask Language_Id="7">0000</Language_Mask>
+    <Language_Mask Language_Id="8">0000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="25" Mask_Name="3 digits with leading 0 - 000">
+    <Language_Mask Language_Id="1">000</Language_Mask>
+    <Language_Mask Language_Id="2">000</Language_Mask>
+    <Language_Mask Language_Id="4">000</Language_Mask>
+    <Language_Mask Language_Id="5">000</Language_Mask>
+    <Language_Mask Language_Id="6">000</Language_Mask>
+    <Language_Mask Language_Id="7">000</Language_Mask>
+    <Language_Mask Language_Id="8">000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="26" Mask_Name="10 digits integer #,###,###,##0">
+    <Language_Mask Language_Id="1">#,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="2">#,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="4">#,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="5">#,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,##0</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,##0</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="27" Mask_Name="17 digits 99999999999999999">
+    <Language_Mask Language_Id="1">99999999999999999</Language_Mask>
+    <Language_Mask Language_Id="2">99999999999999999</Language_Mask>
+    <Language_Mask Language_Id="4">99999999999999999</Language_Mask>
+    <Language_Mask Language_Id="5">99999999999999999</Language_Mask>
+    <Language_Mask Language_Id="6">99999999999999999</Language_Mask>
+    <Language_Mask Language_Id="7">99999999999999999</Language_Mask>
+    <Language_Mask Language_Id="8">99999999999999999</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="28" Mask_Name="Four dec ###9">
+    <Language_Mask Language_Id="1">###0</Language_Mask>
+    <Language_Mask Language_Id="2">###0</Language_Mask>
+    <Language_Mask Language_Id="5">###0</Language_Mask>
+    <Language_Mask Language_Id="6">###0</Language_Mask>
+    <Language_Mask Language_Id="7">###0</Language_Mask>
+    <Language_Mask Language_Id="8">###0</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="29" Mask_Name="Decimal#,###,###,###,##0.000">
+    <Language_Mask Language_Id="1">#,###,###,###,###,###,###,##0.000</Language_Mask>
+    <Language_Mask Language_Id="6">#,###,###,###,##0.000</Language_Mask>
+    <Language_Mask Language_Id="7">#,###,###,###,###,###,###,##0.000</Language_Mask>
+    <Language_Mask Language_Id="8">#,###,###,###,###,###,###,##0.000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="30" Mask_Name="Decimal ###0.0000">
+    <Language_Mask Language_Id="1">###0.0000</Language_Mask>
+    <Language_Mask Language_Id="7">###0.0000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="31" Mask_Name="Mask #,##0.00">
+    <Language_Mask Language_Id="1">#,##0.00</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="32" Mask_Name="No decimals 23  ###,###,###,###,###,###">
+    <Language_Mask Language_Id="1">###,###,###,###,###,###</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="33" Mask_Name="Decimal 999,999.99">
+    <Language_Mask Language_Id="1">999,999.99</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="34" Mask_Name="Decimal 999,999,999.99">
+    <Language_Mask Language_Id="1">999,999,999.99</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="35" Mask_Name="2 digits with leading 0 - 00">
+    <Language_Mask Language_Id="1">00</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="36" Mask_Name="Decimal #,###,###,###,##0.000000">
+    <Language_Mask Language_Id="1">#,###,###,###,###,###,###,##0.000000</Language_Mask>
+  </Mask>
+  <Mask Group_Id="2" Mask_Id="37" Mask_Name="Decimal ########0.00">
+    <Language_Mask Language_Id="1">########0.00</Language_Mask>
+  </Mask>
+</Root>

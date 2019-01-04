@@ -1,0 +1,40 @@
+[Data]
+TITLE_MAIN=iFast Desktop
+UNINST_DISPLAY_NAME_UAT=iFast Desktop UAT
+COMPANY_NAME=International Financial
+ERROR_COMPONENT=Component:
+Y=Y
+COMPANY_NAME16=Company
+PRODUCT_VERSION=1.00.000
+ERROR_MOVEDATA=An error occurred during the move data process: %d
+ERROR_FILEGROUP=File Group:
+UNINST_KEY_UAT=iFast Desktop UAT
+REFLECTION=Reflection
+UNINST_KEY=iFast Desktop
+PRODUCT_KEY_UAT=mfdstc_uat.exe
+PRODUCT_NAME_UAT=iFAST Desktop UAT
+TITLE_CAPTIONBAR=iFast Desktop Setup
+FOLDER_NAME_UAT=iFAST_UAT
+N=N
+PRODUCT_NAME16=Product
+HOSTNAME_UAT=uathost
+OPTIONNIN=option.ini
+ERROR_VGARESOLUTION=This program requires VGA or better resolution.
+ERROR_FILE=File:
+FOLDER_NAME=iFAST
+CLIENT=Client
+MARKET=Market
+DSTCGUI_DEFAULT_PATH=C:\Program Files\iFAST\GFE
+HOSTNAME=guihost
+UNINST_DISPLAY_NAME=iFast Desktop
+PRODUCT_KEY=mfdstc.exe
+DSTCGUI_DEFAULT_PATH_UAT=C:\Program Files\iFAST\UAT
+PRODUCT_NAME=iFAST Desktop
+ERROR_UNINSTSETUP=unInstaller setup failed to initialize.  You may not be able to uninstall this product.
+DATEFORMAT=DateFormat
+
+[General]
+Language=0011
+Type=STRINGTABLESPECIFIC
+Version=1.00.000
+

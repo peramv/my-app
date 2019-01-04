@@ -1,0 +1,65 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<HTML>
+  <HEAD>
+    <TITLE><#= ViewName #> - View </TITLE>
+  </HEAD>
+  <BODY>
+    <H1><#= ViewDescription #> (<#= ViewName #>)</H1>
+    <H2>Resp Type -- Error occured</H2>
+    <TABLE BORDER="1">
+    <TR>
+      <TD><STRONG>Section ID</STRONG></TD>
+      <TD><STRONG>Field ID</STRONG></TD>
+      <TD><STRONG>Field Name</STRONG></TD>
+      <TD><STRONG>Field Description</STRONG></TD>
+      <TD><STRONG>Field Type</STRONG></TD>
+    </TR>
+<#	CreateLists();
+
+	for (int i = 0; i < responseTypeErrorOccuredFieldItemList.Count(); i++)
+	{ #>
+      <TR>
+        <TD><#= responseTypeErrorOccuredFieldItemList[i].SectionId #></TD>
+        <TD><#= responseTypeErrorOccuredFieldItemList[i].FieldId #></TD>
+        <TD><#= responseTypeErrorOccuredFieldItemList[i].FieldName #></TD>
+        <TD><#= responseTypeErrorOccuredFieldItemList[i].FieldDescription #></TD>
+        <TD><#= GetFieldType(responseTypeErrorOccuredFieldItemList[i].FieldName) #></TD>
+      </TR>
+<#  } #>
+    </TABLE>
+    <P>* indicates the section is repeating.</P>
+    <H2>Resp Type -- Data</H2>
+    <TABLE BORDER="1">
+    <TR>
+      <TD><STRONG>Section ID</STRONG></TD>
+      <TD><STRONG>Field ID</STRONG></TD>
+      <TD><STRONG>Field Name</STRONG></TD>
+      <TD><STRONG>Field Description</STRONG></TD>
+      <TD><STRONG>Field Type</STRONG></TD>
+    </TR>
+<# 	for (int i = 0; i < responseTypeNonRepeatingDataFieldItemList.Count(); i++)
+	{ #>
+      <TR>
+        <TD><#= responseTypeNonRepeatingDataFieldItemList[i].SectionId #></TD>
+        <TD><#= responseTypeNonRepeatingDataFieldItemList[i].FieldId #></TD>
+        <TD><#= responseTypeNonRepeatingDataFieldItemList[i].FieldName #></TD>
+        <TD><#= responseTypeNonRepeatingDataFieldItemList[i].FieldDescription #></TD>
+        <TD><#= GetFieldType(responseTypeNonRepeatingDataFieldItemList[i].FieldName) #></TD>
+      </TR>
+<#  } #>
+<#	for (int i = 0; i < responseTypeRepeatingDataFieldItemList.Count(); i++)
+	{ #>
+      <TR>
+        <TD><#= responseTypeRepeatingDataFieldItemList[i].SectionId #>*</TD>
+        <TD><#= responseTypeRepeatingDataFieldItemList[i].FieldId #></TD>
+        <TD><#= responseTypeRepeatingDataFieldItemList[i].FieldName #></TD>
+        <TD><#= responseTypeRepeatingDataFieldItemList[i].FieldDescription #></TD>
+        <TD><#= GetFieldType(responseTypeRepeatingDataFieldItemList[i].FieldName) #></TD>
+      </TR>
+<#  } #>
+    </TABLE>
+    <P>* indicates the section is repeating.</P>

@@ -1,0 +1,32 @@
+// Computer Generated Condition File for Module: gui
+
+
+#pragma message("including "__FILE__ )
+#ifndef PLATFORM_H
+#include "platform.h"
+#endif
+
+
+namespace CND
+{
+  CLASS_EXPORT const I_CHAR *GUI_CONDITION = I_( "GUI" );
+
+  //extern CLASS_EXPORT const long GUI_ERR_COMMAND_NOT_FOUND = 40000261;
+  //extern CLASS_EXPORT const long GUI_ERR_DIALOG_CREATE_FAILED = 40000262;
+  //extern CLASS_EXPORT const long GUI_ERR_DOMODAL_FAILED = 40000263;
+  //extern CLASS_EXPORT const long GUI_ERR_UNKNOWN_EXCEPTION = 40000264;
+  //extern CLASS_EXPORT const long GUI_ENCORR_ALREADY_ACTIVE = 40000265;
+  //extern CLASS_EXPORT const long GUI_ENCORR_OLE_ERROR = 40000266;
+  //extern CLASS_EXPORT const long GUI_ENCORR_ERROR_MALLOC = 40000267;
+  //extern CLASS_EXPORT const long GUI_CND_VERSION = 40000281;
+
+	extern CLASS_EXPORT const long GUI_CND_VERSION = 1400001;
+	extern CLASS_EXPORT const long GUI_ENCORR_ALREADY_ACTIVE = 1400002;
+	extern CLASS_EXPORT const long GUI_ENCORR_ERROR_MALLOC = 1400003;
+	extern CLASS_EXPORT const long GUI_ENCORR_OLE_ERROR = 1400004;
+	extern CLASS_EXPORT const long GUI_ERR_COMMAND_NOT_FOUND = 1400005;
+	extern CLASS_EXPORT const long GUI_ERR_DIALOG_CREATE_FAILED = 1400006;
+	extern CLASS_EXPORT const long GUI_ERR_DOMODAL_FAILED = 1400007;
+	extern CLASS_EXPORT const long GUI_ERR_UNKNOWN_EXCEPTION = 1400008;
+}
+

@@ -1,0 +1,329 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "bfcbo"=.\core\bfcbo\bfcbo.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "bfconmgr"=.\core\bfconmgr\BFConMgr.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "bfdata"=.\core\bfdata\bfdata.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "bfdbrkr"=.\core\bfdbrkr\BFDBrkr.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "bfproc"=.\core\bfproc\bfproc.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "bfutil"=.\core\bfutil\BFUtil.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "ifast_dataimpl"=.\dataimpl\ifast_dataimpl.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    /dataimpl?PVCS Version Manager?x:\areaproj\bf ifast?
+    .\dataimpl
+    end source code control
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name ifast_dataimpl_gen
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "ifast_dataimpl_gen"=.\dataimpl\ifast_dataimpl_gen.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    /dataimpl?PVCS Version Manager?x:\areaproj\bf ifast?
+    .\dataimpl
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "ifastawd"=.\ifastawd\ifastawd.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    /ifastawd?PVCS Version Manager?x:\areaproj\bf ifast?
+    .\ifastawd
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "ifastbp"=.\ifastbp\ifastbp.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    /ifastbp?PVCS Version Manager?x:\areaproj\bf ifast?
+    .\ifastbp
+    end source code control
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name ifast_dataimpl
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ifast_dataimpl_gen
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ifastcbo
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ifastids
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ifastawd
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "ifastbps"=.\ifastbps\ifastbps.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    /ifastbps?PVCS Version Manager?x:\areaproj\bf ifast?
+    .\ifastbps
+    end source code control
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name ifast_dataimpl
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ifast_dataimpl_gen
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ifastcbo
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ifastxparser
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "ifastcbo"=.\ifastcbo\ifastcbo.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    /ifastcbo?PVCS Version Manager?x:\areaproj\bf ifast?
+    .\ifastcbo
+    end source code control
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name ifast_dataimpl
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ifast_dataimpl_gen
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ifastdbrkr
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ifastids
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "ifastdbrkr"=.\ifastdbrkr\ifastdbrkr.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    /ifastdbrkr?PVCS Version Manager?x:\areaproj\bf ifast?
+    .\ifastdbrkr
+    end source code control
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name ifast_dataimpl
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ifast_dataimpl_gen
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ifastids
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "ifastids"=.\ifastids\ifastids.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    /ifastids?PVCS Version Manager?x:\areaproj\bf ifast?
+    .\ifastids
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "ifastxparser"=.\ifastxparser\ifastxparser.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    /ifastxparser?PVCS Version Manager?x:\areaproj\bf ifast?
+    .\ifastxparser
+    end source code control
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name ifast_dataimpl
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ifastbp
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name ifastcbo
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "ifdscore"=.\core\ifdscore\ifdscore.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "srvbase"=.\core\srvbase\srvbase.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "xparser"=.\core\xparser\XParser.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+

@@ -1,0 +1,2056 @@
+<SmartForm>
+	<APIs>
+		<API>
+			<name>gnAcctSetup</name>
+			<applicableWorkAreas>
+				<workArea>ESTATE</workArea>
+				<workArea>EXCH</workArea>
+				<workArea>NASU</workArea>
+				<workArea>PURCH</workArea>
+				<workArea>PAC</workArea>
+				<workArea>RIF</workArea>
+				<workArea>SPECIES</workArea>
+				<workArea>SWP</workArea>								
+			</applicableWorkAreas>
+		</API>		
+		<API>
+			<name>gnOrder</name>
+			<applicableWorkAreas>				
+				<workArea>ESTATE</workArea>								
+				<workArea>PURCH</workArea>								
+				<workArea>SPECIES</workArea>						
+			</applicableWorkAreas>
+		</API>
+		<API>
+			<name>gnPACSWP</name>
+			<applicableWorkAreas>				
+				<workArea>ESTATE</workArea>								
+				<workArea>PURCH</workArea>
+				<workArea>PAC</workArea>				
+				<workArea>SPECIES</workArea>
+				<workArea>SWP</workArea>			
+			</applicableWorkAreas>
+		</API>
+		<API>
+			<name>gnATR</name>
+			<applicableWorkAreas>				
+				<workArea>ESTATE</workArea>
+				<workArea>EXCH</workArea>
+				<workArea>NASU</workArea>
+				<workArea>PURCH</workArea>
+				<workArea>PAC</workArea>
+				<workArea>RIF</workArea>
+				<workArea>SPECIES</workArea>
+				<workArea>SWP</workArea>							
+			</applicableWorkAreas>
+		</API>						
+		<API>
+			<name>gnLIFRRIF</name>
+			<applicableWorkAreas>				
+				<workArea>ESTATE</workArea>
+				<workArea>EXCH</workArea>				
+				<workArea>PURCH</workArea>
+				<workArea>PAC</workArea>
+				<workArea>RIF</workArea>
+				<workArea>SPECIES</workArea>
+				<workArea>SWP</workArea>							
+			</applicableWorkAreas>
+		</API>
+		<API>
+			<name>gnDividend</name>
+			<applicableWorkAreas>				
+				<workArea>PURCH</workArea>
+				<workArea>PAC</workArea>
+				<workArea>SWP</workArea>
+				<workArea>RIF</workArea>				
+			</applicableWorkAreas>			
+		</API>
+		<API>
+			<name>fundTemp</name>
+			<applicableWorkAreas>				
+				<workArea>ESTATE</workArea>
+				<workArea>EXCH</workArea>				
+				<workArea>PURCH</workArea>
+				<workArea>PAC</workArea>
+				<workArea>RIF</workArea>
+				<workArea>SPECIES</workArea>
+				<workArea>SWP</workArea>		
+			</applicableWorkAreas>
+		</API>
+		<API>
+			<name>bankTemp</name>
+			<applicableWorkAreas>				
+				<workArea>ESTATE</workArea>
+				<workArea>EXCH</workArea>
+				<workArea>NASU</workArea>
+				<workArea>PURCH</workArea>
+				<workArea>PAC</workArea>
+				<workArea>RIF</workArea>
+				<workArea>SPECIES</workArea>
+				<workArea>SWP</workArea>		
+			</applicableWorkAreas>
+		</API>										
+	</APIs>
+	<JSCode>
+		<![CDATA[
+			var NCE_NASU_EN = {};
+			
+			NCE_NASU_EN.onBeforeValidation = function()
+			{
+				//AcctSetup
+				if (SmartFormsApp.DataStore.isAPIAvailable('gnAcctSetup'))
+				{
+					//account type and spousal
+					if (SmartFormsApp.DataStore.getNode('gnAcctSetupRequest.AcctSetup.Spousal').hasData())
+					{
+						SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.AcctInfo.spousalFlg', 'Y');
+					}
+					else
+					{
+						SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.AcctInfo.spousalFlg', '');						
+					}					
+										
+					SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.SegInfo.SucsrAnnuitant.Address.country', '');
+					SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.SegInfo.SucsrAnnuitant.Address.provState', '');
+					SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.SegInfo.SucsrAnnuitant.ClientInfo.lang', '');						
+					if (SmartFormsApp.DataStore.getNode('gnAcctSetupRequest.AcctSetup.SegInfo.SucsrAnnuitant').hasData())					
+					{
+						SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.SegInfo.SucsrAnnuitant.Address.country', 'CAN');
+						SmartFormsApp.DataStore.copyNodeValue('gnAcctSetupRequest.AcctSetup.Owner.Address.provState',
+							'gnAcctSetupRequest.AcctSetup.SegInfo.SucsrAnnuitant.Address.provState');
+						SmartFormsApp.DataStore.copyNodeValue('gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.lang',
+							'gnAcctSetupRequest.AcctSetup.SegInfo.SucsrAnnuitant.ClientInfo.lang');
+					}
+					
+					SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.AcctInfo.taxCode', 
+						SmartFormsApp.DataStore.getNodeValue('gnAcctSetupRequest.AcctSetup.Owner.Address.provState'));				
+									
+					SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.AcctInfo.recipCode', '');
+					if (SmartFormsApp.DataStore.getNodeValue('gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.Org.orgName'))
+					{					
+						SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.AcctInfo.recipCode', '3');
+					}
+					
+					SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.Jnt.jntOwner.ClientInfo.lang', '');				
+					if (SmartFormsApp.DataStore.getNode('gnAcctSetupRequest.AcctSetup.Jnt').hasData())
+					{
+						SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.AcctInfo.recipCode', '2');
+						SmartFormsApp.DataStore.copyNodeValue('gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.lang',
+							'gnAcctSetupRequest.AcctSetup.Jnt.jntOwner.ClientInfo.lang');			
+					}
+					
+					if (!SmartFormsApp.DataStore.getNodeValue('gnAcctSetupRequest.AcctSetup.AcctInfo.recipCode'))
+					{
+						SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.AcctInfo.recipCode', '1');
+					}
+					
+					if (SmartFormsApp.DataStore.getNode('gnAcctSetupRequest.AcctSetup.ITF').hasData())
+					{
+						SmartFormsApp.DataStore.copyNodeValue('gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.lang',						
+							'gnAcctSetupRequest.AcctSetup.ITF.ITFBen[0].ClientInfo.lang');						
+					}		
+					
+					if (SmartFormsApp.DataStore.getNode('gnAcctSetupRequest.AcctSetup.DthBenDtl').hasData())
+					{
+						for (var i = 0; i != 5; i++)
+						{
+							if (SmartFormsApp.DataStore.getNode('gnAcctSetupRequest.AcctSetup.DthBenDtl.DthBen[' + i + ']').hasData())
+							{
+								SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.DthBenDtl.DthBen[' + i + '].ClientInfo.Individual.birthDate', '00000000');							
+								SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.DthBenDtl.DthBen[' + i + '].benType', '1'); 							
+								SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.AcctSetup.DthBenDtl.DthBen[' + i + '].ClientInfo.lang', 
+									SmartFormsApp.DataStore.getNodeValue('gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.lang'));
+							}
+						}
+					}
+				}
+				
+				//Order
+				if (SmartFormsApp.DataStore.isAPIAvailable('gnOrder'))
+				{
+					SmartFormsApp.DataStore.setNodeValue('gnOrderRequest[0].Order.actionCode', '');
+					SmartFormsApp.DataStore.setNodeValue('gnOrderRequest[0].Order.amountType', '');
+					SmartFormsApp.DataStore.setNodeValue('gnOrderRequest[0].Order.trxnTyp', '');					
+					SmartFormsApp.DataStore.setNodeValue('gnOrderRequest[0].Order.settlStat', '');
+					if (SmartFormsApp.DataStore.getNode('gnOrderRequest[0].Order').hasData())
+					{
+						SmartFormsApp.DataStore.setNodeValue('gnOrderRequest[0].Order.actionCode', 'NEW');				
+						SmartFormsApp.DataStore.setNodeValue('gnOrderRequest[0].Order.amountType', 'D');					
+						SmartFormsApp.DataStore.setNodeValue('gnOrderRequest[0].Order.trxnTyp', '5');
+						SmartFormsApp.DataStore.setNodeValue('gnOrderRequest[0].Order.settlStat', 'I'); //I = Individual
+						
+						for (var i = 0; i != 5; i++)
+						{
+							SmartFormsApp.DataStore.setNodeValue('gnOrderRequest[0].Order.allocDtl.Allocation[' + i + '].fundIDType', '');
+							SmartFormsApp.DataStore.setNodeValue('gnOrderRequest[0].Order.allocDtl.Allocation[' + i + '].fundIDValue', '');
+							SmartFormsApp.DataStore.setNodeValue('gnOrderRequest[0].Order.allocDtl.Allocation[' + i + '].amountType', '');
+							if (SmartFormsApp.DataStore.getNode('gnOrderRequest[0].Order.allocDtl.Allocation[' + i + ']').hasData())
+							{
+								SmartFormsApp.DataStore.setNodeValue('gnOrderRequest[0].Order.allocDtl.Allocation[' + i + '].amountType', 'D');
+								SmartFormsApp.DataStore.setNodeValue('gnOrderRequest[0].Order.allocDtl.Allocation[' + i + '].fundIDType', 'iFAST');
+								SmartFormsApp.DataStore.setNodeValue('gnOrderRequest[0].Order.allocDtl.Allocation[' + i + '].fundIDValue', 
+									SmartFormsApp.DataStore.getNodeValue('fundTemp.FundInfo[' + i + '].fundIDValue'));
+							}						
+						}					
+					}
+				}
+				
+				//PACSWP
+				if (SmartFormsApp.DataStore.isAPIAvailable('gnPACSWP'))
+				{
+					//PAC										
+					var PAC_isSemiMonthly = SmartFormsApp.DataStore.getNode('gnPACSWPRequest[1].PACSWP.effDate').hasData();
+					if (!PAC_isSemiMonthly)
+					{
+						//gnPACSWPRequest[1] is used on only for the PAC semi monthly case
+						SmartFormsApp.DataStore.getNode('gnPACSWPRequest[1]').clearData();						
+					}															
+					
+					SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.amtType', '');				
+					SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.transType', '');
+					SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.payType', '')
+					SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.grossNet', '')				
+					SmartFormsApp.DataStore.getNode('gnPACSWPRequest[0].PACSWP.BkInfo').clearData();
+					
+					//Handles case of resubmit
+					if (SmartFormsApp.DataStore.getNode('gnPACSWPRequest[0].PACSWP.accountidtgroup').hasData()){
+						if (!(SmartFormsApp.DataStore.getNode('gnPACSWPRequest[0].PACSWP.FundList').hasData()))
+							SmartFormsApp.DataStore.getNode('gnPACSWPRequest[0].PACSWP').clearData();
+					}
+						
+					if (SmartFormsApp.DataStore.getNode('gnPACSWPRequest[0].PACSWP').hasData())
+					{					
+						SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.amtType', 'D');					
+						SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.transType', 'P');
+						SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.payType', 'E');
+						SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.grossNet', 'G');					
+						SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.instutNum', 'gnPACSWPRequest[0].PACSWP.BkInfo.instCode');
+						SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.branchNum', 'gnPACSWPRequest[0].PACSWP.BkInfo.transitNo');
+						SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.bkAcctNum', 'gnPACSWPRequest[0].PACSWP.BkInfo.bkAcctNum');
+						SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.holder', 'gnPACSWPRequest[0].PACSWP.BkInfo.holder');
+						SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.BkInfo.currency', 'CAD');		
+											
+						if (PAC_isSemiMonthly)
+						{							
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[0].PACSWP.freqCode', 'gnPACSWPRequest[1].PACSWP.freqCode');
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[0].PACSWP.amount', 'gnPACSWPRequest[1].PACSWP.amount');
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[0].PACSWP.grossNet', 'gnPACSWPRequest[1].PACSWP.grossNet');						
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[0].PACSWP.amtType', 'gnPACSWPRequest[1].PACSWP.amtType');						
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[0].PACSWP.transType', 'gnPACSWPRequest[1].PACSWP.transType');
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[0].PACSWP.payType', 'gnPACSWPRequest[1].PACSWP.payType');						
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[0].PACSWP.dOfWeek', 'gnPACSWPRequest[1].PACSWP.dOfWeek');						
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.instutNum', 'gnPACSWPRequest[1].PACSWP.BkInfo.instCode');
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.branchNum', 'gnPACSWPRequest[1].PACSWP.BkInfo.transitNo');
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.bkAcctNum', 'gnPACSWPRequest[1].PACSWP.BkInfo.bkAcctNum');
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.holder', 'gnPACSWPRequest[1].PACSWP.BkInfo.holder');
+							SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[1].PACSWP.BkInfo.currency', 'CAD');
+						}
+						
+						for (var i = 0; i != 5; i++)
+						{
+							SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.FundList.FundInfo[' + i + '].fundIDType', '');
+							SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.FundList.FundInfo[' + i + '].fundIDValue', '');
+							SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.FundList.FundInfo[' + i + '].amtType', '');
+							if (SmartFormsApp.DataStore.getNode('gnPACSWPRequest[0].PACSWP.FundList.FundInfo[' + i + ']').hasData())
+							{
+								SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.FundList.FundInfo[' + i + '].fundIDType', 'iFAST');
+								SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.FundList.FundInfo[' + i + '].fundIDValue', 
+									SmartFormsApp.DataStore.getNodeValue('fundTemp.FundInfo[' + i + '].fundIDValue'));
+								SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[0].PACSWP.FundList.FundInfo[' + i + '].amtType', 'D');
+									
+								if (PAC_isSemiMonthly)
+								{
+									SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[0].PACSWP.FundList.FundInfo[' + i + '].amount', 
+										'gnPACSWPRequest[1].PACSWP.FundList.FundInfo[' + i + '].amount');
+										SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[0].PACSWP.FundList.FundInfo[' + i + '].amtType', 
+										'gnPACSWPRequest[1].PACSWP.FundList.FundInfo[' + i + '].amtType');
+									SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[0].PACSWP.FundList.FundInfo[' + i + '].fundIDType', 
+										'gnPACSWPRequest[1].PACSWP.FundList.FundInfo[' + i + '].fundIDType');
+									SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[0].PACSWP.FundList.FundInfo[' + i + '].fundIDValue', 
+										'gnPACSWPRequest[1].PACSWP.FundList.FundInfo[' + i + '].fundIDValue');								
+								}
+							}
+						} 					
+					}			
+					
+					//SWP					
+					var SWP_isSemiMonthly = SmartFormsApp.DataStore.getNode('gnPACSWPRequest[3].PACSWP.effDate').hasData();				
+					if (!SWP_isSemiMonthly)
+					{
+						SmartFormsApp.DataStore.getNode('gnPACSWPRequest[3]').clearData();													
+					}		
+									
+					SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[2].PACSWP.amtType', '');				
+					SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[2].PACSWP.transType', '');
+					SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[2].PACSWP.grossNet', '');										
+					SmartFormsApp.DataStore.getNode('gnPACSWPRequest[2].PACSWP.BkInfo').clearData();
+					
+					//Handles case of resubmit
+					if (SmartFormsApp.DataStore.getNode('gnPACSWPRequest[2].PACSWP.accountidtgroup').hasData()){
+						if (!(SmartFormsApp.DataStore.getNode('gnPACSWPRequest[2].PACSWP.FundList').hasData()))
+							SmartFormsApp.DataStore.getNode('gnPACSWPRequest[2].PACSWP').clearData();
+					}
+					
+					if (SmartFormsApp.DataStore.getNode('gnPACSWPRequest[2].PACSWP').hasData())
+					{
+						SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[2].PACSWP.amtType', 'D');					
+						SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[2].PACSWP.transType', 'S');
+						SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[2].PACSWP.grossNet', 'G');												
+						
+						if (SmartFormsApp.DataStore.getNodeValue('gnPACSWPRequest[2].PACSWP.payType') == 'E')
+						{
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.instutNum', 'gnPACSWPRequest[2].PACSWP.BkInfo.instCode');
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.branchNum', 'gnPACSWPRequest[2].PACSWP.BkInfo.transitNo');
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.bkAcctNum', 'gnPACSWPRequest[2].PACSWP.BkInfo.bkAcctNum');
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.holder', 'gnPACSWPRequest[2].PACSWP.BkInfo.holder');
+							SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[2].PACSWP.BkInfo.currency', 'CAD');
+						}
+						else
+						{
+							SmartFormsApp.DataStore.getNode('gnPACSWPRequest[2].PACSWP.BkInfo').clearData();
+						}						
+											
+						if (SWP_isSemiMonthly)
+						{							
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[2].PACSWP.freqCode', 'gnPACSWPRequest[3].PACSWP.freqCode');
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[2].PACSWP.amount', 'gnPACSWPRequest[3].PACSWP.amount');
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[2].PACSWP.grossNet', 'gnPACSWPRequest[3].PACSWP.grossNet');						
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[2].PACSWP.amtType', 'gnPACSWPRequest[3].PACSWP.amtType');						
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[2].PACSWP.transType', 'gnPACSWPRequest[3].PACSWP.transType');
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[2].PACSWP.payType', 'gnPACSWPRequest[3].PACSWP.payType');
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[2].PACSWP.dOfWeek', 'gnPACSWPRequest[3].PACSWP.dOfWeek');						
+							
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.instutNum', 'gnPACSWPRequest[3].PACSWP.BkInfo.instCode');
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.branchNum', 'gnPACSWPRequest[3].PACSWP.BkInfo.transitNo');
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.bkAcctNum', 'gnPACSWPRequest[3].PACSWP.BkInfo.bkAcctNum');
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.holder', 'gnPACSWPRequest[3].PACSWP.BkInfo.holder');
+							SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[2].PACSWP.BkInfo.currency', 'gnPACSWPRequest[3].PACSWP.BkInfo.currency');							
+						}
+												
+						for (var i = 0; i != 5; i++)
+						{						
+							SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[2].PACSWP.FundList.FundInfo[' + i + '].fundIDType', '');
+							SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[2].PACSWP.FundList.FundInfo[' + i + '].fundIDValue', '');
+							SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[2].PACSWP.FundList.FundInfo[' + i + '].amtType', '');
+							if (SmartFormsApp.DataStore.getNode('gnPACSWPRequest[2].PACSWP.FundList.FundInfo[' + i + ']').hasData())
+							{										
+								SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[2].PACSWP.FundList.FundInfo[' + i + '].fundIDType', 'iFAST');
+								SmartFormsApp.DataStore.copyNodeValue('fundTemp.FundInfo[' + i + '].fundIDValue', 
+									'gnPACSWPRequest[2].PACSWP.FundList.FundInfo[' + i + '].fundIDValue')
+								SmartFormsApp.DataStore.setNodeValue('gnPACSWPRequest[2].PACSWP.FundList.FundInfo[' + i + '].amtType', 'D');
+								
+								if (SWP_isSemiMonthly)
+								{
+									SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[2].PACSWP.FundList.FundInfo[' + i + '].amount', 
+										'gnPACSWPRequest[3].PACSWP.FundList.FundInfo[' + i + '].amount');
+									SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[2].PACSWP.FundList.FundInfo[' + i + '].amtType', 
+										'gnPACSWPRequest[3].PACSWP.FundList.FundInfo[' + i + '].amtType');
+									SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[2].PACSWP.FundList.FundInfo[' + i + '].fundIDType', 
+										'gnPACSWPRequest[3].PACSWP.FundList.FundInfo[' + i + '].fundIDType');
+									SmartFormsApp.DataStore.copyNodeValue('gnPACSWPRequest[2].PACSWP.FundList.FundInfo[' + i + '].fundIDValue', 
+										'gnPACSWPRequest[3].PACSWP.FundList.FundInfo[' + i + '].fundIDValue');
+								}
+							}
+						}
+														
+					}					
+				}
+				
+				//LIFRRIF
+				if (SmartFormsApp.DataStore.isAPIAvailable('gnLIFRRIF'))
+				{				
+					var RIF_isSemiMonthly = SmartFormsApp.DataStore.getNode('gnLIFRRIFRequest[1].LIFRRIF.effDate').hasData();				
+					if (!RIF_isSemiMonthly)
+					{
+						SmartFormsApp.DataStore.getNode('gnLIFRRIFRequest[1]').clearData();																	
+					}					
+							
+					SmartFormsApp.DataStore.setNodeValue('gnLIFRRIFRequest[0].LIFRRIF.amtType', '');
+					SmartFormsApp.DataStore.setNodeValue('gnLIFRRIFRequest[0].LIFRRIF.taxOnMin', '');
+					SmartFormsApp.DataStore.setNodeValue('gnLIFRRIFRequest[0].LIFRRIF.grossNet', '');																	
+					SmartFormsApp.DataStore.getNode('gnLIFRRIFRequest[0].LIFRRIF.BkInfo').clearData();
+					
+					//Handles case of resubmit
+					if (SmartFormsApp.DataStore.getNode('gnLIFRRIFRequest[0].LIFRRIF.accountidtgroup').hasData()){
+						if (!(SmartFormsApp.DataStore.getNode('gnLIFRRIFRequest[0].LIFRRIF.FundList').hasData()))
+							SmartFormsApp.DataStore.getNode('gnLIFRRIFRequest[0].LIFRRIF').clearData();
+					}
+					
+					if (SmartFormsApp.DataStore.getNode('gnLIFRRIFRequest[0].LIFRRIF').hasData())
+					{
+						SmartFormsApp.DataStore.setNodeValue('gnLIFRRIFRequest[0].LIFRRIF.amtType', 'D');
+						SmartFormsApp.DataStore.setNodeValue('gnLIFRRIFRequest[0].LIFRRIF.taxOnMin', 'N');
+						SmartFormsApp.DataStore.setNodeValue('gnLIFRRIFRequest[0].LIFRRIF.grossNet', 'G');						
+						
+						if (SmartFormsApp.DataStore.getNodeValue('gnLIFRRIFRequest[0].LIFRRIF.payType') == 'E')
+						{
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.instutNum', 'gnLIFRRIFRequest[0].LIFRRIF.BkInfo.instCode');
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.branchNum', 'gnLIFRRIFRequest[0].LIFRRIF.BkInfo.transitNo');
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.bkAcctNum', 'gnLIFRRIFRequest[0].LIFRRIF.BkInfo.bkAcctNum');
+							SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.holder', 'gnLIFRRIFRequest[0].LIFRRIF.BkInfo.holder');
+							SmartFormsApp.DataStore.setNodeValue('gnLIFRRIFRequest[0].LIFRRIF.BkInfo.currency', 'CAD');
+						}
+						else
+						{
+							SmartFormsApp.DataStore.getNode('gnLIFRRIFRequest[0].LIFRRIF.BkInfo').clearData();
+						}
+						
+						if (RIF_isSemiMonthly)
+						{						
+							SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.amtType', 'gnLIFRRIFRequest[1].LIFRRIF.amtType');							
+							SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.grossNet', 'gnLIFRRIFRequest[1].LIFRRIF.grossNet');
+							SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.freqCode', 'gnLIFRRIFRequest[1].LIFRRIF.freqCode');
+							SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.dOfWeek', 'gnLIFRRIFRequest[1].LIFRRIF.dOfWeek');						
+							SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.taxOnMin', 'gnLIFRRIFRequest[1].LIFRRIF.taxOnMin');	
+							SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.payType', 'gnLIFRRIFRequest[1].LIFRRIF.payType');
+							SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.payOption', 'gnLIFRRIFRequest[1].LIFRRIF.payOption');
+							SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.payAmount', 'gnLIFRRIFRequest[1].LIFRRIF.payAmount');
+							
+							SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.BkInfo.instCode', 'gnLIFRRIFRequest[1].LIFRRIF.BkInfo.instCode');
+							SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.BkInfo.transitNo', 'gnLIFRRIFRequest[1].LIFRRIF.BkInfo.transitNo');
+							SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.BkInfo.bkAcctNum', 'gnLIFRRIFRequest[1].LIFRRIF.BkInfo.bkAcctNum');
+							SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.BkInfo.holder', 'gnLIFRRIFRequest[1].LIFRRIF.BkInfo.holder');							
+							SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.BkInfo.currency', 'gnLIFRRIFRequest[1].LIFRRIF.BkInfo.currency');								
+						}
+													
+						for (var i = 0; i != 5; i++)
+						{							
+							SmartFormsApp.DataStore.setNodeValue('gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[' + i + '].amtType', '');									
+							SmartFormsApp.DataStore.setNodeValue('gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[' + i + '].fundIDType', '');
+							SmartFormsApp.DataStore.setNodeValue('gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[' + i + '].fundIDValue', '');
+							
+							if (SmartFormsApp.DataStore.getNode('gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[' + i + ']').hasData())
+							{
+								SmartFormsApp.DataStore.setNodeValue('gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[' + i + '].amtType', 'P');									
+								SmartFormsApp.DataStore.setNodeValue('gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[' + i + '].fundIDType', 'iFAST');
+								SmartFormsApp.DataStore.copyNodeValue('fundTemp.FundInfo[' + i + '].fundIDValue', 
+									'gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[' + i + '].fundIDValue');
+								
+								if (RIF_isSemiMonthly)
+								{
+									SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[' + i + '].amtType',
+										'gnLIFRRIFRequest[1].LIFRRIF.FundList.FundInfo[' + i + '].amtType');
+									SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[' + i + '].amount',
+										'gnLIFRRIFRequest[1].LIFRRIF.FundList.FundInfo[' + i + '].amount');																		
+									SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[' + i + '].fundIDType',
+										'gnLIFRRIFRequest[1].LIFRRIF.FundList.FundInfo[' + i + '].fundIDType');
+									SmartFormsApp.DataStore.copyNodeValue('gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[' + i + '].fundIDValue', 
+										'gnLIFRRIFRequest[1].LIFRRIF.FundList.FundInfo[' + i + '].fundIDValue');
+								} 
+							} 	
+						}
+					}																
+				}
+				
+				//ATR
+				if (SmartFormsApp.DataStore.isAPIAvailable('gnATR'))
+				{		
+					var ATR_isSemiMonthly = SmartFormsApp.DataStore.getNode('gnATRRequest[1].ATR.effDate').hasData();
+					if (!ATR_isSemiMonthly)
+					{
+						SmartFormsApp.DataStore.getNode('gnATRRequest[1]').clearData();																	
+					}
+					
+					SmartFormsApp.DataStore.setNodeValue('gnATRRequest[0].ATR.Allocations.Allocation.accountIDType', '');
+					SmartFormsApp.DataStore.setNodeValue('gnATRRequest[0].ATR.FundInfo.amtType', '');			
+					SmartFormsApp.DataStore.setNodeValue('gnATRRequest[0].ATR.Allocations.Allocation.FundInfo.amount', ''); 							
+					SmartFormsApp.DataStore.setNodeValue('gnATRRequest[0].ATR.Allocations.Allocation.FundInfo.amtType', '');
+				
+					if (SmartFormsApp.DataStore.getNode('gnATRRequest[0]').hasData())
+					{
+						
+						SmartFormsApp.DataStore.setNodeValue('gnATRRequest[0].ATR.Allocations.Allocation.accountIDType', 'iFAST');						
+						SmartFormsApp.DataStore.setNodeValue('gnATRRequest[0].ATR.FundInfo.amtType', 'D');										
+						SmartFormsApp.DataStore.copyNodeValue('gnATRRequest[0].ATR.FundInfo.amount', 
+							'gnATRRequest[0].ATR.Allocations.Allocation.FundInfo.amount');						 						
+						SmartFormsApp.DataStore.copyNodeValue('gnATRRequest[0].ATR.FundInfo.amtType', 
+							'gnATRRequest[0].ATR.Allocations.Allocation.FundInfo.amtType');
+							
+						if (ATR_isSemiMonthly)
+						{																													
+							SmartFormsApp.DataStore.copyNodeValue('gnATRRequest[0].ATR.freqCode',
+								'gnATRRequest[1].ATR.freqCode');
+							SmartFormsApp.DataStore.copyNodeValue('gnATRRequest[0].ATR.dOfWeek',
+								'gnATRRequest[1].ATR.dOfWeek');																																 						
+							SmartFormsApp.DataStore.copyNodeValue('gnATRRequest[0].ATR.Allocations.Allocation.accountIDType', 
+								'gnATRRequest[1].ATR.Allocations.Allocation.accountIDType');			
+							SmartFormsApp.DataStore.copyNodeValue('gnATRRequest[0].ATR.Allocations.Allocation.accountIDValue', 
+								'gnATRRequest[1].ATR.Allocations.Allocation.accountIDValue');								
+							SmartFormsApp.DataStore.copyNodeValue('gnATRRequest[0].ATR.FundInfo.amount', 
+								'gnATRRequest[1].ATR.FundInfo.amount');													
+							SmartFormsApp.DataStore.copyNodeValue('gnATRRequest[0].ATR.FundInfo.amtType', 
+								'gnATRRequest[1].ATR.FundInfo.amtType');				
+							SmartFormsApp.DataStore.copyNodeValue('gnATRRequest[0].ATR.Allocations.Allocation.FundInfo.amount', 
+								'gnATRRequest[1].ATR.Allocations.Allocation.FundInfo.amount');
+							SmartFormsApp.DataStore.copyNodeValue('gnATRRequest[0].ATR.Allocations.Allocation.FundInfo.amtType', 
+								'gnATRRequest[1].ATR.Allocations.Allocation.FundInfo.amtType');
+							SmartFormsApp.DataStore.copyNodeValue('gnATRRequest[0].ATR.FundInfo.fundIDType', 
+								'gnATRRequest[1].ATR.FundInfo.fundIDType');
+							SmartFormsApp.DataStore.copyNodeValue('gnATRRequest[0].ATR.FundInfo.fundIDValue', 
+								'gnATRRequest[1].ATR.FundInfo.fundIDValue');	
+							SmartFormsApp.DataStore.copyNodeValue('gnATRRequest[0].ATR.Allocations.Allocation.FundInfo.fundIDType', 
+								'gnATRRequest[1].ATR.Allocations.Allocation.FundInfo.fundIDType');
+							SmartFormsApp.DataStore.copyNodeValue('gnATRRequest[0].ATR.Allocations.Allocation.FundInfo.fundIDValue', 
+								'gnATRRequest[1].ATR.Allocations.Allocation.FundInfo.fundIDValue');												
+								
+						}
+					}
+				}
+				
+				//Dividend
+				if (SmartFormsApp.DataStore.isAPIAvailable('gnDividend'))
+				{
+					if (SmartFormsApp.DataStore.getNode('gnDividendRequest[0].Dividend.payType').hasData())
+					{
+						for (var i = 0; i != 5; i++)
+						{
+							SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.fundIDType', '');
+							SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.fundIDDesc', '');
+							SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.fundIDValue', '');
+							SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.effDate', '');
+							SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.transType', '');					
+							SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.FundListTo.FundInfo.amtType', '');	
+							SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.FundListTo.FundInfo.amount', '');
+							SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.FundListTo.FundInfo.fundIDType', '');
+							SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.BkInfo.instCode', '');														
+							SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.BkInfo.transitNo', '');								
+							SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.BkInfo.bkAcctNum', '');								
+							SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.BkInfo.holder', '');								
+							SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.BkInfo.currency', '');
+							
+							if (SmartFormsApp.DataStore.getNodeValue('gnDividendRequest[' + i + '].Dividend.FundListTo.FundInfo.fundIDValue') == 'CASH')
+							{
+								SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.FundListTo.FundInfo.fundIDValue', '');
+							}
+						
+							if (SmartFormsApp.DataStore.getNode('fundTemp.FundInfo[' + i + ']').hasData())
+							{
+								SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.payType', SmartFormsApp.DataStore.getNodeValue('gnDividendRequest[0].Dividend.payType'));
+								SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.fundIDType', 'iFAST');
+								SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.fundIDValue', 
+									SmartFormsApp.DataStore.getNodeValue('fundTemp.FundInfo[' + i + '].fundIDValue' ));
+								SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.effDate', DesktopWeb.Util.getDateString(new Date(), 'Ymd'));
+								SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.transType', 'ID');						
+								SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.FundListTo.FundInfo.amtType', 'P');	
+								SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.FundListTo.FundInfo.amount', '100');
+								SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.FundListTo.FundInfo.fundIDType', 'iFAST');
+							
+								SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.FundListTo.FundInfo.fundIDValue', 'CASH');
+								if(SmartFormsApp.DataStore.getNode('fundTemp.FundInfo[' + i + '].fundIDDesc').hasData())
+									SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.fundIDDesc', 
+										SmartFormsApp.DataStore.getNodeValue('fundTemp.FundInfo[' + i + '].fundIDDesc' ));
+								
+								if (SmartFormsApp.DataStore.getNodeValue('gnDividendRequest[0].Dividend.payType') == 'E')
+								{								
+									SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.instutNum', 'gnDividendRequest[' + i + '].Dividend.BkInfo.instCode');														
+									SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.branchNum', 'gnDividendRequest[' + i + '].Dividend.BkInfo.transitNo');								
+									SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.bkAcctNum', 'gnDividendRequest[' + i + '].Dividend.BkInfo.bkAcctNum');								
+									SmartFormsApp.DataStore.copyNodeValue('bankTemp.BkInfo.holder', 'gnDividendRequest[' + i + '].Dividend.BkInfo.holder');								
+									SmartFormsApp.DataStore.setNodeValue('gnDividendRequest[' + i + '].Dividend.BkInfo.currency', 'CAD');								
+								}
+								
+							}							
+						}
+					}
+					else
+					{
+						for (var i = 0; i != 6; i++)
+						{
+							SmartFormsApp.DataStore.getNode('gnDividendRequest[' + i + ']').clearData();
+						}
+					}
+				}
+			}
+			
+			NCE_NASU_EN.validateForm = function()
+			{
+				 var errors = [];
+				 if (NCE_NASU_EN.SignatureVerifyControl.getValue() != 'yes')
+				 {
+				  	var errorText = 'Signature must be verified';
+				 	errors.push({text: errorText});
+					FormItems.Util.showControlError(NCE_NASU_EN.SignatureVerifyControl, errorText);
+				 }
+				 else
+				 {
+				 	NCE_NASU_EN.SignatureVerifyControl.disableField();
+				 }
+				 
+				 if (SmartFormsApp.DataStore.isAPIAvailable('gnOrder'))
+				 {
+					 if (SmartFormsApp.DataStore.getNode('gnOrderRequest[0].Order').hasData())
+					 {
+					 	if (!SmartFormsApp.DataStore.getNode('gnOrderRequest[0].Order.allocDtl').hasData())
+						{
+							var errorText = 'No Order allocation specified';
+					 		errors.push({text: errorText});								
+						}
+					 }				
+				 }	
+				 
+				 if (SmartFormsApp.DataStore.isAPIAvailable('gnPACSWP'))
+				 {
+					 if (SmartFormsApp.DataStore.getNode('gnPACSWPRequest[0].PACSWP').hasData())
+					 {
+					 	if (!SmartFormsApp.DataStore.getNode('gnPACSWPRequest[0].PACSWP.FundList').hasData())
+						{
+							var errorText = 'No PAC allocation specified';
+					 		errors.push({text: errorText});								
+						}
+					 }
+				 					 
+					 if (SmartFormsApp.DataStore.getNode('gnPACSWPRequest[2].PACSWP').hasData())
+					 {
+					 	if (!SmartFormsApp.DataStore.getNode('gnPACSWPRequest[2].PACSWP.FundList').hasData())
+						{
+							var errorText = 'No SWP allocation specified';
+					 		errors.push({text: errorText});								
+						}					 
+					 }
+				}
+				
+				if (SmartFormsApp.DataStore.isAPIAvailable('gnLIFRRIF'))
+				{ 
+					if (SmartFormsApp.DataStore.getNode('gnLIFRRIFRequest[0].LIFRRIF').hasData())
+					 {
+					 	if (!SmartFormsApp.DataStore.getNode('gnLIFRRIFRequest[0].LIFRRIF.FundList').hasData())
+						{
+							var errorText = 'No RIF allocation specified';
+					 		errors.push({text: errorText});								
+						}
+					 }						 													 
+				}
+				return errors;
+			}
+			
+			
+			NCE_NASU_EN.onChangeTempFundSuggest = function(suggestControl, index)
+			{
+				var selectedRecord = suggestControl.getSelectedRecord();				
+				if (selectedRecord)
+				{												
+					SmartFormsApp.DataStore.setNodeValue('fundTemp.FundInfo[' + index + '].fundIDType', 'iFAST');					
+					SmartFormsApp.DataStore.setNodeValue('fundTemp.FundInfo[' + index + '].fundIDValue', selectedRecord.data['fund'] + "," + selectedRecord.data['class']);
+				}
+				else
+				{
+					SmartFormsApp.DataStore.setNodeValue('fundTemp.FundInfo[' + index + '].fundIDType', '');					
+					SmartFormsApp.DataStore.setNodeValue('fundTemp.FundInfo[' + index + '].fundIDValue', '');
+				}			 								
+			}
+			
+			NCE_NASU_EN.onChangeATRFromFundSuggest = function(suggestControl)
+			{
+				var selectedRecord = suggestControl.getSelectedRecord();				
+				if (selectedRecord)
+				{																
+					SmartFormsApp.DataStore.setNodeValue('gnATRRequest[0].ATR.FundInfo.fundIDType', 'iFAST');					
+					SmartFormsApp.DataStore.setNodeValue('gnATRRequest[0].ATR.FundInfo.fundIDValue', selectedRecord.data['fund'] + "," + selectedRecord.data['class']);				
+				}
+				else
+				{					
+					SmartFormsApp.DataStore.setNodeValue('gnATRRequest[0].ATR.FundInfo.fundIDType', '');					
+					SmartFormsApp.DataStore.setNodeValue('gnATRRequest[0].ATR.FundInfo.fundIDValue', '');
+				}				
+			}						
+			
+			NCE_NASU_EN.onChangeATRToFundSuggest = function(suggestControl)
+			{
+				var selectedRecord = suggestControl.getSelectedRecord();				
+				if (selectedRecord)
+				{												
+					SmartFormsApp.DataStore.setNodeValue('gnATRRequest[0].ATR.Allocations.Allocation.FundInfo.fundIDType', 'iFAST');					
+					SmartFormsApp.DataStore.setNodeValue('gnATRRequest[0].ATR.Allocations.Allocation.FundInfo.fundIDValue', selectedRecord.data['fund'] + "," + selectedRecord.data['class']);				
+				}
+				else
+				{
+					SmartFormsApp.DataStore.setNodeValue('gnATRRequest[0].ATR.Allocations.Allocation.FundInfo.fundIDType', '');					
+					SmartFormsApp.DataStore.setNodeValue('gnATRRequest[0].ATR.Allocations.Allocation.FundInfo.fundIDValue', '');
+				}				
+			}
+			
+			NCE_NASU_EN.SignatureVerifyControl = null;
+			NCE_NASU_EN.onRenderSignatureVerify = function(control)
+			{
+				NCE_NASU_EN.SignatureVerifyControl = control;												
+			}
+			
+			NCE_NASU_EN.onChangeNewRepCode = function(control)
+			{
+				if (control.getValue() != "")
+				{
+					Notifications.prompt("Are you sure you want to create a new Sales Rep?", callback)					
+				}
+				
+				function callback(btn)
+				{
+					if (btn != 'ok')
+					{
+						SmartFormsApp.DataStore.setNodeValue('gnAcctSetupRequest.TEMP.newSalesRepCode', '');
+					}
+				}	
+			}
+			
+			NCE_NASU_EN.onRenderRIFControl = function(control)
+			{
+				control.hide();				
+				SmartFormsApp.DataStore.getNode('gnAcctSetupRequest.AcctSetup.AcctInfo.acctType').addListener('updated',
+					function(node){					
+						FormItems.Util.toggleControlVisible(this, node.getValue() != '01')
+						
+						if (node.getValue() == '01')
+						{
+							if (SmartFormsApp.DataStore.isAPIAvailable('gnLIFRRIF'))
+							{
+								SmartFormsApp.DataStore.getNode('gnLIFRRIFRequest[0]').clearData();
+								SmartFormsApp.DataStore.getNode('gnLIFRRIFRequest[1]').clearData();
+							}
+							SmartFormsApp.DataStore.getNode('gnAcctSetupRequest.AcctSetup.SegInfo.SucsrAnnuitant').clearData();
+						}
+					}, control);				
+			}
+			
+			//SWPS are anything NON-REGISTERED i.e. 01
+			NCE_NASU_EN.onRenderSWPControl = function(control)
+			{				
+				SmartFormsApp.DataStore.getNode('gnAcctSetupRequest.AcctSetup.AcctInfo.acctType').addListener('updated',
+					function(node){										
+						FormItems.Util.toggleControlVisible(this, node.getValue() == '01')
+						if (node.getValue() != '01')
+						{
+							if (SmartFormsApp.DataStore.isAPIAvailable('gnPACSWP'))
+							{
+								SmartFormsApp.DataStore.getNode('gnPACSWPRequest[2]').clearData();
+								SmartFormsApp.DataStore.getNode('gnPACSWPRequest[3]').clearData();
+							}
+						}
+					}, control);				
+			}		
+			
+		]]>
+	</JSCode>
+	<FormBackground>
+		<FormDescription>Sentry New Account Registered and Non-Registered(English)</FormDescription>
+		<FormName>NCE_NASU_EN</FormName>
+		<ImageDetails>
+			<Image>
+				<height>1210</height>
+				<width>934</width>
+				<fileName>NCE_NASU_EN_PAGE1.png</fileName>
+			</Image>
+			<Image>
+				<height>1210</height>
+				<width>934</width>
+				<fileName>NCE_NASU_EN_PAGE2.png</fileName>
+			</Image>
+			<Image>
+				<height>1210</height>
+				<width>934</width>
+				<fileName>NCE_NASU_EN_PAGE3.png</fileName>
+			</Image>
+			<Image>
+				<height>1210</height>
+				<width>934</width>
+				<fileName>cheque.png</fileName>
+			</Image>			
+		</ImageDetails>
+	</FormBackground>
+	<FormLayout>
+		<Pages>
+			<Page>
+				<Sections>
+					<Section>
+						<top>0</top>						
+						<height>99</height>						
+						<Controls>
+							<Control>
+								<controlType>hidden</controlType>
+								<description>actionCode</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.actionCode</dataMapping>
+								<value>NEW</value>								
+							</Control>
+							<Control>
+								<controlType>hidden</controlType>
+								<description>acctDesig</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.AcctInfo.acctDesig</dataMapping>
+								<value>1</value>								
+							</Control>
+							<Control>
+								<controlType>hidden</controlType>
+								<description>recipCode</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.AcctInfo.recipCode</dataMapping>
+								<value>1</value>								
+							</Control>
+							<Control>
+								<controlType>hidden</controlType>
+								<description>country</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.Address.country</dataMapping>
+								<value>CAN</value>								
+							</Control>									
+							<Control>
+								<controlType>date</controlType>
+								<description>Deff</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.deff</dataMapping>
+								<width>100</width>
+								<left>10</left>
+								<tabIndex>1001</tabIndex>
+								<top>5</top>
+							</Control>														
+						</Controls>
+					</Section>
+					<Section>
+						<top>152</top>						
+						<height>103</height>						
+						<Controls>							
+							<Control>
+								<controlType>combobox</controlType>
+								<description>Account Type</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.AcctInfo.acctType</dataMapping>							
+								<left>230</left>
+								<width>410</width>
+								<tabIndex>1101</tabIndex>
+								<top>55</top>																				
+							</Control>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>Jurisdiction</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.LIPInfo.penJuris</dataMapping>							
+								<left>694</left>
+								<width>150</width>
+								<tabIndex>1102</tabIndex>
+								<top>55</top>																				
+							</Control>
+						</Controls>
+					</Section>
+					<Section>
+						<top>277</top>					
+						<height>145</height>						
+						<Controls>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>titleCode</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.Individual.titleCode</dataMapping>															
+								<left>230</left>
+								<width>256</width>
+								<tabIndex>1201</tabIndex>
+								<top>5</top>
+							</Control>
+							<Control>
+								<controlType>radio</controlType>
+								<description>English</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.lang</dataMapping>
+								<apiValue>E</apiValue>								
+								<left>615</left>
+								<tabIndex>1202</tabIndex>
+								<top>7</top>
+								<defaultChecked>true</defaultChecked>
+							</Control>
+							<Control>
+								<controlType>radio</controlType>
+								<description>French</description>
+								<apiValue>F</apiValue>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.lang</dataMapping>							
+								<left>669</left>
+								<tabIndex>1203</tabIndex>
+								<top>7</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Last Name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.Individual.lastName</dataMapping>
+								<width>139</width>								
+								<left>230</left>
+								<tabIndex>1204</tabIndex>
+								<top>33</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>First Name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.Individual.firstName</dataMapping>
+								<width>200</width>								
+								<left>370</left>
+								<tabIndex>1205</tabIndex>
+								<top>33</top>
+							</Control>
+							<Control>
+								<controlType>date</controlType>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.Individual.birthDate</dataMapping>							
+								<width>125</width>
+								<left>595</left>
+								<tabIndex>1206</tabIndex>
+								<top>33</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Social Insurance Number</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.Individual.SIN</dataMapping>
+								<width>140</width>								
+								<left>741</left>
+								<tabIndex>1207</tabIndex>
+								<top>33</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Address 1</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.Address.addressLn1</dataMapping>
+								<width>338</width>								
+								<left>230</left>
+								<tabIndex>1208</tabIndex>
+								<top>70</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Home Telephone Number</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.hPhone</dataMapping>
+								<width>163</width>								
+								<left>595</left>
+								<tabIndex>1209</tabIndex>
+								<top>70</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>City</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.Address.city</dataMapping>
+								<width>154</width>								
+								<left>230</left>
+								<tabIndex>1210</tabIndex>
+								<top>106</top>
+							</Control>							
+							<Control>
+								<controlType>combobox</controlType>
+								<description>Province</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.Address.provState</dataMapping>
+								<width>42</width>								
+								<left>394</left>
+								<tabIndex>1211</tabIndex>
+								<top>106</top>
+								<listWidth>175</listWidth>
+								<dropdownMasking>{listValue} - {listDesc}</dropdownMasking>
+								<displayItem>listValue</displayItem>								
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Postal Code</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.Address.postalZip</dataMapping>
+								<width>105</width>								
+								<left>470</left>
+								<tabIndex>1212</tabIndex>
+								<top>106</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Business Telephone Number</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.oPhone</dataMapping>
+								<width>163</width>								
+								<left>595</left>
+								<tabIndex>1213</tabIndex>
+								<top>106</top>
+							</Control>
+						</Controls>
+					</Section>
+					<Section>
+						<top>429</top>						
+						<height>68</height>	
+						<Controls>
+							<Control>
+								<controlType>text</controlType>
+								<description>Last Name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Spousal.ClientInfo.Individual.lastName</dataMapping>
+								<width>139</width>								
+								<left>230</left>
+								<tabIndex>1301</tabIndex>
+								<top>29</top>								
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>First Name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Spousal.ClientInfo.Individual.firstName</dataMapping>
+								<width>200</width>								
+								<left>370</left>
+								<tabIndex>1302</tabIndex>
+								<top>29</top>																
+							</Control>
+							<Control>
+								<controlType>date</controlType>
+								<description>Date of Birth</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Spousal.ClientInfo.Individual.birthDate</dataMapping>
+								<width>125</width>
+								<left>595</left>
+								<tabIndex>1303</tabIndex>
+								<top>29</top>								
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Social Insurance Number</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Spousal.ClientInfo.Individual.SIN</dataMapping>
+								<width>140</width>								
+								<left>741</left>
+								<tabIndex>1304</tabIndex>
+								<top>29</top>								
+							</Control>			
+						</Controls>
+					</Section>
+					<Section>
+						<top>505</top>						
+						<height>132</height>
+						<Controls>				
+							<Control>
+								<controlType>text</controlType>
+								<description>Last Name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Jnt.jntOwner.ClientInfo.Individual.lastName</dataMapping>
+								<width>139</width>								
+								<left>230</left>
+								<tabIndex>1401</tabIndex>
+								<top>27</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>First Name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Jnt.jntOwner.ClientInfo.Individual.firstName</dataMapping>
+								<width>200</width>								
+								<left>370</left>
+								<tabIndex>1402</tabIndex>
+								<top>27</top>
+							</Control>
+							<Control>
+								<controlType>date</controlType>
+								<description>Date of Birth</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Jnt.jntOwner.ClientInfo.Individual.birthDate</dataMapping>
+								<width>125</width>
+								<left>595</left>
+								<tabIndex>1403</tabIndex>
+								<top>27</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Social Insurance Number</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Jnt.jntOwner.ClientInfo.Individual.SIN</dataMapping>
+								<width>140</width>								
+								<left>741</left>
+								<tabIndex>1404</tabIndex>
+								<top>27</top>
+							</Control>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>Joint Tenant with Rights of Survivorship</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Jnt.jntSurType</dataMapping>															
+								<left>240</left>
+								<width>230</width>
+								<tabIndex>1405</tabIndex>
+								<top>86</top>
+							</Control>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>Joint Applicant's Signature</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Jnt.jntSigType</dataMapping>
+								<width>240</width>								
+								<left>472</left>
+								<tabIndex>1406</tabIndex>
+								<top>86</top>
+							</Control>
+						</Controls>
+					</Section>
+					<Section>
+						<top>646</top>						
+						<height>68</height>	
+						<Controls>
+							<Control>
+								<controlType>text</controlType>
+								<description>Last Name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.ITF.ITFBen[0].ClientInfo.Individual.lastName</dataMapping>
+								<width>139</width>								
+								<left>230</left>
+								<tabIndex>1501</tabIndex>
+								<top>28</top>								
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>First Name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.ITF.ITFBen[0].ClientInfo.Individual.firstName</dataMapping>
+								<width>200</width>								
+								<left>370</left>
+								<tabIndex>1502</tabIndex>
+								<top>28</top>																
+							</Control>
+							<Control>
+								<controlType>date</controlType>
+								<description>Date of Birth</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.ITF.ITFBen[0].ClientInfo.Individual.birthDate</dataMapping>
+								<width>125</width>
+								<left>595</left>
+								<tabIndex>1503</tabIndex>
+								<top>28</top>								
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Social Insurance Number</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.ITF.ITFBen[0].ClientInfo.Individual.SIN</dataMapping>
+								<width>140</width>								
+								<left>741</left>
+								<tabIndex>1504</tabIndex>
+								<top>28</top>								
+							</Control>			
+						</Controls>
+					</Section>
+					<Section>
+						<top>723</top>						
+						<height>68</height>	
+						<Controls>
+							<Control>
+								<controlType>text</controlType>
+								<description>Business/Corporate Name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.Org.orgName</dataMapping>
+								<width>168</width>								
+								<left>230</left>
+								<tabIndex>1601</tabIndex>
+								<top>32</top>												
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Tax ID Number</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Owner.ClientInfo.Org.fedBN</dataMapping>
+								<width>68</width>								
+								<left>547</left>
+								<tabIndex>1602</tabIndex>
+								<top>32</top>												
+							</Control>		
+						</Controls>
+					</Section>
+					<Section>
+						<top>814</top>						
+						<height>86</height>
+						<Controls>
+							<Control>
+								<controlType>suggest</controlType>
+								<description>Dealer/Firm Name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Dlr.dlrCode</dataMapping>								
+								<width>328</width>
+								<left>230</left>
+								<tabIndex>1701</tabIndex>
+								<top>11</top>
+								<smartview>brokerSearch</smartview>
+								<fields>displayValue,agencyCode</fields>
+								<valueField>agencyCode</valueField>		
+								<listWidth>368</listWidth>
+							</Control>							
+							<Control>
+								<controlType>suggest</controlType>
+								<description>Financial Advisor Name</description>	
+								<dataMapping>gnAcctSetupRequest.AcctSetup.Dlr.repCode</dataMapping>																	
+								<width>328</width>
+								<left>230</left>
+								<tabIndex>1702</tabIndex>
+								<top>48</top>
+								<smartview>salesRepSearch</smartview>
+								<fields>displayValue,agentCode</fields>
+								<valueField>agentCode</valueField>
+								<additionalSearchParams>agencyCode:gnAcctSetupRequest.AcctSetup.Dlr.dlrCode</additionalSearchParams>
+								<listWidth>368</listWidth>
+								<forceSelection>false</forceSelection>
+							</Control>												
+						</Controls>
+					</Section>
+					<Section>
+						<top>922</top>						
+						<height>227</height>						
+						<Controls>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>shGroup</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.AcctInfo.shGroup</dataMapping>
+								<width>150</width>
+								<left>411</left>
+								<tabIndex>1801</tabIndex>
+								<top>1</top>
+								<listWidth>250</listWidth>
+							</Control>							
+							<Control>
+								<controlType>text</controlType>
+								<description>batch num</description>
+								<dataMapping>gnOrderRequest[0].Order.OrderExt.batchRef</dataMapping>
+								<width>150</width>								
+								<left>563</left>
+								<tabIndex>1802</tabIndex>
+								<top>1</top>								
+							</Control>							
+							<Control>
+								<controlType>combobox</controlType>
+								<description>depType</description>
+								<dataMapping>gnOrderRequest[0].Order.OrderExt.depType</dataMapping>
+								<width>150</width>								
+								<left>714</left>
+								<tabIndex>1803</tabIndex>
+								<top>1</top>
+								<listWidth>300</listWidth>								
+							</Control>							
+							<Control>
+								<controlType>date</controlType>
+								<description>depType</description>
+								<dataMapping>gnOrderRequest[0].Order.OrderExt.depDate</dataMapping>
+								<width>150</width>								
+								<left>714</left>
+								<tabIndex>1804</tabIndex>
+								<top>25</top>														
+							</Control>
+							<Control>
+								<controlType>date</controlType>
+								<description>tradeDate</description>
+								<dataMapping>gnOrderRequest[0].Order.tradeDate</dataMapping>
+								<width>140</width>								
+								<left>44</left>
+								<tabIndex>1805</tabIndex>
+								<top>118</top>
+							</Control>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>order type</description>
+								<dataMapping>gnOrderRequest[0].Order.orderType</dataMapping>
+								<width>140</width>								
+								<left>44</left>
+								<tabIndex>1806</tabIndex>
+								<top>150</top>
+							</Control>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>backdate reason</description>
+								<dataMapping>gnOrderRequest[0].Order.OrderExt.rsnCode</dataMapping>
+								<width>140</width>								
+								<left>44</left>
+								<tabIndex>1807</tabIndex>
+								<top>182</top>
+								<listWidth>200</listWidth>
+							</Control>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>accountability</description>
+								<dataMapping>gnOrderRequest[0].Order.OrderExt.accCode</dataMapping>
+								<width>140</width>								
+								<left>44</left>
+								<tabIndex>1808</tabIndex>
+								<top>210</top>
+								<listWidth>200</listWidth>
+							</Control>				
+							<Control>
+								<controlType>suggest</controlType>
+								<description>alloc 1 fund</description>
+								<dataMapping>fundTemp.FundInfo[0].fundIDDesc</dataMapping>
+								<width>306</width>
+								<left>229</left>
+								<tabIndex>1809</tabIndex>
+								<top>115</top>
+								<smartview>fundSearch</smartview>
+								<fields>displayValue,fund,class</fields>
+								<valueField>displayValue</valueField>
+								<customListeners>change:NCE_NASU_EN.onChangeTempFundSuggest(control, 0)</customListeners>			
+								<listWidth>400</listWidth>					
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 1 amount</description>
+								<dataMapping>gnOrderRequest[0].Order.allocDtl.Allocation[0].amount</dataMapping>							
+								<width>72</width>
+								<left>550</left>
+								<tabIndex>1810</tabIndex>
+								<top>115</top>								
+							</Control>
+							
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 1 comm</description>
+								<dataMapping>gnOrderRequest[0].Order.allocDtl.Allocation[0].clientComm</dataMapping>								
+								<width>40</width>
+								<left>627</left>
+								<tabIndex>1812</tabIndex>
+								<top>115</top>
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 1 PAC Amount</description>
+								<dataMapping>gnPACSWPRequest[0].PACSWP.FundList.FundInfo[0].amount</dataMapping>								
+								<width>72</width>
+								<left>682</left>
+								<tabIndex>1813</tabIndex>
+								<top>115</top>								
+							</Control>
+							
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 1 SWP Amount</description>
+								<dataMapping>gnPACSWPRequest[2].PACSWP.FundList.FundInfo[0].amount</dataMapping>								
+								<width>70</width>
+								<left>814</left>
+								<tabIndex>1815</tabIndex>
+								<top>115</top>
+								<customListeners>render:NCE_NASU_EN.onRenderSWPControl(control)</customListeners>															
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 1 RIF Amount</description>
+								<dataMapping>gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[0].amount</dataMapping>								
+								<width>70</width>
+								<left>814</left>
+								<tabIndex>1816</tabIndex>
+								<top>115</top>
+								<customListeners>render:NCE_NASU_EN.onRenderRIFControl(control)</customListeners>
+							</Control>
+							<Control>
+								<controlType>suggest</controlType>
+								<description>alloc 2 fund</description>
+								<dataMapping>fundTemp.FundInfo[1].fundIDDesc</dataMapping>
+								<width>306</width>
+								<left>229</left>
+								<tabIndex>1817</tabIndex>
+								<top>144</top>
+								<smartview>fundSearch</smartview>
+								<fields>displayValue,fund,class</fields>
+								<valueField>displayValue</valueField>
+								<customListeners>change:NCE_NASU_EN.onChangeTempFundSuggest(control, 1)</customListeners>			
+								<listWidth>400</listWidth>					
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 2 amount</description>
+								<dataMapping>gnOrderRequest[0].Order.allocDtl.Allocation[1].amount</dataMapping>							
+								<width>72</width>
+								<left>550</left>
+								<tabIndex>1818</tabIndex>
+								<top>144</top>								
+							</Control>
+							
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 2 comm</description>
+								<dataMapping>gnOrderRequest[0].Order.allocDtl.Allocation[1].clientComm</dataMapping>								
+								<width>40</width>
+								<left>627</left>
+								<tabIndex>1819</tabIndex>
+								<top>144</top>
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 2 PAC Amount</description>
+								<dataMapping>gnPACSWPRequest[0].PACSWP.FundList.FundInfo[1].amount</dataMapping>								
+								<width>72</width>
+								<left>682</left>
+								<tabIndex>1820</tabIndex>
+								<top>144</top>								
+							</Control>
+							
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 2 SWP Amount</description>
+								<dataMapping>gnPACSWPRequest[2].PACSWP.FundList.FundInfo[1].amount</dataMapping>								
+								<width>70</width>
+								<left>814</left>
+								<tabIndex>1821</tabIndex>
+								<top>144</top>
+								<customListeners>render:NCE_NASU_EN.onRenderSWPControl(control)</customListeners>							
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 2 RIF Amount</description>
+								<dataMapping>gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[1].amount</dataMapping>								
+								<width>70</width>
+								<left>814</left>
+								<tabIndex>1822</tabIndex>
+								<top>144</top>
+								<customListeners>render:NCE_NASU_EN.onRenderRIFControl(control)</customListeners>
+							</Control>
+							<Control>
+								<controlType>suggest</controlType>
+								<description>alloc 3 fund</description>
+								<dataMapping>fundTemp.FundInfo[2].fundIDDesc</dataMapping>
+								<width>306</width>
+								<left>229</left>
+								<tabIndex>1823</tabIndex>
+								<top>171</top>
+								<smartview>fundSearch</smartview>
+								<fields>displayValue,fund,class</fields>
+								<valueField>displayValue</valueField>
+								<customListeners>change:NCE_NASU_EN.onChangeTempFundSuggest(control, 2)</customListeners>			
+								<listWidth>400</listWidth>					
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 3 amount</description>
+								<dataMapping>gnOrderRequest[0].Order.allocDtl.Allocation[2].amount</dataMapping>							
+								<width>72</width>
+								<left>550</left>
+								<tabIndex>1824</tabIndex>
+								<top>171</top>								
+							</Control>	
+							
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 3 comm</description>
+								<dataMapping>gnOrderRequest[0].Order.allocDtl.Allocation[2].clientComm</dataMapping>								
+								<width>40</width>
+								<left>627</left>
+								<tabIndex>1825</tabIndex>
+								<top>171</top>
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 3 PAC Amount</description>
+								<dataMapping>gnPACSWPRequest[0].PACSWP.FundList.FundInfo[2].amount</dataMapping>								
+								<width>72</width>
+								<left>682</left>
+								<tabIndex>1826</tabIndex>
+								<top>171</top>								
+							</Control>
+								
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 3 SWP Amount</description>
+								<dataMapping>gnPACSWPRequest[2].PACSWP.FundList.FundInfo[2].amount</dataMapping>								
+								<width>70</width>
+								<left>814</left>
+								<tabIndex>1827</tabIndex>
+								<top>171</top>
+								<customListeners>render:NCE_NASU_EN.onRenderSWPControl(control)</customListeners>															
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 3 RIF Amount</description>
+								<dataMapping>gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[2].amount</dataMapping>								
+								<width>70</width>
+								<left>814</left>
+								<tabIndex>1828</tabIndex>
+								<top>171</top>
+								<customListeners>render:NCE_NASU_EN.onRenderRIFControl(control)</customListeners>
+							</Control>
+							<Control>
+								<controlType>suggest</controlType>
+								<description>alloc 4 fund</description>
+								<dataMapping>fundTemp.FundInfo[3].fundIDDesc</dataMapping>
+								<width>306</width>
+								<left>229</left>
+								<tabIndex>1829</tabIndex>
+								<top>198</top>
+								<smartview>fundSearch</smartview>
+								<fields>displayValue,fund,class</fields>
+								<valueField>displayValue</valueField>
+								<customListeners>change:NCE_NASU_EN.onChangeTempFundSuggest(control, 3)</customListeners>			
+								<listWidth>400</listWidth>					
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 4 amount</description>
+								<dataMapping>gnOrderRequest[0].Order.allocDtl.Allocation[3].amount</dataMapping>							
+								<width>72</width>
+								<left>550</left>
+								<tabIndex>1830</tabIndex>
+								<top>198</top>								
+							</Control>	
+							
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 4 comm</description>
+								<dataMapping>gnOrderRequest[0].Order.allocDtl.Allocation[3].clientComm</dataMapping>								
+								<width>40</width>
+								<left>627</left>
+								<tabIndex>1831</tabIndex>
+								<top>198</top>
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 4 PAC Amount</description>
+								<dataMapping>gnPACSWPRequest[0].PACSWP.FundList.FundInfo[3].amount</dataMapping>								
+								<width>72</width>
+								<left>682</left>
+								<tabIndex>1832</tabIndex>
+								<top>198</top>								
+							</Control>
+								
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 4 SWP Amount</description>
+								<dataMapping>gnPACSWPRequest[2].PACSWP.FundList.FundInfo[3].amount</dataMapping>								
+								<width>70</width>
+								<left>814</left>
+								<tabIndex>1833</tabIndex>
+								<top>198</top>
+								<customListeners>render:NCE_NASU_EN.onRenderSWPControl(control)</customListeners>															
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 4 RIF Amount</description>
+								<dataMapping>gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[3].amount</dataMapping>								
+								<width>70</width>
+								<left>814</left>
+								<tabIndex>1834</tabIndex>
+								<top>198</top>
+								<customListeners>render:NCE_NASU_EN.onRenderRIFControl(control)</customListeners>
+							</Control>
+							<Control>
+								<controlType>suggest</controlType>
+								<description>alloc 5 fund</description>
+								<dataMapping>fundTemp.FundInfo[4].fundIDDesc</dataMapping>
+								<width>306</width>
+								<left>229</left>
+								<tabIndex>1835</tabIndex>
+								<top>225</top>
+								<smartview>fundSearch</smartview>
+								<fields>displayValue,fund,class</fields>
+								<valueField>displayValue</valueField>
+								<customListeners>change:NCE_NASU_EN.onChangeTempFundSuggest(control, 4)</customListeners>			
+								<listWidth>400</listWidth>					
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 5 amount</description>
+								<dataMapping>gnOrderRequest[0].Order.allocDtl.Allocation[4].amount</dataMapping>							
+								<width>72</width>
+								<left>550</left>
+								<tabIndex>1836</tabIndex>
+								<top>225</top>								
+							</Control>	
+							
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 5 comm</description>
+								<dataMapping>gnOrderRequest[0].Order.allocDtl.Allocation[4].clientComm</dataMapping>								
+								<width>40</width>
+								<left>627</left>
+								<tabIndex>1837</tabIndex>
+								<top>225</top>
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 5 PAC Amount</description>
+								<dataMapping>gnPACSWPRequest[0].PACSWP.FundList.FundInfo[4].amount</dataMapping>								
+								<width>72</width>
+								<left>682</left>
+								<tabIndex>1838</tabIndex>
+								<top>225</top>								
+							</Control>
+								
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 5 SWP Amount</description>
+								<dataMapping>gnPACSWPRequest[2].PACSWP.FundList.FundInfo[4].amount</dataMapping>								
+								<width>70</width>
+								<left>814</left>
+								<tabIndex>1839</tabIndex>
+								<top>225</top>
+								<customListeners>render:NCE_NASU_EN.onRenderSWPControl(control)</customListeners>															
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>alloc 5 RIF Amount</description>
+								<dataMapping>gnLIFRRIFRequest[0].LIFRRIF.FundList.FundInfo[4].amount</dataMapping>								
+								<width>70</width>
+								<left>814</left>
+								<tabIndex>1840</tabIndex>
+								<top>225</top>
+								<customListeners>render:NCE_NASU_EN.onRenderRIFControl(control)</customListeners>
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>New Purchase</description>
+								<dataMapping>gnOrderRequest[0].Order.amount</dataMapping>															
+								<width>72</width>
+								<left>550</left>
+								<tabIndex>1841</tabIndex>
+								<top>252</top>																
+							</Control>
+						</Controls>
+					</Section>
+				</Sections>
+			</Page>
+		</Pages>
+		<Pages>
+			<Page>
+				<Sections>
+					<Section>
+						<top>80</top>					
+						<height>71</height>
+						<Controls>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>Distribution PayType</description>
+								<dataMapping>gnDividendRequest[0].Dividend.payType</dataMapping>																	
+								<left>245</left>
+								<width>536</width>
+								<tabIndex>2001</tabIndex>
+								<top>48</top>							
+							</Control>
+						</Controls>
+					</Section>
+					<Section>
+						<top>158</top>						
+						<height>134</height>						
+						<Controls>
+							<Control>
+								<controlType>number</controlType>
+								<description>amount</description>
+								<dataMapping>gnPACSWPRequest[0].PACSWP.amount</dataMapping>								
+								<width>120</width>
+								<left>711</left>
+								<tabIndex>2101</tabIndex>
+								<top>9</top>								
+							</Control>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>freqcode</description>
+								<dataMapping>gnPACSWPRequest[0].PACSWP.freqCode</dataMapping>																							
+								<left>237</left>
+								<width>620</width>
+								<tabIndex>2102</tabIndex>
+								<top>80</top>								
+							</Control>
+							<Control>
+								<controlType>date</controlType>
+								<description>Commencement Date</description>
+								<dataMapping>gnPACSWPRequest[0].PACSWP.effDate</dataMapping>							
+								<width>180</width>
+								<left>386</left>
+								<tabIndex>2103</tabIndex>
+								<top>105</top>
+							</Control>	
+							<Control>
+								<controlType>date</controlType>
+								<description>semi monthly Date</description>
+								<dataMapping>gnPACSWPRequest[1].PACSWP.effDate</dataMapping>								
+								<width>170</width>
+								<left>661</left>
+								<tabIndex>2104</tabIndex>
+								<top>105</top>
+							</Control>				
+						</Controls>
+					</Section>
+					<Section>
+						<top>301</top>					
+						<height>125</height>
+						<Controls>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>pay option</description>
+								<dataMapping>gnLIFRRIFRequest[0].LIFRRIF.payOption</dataMapping>								
+								<width>303</width>
+								<left>304</left>
+								<tabIndex>2201</tabIndex>
+								<top>16</top>
+								<listWidth>250</listWidth>
+								<customListeners>render:NCE_NASU_EN.onRenderRIFControl(control)</customListeners>
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>pay amount</description>
+								<dataMapping>gnLIFRRIFRequest[0].LIFRRIF.payAmount</dataMapping>								
+								<width>81</width>
+								<left>630</left>
+								<tabIndex>2202</tabIndex>
+								<top>16</top>
+								<customListeners>render:NCE_NASU_EN.onRenderRIFControl(control)</customListeners>
+							</Control>	
+							<Control>
+								<controlType>date</controlType>
+								<description>spouse birth date</description>
+								<dataMapping>gnLIFRRIFRequest[0].LIFRRIF.spsBirthDate</dataMapping>								
+								<width>128</width>
+								<left>645</left>
+								<tabIndex>2203</tabIndex>
+								<top>42</top>
+								<customListeners>render:NCE_NASU_EN.onRenderRIFControl(control)</customListeners>
+							</Control>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>FreqCode</description>
+								<dataMapping>gnLIFRRIFRequest[0].LIFRRIF.freqCode</dataMapping>																					
+								<left>340</left>
+								<width>165</width>
+								<tabIndex>2204</tabIndex>
+								<top>73</top>
+								<customListeners>render:NCE_NASU_EN.onRenderRIFControl(control)</customListeners>
+							</Control>	
+							<Control>
+								<controlType>date</controlType>
+								<description>Commencement Date</description>
+								<dataMapping>gnLIFRRIFRequest[0].LIFRRIF.effDate</dataMapping>								
+								<width>127</width>
+								<left>655</left>
+								<tabIndex>2205</tabIndex>
+								<top>70</top>
+								<customListeners>render:NCE_NASU_EN.onRenderRIFControl(control)</customListeners>
+							</Control>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>PayType</description>
+								<dataMapping>gnLIFRRIFRequest[0].LIFRRIF.payType</dataMapping>																	
+								<left>341</left>
+								<width>320</width>
+								<tabIndex>2206</tabIndex>
+								<top>102</top>	
+								<customListeners>render:NCE_NASU_EN.onRenderRIFControl(control)</customListeners>								
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>RIF total</description>
+								<dataMapping>gnLIFRRIFRequest[0].LIFRRIF.amount</dataMapping>								
+								<width>100</width>
+								<left>723</left>
+								<tabIndex>2207</tabIndex>
+								<top>102</top>
+								<customListeners>render:NCE_NASU_EN.onRenderRIFControl(control)</customListeners>
+							</Control>						
+						</Controls>							
+					</Section>
+					<Section>
+						<top>433</top>					
+						<height>139</height>
+						<Controls>
+							<Control>
+								<controlType>number</controlType>
+								<description>SWP total</description>
+								<dataMapping>gnPACSWPRequest[2].PACSWP.amount</dataMapping>								
+								<width>132</width>
+								<left>312</left>
+								<tabIndex>2301</tabIndex>
+								<top>64</top>
+								<customListeners>render:NCE_NASU_EN.onRenderSWPControl(control)</customListeners>
+							</Control>	
+							<Control>
+								<controlType>combobox</controlType>
+								<description>freqcode</description>
+								<dataMapping>gnPACSWPRequest[2].PACSWP.freqCode</dataMapping>																							
+								<left>693</left>
+								<width>135</width>
+								<tabIndex>2302</tabIndex>
+								<top>64</top>			
+								<customListeners>render:NCE_NASU_EN.onRenderSWPControl(control)</customListeners>
+							</Control>					
+							<Control>
+								<controlType>date</controlType>
+								<description>Commencement Date</description>
+								<dataMapping>gnPACSWPRequest[2].PACSWP.effDate</dataMapping>								
+								<width>446</width>
+								<left>386</left>
+								<tabIndex>2303</tabIndex>
+								<top>95</top>	
+								<customListeners>render:NCE_NASU_EN.onRenderSWPControl(control)</customListeners>
+							</Control>	
+							<Control>
+								<controlType>combobox</controlType>
+								<description>PayType</description>
+								<dataMapping>gnPACSWPRequest[2].PACSWP.payType</dataMapping>																	
+								<left>341</left>
+								<width>325</width>
+								<tabIndex>2304</tabIndex>
+								<top>118</top>
+								<customListeners>render:NCE_NASU_EN.onRenderSWPControl(control)</customListeners>
+							</Control>
+						</Controls>
+					</Section>
+					<Section>
+						<top>582</top>						
+						<height>137</height>						
+						<Controls>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>Freqcode</description>
+								<dataMapping>gnATRRequest[0].ATR.freqCode</dataMapping>
+								<left>243</left>
+								<width>620</width>
+								<tabIndex>2401</tabIndex>
+								<top>34</top>
+							</Control>
+							
+							<Control>
+								<controlType>combobox</controlType>
+								<description>dOfWeek</description>
+								<dataMapping>gnATRRequest[0].ATR.dOfWeek</dataMapping>
+								<width>127</width>
+								<left>245</left>
+								<tabIndex>2402</tabIndex>
+								<top>63</top>
+							</Control>
+							<Control>
+								<controlType>date</controlType>
+								<description>semi monthly Date</description>
+								<dataMapping>gnATRRequest[1].ATR.effDate</dataMapping>
+								<width>126</width>
+								<left>385</left>
+								<tabIndex>2403</tabIndex>
+								<top>63</top>								
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>Switch Amount 1</description>
+								<dataMapping>gnATRRequest[0].ATR.FundInfo.amount</dataMapping>								
+								<width>109</width>
+								<left>592</left>
+								<tabIndex>2404</tabIndex>
+								<top>63</top>								
+							</Control>
+							<Control>
+								<controlType>date</controlType>
+								<description>Commencement Date</description>
+								<dataMapping>gnATRRequest[0].ATR.effDate</dataMapping>
+								<width>128</width>
+								<left>726</left>
+								<tabIndex>2405</tabIndex>
+								<top>63</top>
+							</Control>
+							
+							<Control>
+								<controlType>suggest</controlType>
+								<description>From Fund Name/Number 1</description>
+								<dataMapping>gnATRRequest[0].ATR.FundInfo.fundIDDesc</dataMapping>
+								<width>192</width>								
+								<left>320</left>
+								<tabIndex>2406</tabIndex>
+								<top>112</top>		
+								<smartview>fundSearch</smartview>
+								<fields>displayValue,fund,class</fields>
+								<valueField>displayValue</valueField>
+								<listWidth>350</listWidth>
+								<customListeners>change:NCE_NASU_EN.onChangeATRFromFundSuggest(control)</customListeners>								
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>To Account 1</description>
+								<dataMapping>gnATRRequest[0].ATR.Allocations.Allocation.accountIDValue</dataMapping>								
+								<width>61</width>
+								<left>582</left>
+								<tabIndex>2407</tabIndex>
+								<top>112</top>													
+							</Control>
+							<Control>
+								<controlType>suggest</controlType>
+								<description>To Fund Name/Number 1</description>
+								<dataMapping>gnATRRequest[0].ATR.Allocations.Allocation.FundInfo.fundIDDesc</dataMapping>
+								<width>168</width>								
+								<left>643</left>
+								<tabIndex>2408</tabIndex>
+								<top>112</top>		
+								<smartview>fundSearch</smartview>
+								<fields>displayValue,fund,class</fields>
+								<valueField>displayValue</valueField>
+								<listWidth>350</listWidth>
+								<customListeners>change:NCE_NASU_EN.onChangeATRToFundSuggest(control)</customListeners>															
+							</Control>													
+						</Controls>
+					</Section>
+					<Section>
+						<top>729</top>						
+						<height>230</height>						
+						<Controls>
+							<Control>
+								<controlType>text</controlType>
+								<description>last name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.SegInfo.SucsrAnnuitant.ClientInfo.Individual.lastName</dataMapping>						
+								<width>150</width>
+								<left>331</left>
+								<tabIndex>2501</tabIndex>
+								<top>61</top>															
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>firstname</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.SegInfo.SucsrAnnuitant.ClientInfo.Individual.firstName</dataMapping>								
+								<width>150</width>
+								<left>486</left>
+								<tabIndex>2502</tabIndex>
+								<top>61</top>								
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Bene1 Last Name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.DthBenDtl.DthBen[0].ClientInfo.Individual.lastName</dataMapping>
+								<width>160</width>								
+								<left>260</left>
+								<tabIndex>2503</tabIndex>
+								<top>169</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Bene1 first Name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.DthBenDtl.DthBen[0].ClientInfo.Individual.firstName</dataMapping>
+								<width>160</width>								
+								<left>420</left>
+								<tabIndex>2504</tabIndex>
+								<top>169</top>
+							</Control>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>Bene 1 rel</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.DthBenDtl.DthBen[0].benRel</dataMapping>
+								<width>222</width>										
+								<left>578</left>
+								<tabIndex>2505</tabIndex>
+								<top>169</top>
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>Bene 1 split</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.DthBenDtl.DthBen[0].benSplit</dataMapping>
+								<width>61</width>										
+								<left>803</left>
+								<tabIndex>2506</tabIndex>
+								<top>169</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Bene2 Last Name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.DthBenDtl.DthBen[1].ClientInfo.Individual.lastName</dataMapping>
+								<width>160</width>								
+								<left>260</left>
+								<tabIndex>2507</tabIndex>
+								<top>199</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Bene2 first Name</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.DthBenDtl.DthBen[1].ClientInfo.Individual.firstName</dataMapping>
+								<width>160</width>								
+								<left>420</left>
+								<tabIndex>2508</tabIndex>
+								<top>199</top>
+							</Control>
+							<Control>
+								<controlType>combobox</controlType>
+								<description>Bene 2 rel</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.DthBenDtl.DthBen[1].benRel</dataMapping>
+								<width>222</width>										
+								<left>578</left>
+								<tabIndex>2509</tabIndex>
+								<top>199</top>
+							</Control>
+							<Control>
+								<controlType>number</controlType>
+								<description>Bene 2 split</description>
+								<dataMapping>gnAcctSetupRequest.AcctSetup.DthBenDtl.DthBen[1].benSplit</dataMapping>
+								<width>61</width>										
+								<left>803</left>
+								<tabIndex>2510</tabIndex>
+								<top>199</top>
+							</Control>
+						</Controls>
+					</Section>
+					<Section>
+						<top>980</top>
+						<height>89</height>
+						<Controls>
+							<Control>
+								<controlType>text</controlType>
+								<description>Account Holder's Name(s)</description>
+								<dataMapping>bankTemp.BkInfo.holder</dataMapping>																
+								<width>262</width>
+								<left>606</left>
+								<tabIndex>2601</tabIndex>
+								<top>8</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Bank #</description>
+								<dataMapping>bankTemp.BkInfo.instutNum</dataMapping>
+								<decimalPrecision>0</decimalPrecision>								
+								<width>41</width>
+								<left>606</left>
+								<tabIndex>2602</tabIndex>
+								<mask>[0-9]</mask>
+								<top>44</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Transit #</description>
+								<dataMapping>bankTemp.BkInfo.branchNum</dataMapping>
+								<decimalPrecision>0</decimalPrecision>								
+								<width>74</width>
+								<left>673</left>
+								<tabIndex>2603</tabIndex>
+								<mask>[0-9]</mask>
+								<top>44</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Account #</description>
+								<dataMapping>bankTemp.BkInfo.bkAcctNum</dataMapping>
+								<decimalPrecision>0</decimalPrecision>								
+								<width>95</width>
+								<left>772</left>
+								<tabIndex>2604</tabIndex>
+								<mask>[0-9]</mask>
+								<top>44</top>
+							</Control>
+						</Controls>
+					</Section>
+				</Sections>
+			</Page>
+			<Page>
+				<Sections>
+					<Section>
+						<top>846</top>						
+						<height>161</height>						
+						<Controls>
+							<Control>
+								<controlType>verify</controlType>
+								<description>Verify Signature</description>
+								<dataMapping/>								
+								<width>303</width>
+								<left>243</left>								
+								<tabIndex>3001</tabIndex>
+								<verifyOptions>no:MISSING NECESSARY SIGNATURES|yes:ALL NECESSARY SIGNATURES ARE PRESENT</verifyOptions>
+								<top>2</top>
+								<customListeners>render:NCE_NASU_EN.onRenderSignatureVerify(control);</customListeners>
+							</Control>
+						</Controls>
+					</Section>
+				</Sections>
+			</Page>
+			<Page>
+				<Sections>
+					<Section>
+						<top>256</top>
+						<height>260</height>
+						<Controls>
+							<Control>
+								<controlType>text</controlType>
+								<description>Account Holder's Name(s)</description>
+								<dataMapping>bankTemp.BkInfo.holder</dataMapping>																
+								<width>400</width>
+								<left>175</left>
+								<tabIndex>4001</tabIndex>
+								<top>20</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Bank #</description>
+								<dataMapping>bankTemp.BkInfo.instutNum</dataMapping>
+								<decimalPrecision>0</decimalPrecision>								
+								<width>190</width>
+								<left>170</left>
+								<tabIndex>4002</tabIndex>
+								<mask>[0-9]</mask>
+								<top>220</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Transit #</description>
+								<dataMapping>bankTemp.BkInfo.branchNum</dataMapping>
+								<decimalPrecision>0</decimalPrecision>								
+								<width>190</width>
+								<left>365</left>
+								<tabIndex>4003</tabIndex>
+								<mask>[0-9]</mask>
+								<top>220</top>
+							</Control>
+							<Control>
+								<controlType>text</controlType>
+								<description>Account #</description>
+								<dataMapping>bankTemp.BkInfo.bkAcctNum</dataMapping>
+								<decimalPrecision>0</decimalPrecision>								
+								<width>190</width>
+								<left>560</left>
+								<tabIndex>4004</tabIndex>
+								<mask>[0-9]</mask>
+								<top>220</top>
+							</Control>
+						</Controls>
+					</Section>
+				</Sections>
+			</Page>
+		</Pages>
+	</FormLayout>
+</SmartForm>

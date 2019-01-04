@@ -1,0 +1,2654 @@
+
+/*
+ * interface AWDNumericField;
+ */
+
+
+#ifndef SOM_AWDSource_xh
+#define SOM_AWDSource_xh
+
+class AWDSource;
+
+#define AWDSource_MajorVersion 2
+#define AWDSource_MinorVersion 3
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_AWDBase_xh
+#include <awdobj.xh>
+#endif
+
+#ifndef AWDSource_API
+#define AWDSource_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+class SOMClass;
+class SOMObject;
+class AWDPersist;
+class AWDBase;
+class iostream;
+class AWDVisitor;
+class AWDServiceManager;
+class AWDCommentAid;
+class AWDString;
+class AWDAlphaField;
+class AWDDateTime;
+class AWDBaseField;
+class AWDDictionary;
+class AWDDateTimeField;
+class AWDGroupField;
+class AWDApplication;
+class AWDFieldFactory;
+class AWDEntityKey;
+class AWDMenu;
+class CCriticalSection;
+class FieldList;
+class AWDRelationship;
+#define AWDSource_MAX_ICONTEXT 256 /* 256 */
+#define AWDSource_MAX_PATHLENGTH 256 /* 256 */
+typedef unsigned long AWDSource_IMAGESTATUS;
+#define AWDSource_IMAGESTATUS_ALWAYSDASD 1UL
+#define AWDSource_IMAGESTATUS_STOREREQUEST 2UL
+#define AWDSource_IMAGESTATUS_ORIGINAL 3UL
+#define AWDSource_IMAGESTATUS_DELREQUEST 4UL
+#define AWDSource_IMAGESTATUS_CLONED 5UL
+typedef unsigned long AWDSource_DOCFETCH_OPTION;
+#define AWDSource_DOCFETCH_ERROR 1UL
+#define AWDSource_DOCFETCH_ALWAYS 2UL
+#define AWDSource_DOCFETCH_PROMPT 3UL
+#define AWDSource_DOCFETCH_ONDASD 4UL
+#define AWDSource_DOCFETCH_INVALID_OPTION 5UL
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_MAX_ICONTEXT
+    #ifdef MAX_ICONTEXT
+        #undef MAX_ICONTEXT
+        #define SOMTGD_MAX_ICONTEXT 1
+    #else
+        #define MAX_ICONTEXT AWDSource_MAX_ICONTEXT
+    #endif /* MAX_ICONTEXT */
+#endif /* SOMTGD_MAX_ICONTEXT */
+#ifndef SOMTGD_MAX_PATHLENGTH
+    #ifdef MAX_PATHLENGTH
+        #undef MAX_PATHLENGTH
+        #define SOMTGD_MAX_PATHLENGTH 1
+    #else
+        #define MAX_PATHLENGTH AWDSource_MAX_PATHLENGTH
+    #endif /* MAX_PATHLENGTH */
+#endif /* SOMTGD_MAX_PATHLENGTH */
+#ifndef SOMTGD_IMAGESTATUS
+    #ifdef IMAGESTATUS
+        #undef IMAGESTATUS
+        #define SOMTGD_IMAGESTATUS 1
+    #else
+        #define IMAGESTATUS AWDSource_IMAGESTATUS
+    #endif /* IMAGESTATUS */
+#endif /* SOMTGD_IMAGESTATUS */
+#ifndef SOMTGD_DOCFETCH_OPTION
+    #ifdef DOCFETCH_OPTION
+        #undef DOCFETCH_OPTION
+        #define SOMTGD_DOCFETCH_OPTION 1
+    #else
+        #define DOCFETCH_OPTION AWDSource_DOCFETCH_OPTION
+    #endif /* DOCFETCH_OPTION */
+#endif /* SOMTGD_DOCFETCH_OPTION */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the AWDSource Class */
+SOMEXTERN
+#if (defined(SOM_Module_srcobj_Source) || defined(AWDSource_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDSource))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK AWDSourceNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the AWDSource class object, and the methods it introduces. */
+SOMEXTERN struct AWDSourceClassDataStructure {
+	SOMClass *classObject;
+	somMToken annotationsExist;
+	somMToken box;
+	somMToken createStation;
+	somMToken createUserID;
+	somMToken displayFax;
+	somMToken displayImage;
+	somMToken displayPrint;
+	somMToken documentPath;
+	somMToken isRevisable;
+	somMToken mailType;
+	somMToken objectFormat;
+	somMToken objectID;
+	somMToken opticalStatus;
+	somMToken page;
+	somMToken securityLevel;
+	somMToken setBox;
+	somMToken setMailType;
+	somMToken setObjectFormat;
+	somMToken setObjectID;
+	somMToken setOpticalStatus;
+	somMToken setPage;
+	somMToken setRevisable;
+	somMToken setSecurityLevel;
+	somMToken setSourceType;
+	somMToken sourceType;
+	somMToken AWDSource_withKey;
+	somMToken AWDSource_withStructure;
+	somMToken AWDSource_withArray;
+	somMToken AWDSource_withStructureandArray;
+	somMToken AWDSource_withFile;
+	somMToken AWDSource_withStructureandArrayandFile;
+	somMToken AWDSource_withEntityKey;
+	somMToken setSourceFile;
+	somMToken isOnDasd;
+	somMToken isOnOpticalOnly;
+	somMToken setDestination;
+	somMToken AWDSource_withPersist;
+	somMToken AWDSource_withObject;
+	somMToken AWDSource_withHandle;
+	somMToken numberOfPages;
+	somMToken setAnnotationsExist;
+	somMToken receiveDateTime;
+	somMToken setReceiveDateTime;
+	somMToken documentFetchOption;
+	somMToken fetchDocument;
+	somMToken stageDocument;
+	somMToken verifyDrive;
+	somMToken verifyNetworkPath;
+	somMToken boxEx;
+	somMToken setNumberOfPages;
+}
+#if !(defined(SOM_Module_srcobj_Source) || defined(AWDSource_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDSource))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDSourceClassData;
+#define _AWDSource AWDSourceClassData.classObject
+
+/* The API to parentMtabs for AWDSource, and the instance data it introduces. */
+SOMEXTERN struct AWDSourceCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_srcobj_Source) || defined(AWDSource_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDSource))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDSourceCClassData;
+
+/*
+ * -- Typedefs for AWDSource Method Procedures
+ */
+extern "C" {
+typedef boolean   SOMLINK somTP_AWDSource_annotationsExist(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_annotationsExist *somTD_AWDSource_annotationsExist;
+typedef unsigned short   SOMLINK somTP_AWDSource_box(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_box *somTD_AWDSource_box;
+typedef unsigned long   SOMLINK somTP_AWDSource_boxEx(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_boxEx *somTD_AWDSource_boxEx;
+typedef char*   SOMLINK somTP_AWDSource_createStation(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_createStation *somTD_AWDSource_createStation;
+typedef char*   SOMLINK somTP_AWDSource_createUserID(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_createUserID *somTD_AWDSource_createUserID;
+typedef boolean   SOMLINK somTP_AWDSource_displayFax(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_displayFax *somTD_AWDSource_displayFax;
+typedef boolean   SOMLINK somTP_AWDSource_displayImage(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_displayImage *somTD_AWDSource_displayImage;
+typedef boolean   SOMLINK somTP_AWDSource_displayPrint(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_displayPrint *somTD_AWDSource_displayPrint;
+typedef AWDSource_DOCFETCH_OPTION   SOMLINK somTP_AWDSource_documentFetchOption(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_documentFetchOption *somTD_AWDSource_documentFetchOption;
+typedef char*   SOMLINK somTP_AWDSource_documentPath(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_documentPath *somTD_AWDSource_documentPath;
+typedef void   SOMLINK somTP_AWDSource_fetchDocument(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_fetchDocument *somTD_AWDSource_fetchDocument;
+typedef boolean   SOMLINK somTP_AWDSource_isRevisable(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isRevisable *somTD_AWDSource_isRevisable;
+typedef boolean   SOMLINK somTP_AWDSource_isOnDasd(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isOnDasd *somTD_AWDSource_isOnDasd;
+typedef boolean   SOMLINK somTP_AWDSource_isOnOpticalOnly(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isOnOpticalOnly *somTD_AWDSource_isOnOpticalOnly;
+typedef char*   SOMLINK somTP_AWDSource_mailType(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_mailType *somTD_AWDSource_mailType;
+typedef char   SOMLINK somTP_AWDSource_objectFormat(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_objectFormat *somTD_AWDSource_objectFormat;
+typedef char*   SOMLINK somTP_AWDSource_objectID(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_objectID *somTD_AWDSource_objectID;
+typedef AWDSource_IMAGESTATUS   SOMLINK somTP_AWDSource_opticalStatus(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_opticalStatus *somTD_AWDSource_opticalStatus;
+typedef unsigned short   SOMLINK somTP_AWDSource_page(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_page *somTD_AWDSource_page;
+typedef char*   SOMLINK somTP_AWDSource_receiveDateTime(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_receiveDateTime *somTD_AWDSource_receiveDateTime;
+typedef unsigned short   SOMLINK somTP_AWDSource_securityLevel(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_securityLevel *somTD_AWDSource_securityLevel;
+typedef unsigned long   SOMLINK somTP_AWDSource_numberOfPages(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_numberOfPages *somTD_AWDSource_numberOfPages;
+typedef void   SOMLINK somTP_AWDSource_setAnnotationsExist(AWDSource *somSelf, Environment *ev,
+		boolean fAnnotations);
+typedef somTP_AWDSource_setAnnotationsExist *somTD_AWDSource_setAnnotationsExist;
+typedef boolean   SOMLINK somTP_AWDSource_setBox(AWDSource *somSelf, Environment *ev,
+		unsigned long ulBox);
+typedef somTP_AWDSource_setBox *somTD_AWDSource_setBox;
+typedef void   SOMLINK somTP_AWDSource_setDestination(AWDSource *somSelf, Environment *ev,
+		char chServer);
+typedef somTP_AWDSource_setDestination *somTD_AWDSource_setDestination;
+typedef boolean   SOMLINK somTP_AWDSource_setMailType(AWDSource *somSelf, Environment *ev,
+		char* pszMailType);
+typedef somTP_AWDSource_setMailType *somTD_AWDSource_setMailType;
+typedef boolean   SOMLINK somTP_AWDSource_setObjectFormat(AWDSource *somSelf, Environment *ev,
+		char* pszFormat);
+typedef somTP_AWDSource_setObjectFormat *somTD_AWDSource_setObjectFormat;
+typedef boolean   SOMLINK somTP_AWDSource_setObjectID(AWDSource *somSelf, Environment *ev,
+		char* pszObjectID);
+typedef somTP_AWDSource_setObjectID *somTD_AWDSource_setObjectID;
+typedef boolean   SOMLINK somTP_AWDSource_setOpticalStatus(AWDSource *somSelf, Environment *ev,
+		AWDSource_IMAGESTATUS iStatus);
+typedef somTP_AWDSource_setOpticalStatus *somTD_AWDSource_setOpticalStatus;
+typedef boolean   SOMLINK somTP_AWDSource_setPage(AWDSource *somSelf, Environment *ev,
+		unsigned long ulPage);
+typedef somTP_AWDSource_setPage *somTD_AWDSource_setPage;
+typedef boolean   SOMLINK somTP_AWDSource_setNumberOfPages(AWDSource *somSelf, Environment *ev,
+		unsigned long ulPageCnt);
+typedef somTP_AWDSource_setNumberOfPages *somTD_AWDSource_setNumberOfPages;
+typedef boolean   SOMLINK somTP_AWDSource_setReceiveDateTime(AWDSource *somSelf, Environment *ev,
+		char* recDateTime);
+typedef somTP_AWDSource_setReceiveDateTime *somTD_AWDSource_setReceiveDateTime;
+typedef boolean   SOMLINK somTP_AWDSource_setRevisable(AWDSource *somSelf, Environment *ev,
+		boolean fRevise);
+typedef somTP_AWDSource_setRevisable *somTD_AWDSource_setRevisable;
+typedef boolean   SOMLINK somTP_AWDSource_setSecurityLevel(AWDSource *somSelf, Environment *ev,
+		unsigned short usLevel);
+typedef somTP_AWDSource_setSecurityLevel *somTD_AWDSource_setSecurityLevel;
+typedef void   SOMLINK somTP_AWDSource_setSourceFile(AWDSource *somSelf, Environment *ev,
+		char* pszFile);
+typedef somTP_AWDSource_setSourceFile *somTD_AWDSource_setSourceFile;
+typedef boolean   SOMLINK somTP_AWDSource_setSourceType(AWDSource *somSelf, Environment *ev,
+		char* pszType);
+typedef somTP_AWDSource_setSourceType *somTD_AWDSource_setSourceType;
+typedef char*   SOMLINK somTP_AWDSource_sourceType(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_sourceType *somTD_AWDSource_sourceType;
+typedef void   SOMLINK somTP_AWDSource_stageDocument(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_stageDocument *somTD_AWDSource_stageDocument;
+typedef boolean   SOMLINK somTP_AWDSource_verifyDrive(AWDSource *somSelf, Environment *ev,
+		char chDrive);
+typedef somTP_AWDSource_verifyDrive *somTD_AWDSource_verifyDrive;
+typedef boolean   SOMLINK somTP_AWDSource_verifyNetworkPath(AWDSource *somSelf, Environment *ev,
+		char* pszNetworkPath);
+typedef somTP_AWDSource_verifyNetworkPath *somTD_AWDSource_verifyNetworkPath;
+typedef void   SOMLINK somTP_AWDSource_AWDSource_withEntityKey(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDEntityKey* pKey);
+typedef somTP_AWDSource_AWDSource_withEntityKey *somTD_AWDSource_AWDSource_withEntityKey;
+typedef void   SOMLINK somTP_AWDSource_AWDSource_withKey(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDOBJECTKEYSTRCT pKeyStrct);
+typedef somTP_AWDSource_AWDSource_withKey *somTD_AWDSource_AWDSource_withKey;
+typedef void   SOMLINK somTP_AWDSource_AWDSource_withFile(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		char* pszFile);
+typedef somTP_AWDSource_AWDSource_withFile *somTD_AWDSource_AWDSource_withFile;
+typedef void   SOMLINK somTP_AWDSource_AWDSource_withStructure(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDOBJECTSTRCT pAwdObj);
+typedef somTP_AWDSource_AWDSource_withStructure *somTD_AWDSource_AWDSource_withStructure;
+typedef void   SOMLINK somTP_AWDSource_AWDSource_withArray(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDLOBARRAYSTRCT pAwdLobArray);
+typedef somTP_AWDSource_AWDSource_withArray *somTD_AWDSource_AWDSource_withArray;
+typedef void   SOMLINK somTP_AWDSource_AWDSource_withStructureandArray(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDOBJECTSTRCT pAwdObj,
+		AWD_PAWDLOBARRAYSTRCT pAwdLobArray);
+typedef somTP_AWDSource_AWDSource_withStructureandArray *somTD_AWDSource_AWDSource_withStructureandArray;
+typedef void   SOMLINK somTP_AWDSource_AWDSource_withStructureandArrayandFile(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDOBJECTSTRCT pAwdObj,
+		AWD_PAWDLOBARRAYSTRCT pAwdLobArray,
+		char* pszFile);
+typedef somTP_AWDSource_AWDSource_withStructureandArrayandFile *somTD_AWDSource_AWDSource_withStructureandArrayandFile;
+typedef void   SOMLINK somTP_AWDSource_AWDSource_withPersist(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDPersist* pPersist);
+typedef somTP_AWDSource_AWDSource_withPersist *somTD_AWDSource_AWDSource_withPersist;
+typedef void   SOMLINK somTP_AWDSource_AWDSource_withObject(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDSource* obj);
+typedef somTP_AWDSource_AWDSource_withObject *somTD_AWDSource_AWDSource_withObject;
+typedef void   SOMLINK somTP_AWDSource_AWDSource_withHandle(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		unsigned long hObject);
+typedef somTP_AWDSource_AWDSource_withHandle *somTD_AWDSource_AWDSource_withHandle;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef boolean   SOMLINK somTP_AWDSource_iOwn(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_iOwn *somTD_AWDSource_iOwn;
+typedef boolean   SOMLINK somTP_AWDSource_iLocked(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_iLocked *somTD_AWDSource_iLocked;
+typedef boolean   SOMLINK somTP_AWDSource_addComments(AWDSource *somSelf, Environment *ev,
+		char* pCommentBuffer,
+		AWDBase_COMMENTS dType);
+typedef somTP_AWDSource_addComments *somTD_AWDSource_addComments;
+typedef unsigned long   SOMLINK somTP_AWDSource_autoFlags(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_autoFlags *somTD_AWDSource_autoFlags;
+typedef unsigned short   SOMLINK somTP_AWDSource_autoFlagFocus(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_autoFlagFocus *somTD_AWDSource_autoFlagFocus;
+typedef char*   SOMLINK somTP_AWDSource_businessArea(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_businessArea *somTD_AWDSource_businessArea;
+typedef boolean   SOMLINK somTP_AWDSource_canContain(AWDSource *somSelf, Environment *ev,
+		AWDBase* awdObj);
+typedef somTP_AWDSource_canContain *somTD_AWDSource_canContain;
+typedef boolean   SOMLINK somTP_AWDSource_copyFrom(AWDSource *somSelf, Environment *ev,
+		AWDBase* awdObj);
+typedef somTP_AWDSource_copyFrom *somTD_AWDSource_copyFrom;
+typedef void   SOMLINK somTP_AWDSource_clone(AWDSource *somSelf, Environment *ev,
+		unsigned short usCount,
+		boolean fCreateRelationship,
+		boolean fLock,
+		AWDBase** ppClonedObjs,
+		string shareMemName);
+typedef somTP_AWDSource_clone *somTD_AWDSource_clone;
+typedef void   SOMLINK somTP_AWDSource_create(AWDSource *somSelf, Environment *ev,
+		AWDBase_CREATE_MODE mode,
+		unsigned long ulBatch);
+typedef somTP_AWDSource_create *somTD_AWDSource_create;
+typedef char*   SOMLINK somTP_AWDSource_createNode(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_createNode *somTD_AWDSource_createNode;
+typedef char*   SOMLINK somTP_AWDSource_creationDateTime(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_creationDateTime *somTD_AWDSource_creationDateTime;
+typedef char*   SOMLINK somTP_AWDSource_csdName(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_csdName *somTD_AWDSource_csdName;
+typedef boolean   SOMLINK somTP_AWDSource_displayComments(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_displayComments *somTD_AWDSource_displayComments;
+typedef boolean   SOMLINK somTP_AWDSource_displayCsd(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_displayCsd *somTD_AWDSource_displayCsd;
+typedef boolean   SOMLINK somTP_AWDSource_displayHistory(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_displayHistory *somTD_AWDSource_displayHistory;
+typedef AWDBaseField*   SOMLINK somTP_AWDSource_field(AWDSource *somSelf, Environment *ev,
+		string aname,
+		unsigned short seqnum);
+typedef somTP_AWDSource_field *somTD_AWDSource_field;
+typedef unsigned long   SOMLINK somTP_AWDSource_fieldAsLong(AWDSource *somSelf, Environment *ev,
+		string aname,
+		unsigned short seqnum);
+typedef somTP_AWDSource_fieldAsLong *somTD_AWDSource_fieldAsLong;
+typedef char*   SOMLINK somTP_AWDSource_fieldAsString(AWDSource *somSelf, Environment *ev,
+		string aname,
+		unsigned short seqnum,
+		AWDString* str);
+typedef somTP_AWDSource_fieldAsString *somTD_AWDSource_fieldAsString;
+typedef unsigned short   SOMLINK somTP_AWDSource_fieldCount(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_fieldCount *somTD_AWDSource_fieldCount;
+typedef char*   SOMLINK somTP_AWDSource_getBeginTime(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_getBeginTime *somTD_AWDSource_getBeginTime;
+typedef boolean   SOMLINK somTP_AWDSource_getCreateArray(AWDSource *somSelf, Environment *ev,
+		AWD_PAWDCREATELOBARRAY pAwdLobArray);
+typedef somTP_AWDSource_getCreateArray *somTD_AWDSource_getCreateArray;
+typedef FieldList*   SOMLINK somTP_AWDSource_getFieldList(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_getFieldList *somTD_AWDSource_getFieldList;
+typedef char*   SOMLINK somTP_AWDSource_getEndTime(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_getEndTime *somTD_AWDSource_getEndTime;
+typedef boolean   SOMLINK somTP_AWDSource_getKeyStrct(AWDSource *somSelf, Environment *ev,
+		AWD_PAWDOBJECTKEYSTRCT pKey);
+typedef somTP_AWDSource_getKeyStrct *somTD_AWDSource_getKeyStrct;
+typedef boolean   SOMLINK somTP_AWDSource_getFieldArray(AWDSource *somSelf, Environment *ev,
+		AWD_AWDLOBARRAYSTRCT* pAwdLobArray);
+typedef somTP_AWDSource_getFieldArray *somTD_AWDSource_getFieldArray;
+typedef AWDBase_STATE   SOMLINK somTP_AWDSource_getState(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_getState *somTD_AWDSource_getState;
+typedef boolean   SOMLINK somTP_AWDSource_getStructure(AWDSource *somSelf, Environment *ev,
+		AWD_PAWDOBJECTSTRCT pAwdObjStrct);
+typedef somTP_AWDSource_getStructure *somTD_AWDSource_getStructure;
+typedef boolean   SOMLINK somTP_AWDSource_hasChanged(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_hasChanged *somTD_AWDSource_hasChanged;
+typedef boolean   SOMLINK somTP_AWDSource_hasComments(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_hasComments *somTD_AWDSource_hasComments;
+typedef char*   SOMLINK somTP_AWDSource_iconName(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_iconName *somTD_AWDSource_iconName;
+typedef char*   SOMLINK somTP_AWDSource_iconText(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_iconText *somTD_AWDSource_iconText;
+typedef AWDBaseField*   SOMLINK somTP_AWDSource_indexField(AWDSource *somSelf, Environment *ev,
+		unsigned short indexnumber);
+typedef somTP_AWDSource_indexField *somTD_AWDSource_indexField;
+typedef void   SOMLINK somTP_AWDSource_initialize(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_initialize *somTD_AWDSource_initialize;
+typedef boolean   SOMLINK somTP_AWDSource_isAutoChildSource(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isAutoChildSource *somTD_AWDSource_isAutoChildSource;
+typedef boolean   SOMLINK somTP_AWDSource_isAutoComments(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isAutoComments *somTD_AWDSource_isAutoComments;
+typedef boolean   SOMLINK somTP_AWDSource_isAutoCsd(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isAutoCsd *somTD_AWDSource_isAutoCsd;
+typedef boolean   SOMLINK somTP_AWDSource_isAutoHistory(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isAutoHistory *somTD_AWDSource_isAutoHistory;
+typedef boolean   SOMLINK somTP_AWDSource_isAutoLob(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isAutoLob *somTD_AWDSource_isAutoLob;
+typedef boolean   SOMLINK somTP_AWDSource_isAutoSiblingSource(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isAutoSiblingSource *somTD_AWDSource_isAutoSiblingSource;
+typedef boolean   SOMLINK somTP_AWDSource_isAutoViewSource(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isAutoViewSource *somTD_AWDSource_isAutoViewSource;
+typedef boolean   SOMLINK somTP_AWDSource_isFieldValid(AWDSource *somSelf, Environment *ev,
+		string pszField);
+typedef somTP_AWDSource_isFieldValid *somTD_AWDSource_isFieldValid;
+typedef boolean   SOMLINK somTP_AWDSource_isInUse(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isInUse *somTD_AWDSource_isInUse;
+typedef boolean   SOMLINK somTP_AWDSource_isLocked(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isLocked *somTD_AWDSource_isLocked;
+typedef boolean   SOMLINK somTP_AWDSource_isSelected(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isSelected *somTD_AWDSource_isSelected;
+typedef boolean   SOMLINK somTP_AWDSource_isShowable(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isShowable *somTD_AWDSource_isShowable;
+typedef boolean   SOMLINK somTP_AWDSource_isType(AWDSource *somSelf, Environment *ev,
+		unsigned long ulType);
+typedef somTP_AWDSource_isType *somTD_AWDSource_isType;
+typedef boolean   SOMLINK somTP_AWDSource_isUpdateable(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isUpdateable *somTD_AWDSource_isUpdateable;
+typedef boolean   SOMLINK somTP_AWDSource_isViewable(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isViewable *somTD_AWDSource_isViewable;
+typedef boolean   SOMLINK somTP_AWDSource_isSourceObject(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isSourceObject *somTD_AWDSource_isSourceObject;
+typedef boolean   SOMLINK somTP_AWDSource_isFolderObject(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isFolderObject *somTD_AWDSource_isFolderObject;
+typedef boolean   SOMLINK somTP_AWDSource_isTransactionObject(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isTransactionObject *somTD_AWDSource_isTransactionObject;
+typedef boolean   SOMLINK somTP_AWDSource_isCaseObject(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_isCaseObject *somTD_AWDSource_isCaseObject;
+typedef char*   SOMLINK somTP_AWDSource_key(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_key *somTD_AWDSource_key;
+typedef AWDBase_LOCKRESULT   SOMLINK somTP_AWDSource_lock(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_lock *somTD_AWDSource_lock;
+typedef boolean   SOMLINK somTP_AWDSource_unlock(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_unlock *somTD_AWDSource_unlock;
+typedef boolean   SOMLINK somTP_AWDSource_unlockRegardless(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_unlockRegardless *somTD_AWDSource_unlockRegardless;
+typedef char*   SOMLINK somTP_AWDSource_lockedBy(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_lockedBy *somTD_AWDSource_lockedBy;
+typedef char*   SOMLINK somTP_AWDSource_ownerNode(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_ownerNode *somTD_AWDSource_ownerNode;
+typedef char*   SOMLINK somTP_AWDSource_recordCode(AWDSource *somSelf, Environment *ev,
+		AWDString* str);
+typedef somTP_AWDSource_recordCode *somTD_AWDSource_recordCode;
+typedef boolean   SOMLINK somTP_AWDSource_removeWorkselect(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_removeWorkselect *somTD_AWDSource_removeWorkselect;
+typedef boolean   SOMLINK somTP_AWDSource_retrieve(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_retrieve *somTD_AWDSource_retrieve;
+typedef boolean   SOMLINK somTP_AWDSource_retrieveSecondaryFields(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_retrieveSecondaryFields *somTD_AWDSource_retrieveSecondaryFields;
+typedef void   SOMLINK somTP_AWDSource_setBeginTime(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_setBeginTime *somTD_AWDSource_setBeginTime;
+typedef void   SOMLINK somTP_AWDSource_setBeginTimeFromTimestamp(AWDSource *somSelf, Environment *ev,
+		string pszTimestamp);
+typedef somTP_AWDSource_setBeginTimeFromTimestamp *somTD_AWDSource_setBeginTimeFromTimestamp;
+typedef boolean   SOMLINK somTP_AWDSource_setBusinessArea(AWDSource *somSelf, Environment *ev,
+		string pszba);
+typedef somTP_AWDSource_setBusinessArea *somTD_AWDSource_setBusinessArea;
+typedef void   SOMLINK somTP_AWDSource_setCsdName(AWDSource *somSelf, Environment *ev,
+		char* pszCsd);
+typedef somTP_AWDSource_setCsdName *somTD_AWDSource_setCsdName;
+typedef void   SOMLINK somTP_AWDSource_setEndTime(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_setEndTime *somTD_AWDSource_setEndTime;
+typedef void   SOMLINK somTP_AWDSource_setEndTimeFromTimestamp(AWDSource *somSelf, Environment *ev,
+		string pszTimestamp);
+typedef somTP_AWDSource_setEndTimeFromTimestamp *somTD_AWDSource_setEndTimeFromTimestamp;
+typedef void   SOMLINK somTP_AWDSource_setElapsedTime(AWDSource *somSelf, Environment *ev,
+		unsigned long ulElapsedTime);
+typedef somTP_AWDSource_setElapsedTime *somTD_AWDSource_setElapsedTime;
+typedef boolean   SOMLINK somTP_AWDSource_setField(AWDSource *somSelf, Environment *ev,
+		AWDBaseField* fld);
+typedef somTP_AWDSource_setField *somTD_AWDSource_setField;
+typedef boolean   SOMLINK somTP_AWDSource_setFieldFromLong(AWDSource *somSelf, Environment *ev,
+		string pszdataname,
+		unsigned short seqnum,
+		unsigned long ulvalue);
+typedef somTP_AWDSource_setFieldFromLong *somTD_AWDSource_setFieldFromLong;
+typedef boolean   SOMLINK somTP_AWDSource_setFieldFromString(AWDSource *somSelf, Environment *ev,
+		string pszdataname,
+		unsigned short seqnum,
+		string pszvalue);
+typedef somTP_AWDSource_setFieldFromString *somTD_AWDSource_setFieldFromString;
+typedef boolean   SOMLINK somTP_AWDSource_setIndexField(AWDSource *somSelf, Environment *ev,
+		unsigned short usindex,
+		AWDBaseField* fld);
+typedef somTP_AWDSource_setIndexField *somTD_AWDSource_setIndexField;
+typedef boolean   SOMLINK somTP_AWDSource_setIndexFieldFromString(AWDSource *somSelf, Environment *ev,
+		unsigned short usindex,
+		string pszField);
+typedef somTP_AWDSource_setIndexFieldFromString *somTD_AWDSource_setIndexFieldFromString;
+typedef void   SOMLINK somTP_AWDSource_setInUse(AWDSource *somSelf, Environment *ev,
+		boolean fUse);
+typedef somTP_AWDSource_setInUse *somTD_AWDSource_setInUse;
+typedef boolean   SOMLINK somTP_AWDSource_setILockedFlag(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_setILockedFlag *somTD_AWDSource_setILockedFlag;
+typedef boolean   SOMLINK somTP_AWDSource_startService(AWDSource *somSelf, Environment *ev,
+		string pszServiceClass);
+typedef somTP_AWDSource_startService *somTD_AWDSource_startService;
+typedef boolean   SOMLINK somTP_AWDSource_startServiceByIndex(AWDSource *somSelf, Environment *ev,
+		unsigned long ulCategory);
+typedef somTP_AWDSource_startServiceByIndex *somTD_AWDSource_startServiceByIndex;
+typedef boolean   SOMLINK somTP_AWDSource_stopCsd(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_stopCsd *somTD_AWDSource_stopCsd;
+typedef boolean   SOMLINK somTP_AWDSource_stopHistory(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_stopHistory *somTD_AWDSource_stopHistory;
+typedef boolean   SOMLINK somTP_AWDSource_stopComments(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_stopComments *somTD_AWDSource_stopComments;
+typedef boolean   SOMLINK somTP_AWDSource_stopService(AWDSource *somSelf, Environment *ev,
+		string pszServiceClass);
+typedef somTP_AWDSource_stopService *somTD_AWDSource_stopService;
+typedef unsigned long   SOMLINK somTP_AWDSource_type(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_type *somTD_AWDSource_type;
+typedef boolean   SOMLINK somTP_AWDSource_update(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_update *somTD_AWDSource_update;
+typedef boolean   SOMLINK somTP_AWDSource_updateFromArray(AWDSource *somSelf, Environment *ev,
+		AWD_PAWDLOBARRAYSTRCT pAwdLobArray);
+typedef somTP_AWDSource_updateFromArray *somTD_AWDSource_updateFromArray;
+typedef void   SOMLINK somTP_AWDSource_updateFromKey(AWDSource *somSelf, Environment *ev,
+		AWDEntityKey* pKey);
+typedef somTP_AWDSource_updateFromKey *somTD_AWDSource_updateFromKey;
+typedef boolean   SOMLINK somTP_AWDSource_updateFromStructure(AWDSource *somSelf, Environment *ev,
+		AWD_PAWDOBJECTSTRCT pAwdObjStrct);
+typedef somTP_AWDSource_updateFromStructure *somTD_AWDSource_updateFromStructure;
+typedef boolean   SOMLINK somTP_AWDSource_validate(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_validate *somTD_AWDSource_validate;
+typedef void   SOMLINK somTP_AWDSource_withEntityKey(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDEntityKey* pKey);
+typedef somTP_AWDSource_withEntityKey *somTD_AWDSource_withEntityKey;
+typedef void   SOMLINK somTP_AWDSource_withKey(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDOBJECTKEYSTRCT pKeyStrct);
+typedef somTP_AWDSource_withKey *somTD_AWDSource_withKey;
+typedef void   SOMLINK somTP_AWDSource_withStructure(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDOBJECTSTRCT pAwdObj);
+typedef somTP_AWDSource_withStructure *somTD_AWDSource_withStructure;
+typedef void   SOMLINK somTP_AWDSource_withArray(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDLOBARRAYSTRCT pAwdLobArray);
+typedef somTP_AWDSource_withArray *somTD_AWDSource_withArray;
+typedef void   SOMLINK somTP_AWDSource_withStructureandArray(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDOBJECTSTRCT pAwdObj,
+		AWD_PAWDLOBARRAYSTRCT pAwdLobArray);
+typedef somTP_AWDSource_withStructureandArray *somTD_AWDSource_withStructureandArray;
+typedef void   SOMLINK somTP_AWDSource_withPersist(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDPersist* pPersist);
+typedef somTP_AWDSource_withPersist *somTD_AWDSource_withPersist;
+typedef void   SOMLINK somTP_AWDSource_withObject(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDBase* obj);
+typedef somTP_AWDSource_withObject *somTD_AWDSource_withObject;
+typedef void   SOMLINK somTP_AWDSource_withHandle(AWDSource *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		unsigned long hObject);
+typedef somTP_AWDSource_withHandle *somTD_AWDSource_withHandle;
+typedef AWDBase*   SOMLINK somTP_AWDSource_next(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_next *somTD_AWDSource_next;
+typedef AWDBase*   SOMLINK somTP_AWDSource_previous(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_previous *somTD_AWDSource_previous;
+typedef AWDBase*   SOMLINK somTP_AWDSource_child(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_child *somTD_AWDSource_child;
+typedef AWDBase*   SOMLINK somTP_AWDSource_parent(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_parent *somTD_AWDSource_parent;
+typedef AWDRelationship*   SOMLINK somTP_AWDSource_relationship(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_relationship *somTD_AWDSource_relationship;
+typedef void   SOMLINK somTP_AWDSource_setNext(AWDSource *somSelf, Environment *ev,
+		AWDBase* next);
+typedef somTP_AWDSource_setNext *somTD_AWDSource_setNext;
+typedef void   SOMLINK somTP_AWDSource_setPrevious(AWDSource *somSelf, Environment *ev,
+		AWDBase* previous);
+typedef somTP_AWDSource_setPrevious *somTD_AWDSource_setPrevious;
+typedef void   SOMLINK somTP_AWDSource_setChild(AWDSource *somSelf, Environment *ev,
+		AWDBase* child);
+typedef somTP_AWDSource_setChild *somTD_AWDSource_setChild;
+typedef void   SOMLINK somTP_AWDSource_setParent(AWDSource *somSelf, Environment *ev,
+		AWDBase* parent);
+typedef somTP_AWDSource_setParent *somTD_AWDSource_setParent;
+typedef void*   SOMLINK somTP_AWDSource_usageToken(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_usageToken *somTD_AWDSource_usageToken;
+typedef void   SOMLINK somTP_AWDSource_setUsageToken(AWDSource *somSelf, Environment *ev,
+		void* pv);
+typedef somTP_AWDSource_setUsageToken *somTD_AWDSource_setUsageToken;
+typedef unsigned long   SOMLINK somTP_AWDSource_getTag(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_getTag *somTD_AWDSource_getTag;
+typedef void   SOMLINK somTP_AWDSource_setTag(AWDSource *somSelf, Environment *ev,
+		unsigned long ulTag);
+typedef somTP_AWDSource_setTag *somTD_AWDSource_setTag;
+typedef boolean   SOMLINK somTP_AWDSource_createRelationship(AWDSource *somSelf, Environment *ev,
+		AWDBase* pRelationObj,
+		AWDBase_RELATION relation);
+typedef somTP_AWDSource_createRelationship *somTD_AWDSource_createRelationship;
+typedef boolean   SOMLINK somTP_AWDSource_createRelationshipWithNotify(AWDSource *somSelf, Environment *ev,
+		AWDBase* pRelationObj,
+		AWDBase_RELATION relation);
+typedef somTP_AWDSource_createRelationshipWithNotify *somTD_AWDSource_createRelationshipWithNotify;
+typedef boolean   SOMLINK somTP_AWDSource_makeChild(AWDSource *somSelf, Environment *ev,
+		AWDBase* pChild);
+typedef somTP_AWDSource_makeChild *somTD_AWDSource_makeChild;
+typedef boolean   SOMLINK somTP_AWDSource_makeParent(AWDSource *somSelf, Environment *ev,
+		AWDBase* pParent);
+typedef somTP_AWDSource_makeParent *somTD_AWDSource_makeParent;
+typedef void   SOMLINK somTP_AWDSource_somDefaultInit(AWDSource *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_AWDSource_somDefaultInit *somTD_AWDSource_somDefaultInit;
+typedef void   SOMLINK somTP_AWDSource_somDestruct(AWDSource *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_AWDSource_somDestruct *somTD_AWDSource_somDestruct;
+typedef void   SOMLINK somTP_AWDSource_store(AWDSource *somSelf, Environment *ev,
+		AWDPersist* pPersist);
+typedef somTP_AWDSource_store *somTD_AWDSource_store;
+typedef void   SOMLINK somTP_AWDSource_restore(AWDSource *somSelf, Environment *ev,
+		AWDPersist* pPersist);
+typedef somTP_AWDSource_restore *somTD_AWDSource_restore;
+typedef somf_MLinkable*   SOMLINK somTP_AWDSource_somfMLinkableInit(AWDSource *somSelf, Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p);
+typedef somTP_AWDSource_somfMLinkableInit *somTD_AWDSource_somfMLinkableInit;
+typedef somf_MLinkable*   SOMLINK somTP_AWDSource_somfGetNext(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_somfGetNext *somTD_AWDSource_somfGetNext;
+typedef void   SOMLINK somTP_AWDSource_somfSetNext(AWDSource *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_AWDSource_somfSetNext *somTD_AWDSource_somfSetNext;
+typedef somf_MLinkable*   SOMLINK somTP_AWDSource_somfGetPrevious(AWDSource *somSelf, Environment *ev);
+typedef somTP_AWDSource_somfGetPrevious *somTD_AWDSource_somfGetPrevious;
+typedef void   SOMLINK somTP_AWDSource_somfSetPrevious(AWDSource *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_AWDSource_somfSetPrevious *somTD_AWDSource_somfSetPrevious;
+typedef void   SOMLINK somTP_AWDSource_somInit(AWDSource *somSelf);
+typedef somTP_AWDSource_somInit *somTD_AWDSource_somInit;
+typedef void   SOMLINK somTP_AWDSource_somDefaultCopyInit(AWDSource *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDSource_somDefaultCopyInit *somTD_AWDSource_somDefaultCopyInit;
+typedef AWDSource*   SOMLINK somTP_AWDSource_somDefaultAssign(AWDSource *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDSource_somDefaultAssign *somTD_AWDSource_somDefaultAssign;
+typedef void   SOMLINK somTP_AWDSource_somDefaultConstCopyInit(AWDSource *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDSource_somDefaultConstCopyInit *somTD_AWDSource_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_AWDSource_somDefaultVCopyInit(AWDSource *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDSource_somDefaultVCopyInit *somTD_AWDSource_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_AWDSource_somDefaultConstVCopyInit(AWDSource *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDSource_somDefaultConstVCopyInit *somTD_AWDSource_somDefaultConstVCopyInit;
+typedef AWDSource*   SOMLINK somTP_AWDSource_somDefaultConstAssign(AWDSource *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDSource_somDefaultConstAssign *somTD_AWDSource_somDefaultConstAssign;
+typedef AWDSource*   SOMLINK somTP_AWDSource_somDefaultVAssign(AWDSource *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDSource_somDefaultVAssign *somTD_AWDSource_somDefaultVAssign;
+typedef AWDSource*   SOMLINK somTP_AWDSource_somDefaultConstVAssign(AWDSource *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDSource_somDefaultConstVAssign *somTD_AWDSource_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_AWDSource_somFree(AWDSource *somSelf);
+typedef somTP_AWDSource_somFree *somTD_AWDSource_somFree;
+typedef void   SOMLINK somTP_AWDSource_somUninit(AWDSource *somSelf);
+typedef somTP_AWDSource_somUninit *somTD_AWDSource_somUninit;
+typedef SOMClass*   SOMLINK somTP_AWDSource_somGetClass(AWDSource *somSelf);
+typedef somTP_AWDSource_somGetClass *somTD_AWDSource_somGetClass;
+typedef string   SOMLINK somTP_AWDSource_somGetClassName(AWDSource *somSelf);
+typedef somTP_AWDSource_somGetClassName *somTD_AWDSource_somGetClassName;
+typedef long   SOMLINK somTP_AWDSource_somGetSize(AWDSource *somSelf);
+typedef somTP_AWDSource_somGetSize *somTD_AWDSource_somGetSize;
+typedef boolean   SOMLINK somTP_AWDSource_somIsA(AWDSource *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDSource_somIsA *somTD_AWDSource_somIsA;
+typedef boolean   SOMLINK somTP_AWDSource_somIsInstanceOf(AWDSource *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDSource_somIsInstanceOf *somTD_AWDSource_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_AWDSource_somRespondsTo(AWDSource *somSelf,
+		somId mId);
+typedef somTP_AWDSource_somRespondsTo *somTD_AWDSource_somRespondsTo;
+typedef boolean   SOMLINK somTP_AWDSource_somDispatch(AWDSource *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDSource_somDispatch *somTD_AWDSource_somDispatch;
+typedef boolean   SOMLINK somTP_AWDSource_somClassDispatch(AWDSource *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDSource_somClassDispatch *somTD_AWDSource_somClassDispatch;
+typedef boolean   SOMLINK somTP_AWDSource_somCastObj(AWDSource *somSelf,
+		SOMClass* cls);
+typedef somTP_AWDSource_somCastObj *somTD_AWDSource_somCastObj;
+typedef boolean   SOMLINK somTP_AWDSource_somResetObj(AWDSource *somSelf);
+typedef somTP_AWDSource_somResetObj *somTD_AWDSource_somResetObj;
+typedef SOMObject*   SOMLINK somTP_AWDSource_somPrintSelf(AWDSource *somSelf);
+typedef somTP_AWDSource_somPrintSelf *somTD_AWDSource_somPrintSelf;
+typedef void   SOMLINK somTP_AWDSource_somDumpSelf(AWDSource *somSelf,
+		long level);
+typedef somTP_AWDSource_somDumpSelf *somTD_AWDSource_somDumpSelf;
+typedef void   SOMLINK somTP_AWDSource_somDumpSelfInt(AWDSource *somSelf,
+		long level);
+typedef somTP_AWDSource_somDumpSelfInt *somTD_AWDSource_somDumpSelfInt;
+}
+
+#endif /* AWDSource_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for AWDSource
+ */
+class AWDSource : public AWDBase
+{
+public:
+
+// AWDSource::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_AWDSource) AWDSourceNewClass(AWDSource_MajorVersion,AWDSource_MinorVersion);
+   return (void*)
+      SOM_Resolve(_AWDSource,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_AWDSource));
+}
+
+// AWDSource::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+AWDSource()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDSourceCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+AWDSource(AWDSource* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDSourceCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDSource(const AWDSource* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDSourceCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDSource(Environment *ev,AWDEntityKey* pKey) 
+{
+   AWDSource_withEntityKey(ev,0,pKey);
+}
+
+AWDSource(Environment *ev,AWD_PAWDOBJECTKEYSTRCT pKeyStrct) 
+{
+   AWDSource_withKey(ev,0,pKeyStrct);
+}
+
+AWDSource(Environment *ev,char* pszFile) 
+{
+   AWDSource_withFile(ev,0,pszFile);
+}
+
+AWDSource(Environment *ev,AWD_PAWDOBJECTSTRCT pAwdObj) 
+{
+   AWDSource_withStructure(ev,0,pAwdObj);
+}
+
+AWDSource(Environment *ev,AWD_PAWDLOBARRAYSTRCT pAwdLobArray) 
+{
+   AWDSource_withArray(ev,0,pAwdLobArray);
+}
+
+AWDSource(Environment *ev,AWD_PAWDOBJECTSTRCT pAwdObj,AWD_PAWDLOBARRAYSTRCT pAwdLobArray) 
+{
+   AWDSource_withStructureandArray(ev,0,pAwdObj,pAwdLobArray);
+}
+
+AWDSource(Environment *ev,AWD_PAWDOBJECTSTRCT pAwdObj,AWD_PAWDLOBARRAYSTRCT pAwdLobArray,char* pszFile) 
+{
+   AWDSource_withStructureandArrayandFile(ev,0,pAwdObj,pAwdLobArray,pszFile);
+}
+
+AWDSource(Environment *ev,AWDPersist* pPersist) 
+{
+   AWDSource_withPersist(ev,0,pPersist);
+}
+
+AWDSource(Environment *ev,AWDSource* obj) 
+{
+   AWDSource_withObject(ev,0,obj);
+}
+
+AWDSource(Environment *ev,unsigned long hObject) 
+{
+   AWDSource_withHandle(ev,0,hObject);
+}
+
+
+/* method: annotationsExist */
+boolean   annotationsExist(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,annotationsExist)
+	(this, ev);
+}
+
+
+/* method: box */
+unsigned short   box(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,box)
+	(this, ev);
+}
+
+
+/* method: boxEx */
+unsigned long   boxEx(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,boxEx)
+	(this, ev);
+}
+
+
+/* method: createStation */
+char*   createStation(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,createStation)
+	(this, ev,str);
+}
+
+
+/* method: createUserID */
+char*   createUserID(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,createUserID)
+	(this, ev,str);
+}
+
+
+/* method: displayFax */
+boolean   displayFax(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,displayFax)
+	(this, ev);
+}
+
+
+/* method: displayImage */
+boolean   displayImage(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,displayImage)
+	(this, ev);
+}
+
+
+/* method: displayPrint */
+boolean   displayPrint(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,displayPrint)
+	(this, ev);
+}
+
+
+/* method: documentFetchOption */
+AWDSource_DOCFETCH_OPTION   documentFetchOption(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,documentFetchOption)
+	(this, ev);
+}
+
+
+/* method: documentPath */
+char*   documentPath(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,documentPath)
+	(this, ev,str);
+}
+
+
+/* method: fetchDocument */
+void   fetchDocument(Environment *ev)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,fetchDocument)
+	(this, ev);
+}
+
+
+/* method: isRevisable */
+boolean   isRevisable(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,isRevisable)
+	(this, ev);
+}
+
+
+/* method: isOnDasd */
+boolean   isOnDasd(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,isOnDasd)
+	(this, ev);
+}
+
+
+/* method: isOnOpticalOnly */
+boolean   isOnOpticalOnly(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,isOnOpticalOnly)
+	(this, ev);
+}
+
+
+/* method: mailType */
+char*   mailType(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,mailType)
+	(this, ev,str);
+}
+
+
+/* method: objectFormat */
+char   objectFormat(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,objectFormat)
+	(this, ev,str);
+}
+
+
+/* method: objectID */
+char*   objectID(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,objectID)
+	(this, ev,str);
+}
+
+
+/* method: opticalStatus */
+AWDSource_IMAGESTATUS   opticalStatus(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,opticalStatus)
+	(this, ev);
+}
+
+
+/* method: page */
+unsigned short   page(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,page)
+	(this, ev);
+}
+
+
+/* method: receiveDateTime */
+char*   receiveDateTime(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,receiveDateTime)
+	(this, ev,str);
+}
+
+
+/* method: securityLevel */
+unsigned short   securityLevel(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,securityLevel)
+	(this, ev);
+}
+
+
+/* method: numberOfPages */
+unsigned long   numberOfPages(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,numberOfPages)
+	(this, ev);
+}
+
+
+/* method: setAnnotationsExist */
+void   setAnnotationsExist(Environment *ev,
+		boolean fAnnotations)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,setAnnotationsExist)
+	(this, ev,fAnnotations);
+}
+
+
+/* method: setBox */
+boolean   setBox(Environment *ev,
+		unsigned long ulBox)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,setBox)
+	(this, ev,ulBox);
+}
+
+
+/* method: setDestination */
+void   setDestination(Environment *ev,
+		char chServer)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,setDestination)
+	(this, ev,chServer);
+}
+
+
+/* method: setMailType */
+boolean   setMailType(Environment *ev,
+		char* pszMailType)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,setMailType)
+	(this, ev,pszMailType);
+}
+
+
+/* method: setObjectFormat */
+boolean   setObjectFormat(Environment *ev,
+		char* pszFormat)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,setObjectFormat)
+	(this, ev,pszFormat);
+}
+
+
+/* method: setObjectID */
+boolean   setObjectID(Environment *ev,
+		char* pszObjectID)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,setObjectID)
+	(this, ev,pszObjectID);
+}
+
+
+/* method: setOpticalStatus */
+boolean   setOpticalStatus(Environment *ev,
+		AWDSource_IMAGESTATUS iStatus)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,setOpticalStatus)
+	(this, ev,iStatus);
+}
+
+
+/* method: setPage */
+boolean   setPage(Environment *ev,
+		unsigned long ulPage)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,setPage)
+	(this, ev,ulPage);
+}
+
+
+/* method: setNumberOfPages */
+boolean   setNumberOfPages(Environment *ev,
+		unsigned long ulPageCnt)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,setNumberOfPages)
+	(this, ev,ulPageCnt);
+}
+
+
+/* method: setReceiveDateTime */
+boolean   setReceiveDateTime(Environment *ev,
+		char* recDateTime)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,setReceiveDateTime)
+	(this, ev,recDateTime);
+}
+
+
+/* method: setRevisable */
+boolean   setRevisable(Environment *ev,
+		boolean fRevise)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,setRevisable)
+	(this, ev,fRevise);
+}
+
+
+/* method: setSecurityLevel */
+boolean   setSecurityLevel(Environment *ev,
+		unsigned short usLevel)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,setSecurityLevel)
+	(this, ev,usLevel);
+}
+
+
+/* method: setSourceFile */
+void   setSourceFile(Environment *ev,
+		char* pszFile)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,setSourceFile)
+	(this, ev,pszFile);
+}
+
+
+/* method: setSourceType */
+boolean   setSourceType(Environment *ev,
+		char* pszType)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,setSourceType)
+	(this, ev,pszType);
+}
+
+
+/* method: sourceType */
+char*   sourceType(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,sourceType)
+	(this, ev,str);
+}
+
+
+/* method: stageDocument */
+void   stageDocument(Environment *ev)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,stageDocument)
+	(this, ev);
+}
+
+
+/* method: verifyDrive */
+boolean   verifyDrive(Environment *ev,
+		char chDrive)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,verifyDrive)
+	(this, ev,chDrive);
+}
+
+
+/* method: verifyNetworkPath */
+boolean   verifyNetworkPath(Environment *ev,
+		char* pszNetworkPath)
+{
+   return SOM_ResolveD(this,AWDSource,AWDSource,verifyNetworkPath)
+	(this, ev,pszNetworkPath);
+}
+
+
+/* initializer method: AWDSource_withEntityKey */
+void   AWDSource_withEntityKey(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDEntityKey* pKey)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,AWDSource_withEntityKey)
+	(this, ev,ctrl,pKey);
+}
+
+
+/* initializer method: AWDSource_withKey */
+void   AWDSource_withKey(Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDOBJECTKEYSTRCT pKeyStrct)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,AWDSource_withKey)
+	(this, ev,ctrl,pKeyStrct);
+}
+
+
+/* initializer method: AWDSource_withFile */
+void   AWDSource_withFile(Environment *ev,
+		somInitCtrl* ctrl,
+		char* pszFile)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,AWDSource_withFile)
+	(this, ev,ctrl,pszFile);
+}
+
+
+/* initializer method: AWDSource_withStructure */
+void   AWDSource_withStructure(Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDOBJECTSTRCT pAwdObj)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,AWDSource_withStructure)
+	(this, ev,ctrl,pAwdObj);
+}
+
+
+/* initializer method: AWDSource_withArray */
+void   AWDSource_withArray(Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDLOBARRAYSTRCT pAwdLobArray)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,AWDSource_withArray)
+	(this, ev,ctrl,pAwdLobArray);
+}
+
+
+/* initializer method: AWDSource_withStructureandArray */
+void   AWDSource_withStructureandArray(Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDOBJECTSTRCT pAwdObj,
+		AWD_PAWDLOBARRAYSTRCT pAwdLobArray)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,AWDSource_withStructureandArray)
+	(this, ev,ctrl,pAwdObj,pAwdLobArray);
+}
+
+
+/* initializer method: AWDSource_withStructureandArrayandFile */
+void   AWDSource_withStructureandArrayandFile(Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDOBJECTSTRCT pAwdObj,
+		AWD_PAWDLOBARRAYSTRCT pAwdLobArray,
+		char* pszFile)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,AWDSource_withStructureandArrayandFile)
+	(this, ev,ctrl,pAwdObj,pAwdLobArray,pszFile);
+}
+
+
+/* initializer method: AWDSource_withPersist */
+void   AWDSource_withPersist(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,AWDSource_withPersist)
+	(this, ev,ctrl,pPersist);
+}
+
+
+/* initializer method: AWDSource_withObject */
+void   AWDSource_withObject(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDSource* obj)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,AWDSource_withObject)
+	(this, ev,ctrl,obj);
+}
+
+
+/* initializer method: AWDSource_withHandle */
+void   AWDSource_withHandle(Environment *ev,
+		somInitCtrl* ctrl,
+		unsigned long hObject)
+{
+   SOM_ResolveD(this,AWDSource,AWDSource,AWDSource_withHandle)
+	(this, ev,ctrl,hObject);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* method: iOwn */
+boolean   iOwn(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,iOwn)
+	(this, ev);
+}
+
+
+/* method: iLocked */
+boolean   iLocked(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,iLocked)
+	(this, ev);
+}
+
+
+/* method: addComments */
+boolean   addComments(Environment *ev,
+		char* pCommentBuffer,
+		AWDBase_COMMENTS dType)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,addComments)
+	(this, ev,pCommentBuffer,dType);
+}
+
+
+/* method: autoFlags */
+unsigned long   autoFlags(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,autoFlags)
+	(this, ev);
+}
+
+
+/* method: autoFlagFocus */
+unsigned short   autoFlagFocus(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,autoFlagFocus)
+	(this, ev);
+}
+
+
+/* method: businessArea */
+char*   businessArea(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,businessArea)
+	(this, ev,str);
+}
+
+
+/* method: canContain */
+boolean   canContain(Environment *ev,
+		AWDBase* awdObj)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,canContain)
+	(this, ev,awdObj);
+}
+
+
+/* method: copyFrom */
+boolean   copyFrom(Environment *ev,
+		AWDBase* awdObj)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,copyFrom)
+	(this, ev,awdObj);
+}
+
+
+/* method: clone */
+void   clone(Environment *ev,
+		unsigned short usCount,
+		boolean fCreateRelationship,
+		boolean fLock,
+		AWDBase** ppClonedObjs,
+		string shareMemName)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,clone)
+	(this, ev,usCount,fCreateRelationship,fLock,ppClonedObjs,shareMemName);
+}
+
+
+/* method: create */
+void   create(Environment *ev,
+		AWDBase_CREATE_MODE mode,
+		unsigned long ulBatch)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,create)
+	(this, ev,mode,ulBatch);
+}
+
+
+/* method: createNode */
+char*   createNode(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,createNode)
+	(this, ev,str);
+}
+
+
+/* method: creationDateTime */
+char*   creationDateTime(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,creationDateTime)
+	(this, ev,str);
+}
+
+
+/* method: csdName */
+char*   csdName(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,csdName)
+	(this, ev,str);
+}
+
+
+/* method: displayComments */
+boolean   displayComments(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,displayComments)
+	(this, ev);
+}
+
+
+/* method: displayCsd */
+boolean   displayCsd(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,displayCsd)
+	(this, ev);
+}
+
+
+/* method: displayHistory */
+boolean   displayHistory(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,displayHistory)
+	(this, ev);
+}
+
+
+/* method: field */
+AWDBaseField*   field(Environment *ev,
+		string aname,
+		unsigned short seqnum)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,field)
+	(this, ev,aname,seqnum);
+}
+
+
+/* method: fieldAsLong */
+unsigned long   fieldAsLong(Environment *ev,
+		string aname,
+		unsigned short seqnum)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,fieldAsLong)
+	(this, ev,aname,seqnum);
+}
+
+
+/* method: fieldAsString */
+char*   fieldAsString(Environment *ev,
+		string aname,
+		unsigned short seqnum,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,fieldAsString)
+	(this, ev,aname,seqnum,str);
+}
+
+
+/* method: fieldCount */
+unsigned short   fieldCount(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,fieldCount)
+	(this, ev);
+}
+
+
+/* method: getBeginTime */
+char*   getBeginTime(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,getBeginTime)
+	(this, ev);
+}
+
+
+/* method: getCreateArray */
+boolean   getCreateArray(Environment *ev,
+		AWD_PAWDCREATELOBARRAY pAwdLobArray)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,getCreateArray)
+	(this, ev,pAwdLobArray);
+}
+
+
+/* method: getFieldList */
+FieldList*   getFieldList(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,getFieldList)
+	(this, ev);
+}
+
+
+/* method: getEndTime */
+char*   getEndTime(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,getEndTime)
+	(this, ev);
+}
+
+
+/* method: getKeyStrct */
+boolean   getKeyStrct(Environment *ev,
+		AWD_PAWDOBJECTKEYSTRCT pKey)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,getKeyStrct)
+	(this, ev,pKey);
+}
+
+
+/* method: getFieldArray */
+boolean   getFieldArray(Environment *ev,
+		AWD_AWDLOBARRAYSTRCT* pAwdLobArray)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,getFieldArray)
+	(this, ev,pAwdLobArray);
+}
+
+
+/* method: getState */
+AWDBase_STATE   getState(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,getState)
+	(this, ev);
+}
+
+
+/* method: getStructure */
+boolean   getStructure(Environment *ev,
+		AWD_PAWDOBJECTSTRCT pAwdObjStrct)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,getStructure)
+	(this, ev,pAwdObjStrct);
+}
+
+
+/* method: hasChanged */
+boolean   hasChanged(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,hasChanged)
+	(this, ev);
+}
+
+
+/* method: hasComments */
+boolean   hasComments(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,hasComments)
+	(this, ev);
+}
+
+
+/* method: iconName */
+char*   iconName(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,iconName)
+	(this, ev,str);
+}
+
+
+/* method: iconText */
+char*   iconText(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,iconText)
+	(this, ev,str);
+}
+
+
+/* method: indexField */
+AWDBaseField*   indexField(Environment *ev,
+		unsigned short indexnumber)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,indexField)
+	(this, ev,indexnumber);
+}
+
+
+/* method: initialize */
+void   initialize(Environment *ev)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,initialize)
+	(this, ev);
+}
+
+
+/* method: isAutoChildSource */
+boolean   isAutoChildSource(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isAutoChildSource)
+	(this, ev);
+}
+
+
+/* method: isAutoComments */
+boolean   isAutoComments(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isAutoComments)
+	(this, ev);
+}
+
+
+/* method: isAutoCsd */
+boolean   isAutoCsd(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isAutoCsd)
+	(this, ev);
+}
+
+
+/* method: isAutoHistory */
+boolean   isAutoHistory(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isAutoHistory)
+	(this, ev);
+}
+
+
+/* method: isAutoLob */
+boolean   isAutoLob(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isAutoLob)
+	(this, ev);
+}
+
+
+/* method: isAutoSiblingSource */
+boolean   isAutoSiblingSource(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isAutoSiblingSource)
+	(this, ev);
+}
+
+
+/* method: isAutoViewSource */
+boolean   isAutoViewSource(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isAutoViewSource)
+	(this, ev);
+}
+
+
+/* method: isFieldValid */
+boolean   isFieldValid(Environment *ev,
+		string pszField)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isFieldValid)
+	(this, ev,pszField);
+}
+
+
+/* method: isInUse */
+boolean   isInUse(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isInUse)
+	(this, ev);
+}
+
+
+/* method: isLocked */
+boolean   isLocked(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isLocked)
+	(this, ev);
+}
+
+
+/* method: isSelected */
+boolean   isSelected(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isSelected)
+	(this, ev);
+}
+
+
+/* method: isShowable */
+boolean   isShowable(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isShowable)
+	(this, ev);
+}
+
+
+/* method: isType */
+boolean   isType(Environment *ev,
+		unsigned long ulType)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isType)
+	(this, ev,ulType);
+}
+
+
+/* method: isUpdateable */
+boolean   isUpdateable(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isUpdateable)
+	(this, ev);
+}
+
+
+/* method: isViewable */
+boolean   isViewable(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isViewable)
+	(this, ev);
+}
+
+
+/* method: isSourceObject */
+boolean   isSourceObject(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isSourceObject)
+	(this, ev);
+}
+
+
+/* method: isFolderObject */
+boolean   isFolderObject(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isFolderObject)
+	(this, ev);
+}
+
+
+/* method: isTransactionObject */
+boolean   isTransactionObject(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isTransactionObject)
+	(this, ev);
+}
+
+
+/* method: isCaseObject */
+boolean   isCaseObject(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,isCaseObject)
+	(this, ev);
+}
+
+
+/* method: key */
+char*   key(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,key)
+	(this, ev,str);
+}
+
+
+/* method: lock */
+AWDBase_LOCKRESULT   lock(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,lock)
+	(this, ev);
+}
+
+
+/* method: unlock */
+boolean   unlock(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,unlock)
+	(this, ev);
+}
+
+
+/* method: unlockRegardless */
+boolean   unlockRegardless(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,unlockRegardless)
+	(this, ev);
+}
+
+
+/* method: lockedBy */
+char*   lockedBy(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,lockedBy)
+	(this, ev,str);
+}
+
+
+/* method: ownerNode */
+char*   ownerNode(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,ownerNode)
+	(this, ev,str);
+}
+
+
+/* method: recordCode */
+char*   recordCode(Environment *ev,
+		AWDString* str)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,recordCode)
+	(this, ev,str);
+}
+
+
+/* method: removeWorkselect */
+boolean   removeWorkselect(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,removeWorkselect)
+	(this, ev);
+}
+
+
+/* method: retrieve */
+boolean   retrieve(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,retrieve)
+	(this, ev);
+}
+
+
+/* method: retrieveSecondaryFields */
+boolean   retrieveSecondaryFields(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,retrieveSecondaryFields)
+	(this, ev);
+}
+
+
+/* method: setBeginTime */
+void   setBeginTime(Environment *ev)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,setBeginTime)
+	(this, ev);
+}
+
+
+/* method: setBeginTimeFromTimestamp */
+void   setBeginTimeFromTimestamp(Environment *ev,
+		string pszTimestamp)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,setBeginTimeFromTimestamp)
+	(this, ev,pszTimestamp);
+}
+
+
+/* method: setBusinessArea */
+boolean   setBusinessArea(Environment *ev,
+		string pszba)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,setBusinessArea)
+	(this, ev,pszba);
+}
+
+
+/* method: setCsdName */
+void   setCsdName(Environment *ev,
+		char* pszCsd)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,setCsdName)
+	(this, ev,pszCsd);
+}
+
+
+/* method: setEndTime */
+void   setEndTime(Environment *ev)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,setEndTime)
+	(this, ev);
+}
+
+
+/* method: setEndTimeFromTimestamp */
+void   setEndTimeFromTimestamp(Environment *ev,
+		string pszTimestamp)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,setEndTimeFromTimestamp)
+	(this, ev,pszTimestamp);
+}
+
+
+/* method: setElapsedTime */
+void   setElapsedTime(Environment *ev,
+		unsigned long ulElapsedTime)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,setElapsedTime)
+	(this, ev,ulElapsedTime);
+}
+
+
+/* method: setField */
+boolean   setField(Environment *ev,
+		AWDBaseField* fld)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,setField)
+	(this, ev,fld);
+}
+
+
+/* method: setFieldFromLong */
+boolean   setFieldFromLong(Environment *ev,
+		string pszdataname,
+		unsigned short seqnum,
+		unsigned long ulvalue)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,setFieldFromLong)
+	(this, ev,pszdataname,seqnum,ulvalue);
+}
+
+
+/* method: setFieldFromString */
+boolean   setFieldFromString(Environment *ev,
+		string pszdataname,
+		unsigned short seqnum,
+		string pszvalue)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,setFieldFromString)
+	(this, ev,pszdataname,seqnum,pszvalue);
+}
+
+
+/* method: setIndexField */
+boolean   setIndexField(Environment *ev,
+		unsigned short usindex,
+		AWDBaseField* fld)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,setIndexField)
+	(this, ev,usindex,fld);
+}
+
+
+/* method: setIndexFieldFromString */
+boolean   setIndexFieldFromString(Environment *ev,
+		unsigned short usindex,
+		string pszField)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,setIndexFieldFromString)
+	(this, ev,usindex,pszField);
+}
+
+
+/* method: setInUse */
+void   setInUse(Environment *ev,
+		boolean fUse)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,setInUse)
+	(this, ev,fUse);
+}
+
+
+/* method: setILockedFlag */
+boolean   setILockedFlag(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,setILockedFlag)
+	(this, ev);
+}
+
+
+/* method: startService */
+boolean   startService(Environment *ev,
+		string pszServiceClass)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,startService)
+	(this, ev,pszServiceClass);
+}
+
+
+/* method: startServiceByIndex */
+boolean   startServiceByIndex(Environment *ev,
+		unsigned long ulCategory)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,startServiceByIndex)
+	(this, ev,ulCategory);
+}
+
+
+/* method: stopCsd */
+boolean   stopCsd(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,stopCsd)
+	(this, ev);
+}
+
+
+/* method: stopHistory */
+boolean   stopHistory(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,stopHistory)
+	(this, ev);
+}
+
+
+/* method: stopComments */
+boolean   stopComments(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,stopComments)
+	(this, ev);
+}
+
+
+/* method: stopService */
+boolean   stopService(Environment *ev,
+		string pszServiceClass)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,stopService)
+	(this, ev,pszServiceClass);
+}
+
+
+/* method: type */
+unsigned long   type(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,type)
+	(this, ev);
+}
+
+
+/* method: update */
+boolean   update(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,update)
+	(this, ev);
+}
+
+
+/* method: updateFromArray */
+boolean   updateFromArray(Environment *ev,
+		AWD_PAWDLOBARRAYSTRCT pAwdLobArray)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,updateFromArray)
+	(this, ev,pAwdLobArray);
+}
+
+
+/* method: updateFromKey */
+void   updateFromKey(Environment *ev,
+		AWDEntityKey* pKey)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,updateFromKey)
+	(this, ev,pKey);
+}
+
+
+/* method: updateFromStructure */
+boolean   updateFromStructure(Environment *ev,
+		AWD_PAWDOBJECTSTRCT pAwdObjStrct)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,updateFromStructure)
+	(this, ev,pAwdObjStrct);
+}
+
+
+/* method: validate */
+boolean   validate(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,validate)
+	(this, ev);
+}
+
+
+/* initializer method: withEntityKey */
+void   withEntityKey(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDEntityKey* pKey)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,withEntityKey)
+	(this, ev,ctrl,pKey);
+}
+
+
+/* initializer method: withKey */
+void   withKey(Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDOBJECTKEYSTRCT pKeyStrct)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,withKey)
+	(this, ev,ctrl,pKeyStrct);
+}
+
+
+/* initializer method: withStructure */
+void   withStructure(Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDOBJECTSTRCT pAwdObj)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,withStructure)
+	(this, ev,ctrl,pAwdObj);
+}
+
+
+/* initializer method: withArray */
+void   withArray(Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDLOBARRAYSTRCT pAwdLobArray)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,withArray)
+	(this, ev,ctrl,pAwdLobArray);
+}
+
+
+/* initializer method: withStructureandArray */
+void   withStructureandArray(Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_PAWDOBJECTSTRCT pAwdObj,
+		AWD_PAWDLOBARRAYSTRCT pAwdLobArray)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,withStructureandArray)
+	(this, ev,ctrl,pAwdObj,pAwdLobArray);
+}
+
+
+/* initializer method: withPersist */
+void   withPersist(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,withPersist)
+	(this, ev,ctrl,pPersist);
+}
+
+
+/* initializer method: withObject */
+void   withObject(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDBase* obj)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,withObject)
+	(this, ev,ctrl,obj);
+}
+
+
+/* initializer method: withHandle */
+void   withHandle(Environment *ev,
+		somInitCtrl* ctrl,
+		unsigned long hObject)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,withHandle)
+	(this, ev,ctrl,hObject);
+}
+
+
+/* method: next */
+AWDBase*   next(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,next)
+	(this, ev);
+}
+
+
+/* method: previous */
+AWDBase*   previous(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,previous)
+	(this, ev);
+}
+
+
+/* method: child */
+AWDBase*   child(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,child)
+	(this, ev);
+}
+
+
+/* method: parent */
+AWDBase*   parent(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,parent)
+	(this, ev);
+}
+
+
+/* method: relationship */
+AWDRelationship*   relationship(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,relationship)
+	(this, ev);
+}
+
+
+/* method: setNext */
+void   setNext(Environment *ev,
+		AWDBase* next)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,setNext)
+	(this, ev,next);
+}
+
+
+/* method: setPrevious */
+void   setPrevious(Environment *ev,
+		AWDBase* previous)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,setPrevious)
+	(this, ev,previous);
+}
+
+
+/* method: setChild */
+void   setChild(Environment *ev,
+		AWDBase* child)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,setChild)
+	(this, ev,child);
+}
+
+
+/* method: setParent */
+void   setParent(Environment *ev,
+		AWDBase* parent)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,setParent)
+	(this, ev,parent);
+}
+
+
+/* method: usageToken */
+void*   usageToken(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,usageToken)
+	(this, ev);
+}
+
+
+/* method: setUsageToken */
+void   setUsageToken(Environment *ev,
+		void* pv)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,setUsageToken)
+	(this, ev,pv);
+}
+
+
+/* method: getTag */
+unsigned long   getTag(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,getTag)
+	(this, ev);
+}
+
+
+/* method: setTag */
+void   setTag(Environment *ev,
+		unsigned long ulTag)
+{
+   SOM_ResolveD(this,AWDSource,AWDBase,setTag)
+	(this, ev,ulTag);
+}
+
+
+/* method: createRelationship */
+boolean   createRelationship(Environment *ev,
+		AWDBase* pRelationObj,
+		AWDBase_RELATION relation)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,createRelationship)
+	(this, ev,pRelationObj,relation);
+}
+
+
+/* method: createRelationshipWithNotify */
+boolean   createRelationshipWithNotify(Environment *ev,
+		AWDBase* pRelationObj,
+		AWDBase_RELATION relation)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,createRelationshipWithNotify)
+	(this, ev,pRelationObj,relation);
+}
+
+
+/* method: makeChild */
+boolean   makeChild(Environment *ev,
+		AWDBase* pChild)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,makeChild)
+	(this, ev,pChild);
+}
+
+
+/* method: makeParent */
+boolean   makeParent(Environment *ev,
+		AWDBase* pParent)
+{
+   return SOM_ResolveD(this,AWDSource,AWDBase,makeParent)
+	(this, ev,pParent);
+}
+
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDSource,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDSource,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* method: store */
+void   store(Environment *ev,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDSource,AWDCommon,store)
+	(this, ev,pPersist);
+}
+
+
+/* method: restore */
+void   restore(Environment *ev,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDSource,AWDCommon,restore)
+	(this, ev,pPersist);
+}
+
+
+/* method: somfMLinkableInit */
+somf_MLinkable*   somfMLinkableInit(Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p)
+{
+   return SOM_ResolveD(this,AWDSource,somf_MLinkable,somfMLinkableInit)
+	(this, ev,n,p);
+}
+
+
+/* method: somfGetNext */
+somf_MLinkable*   somfGetNext(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,somf_MLinkable,somfGetNext)
+	(this, ev);
+}
+
+
+/* method: somfSetNext */
+void   somfSetNext(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,AWDSource,somf_MLinkable,somfSetNext)
+	(this, ev,aLink);
+}
+
+
+/* method: somfGetPrevious */
+somf_MLinkable*   somfGetPrevious(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDSource,somf_MLinkable,somfGetPrevious)
+	(this, ev);
+}
+
+
+/* method: somfSetPrevious */
+void   somfSetPrevious(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,AWDSource,somf_MLinkable,somfSetPrevious)
+	(this, ev,aLink);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,AWDSource,SOMObject,somInit)
+	(this);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDSource,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+AWDSource*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDSource,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDSource,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDSource,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDSource,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+AWDSource*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDSource,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+AWDSource*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDSource,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+AWDSource*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDSource,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,AWDSource,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,AWDSource,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,AWDSource,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,AWDSource,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,AWDSource,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDSource,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDSource,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,AWDSource,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   AWDSource_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDSource,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDSource,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   AWDSource_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDSource,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDSource,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,AWDSource,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,AWDSource,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,AWDSource,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,AWDSource,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,AWDSource,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* AWDSource */
+
+
+
+#endif       /* SOM_AWDSource_xh */

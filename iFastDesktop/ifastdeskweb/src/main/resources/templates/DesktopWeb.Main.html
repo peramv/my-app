@@ -1,0 +1,89 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="((${request['screen']}) ? ((${request['screen']}) ? ${request['screen'][0]} : '') : '')"></title>
+
+        <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+
+        <!-- EXT JS CSS -->
+        <link rel="stylesheet" type="text/css" th:href="@{/extjs/resources/css/ext-all.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/extjs/resources/css/xtheme-gray.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/extjs/ux/treegrid/treegrid.css}"/>
+
+        <!-- DesktopWeb CSS -->
+        <link rel="stylesheet" type="text/css" th:href="@{/css/DesktopWeb.Common.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/screens/} + ((${request['screen']}) ? ${request['screen'][0]} : '') + '.css'"/>
+
+        <!-- EXT JS Javascript -->
+        <script th:src="@{/extjs/adapter/ext/ext-base.js}"></script> <!-- must be loaded first -->
+        <script th:src="@{/extjs/ext-all.js}"></script>
+
+        <script th:src="@{/extjs/ux/RowExpander.js}"></script>
+        <script th:src="@{/extjs/ux/CheckColumn.js}"></script>
+        <script th:src="@{/extjs/ux/MonthPicker.js}"></script>
+        <script th:src="@{/extjs/ux/treegrid/TreeGrid.js}"></script>
+        <script th:src="@{/extjs/ux/treegrid/TreeGridColumnResizer.js}"></script>
+        <script th:src="@{/extjs/ux/treegrid/TreeGridColumns.js}"></script>
+        <script th:src="@{/extjs/ux/treegrid/TreeGridLoader.js}"></script>
+        <script th:src="@{/extjs/ux/treegrid/TreeGridNodeUI.js}"></script>
+        <script th:src="@{/extjs/ux/treegrid/TreeGridSorter.js}"></script>
+        <script th:src="@{/extjs/locale/ext-lang-} + ((${request['locale']}) ? ${request['locale'][0]} : '') + '.js'"></script>
+
+        <!-- IFDS Javascript -->
+        <script>Ext.namespace("IFDS");</script>  <!-- need to define namespace object-->
+        <script th:src="@{/js/IFDS.Xml.js}"/>
+        <script th:src="@{/js/IFDS.SuggestField.js}"/>
+
+
+        <!-- DesktopWeb Javascript -->
+        <script th:src="@{/js/DesktopWeb.js}"/>
+        
+        <script th:inline="javascript">
+            DesktopWeb._SCREEN_PARAM_MAP = {};
+            DesktopWeb._SRC_PATH = /*[[@{/}]]*/;
+            <th:block th:each="param : ${request}" th:if="${param.getValue()[0]} != ''">DesktopWeb._SCREEN_PARAM_MAP[ [[${param.getKey()}]] ] = [[${param.getValue()[0]}]];</th:block>
+        </script>
+            
+        <script th:src="@{/js/DesktopWeb.Util.js}"/>
+        <script th:src="@{/js/DesktopWeb.Translation.js}" charset="UTF-8"/>
+        <script th:src="@{/js/DesktopWeb.Ajax.js}"/>
+        <script th:src="@{/js/DesktopWeb.Controls.js}"/>
+        <script th:src="@{/js/DesktopWeb.AdvancedControls.js}"/>
+
+        <script th:src="@{/js/DesktopWeb.Main.js}"/>
+        <script th:src="@{/js/JRDSP.Util.js}"/>
+        <script th:src="@{/js/screens/} + ((${request['screen']}) ? ${request['screen'][0]} : '') + '.Translation.js'" charset="UTF-8"/>
+        <script th:src="@{/js/screens/} + ((${request['screen']}) ? ${request['screen'][0]} : '') + '.Controller.js'"/>
+        <script th:src="@{/js/screens/} + ((${request['screen']}) ? ${request['screen'][0]} : '') + '.Resources.js'"/>
+
+    </head>
+    <body>
+        <div id="DesktopWeb-Processing-Mask"></div>
+        <div id="DesktopWeb-Processing">
+            <div class="DesktopWeb-Processing-Message">
+            </div>
+        </div>
+
+        <form id="BuildPDFReport-form" method="POST" style="display:none" action="buildPDFReport">
+            <input type="text" name="BuildPDFReport-data"/>
+        </form>
+
+        <form id="SmartPDF-form" name="SmartPDF-form" method="POST" style="display:none" action="smartpdf" target="_self"
+              accept-charset="UTF-8">
+            <input type="hidden" name="dataXMLString"/>
+            <input type="hidden" name="download"/>
+        </form>
+        
+        
+        <form id="GoToScreen-form" name="GoToScreen-form" method="POST" style="display:none" action="displayScreen" target="_self">
+        
+            <input th:each="param : ${request}" th:name="${param.getKey()}" th:value="${param.getValue()[0]}" type="hidden" />
+ 
+            <input name="jobname" type="hidden"/>
+        </form>
+        <input type="button" name="btnAcctDetail" id="btnAcctDetail" style="display:none;"/>
+        <input type="button" name="btnTransactionDetails" id="btnTransactionDetails" style="display:none;"/>
+        <input type="button" name="btnOK" id="btnOK" style="display:none;"/>
+        <input type="button" name="btnCancel" id="btnCancel" style="display:none;"/>
+        <input type="button" name="btnConfirmDlg" id="btnConfirmDlg" style="display:none;"/>
+    </body>
+</html>

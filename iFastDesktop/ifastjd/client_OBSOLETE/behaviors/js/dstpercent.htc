@@ -1,0 +1,287 @@
+<!-- ---------------------------------------------------------------------
+//
+//  FILE        : dstpercent.htc
+//
+//  DESCRIPTION : This behavior allows the web author to format user input
+//                into a percent format.
+//
+//  PROPERTIES  :
+//
+//
+//
+//  METHODS     :
+//
+//   disable - disables or enables the control
+//
+//  EVENTS      :
+//
+//
+//  COPYRIGHT   :
+//
+//   The computer systems, procedures, data bases and programs
+//   created and maintained by DST Systems, Inc., are proprietary
+//   in nature and as such are confidential.  Any unauthorized
+//   use or disclosure of such information may result in civil
+//   liabilities.
+//
+//   Copyright© 2004 by DST Systems, Inc.
+//   All rights reserved.
+//
+//-------------------------------------------------------------------- -->
+<public:property name="realValue" get="getRealValue" put="setRealValue" value=""/>
+<public:property name="maxValue" value=0 />
+<public:property name="minValue" value=0 />
+<public:property name="decimals" value=2 />
+
+<public:method name="disable" />
+
+<public:event name="onerror" ID=errorID />
+
+<public:attach event="oncontentready"  onevent="init();" />
+
+<script language="jscript">
+
+var _realValue="";
+var _keyPressed=false;
+
+String.prototype.trim = function()
+{
+	return this.replace(/(^\s*)|(\s*$)/g, "");
+}
+
+function init()
+{
+	formatValue();
+
+	element.style.textAlign="right";
+	element.attachEvent("onpropertychange", onPropChange);
+	element.attachEvent("onreadystatechange", InputBlur);
+	element.attachEvent("onkeypress", onKeyPress);
+	element.attachEvent("onkeydown", onKeyDown);
+	element.attachEvent("onfocus", InputFocus);
+	element.attachEvent("onblur", InputBlur);
+
+	disable(element.disabled);
+	readOnly(element.readOnly);
+}
+
+function onPropChange(e)
+{
+	var propertyName=e.propertyName.toLowerCase();
+
+	if(propertyName=="readonly")
+	{
+		readOnly(element.readOnly);
+	}
+	else if(propertyName=="value")
+	{
+		if(!_keyPressed)
+		{
+			formatValue();
+		}
+	}
+}
+
+function InputFocus(e)
+{
+	e.srcElement.select();
+}
+
+function InputBlur(e) 
+{
+	_keyPressed=false;
+	formatValue();
+}
+
+function onKeyPress(e)
+{
+	_keyPressed=true;
+	if(e.keyCode==13) return true;
+	var temp=String.fromCharCode(e.keyCode);
+	if (null!=temp&&""<temp)
+	{
+		// checks for a digit, "%" and "."
+		return temp.match(/[/\d\%.]/)!=null;
+	}
+	else
+	{
+		return true;
+	}	
+}
+
+function onKeyDown(e)
+{
+	_keyPressed=true;
+}
+
+function getRealValue()
+{
+	formatValue();
+	return _realValue;
+}
+
+function setRealValue(realValue)
+{
+	element.value=realValue;
+	formatValue();
+}
+
+function formatValue()
+{
+	var sValue=element.value;
+	sValue=sValue.trim();
+
+	if(sValue.length == 0)
+	{
+		_realValue="";
+		return;
+	}
+
+	if(sValue.charAt(0)=="%")
+	{
+		sValue=sValue.substring(1,sValue.length);
+	}
+
+	if(sValue.charAt(sValue.length-1)=="%")
+	{
+		sValue=sValue.substring(0,(sValue.length-1));
+	}
+	if(isNaN(sValue))
+	{
+		ReturnError("Not a valid amount");
+		return"";
+	}
+
+	// If the value is not a number, return an error
+	if(isNaN(sValue))
+	{
+		ReturnError("4000","Not a valid amount");
+		return "";
+	}
+
+	// if the demials attribute is set, only allow the specifed number 
+	// of decimals.
+	if(decimals.length>0)
+	{
+		index=sValue.indexOf(".");
+		if(index>-1)
+		{
+			//add one to the index to include the decimal
+			index++;
+			beforeDec=sValue.substring(0,index);
+
+			if(sValue.substring(index).length>parseInt(decimals))
+			{
+				if(parseInt(decimals)==1)
+				{
+					ReturnError("4005","Only one digit allowed to the right of the decimal.");
+				}
+				else
+				{
+					ReturnError("4010","Only " + decimals + " digits allowed to the right of the decimal.");
+				}
+			}
+			afterDec = sValue.substring(index,(index+parseInt(decimals)));
+			x= decimals - afterDec.length;
+			for(i=x;i>0;i--)
+			{
+				afterDec=afterDec+"0";
+			}
+			sValue=beforeDec+afterDec;
+		}
+		else
+		{
+			sValue =sValue+"."
+			
+			x=decimals;
+			for(i=x;i>0;i--)
+			{
+				sValue = sValue + "0";
+			}
+			
+		}
+	}
+
+	if(parseFloat(sValue)<parseFloat(minValue))
+	{
+		ReturnError("4030","Amount cannot be below "+minValue);
+	}
+
+	if(parseFloat(maxValue)>0&&parseFloat(sValue)>parseFloat(maxValue))
+	{
+		ReturnError("4035","Amount cannot exceed "+maxValue);
+	}
+
+	_realValue=sValue;
+	
+	if(element.value!=sValue+"%")
+	{
+		_keyPressed=true;
+		element.value=sValue+"%";
+	}
+}
+
+function ReturnError(code,message)
+{
+	var oEvent=createEventObject();
+	oEvent.code=code;
+	oEvent.message=message;
+	errorID.fire(oEvent);
+}
+
+function disable(disabled)
+{
+	element.disabled=isTrue(disabled);
+
+	if(isTrue(disabled))
+	{
+		element.readOnly=false;
+		element.style.backgroundColor="rgb(236,233,216)";
+		element.style.border="1px solid rgb(201,199,186)";
+	}
+	else
+	{
+		if(isTrue(element.readOnly))
+		{
+			readOnly(element.readOnly);
+		}
+		else
+		{
+			element.style.backgroundColor="";
+			element.style.border="1px solid black";
+		}
+	}
+}
+
+function readOnly(readOnly)
+{
+	element.readOnly=isTrue(readOnly);
+
+	if(isTrue(readOnly))
+	{
+		element.disabled=false;
+		element.style.backgroundColor="rgb(236,233,216)";
+		element.style.border="1px solid black";
+	}
+	else
+	{
+		if(isTrue(element.disabled))
+		{
+			disable(element.disabled);
+		}
+		else
+		{
+			element.style.backgroundColor="";
+			element.style.border="1px solid black";
+		}
+	}
+}
+
+function isTrue(vValue)
+{
+	
+	var temp=vValue.toString().toLowerCase();
+	return temp=="true";
+}
+</script>
+

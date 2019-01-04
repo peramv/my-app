@@ -1,0 +1,430 @@
+<!-- ---------------------------------------------------------------------
+//
+//  FILE        : dstmask.htc
+//
+//  DESCRIPTION : This behavior allows the web author to format user input
+//                into a phone number or zip format.
+//
+//  PROPERTIES  :
+//
+//
+//
+//  METHODS     :
+//
+//   disable - disables or enables the control
+//
+//  EVENTS      :
+//
+//
+//  COPYRIGHT   :
+//
+//   The computer systems, procedures, data bases and programs
+//   created and maintained by DST Systems, Inc., are proprietary
+//   in nature and as such are confidential.  Any unauthorized
+//   use or disclosure of such information may result in civil
+//   liabilities.
+//
+//   Copyright© 2004 by DST Systems, Inc.
+//   All rights reserved.
+//
+//-------------------------------------------------------------------- -->
+<public:property name="realValue" get="getRealValue" put="setRealValue" value=""/>
+<public:property name="preset"/>
+
+<public:method name="disable" />
+
+<public:event name="onerror" ID=errorID />
+
+<public:attach event="oncontentready"  onevent="init();" />
+
+
+<script language="jscript">
+
+var _realValue="";
+var _keyPressed=false;
+
+String.prototype.trim = function()
+{
+	return this.replace(/(^\s*)|(\s*$)/g, "");
+}
+
+function init()
+{
+	if(element.tagName.toLowerCase()=='input')
+	{
+		formatValue();
+		element.attachEvent("onpropertychange", onPropChange);
+		element.attachEvent("onreadystatechange", InputBlur);
+		element.attachEvent("onkeypress", onKeyPress);
+		element.attachEvent("onkeydown", onKeyDown);
+		element.attachEvent("onfocus", InputFocus);
+		element.attachEvent("onblur", InputBlur);
+
+		disable(element.disabled);
+		readOnly(element.readOnly);
+	}
+	else
+	{
+		ReturnError("3000","Error: DSTMask not attached to a input element");
+	}
+}
+
+function onPropChange(e)
+{
+	var propertyName=e.propertyName;
+
+	if(propertyName.toLowerCase()=="readonly")
+	{
+		readOnly(element.readOnly);
+	}
+	else if(propertyName=="value")
+	{
+		if(!_keyPressed)
+		{
+			formatValue();
+		}
+	}
+}
+
+function InputFocus()
+{
+	event.srcElement.select();
+}
+
+function InputBlur() 
+{
+	_keyPressed=false;
+	// remove leading and trailing spaces
+	value=value.trim();
+	formatValue();
+}
+
+function onKeyPress(e)
+{
+	_keyPressed=true;
+	//change this to edit as you type
+	var temp=String.fromCharCode(e.keyCode);
+	if (null!=temp&&""<temp)
+	{
+		if("zip"==preset)
+		{
+			// checks for a digit and"-"
+			return temp.match(/[/\d-]/)!=null;
+		}
+		else if("phone"==preset)
+		{
+			// checks for a digit, "(", ")" and "-"
+			return temp.match(/[/\d\()-]/)!=null;
+		}
+	}
+	else
+	{
+		return true;
+	}	
+}
+
+function onKeyDown(e)
+{
+	_keyPressed=true;
+}
+
+function getRealValue()
+{
+	formatValue();
+	return _realValue; 
+}
+
+function setRealValue(realValue)
+{
+	element.value=realValue;
+	formatValue(); 
+}
+
+function formatValue()
+{
+	if("zip"==preset)
+	{
+		sValue=MaskZip(value);
+		if(element.value!=sValue)
+		{
+			_keyPressed=false;
+			element.value = sValue;
+		}
+	}
+	else if("phone"==preset)
+	{
+		sValue=MaskPhone(value);
+		if(element.value!=sValue)
+		{
+			_keyPressed=false;
+			element.value = sValue;
+		}
+	}
+}
+
+
+//+----------------------------------------------------------------------------
+//
+//  Function:       MaskZip
+//
+//  Description:    Takes the innerText or value of the tag (depending on the
+//                  type of tag), and formats it as a 5 or 9 digit zip code.
+//
+//  Arguments:      sValue - innerText or value of the tag
+//
+//  Returns:        "" (empty string) if sValue is an empty string
+//                  sNewValue - parsed and formatted zip code     
+//
+//-----------------------------------------------------------------------------
+
+function MaskZip(sValue)
+{
+    var sNewValue = sValue;
+    var iLength = 5;
+    
+    //  Parse out applicable characters by calling ParseChar()
+    var zChar = new Array(' ', '-');
+    sNewValue = ParseChar(sNewValue, zChar);
+
+    //  If the value is not a number, return an error    
+    if (isNaN(parseInt(sNewValue)))
+	{
+	    ReturnError("4000","Not a valid amount");
+	    return "";
+    }    
+    
+    //  Determine if this should be a 5 or 9 digit zip code
+    if (sNewValue.length == 0) return "";
+    else if (sNewValue.length < 5)
+    {
+        while (sNewValue.length < 5) sNewValue += "0";
+        ReturnError("4005","Not a valid Zip Code");
+    }
+    else if (sNewValue.length < 9 && sNewValue.length > 5)
+    {
+        sNewValue = sNewValue.substring(0,5);
+        ReturnError("4010","Not a valid Zip Code");
+    }
+    else if (sNewValue.length > 9)
+    {
+        sNewValue = sNewValue.substring(0,9);
+        ReturnError("4015","Not a valid Zip Code");
+    }
+    
+	//save off realValue before adding "-"
+	_realValue=sNewValue;
+
+    //  Apply formatting if necessary
+    if (sNewValue.length > 5)
+    {
+        sNewValue = sNewValue.substring(0,5) + "-" + sNewValue.substring(5,9);
+    }
+    
+    return sNewValue;
+}
+
+
+//+----------------------------------------------------------------------------
+//
+//  Function:       MaskPhone
+//
+//  Description:    Takes the innerText or value of the tag (depending on the
+//                  type of tag), and formats it as a 7 or 10 digit phone number.
+//
+//  Arguments:      sValue - innerText or value of the tag
+//
+//  Returns:        "" (empty string) if sValue is an empty string
+//                  sNewValue - parsed and formatted phone number
+//
+//-----------------------------------------------------------------------------
+
+function MaskPhone(sValue)
+{
+    var sNewValue = sValue;
+    var iLength = 7;
+    
+    //  Parse out applicable characters by calling ParseChar()
+    var zChar = new Array(' ', '(', ')', '-', '.');
+    sNewValue = ParseChar(sNewValue, zChar);
+ 
+    //  Determine if this is a 7 or 10 digit phone number
+    if (sNewValue.length == 7);
+    else if (sNewValue.length == 10) iLength = 10;
+    else if (sNewValue.length == 0) return "";
+    else if (sNewValue.length < 7)
+    {
+        while (sNewValue.length < 7) sNewValue += "0";
+        ReturnError("4020","Not a valid Phone Number");
+    }
+    else if (sNewValue.length < 10)
+    {
+        sNewValue = sNewValue.substring(0,7);
+        ReturnError("4025","Not a valid Phone Number");
+    }
+    else if (sNewValue.length > 10)
+    {
+        iLength = 10;
+        
+        if (sNewValue.charAt(0) == "1" && sNewValue.length == 11)
+        {
+            sNewValue = sNewValue.substring(1,11);
+        }
+        
+        else sNewValue = sNewValue.substring(0,10);
+        ReturnError("4030","Not a valid Phone Number");
+    }
+
+	//save off realValue before adding "(", ")" or "-"
+	_realValue=sNewValue;
+    
+    //  Call FormatPhone() to apply formatting
+    sNewValue = FormatPhone(sNewValue,iLength);
+
+    return sNewValue;
+}
+
+
+//+----------------------------------------------------------------------------
+//
+//  Function:       FormatPhone
+//
+//  Description:    Adds the proper formatting for a phone number (either 7 or
+//                  10 digits) to a string of numbers passed in.
+//
+//  Arguments:      sPhone - a 7 or 10 digit string of numbers
+//                  iLength - the desired phone number length
+//
+//  Returns:        sNewPhone - the formatted phone number
+//
+//-----------------------------------------------------------------------------
+
+function FormatPhone(sPhone, iLength)
+{
+    var sNewPhone = "";
+
+    if (iLength == 7)
+    {
+        sNewPhone = sPhone.substring(0,3) + "-" + sPhone.substring(3,7);
+    }
+    if (iLength == 10)
+    {
+        sNewPhone = "(" + sPhone.substring(0,3) + ")" + sPhone.substring(3,6)
+            + "-" + sPhone.substring(6,10);
+    }
+
+    return sNewPhone;
+}
+
+
+//+----------------------------------------------------------------------------
+//
+//  Function:       ParseChar
+//
+//  Description:    This function takes a string and parses out certain
+//                  characters.  The characters to be parsed out are passed in
+//                  as a string or as a array.
+//
+//  Arguments:      sStr - The string intended to be parsed
+//                  sChar - A string or array of characters to be parsed out
+//                      of sStr
+//
+//  Returns:        sNewStr - The rebuilt (parsed) string
+//
+//-----------------------------------------------------------------------------
+
+function ParseChar(sStr, sChar)
+{
+    //  If sChar is a string, create an array to hold it
+    if (sChar.length == null) 
+    {
+        zChar = new Array(sChar);
+    }
+    else zChar = sChar;
+    
+    //  Iterate through the array, removing each character from the string
+    for (i=0; i<zChar.length; i++)
+    {
+        sNewStr = "";
+    
+        var iStart = 0;
+        var iEnd = sStr.indexOf(sChar[i]);
+    
+        while (iEnd != -1)
+        {
+            sNewStr += sStr.substring(iStart, iEnd);
+            iStart = iEnd + 1;
+            iEnd = sStr.indexOf(sChar[i], iStart);
+        }
+        sNewStr += sStr.substring(sStr.lastIndexOf(sChar[i]) + 1, sStr.length);
+        
+        sStr = sNewStr;
+    }
+    
+    return sNewStr;
+}
+
+
+function ReturnError(code,message)
+{
+	var oEvent=createEventObject();
+	oEvent.code=code;
+	oEvent.message=message;
+	errorID.fire(oEvent);
+}
+
+function disable(disabled)
+{
+	element.disabled=isTrue(disabled);
+
+	if(isTrue(disabled))
+	{
+		element.readOnly=false;
+		element.style.backgroundColor="rgb(236,233,216)";
+		element.style.border="1px solid rgb(201,199,186)";
+	}
+	else
+	{
+		if(isTrue(element.readOnly))
+		{
+			readOnly(element.readOnly);
+		}
+		else
+		{
+			element.style.backgroundColor="";
+			element.style.border="1px solid black";
+		}
+	}
+}
+
+function readOnly(readOnly)
+{
+	element.readOnly=isTrue(readOnly);
+
+	if(isTrue(readOnly))
+	{
+		element.disabled=false;
+		element.style.backgroundColor="rgb(236,233,216)";
+		element.style.border="1px solid black";
+	}
+	else
+	{
+		if(isTrue(element.disabled))
+		{
+			disable(element.disabled);
+		}
+		else
+		{
+			element.style.backgroundColor="";
+			element.style.border="1px solid black";
+		}
+	}
+}
+
+function isTrue(vValue)
+{
+	
+	var temp=vValue.toString().toLowerCase();
+	return temp=="true";
+}
+</script>
+

@@ -1,0 +1,87 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DIAWD23", "Core\infra\diawd23\DIAWD23.vcxproj", "{A5392CC9-8F4C-4BB4-AEBE-21E6ABD94072}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DIAWDI", "Core\infra\diawdi\DIAWDI.vcxproj", "{DFFDB6EE-0970-478D-96D2-6581561794EE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DICORE", "Core\infra\dicore\DICORE.vcxproj", "{75710C7A-EA54-4785-B0E6-4DFAD1EA4F57}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DIDBRKR", "Core\infra\didbrkr\DIDBRKR.vcxproj", "{10BF9F0B-FD21-4D2E-ACC7-ED90C3602075}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DIVIEW", "Core\infra\diview\DIVIEW.vcxproj", "{9B42D9C3-7A9C-4BD1-A16B-32F6146F94A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		Release|Default = Release|Default
+		SmartHeap Release|Default = SmartHeap Release|Default
+		SmartHeap Symbols|Default = SmartHeap Symbols|Default
+		Unicode Debug|Default = Unicode Debug|Default
+		Unicode Release|Default = Unicode Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5392CC9-8F4C-4BB4-AEBE-21E6ABD94072}.Debug|Default.ActiveCfg = Debug|Win32
+		{A5392CC9-8F4C-4BB4-AEBE-21E6ABD94072}.Debug|Default.Build.0 = Debug|Win32
+		{A5392CC9-8F4C-4BB4-AEBE-21E6ABD94072}.Release|Default.ActiveCfg = Release|Win32
+		{A5392CC9-8F4C-4BB4-AEBE-21E6ABD94072}.Release|Default.Build.0 = Release|Win32
+		{A5392CC9-8F4C-4BB4-AEBE-21E6ABD94072}.SmartHeap Release|Default.ActiveCfg = Release|Win32
+		{A5392CC9-8F4C-4BB4-AEBE-21E6ABD94072}.SmartHeap Release|Default.Build.0 = Release|Win32
+		{A5392CC9-8F4C-4BB4-AEBE-21E6ABD94072}.SmartHeap Symbols|Default.ActiveCfg = Debug|Win32
+		{A5392CC9-8F4C-4BB4-AEBE-21E6ABD94072}.SmartHeap Symbols|Default.Build.0 = Debug|Win32
+		{A5392CC9-8F4C-4BB4-AEBE-21E6ABD94072}.Unicode Debug|Default.ActiveCfg = Unicode Debug|Win32
+		{A5392CC9-8F4C-4BB4-AEBE-21E6ABD94072}.Unicode Debug|Default.Build.0 = Unicode Debug|Win32
+		{A5392CC9-8F4C-4BB4-AEBE-21E6ABD94072}.Unicode Release|Default.ActiveCfg = Unicode Release|Win32
+		{A5392CC9-8F4C-4BB4-AEBE-21E6ABD94072}.Unicode Release|Default.Build.0 = Unicode Release|Win32
+		{DFFDB6EE-0970-478D-96D2-6581561794EE}.Debug|Default.ActiveCfg = Debug|Win32
+		{DFFDB6EE-0970-478D-96D2-6581561794EE}.Debug|Default.Build.0 = Debug|Win32
+		{DFFDB6EE-0970-478D-96D2-6581561794EE}.Release|Default.ActiveCfg = Release|Win32
+		{DFFDB6EE-0970-478D-96D2-6581561794EE}.Release|Default.Build.0 = Release|Win32
+		{DFFDB6EE-0970-478D-96D2-6581561794EE}.SmartHeap Release|Default.ActiveCfg = Release|Win32
+		{DFFDB6EE-0970-478D-96D2-6581561794EE}.SmartHeap Release|Default.Build.0 = Release|Win32
+		{DFFDB6EE-0970-478D-96D2-6581561794EE}.SmartHeap Symbols|Default.ActiveCfg = Unicode Debug|Win32
+		{DFFDB6EE-0970-478D-96D2-6581561794EE}.SmartHeap Symbols|Default.Build.0 = Unicode Debug|Win32
+		{DFFDB6EE-0970-478D-96D2-6581561794EE}.Unicode Debug|Default.ActiveCfg = Unicode Debug|Win32
+		{DFFDB6EE-0970-478D-96D2-6581561794EE}.Unicode Debug|Default.Build.0 = Unicode Debug|Win32
+		{DFFDB6EE-0970-478D-96D2-6581561794EE}.Unicode Release|Default.ActiveCfg = Unicode Release|Win32
+		{DFFDB6EE-0970-478D-96D2-6581561794EE}.Unicode Release|Default.Build.0 = Unicode Release|Win32
+		{75710C7A-EA54-4785-B0E6-4DFAD1EA4F57}.Debug|Default.ActiveCfg = Debug|Win32
+		{75710C7A-EA54-4785-B0E6-4DFAD1EA4F57}.Debug|Default.Build.0 = Debug|Win32
+		{75710C7A-EA54-4785-B0E6-4DFAD1EA4F57}.Release|Default.ActiveCfg = Release|Win32
+		{75710C7A-EA54-4785-B0E6-4DFAD1EA4F57}.Release|Default.Build.0 = Release|Win32
+		{75710C7A-EA54-4785-B0E6-4DFAD1EA4F57}.SmartHeap Release|Default.ActiveCfg = Release|Win32
+		{75710C7A-EA54-4785-B0E6-4DFAD1EA4F57}.SmartHeap Release|Default.Build.0 = Release|Win32
+		{75710C7A-EA54-4785-B0E6-4DFAD1EA4F57}.SmartHeap Symbols|Default.ActiveCfg = Debug|Win32
+		{75710C7A-EA54-4785-B0E6-4DFAD1EA4F57}.SmartHeap Symbols|Default.Build.0 = Debug|Win32
+		{75710C7A-EA54-4785-B0E6-4DFAD1EA4F57}.Unicode Debug|Default.ActiveCfg = Unicode Debug|Win32
+		{75710C7A-EA54-4785-B0E6-4DFAD1EA4F57}.Unicode Debug|Default.Build.0 = Unicode Debug|Win32
+		{75710C7A-EA54-4785-B0E6-4DFAD1EA4F57}.Unicode Release|Default.ActiveCfg = Unicode Release|Win32
+		{75710C7A-EA54-4785-B0E6-4DFAD1EA4F57}.Unicode Release|Default.Build.0 = Unicode Release|Win32
+		{10BF9F0B-FD21-4D2E-ACC7-ED90C3602075}.Debug|Default.ActiveCfg = Debug|Win32
+		{10BF9F0B-FD21-4D2E-ACC7-ED90C3602075}.Debug|Default.Build.0 = Debug|Win32
+		{10BF9F0B-FD21-4D2E-ACC7-ED90C3602075}.Release|Default.ActiveCfg = Release|Win32
+		{10BF9F0B-FD21-4D2E-ACC7-ED90C3602075}.Release|Default.Build.0 = Release|Win32
+		{10BF9F0B-FD21-4D2E-ACC7-ED90C3602075}.SmartHeap Release|Default.ActiveCfg = Release|Win32
+		{10BF9F0B-FD21-4D2E-ACC7-ED90C3602075}.SmartHeap Release|Default.Build.0 = Release|Win32
+		{10BF9F0B-FD21-4D2E-ACC7-ED90C3602075}.SmartHeap Symbols|Default.ActiveCfg = Debug|Win32
+		{10BF9F0B-FD21-4D2E-ACC7-ED90C3602075}.SmartHeap Symbols|Default.Build.0 = Debug|Win32
+		{10BF9F0B-FD21-4D2E-ACC7-ED90C3602075}.Unicode Debug|Default.ActiveCfg = Unicode Debug|Win32
+		{10BF9F0B-FD21-4D2E-ACC7-ED90C3602075}.Unicode Debug|Default.Build.0 = Unicode Debug|Win32
+		{10BF9F0B-FD21-4D2E-ACC7-ED90C3602075}.Unicode Release|Default.ActiveCfg = Unicode Release|Win32
+		{10BF9F0B-FD21-4D2E-ACC7-ED90C3602075}.Unicode Release|Default.Build.0 = Unicode Release|Win32
+		{9B42D9C3-7A9C-4BD1-A16B-32F6146F94A3}.Debug|Default.ActiveCfg = Debug|Win32
+		{9B42D9C3-7A9C-4BD1-A16B-32F6146F94A3}.Debug|Default.Build.0 = Debug|Win32
+		{9B42D9C3-7A9C-4BD1-A16B-32F6146F94A3}.Release|Default.ActiveCfg = Release|Win32
+		{9B42D9C3-7A9C-4BD1-A16B-32F6146F94A3}.Release|Default.Build.0 = Release|Win32
+		{9B42D9C3-7A9C-4BD1-A16B-32F6146F94A3}.SmartHeap Release|Default.ActiveCfg = Release|Win32
+		{9B42D9C3-7A9C-4BD1-A16B-32F6146F94A3}.SmartHeap Release|Default.Build.0 = Release|Win32
+		{9B42D9C3-7A9C-4BD1-A16B-32F6146F94A3}.SmartHeap Symbols|Default.ActiveCfg = Unicode Release|Win32
+		{9B42D9C3-7A9C-4BD1-A16B-32F6146F94A3}.SmartHeap Symbols|Default.Build.0 = Unicode Release|Win32
+		{9B42D9C3-7A9C-4BD1-A16B-32F6146F94A3}.Unicode Debug|Default.ActiveCfg = Unicode Debug|Win32
+		{9B42D9C3-7A9C-4BD1-A16B-32F6146F94A3}.Unicode Debug|Default.Build.0 = Unicode Debug|Win32
+		{9B42D9C3-7A9C-4BD1-A16B-32F6146F94A3}.Unicode Release|Default.ActiveCfg = Unicode Release|Win32
+		{9B42D9C3-7A9C-4BD1-A16B-32F6146F94A3}.Unicode Release|Default.Build.0 = Unicode Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

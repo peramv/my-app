@@ -1,0 +1,990 @@
+<!-- ---------------------------------------------------------------------
+//
+//  FILE        : dstcombobox.htc
+//
+//  DESCRIPTION :
+//
+//  COPYRIGHT   :
+//
+//   The computer systems, procedures, data bases and programs
+//   created and maintained by DST Systems, Inc., are proprietary
+//   in nature and as such are confidential.  Any unauthorized
+//   use or disclosure of such information may result in civil
+//   liabilities.
+//
+//   Copyright© 2004 by DST Systems, Inc.
+//   All rights reserved.
+//
+//-------------------------------------------------------------------- -->
+<public:property name="data"/>
+<public:property name="rows" value="8"/>
+<public:property name="width" value="150"/>
+<public:property name="dropDownWidth" value=""/>
+<public:property name="showBorder" value="true"/>
+<public:property name="bgColor" value="window"/>
+<public:property name="formfield" value=""/> 
+<public:property name="selectedIndex" get="getSelectedIndex" put="setSelectedIndex" value=0/>
+<public:property name="comboReadyState" value="uninitialized"/>
+
+<public:attach event="oncontentready" onevent="init();"/>
+
+<public:event name="onchange" ID=onChange />
+<public:event name="onfocus" ID=onFocus />
+<public:event name="onerror" ID=errorID />
+<public:event name="oncomboreadystatechange" ID=readyStateID />
+
+<public:method name="disable"/>
+<public:method name="setReadOnly"/>
+<public:method name="addRows"/>
+<public:method name="deleteAllRows"/>
+<public:method name="getItemCount"/>
+<public:method name="getDisplayedText"/>
+<public:method name="focus"/>
+<public:method name="findStringExact"/>
+<public:method name="setItemText"/>
+
+<script language="jScript">
+var _base;
+var _xml;	//xml input data
+var _mainTable;  //table that surrounds the text box and image portion
+var _img;	//img that is the dropdown button image
+var _popup;  //popup that displays list of data
+var _select; // div that surrounds the drop down portion.
+var _text; // input type=text element
+var _popupTable; // table inside drop down
+var _selectedIndex=0; // index of table row that is selected
+var _search=""; // search string
+var _prevRowHighlighted;  //previous row highlighted list
+var _prevRowSelected; //previous row selected in list
+var _itemCount; //count of items in xml list
+//used to deteremine if popup is open, couldn't use isOpen() method on popup because popup closed every time it lost focus.
+var _popupIsOpen=false;
+var _changedInternally=false; //used to determine if the element.value was changed internally or externally
+var _empty=true; //determines if the popup is empty
+var _rows; //number of rows to show in popup;
+function init()
+{
+	element.attachEvent("onpropertychange", onPropChange);
+
+	// scan the documents stylesheets to find the url to the .HTC file
+	for(var i=0;i<element.document.styleSheets.length;i++)
+	{
+		var item=element.document.styleSheets(i);
+		for(var j=0;j<item.rules.length;j++)
+		{
+			var url=item.rules(j).style.behavior.match(/url\(.*dstcombobox.htc\)/i);
+			if(url!=null)
+			{
+				_base=url[0].replace(/url\((.*)dstcombobox.htc\)/i,"$1");
+				break;
+			}
+		}
+	}
+
+	_mainTable=document.createElement("TABLE");
+	_mainTable.id=element.id+"_combo";
+	_mainTable.cellspacing=0;
+	_mainTable.cellpadding=0;
+	_mainTable.tabIndex=0;
+	_mainTable.style.padding="0";
+	_mainTable.style.margin=0;
+	_mainTable.style.width=width;
+	_mainTable.style.borderCollapse="collapse";
+	_mainTable.style.tableLayout="fixed";
+	_mainTable.attachEvent("onselectstart",onSelectStart);
+	_mainTable.attachEvent("onclick",onClickBox);
+	_mainTable.attachEvent("onfocus",onFocusBox);
+	_mainTable.attachEvent("onblur",onLostFocusBox);
+	_mainTable.attachEvent("onkeydown",onKeyDown);
+	_mainTable.attachEvent("onkeypress",onKeyPress);
+	element.insertAdjacentElement("afterEnd",_mainTable);
+
+	if(element.tabIndex>0)
+	{
+		_mainTable.tabIndex=element.tabIndex;
+		element.tabIndex="-1";
+	}
+
+	var oTR=_mainTable.insertRow();
+	var oTD1=oTR.insertCell();
+	_text=document.createElement("INPUT");
+	_text.tabIndex=-1;
+	_text.type="TEXT";
+	_text.contentEditable=false;
+	_text.style.margin="0";
+	_text.style.marginLeft="1px";
+	_text.style.padding="1px";
+	_text.style.border="0";
+	_text.style.cursor="default";
+	_text.style.width="100%";
+	_text.attachEvent("onfocus",onFocusInTable);
+	_text.attachEvent("onselectstart",onSelectStart);
+	oTD1.insertAdjacentElement("afterBegin",_text);
+
+	var oTD2=oTR.insertCell();
+	_img=document.createElement("IMG");
+	_img.style.height=18;  //_text.clientHeight+2
+	_img.style.width=18;
+	_img.style.margin=0;
+	_img.style.padding="1px";
+	_img.border="0";
+	_img.attachEvent("onfocus",onFocusInTable);
+	_img.attachEvent("onblur",onLostFocusBox);
+	oTD2.insertAdjacentElement("beforeEnd",_img);
+
+	if(data!=null)
+	{
+		_xml=element.document.all.item(data);
+		if(_xml==null && element.document.parentWindow != null && element.document.parentWindow.document != null)
+		{
+			_xml=element.document.parentWindow.document.all.item(data);
+		}
+		if(_xml!=null&&_xml.readyState=="complete"&&_xml.XMLDocument!=null&&_xml.XMLDocument.readyState==4)
+		{
+			onDatasetComplete();
+		}
+		else
+		{
+			if(_xml==null||_xml==undefined)
+			{
+				ReturnError("3000","XML 'data' property can not be found: "+data);
+				return;
+			}
+			_xml.ondatasetcomplete=onDatasetComplete;
+		}
+	}
+	else
+	{
+		ReturnError("3000","XML 'data' property can not be found");
+		return;
+	}
+
+	oTD2.style.setExpression("width",_img.uniqueID+".offsetHeight+2");
+	
+	disable(element.disabled);
+	setReadOnly(element.readOnly);
+
+}
+
+function onDatasetComplete()
+{
+	if(_xml!=null&&_xml.readyState=="complete"&&_xml.XMLDocument!=null&&_xml.XMLDocument.readyState==4)
+	{		
+		if(0!=_xml.XMLDocument.parseError)
+		{
+			ReturnError("3010","XML parse error:\n\nerrorCode: "+_xml.XMLDocument.parseError.errorCode+
+				"\nfilepos: "+_xml.XMLDocument.parseError.filepos+
+				"\nline: "+_xml.XMLDocument.parseError.line+
+				"\nlinepos: "+_xml.XMLDocument.parseError.linepos+
+				"\nreason: "+_xml.XMLDocument.parseError.reason+
+				"\nsrcText: "+_xml.XMLDocument.parseError.srcText+
+				"\nurl: "+_xml.XMLDocument.parseError.url);
+			return;
+		}
+		//Sets how many items are in the xml data file.
+		_itemCount=_xml.documentElement.childNodes.length;
+
+		if(element.value!=null&&_itemCount>0&&-1!=selectedIndex)
+		{
+			changeValue();
+		}
+		//if there is no default value place the data from the first column of the first row into the _text object. 
+		if(_text.value==""&&-1!=selectedIndex)
+		{
+			setSelectedIndex(0);
+		}
+		_xml.detachEvent("ondatasetcomplete",onDatasetComplete);
+		comboReadyState="complete";
+		fireReadyStateChange();
+	}	
+}
+
+function onClickBox(e)
+{
+	if(element.readOnly) return;
+	if(e.srcElement==_mainTable||e.srcElement==_text||e.srcElement==_img)
+	{
+		setListVisibility();
+		_mainTable.focus();
+		//stop bubble up
+		return false;
+	}
+}
+
+function onFocusBox(e)
+{
+	if(element.readOnly) return;
+	_text.style.backgroundColor="highlight";
+	_text.style.color="highlighttext";
+	fireOnFocus();
+}
+
+function onKeyDown(e)
+{
+	if(element.readOnly) return;
+	if(e.keyCode==38) //up arrow
+	{
+		if(_selectedIndex>0)
+		{
+			_selectedIndex=selectedIndex==-1?0:_selectedIndex;
+			setSelectedIndex(_selectedIndex-1);
+		}
+		//disable bubble up onKeyDown
+		return false;
+	}
+	else if(e.keyCode==40) //down arrow
+	{
+		if(_selectedIndex<_itemCount-1)
+		{
+			setSelectedIndex(parseInt(_selectedIndex)+1);
+		}
+		//disable bubble up onKeyDown
+		return false;
+	}
+}
+
+function onKeyPress(e)
+{
+	if(element.readOnly) return;
+	_search=_search+String.fromCharCode(e.keyCode);
+	
+	if (searchIndex(_search)==null)
+	{
+		_search=_search.substr(_search.length-1,1);
+		searchIndex(_search);
+	}
+}
+
+function onLostFocusBox(e)
+{
+	if(element.readOnly) return;
+	var focused=null;
+	try{focused=element.document.activeElement;} catch(e) {} // issues when this document no longer has focus
+	if(focused!=null)
+	{
+		p=0;
+		//calculate the index of what Node we have found in search
+		while (focused!=null&&p<10)
+		{
+			//prevent lossing focus if the user is still within the combobox _mainTable.
+			if(focused.uniqueID==_mainTable.uniqueID||focused.uniqueID==_text.uniqueID||focused.uniqueID==_img.uniqueID||focused.uniqueID==element.uniqueID)
+			{
+				//disable onLostFocusBox()
+				//the focus is still within div or popup.
+				return false;
+			}
+			focused=focused.parentElement;
+			p=p+1;
+		}
+		//if focus is not within combox table or popup hide the popup.
+		hidePopup();
+		return false;
+	}
+	hidePopup();
+}
+
+function hidePopup()
+{
+	if(_popup!=null&&_popupIsOpen==true)
+	{
+		_mainTable.focus();
+		_popup.hide();
+		_popupIsOpen=false;
+	}
+	else
+	{
+		_mainTable.blur();
+		_text.style.backgroundColor=bgColor;
+		_text.style.color="";
+		_mainTable.style.backgroundColor=bgColor;
+	}
+}
+
+//this function is attached to _text and _img objects.
+function onFocusInTable(e)
+{
+	_mainTable.focus();
+}
+
+function onMouseOver(e)
+{
+	if(element.readOnly) return;
+	prevRowSelected();
+
+	e.srcElement.style.backgroundColor="highlight";
+	e.srcElement.style.color="highlighttext";
+
+	if(_prevRowHighlighted!=e.srcElement)
+	{
+		prevRowHighlighted();
+		_prevRowHighlighted=e.srcElement;
+	}
+}
+
+function onClickItem(e)
+{
+	setSelectedIndex(e.srcElement.parentElement.rowIndex);
+	_popup.hide();
+	_popupIsOpen=false;
+}
+
+function onSelectStart(e)
+{
+	//disable bubble up selection
+	return false;
+}
+
+function getSelectedIndex()
+{
+	return _selectedIndex;
+}
+
+function setSelectedIndex(index)
+{
+	if(isNaN(index)||0==index.toString().length)
+	{
+		ReturnError("3100","index is not a number {index="+index+"}");
+		return;
+	}
+	if(index>_itemCount||index<-1)
+	{
+		ReturnError("3100","index is out of range {index="+index+"}");
+		return;
+	}
+
+	_selectedIndex=index;
+	
+	//stop setSelectedIndex if init() has not been ran yet.
+	if(null==_text||undefined==_text) return;
+
+	if(-1==index)
+	{
+		_popupIsOpen=false;
+		_text.value="";
+		_changedInternally=true;
+		element.value="";
+		return;
+	}
+
+	if(_itemCount>0)
+	{
+		_text.value=_xml.documentElement.childNodes[index].firstChild.text;
+	}
+
+	if(_popup!=null&&_popupIsOpen==true)
+	{
+		prevRowHighlighted();
+		var oTR=_popupTable.rows(index);
+		oTR.style.backgroundColor="highlight";
+		oTR.style.color="highlighttext";
+		_select.scrollTop=(oTR.offsetHeight+2)*index+1;
+		_text.value=oTR.innerText;
+	}
+
+	if(formfield>""&&_itemCount>0)
+	{
+		var oNode=_xml.documentElement.childNodes[index].selectSingleNode(formfield);
+		if(null==oNode)
+		{
+			ReturnError("3200","formfield name property is invalid, must select valid element from xml");
+			return;
+		}
+		oValue=oNode.text
+		if(element.value!=oValue)
+		{
+			_changedInternally=true;
+			element.value=oValue;
+		}
+	}
+
+	if(_prevRowSelected!=index)
+	{
+		prevRowSelected();
+		_prevRowSelected=index;
+	}
+}
+
+function searchIndex(str)
+{
+	_xml.setProperty("SelectionLanguage","XPath");
+	var xpath;
+	var oNode;
+	var p;
+	var nodeCount =_xml.documentElement.childNodes[0].childNodes.length
+	
+	//This for loop will search all elements of the repeatable data starting at the second element to the last element, skipping over the first element.
+	for(var i=2;i<=nodeCount;i++)
+	{
+		xpath="//"+_xml.documentElement.childNodes[0].nodeName+"[child::*[position()="+i+"][starts-with(translate(.,'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),\""+str.toUpperCase()+"\")]]";
+		oNode=_xml.selectSingleNode(xpath);
+		if(oNode!=null)
+		{
+			p=0;
+			//calculate the index of what Node we have found in search
+			while (oNode.previousSibling!=null)
+			{
+				oNode=oNode.previousSibling;
+				p=p+1;
+			}
+			setSelectedIndex(p);
+			return 1;
+		}
+	}
+
+	//this code will only search the first element of the repeatable data.
+	xpath="//"+_xml.documentElement.childNodes[0].nodeName+"[child::*[position()="+1+"][starts-with(translate(.,'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),\""+str.toUpperCase()+"\")]]";
+	oNode=_xml.selectSingleNode(xpath);
+	if(oNode!=null)
+	{
+		p=0;
+		//calculate the index of what Node we have found in search
+		while (oNode.previousSibling!=null)
+		{
+			oNode=oNode.previousSibling;
+			p=p+1;
+		}
+		setSelectedIndex(p);
+		return 1;
+	}
+
+	return null;
+}
+
+function prevRowHighlighted()
+{
+	if(_prevRowHighlighted!=null&&_popup!=null)
+	{
+		try
+		{
+			_prevRowHighlighted.style.backgroundColor="";
+			_prevRowHighlighted.style.color="";
+		}
+		catch(e){}
+	}
+}
+
+function prevRowSelected()
+{
+	if(_prevRowSelected!=null&&_popup!=null)
+	{
+		try
+		{
+			_popupTable.rows(_prevRowSelected).style.backgroundColor="";
+			_popupTable.rows(_prevRowSelected).style.color="";
+		}
+		catch(e){}
+	}
+}
+
+function setListVisibility()
+{
+	selectedIndex=selectedIndex==-1?0:selectedIndex;
+
+	if(_popup!=null&&_popupIsOpen==true)
+	{
+		_popup.hide();
+		_popupIsOpen=false;
+	}
+	else
+	{
+		if(_popup==null)
+		{
+			createPopup();
+		}
+		setNumberOfRows();
+		if(dropDownWidth>_mainTable.offsetWidth)
+		{
+			_popup.show(-3,_text.offsetHeight+3,dropDownWidth,(_text.offsetHeight+2)*_rows+2,_text);
+		}
+		else
+		{
+			_popup.show(-3,_text.offsetHeight+3,_mainTable.offsetWidth,(_text.offsetHeight+2)*_rows+2,_text);
+		}
+		_popupIsOpen=true;
+		setSelectedIndex(_prevRowSelected);
+	}
+	_text.style.backgroundColor="highlight";
+	_text.style.color="highlighttext";
+}
+
+function createPopup()
+{
+window.status="loading data for combobox......";
+	_popup=window.createPopup();
+
+	var oStylesheet=_popup.document.createStyleSheet();
+	for(var i=0;i<element.document.styleSheets.length;i++)
+	{
+		var item=element.document.styleSheets(i);
+		for(var j=0;j<item.rules.length;j++)
+		{
+			var oRule=item.rules(j);
+			oStylesheet.addRule(oRule.selectorText,oRule.style.cssText);
+		}
+	}
+
+	_popup.document.body.style.margin="0";
+	_popup.document.body.style.padding="0";
+	_popup.document.body.style.backgroundColor="window";
+
+	_select=_popup.document.createElement("DIV");
+	_select.style.width="100%";
+	_select.style.height="100%";
+	_select.style.border="1px solid black";
+	_select.style.padding="0px";
+	_select.style.cursor="default";
+	_select.style.overflowX="hidden";
+
+	_select.attachEvent("onkeydown",onKeyDown);
+	_select.attachEvent("onkeypress",onKeyPress);
+	_popup.document.body.insertAdjacentElement("beforeEnd",_select);
+
+	_popupTable=_popup.document.createElement("TABLE");
+	_popupTable.style.width="100%";
+
+	var listItems=_xml.documentElement.childNodes;
+	if(_itemCount>0)
+	{
+		var index=0;
+		for(var i=0;i<_itemCount;i++)
+		{
+			var listItem=listItems.item(i);
+			buildTable(listItem.firstChild.text);
+			if(listItem.getAttribute("selected")=="true")
+			{
+				index=i;
+			}
+		}
+		//if the selectedIndex already has a value don't set to the default selected
+		if(selectedIndex==null)
+		{
+			setSelectedIndex(index);
+		}
+		else
+		{
+			setSelectedIndex(selectedIndex);
+		}
+		_select.insertAdjacentElement("beforeEnd",_popupTable);
+		_empty=false;
+
+	}
+	else
+	{
+		//create one empty row when there is no data
+		var oTR=_popupTable.insertRow();
+		oTR.id="oTREmpty"
+		oTR.attachEvent("onmouseover",onMouseOver);
+		var oTD=oTR.insertCell();
+		oTD.style.fontSize=_text.currentStyle.fontSize;
+		oTD.tabIndex=-1;
+		oTD.attachEvent("onselectstart",onSelectStart);
+		oTD.noWrap=true;
+		oTD.innerHTML="";
+		_empty=true;
+	}
+	_mainTable.focus();
+window.status="Done";
+}
+
+function buildTable(sValue)
+{
+	var oTR=_popupTable.insertRow();
+	oTR.attachEvent("onmouseover",onMouseOver);
+	var oTD=oTR.insertCell();
+	oTD.style.fontSize=_text.currentStyle.fontSize;
+	oTD.tabIndex=-1;
+	oTD.attachEvent("onselectstart",onSelectStart);
+	oTD.attachEvent("onclick",onClickItem);
+	oTD.noWrap=true;
+	oTD.innerHTML=sValue.length==0?"&nbsp;":sValue;
+}
+
+function setNumberOfRows()
+{
+	//if _itemCount is less than rows then set rows equal to _itemCount
+	if(_itemCount<=rows)
+	{
+		_rows=_empty?1:_itemCount;
+		_select.style.overflowY="hidden";
+	}
+	else
+	{
+		_rows=rows;
+		_select.style.overflowY="auto";
+	}
+}
+
+function disable(disabled)
+{
+	element.disabled=disabled;
+	if(disabled)
+	{
+		_mainTable.style.backgroundColor="#FFFFFF";
+		if(isTrue(showBorder))
+		{
+			_mainTable.style.border="1px solid black";
+		}
+		else
+		{
+			_mainTable.style.borderStyle="none";
+		}
+		_mainTable.disabled=true;
+		_text.style.backgroundColor="#FFFFFF";
+		_text.disabled=true;
+		_img.src=_base+"dstcombobox_disabled_dropdown.gif";
+	}
+	else
+	{
+		if(element.readOnly)
+		{
+			setReadOnly(element.readOnly);
+		}
+		else
+		{
+			_mainTable.style.backgroundColor=bgColor;
+			if(isTrue(showBorder))
+			{
+				_mainTable.style.border="1px solid black";
+			}
+			else
+			{
+				_mainTable.style.borderStyle="none";
+			}
+			_mainTable.disabled=false;
+			_text.disabled=false;
+			_text.style.color="black";
+			_text.style.backgroundColor=bgColor;
+			_img.src=_base+"dstcombobox_dropdown.gif";
+		}
+	}
+}
+
+function setReadOnly(readOnly)
+{
+	element.readOnly=readOnly;
+	if(readOnly)
+	{
+		_mainTable.style.backgroundColor="rgb(236,233,216)";
+		if(isTrue(showBorder))
+		{
+			_mainTable.style.border="1px solid black";
+		}
+		else
+		{
+			_mainTable.style.borderStyle="none";
+		}
+		_mainTable.disabled=false;
+		_text.style.backgroundColor="rgb(236,233,216)";
+		_text.disabled=false;
+		_text.style.color="";
+		_img.src=_base+"dstcombobox_disabled_dropdown.gif";
+	}
+	else
+	{
+		if(element.disabled)
+		{
+			disable(element.disabled);
+		}
+		else
+		{
+			_mainTable.style.backgroundColor=bgColor;
+			if(isTrue(showBorder))
+			{
+				_mainTable.style.border="1px solid black";
+			}
+			else
+			{
+				_mainTable.style.borderStyle="none";
+			}
+			_mainTable.disabled=false;
+			_text.disabled=false;
+			_text.style.color="";
+			_text.style.backgroundColor=bgColor;
+			_img.src=_base+"dstcombobox_dropdown.gif";
+		}
+	}
+}
+
+/******************************************************************************
+ * NAME:          addRows
+ *
+ * PARAMETERS:    xml. XML string or XML DOM Document
+ *
+ * RETURNS:       Boolean. Returns true if successful. Otherwise returns false.
+ *
+ * DESCRIPTION:   adds xml rows to the combobox dropdown and to the xml
+ *****************************************************************************/
+function addRows(xml)
+{
+	var oDoc;
+	if("string"!=typeof(xml))
+	{
+		xml=xml.xml;
+	}
+	oDoc=new ActiveXObject("Msxml2.DOMDocument");
+	if(!oDoc.loadXML(xml))
+	{
+		ReturnError("3005","failed to add rows because of invalid XML:\n\nerrorCode: "+oDoc.XMLDocument.parseError.errorCode+
+				"\nfilepos: "+oDoc.XMLDocument.parseError.filepos+
+				"\nline: "+oDoc.XMLDocument.parseError.line+
+				"\nlinepos: "+oDoc.XMLDocument.parseError.linepos+
+				"\nreason: "+oDoc.XMLDocument.parseError.reason+
+				"\nsrcText: "+oDoc.XMLDocument.parseError.srcText+
+				"\nurl: "+oDoc.XMLDocument.parseError.url);
+		return false;
+	}
+
+	var newNode=oDoc.documentElement.firstChild;
+	while(null!=newNode)
+	{
+		_xml.XMLDocument.documentElement.appendChild(newNode.cloneNode(true));
+		
+		if(null!=_popup&&!_empty)
+		{
+			buildTable(newNode.firstChild.text);
+		}
+		newNode=newNode.nextSibling;
+	}
+
+	if(_empty)
+	{
+		_popup=null;
+		_empty=false;
+	}
+
+	//Sets how many items are in the xml data file.
+	_itemCount=_xml.documentElement.childNodes.length;
+	return true;
+}
+
+/******************************************************************************
+ * NAME:          deleteAllRows
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Deletes all items from the dropdown and xml.
+ *****************************************************************************/
+function deleteAllRows()
+{
+	//Deletes the dropdown rows if dropdown exist.
+	if(null!=_popup)
+	{
+		_popup=null;
+		_select=null;
+		_popupTable=null;
+	}
+
+	//Deletes the xml rows if _xml exist
+	if(null!=_xml)
+	{
+		_xml.setProperty("SelectionLanguage","XPath");
+		var xpath="/*/child::node()";
+		var oNode=_xml.selectNodes(xpath);
+		oNode.removeAll();
+	}
+	_itemCount=0;
+	setSelectedIndex(-1);
+	_empty=true;
+}
+
+/******************************************************************************
+ * NAME:          getItemCount
+ *
+ * PARAMETERS:    none 
+ *
+ * RETURNS:       Integer - The number of items in the control
+ *
+ * DESCRIPTION:   Retrieves the number of items in the control.
+ * 
+ *****************************************************************************/
+function getItemCount()
+{
+	return _itemCount;
+}
+
+/******************************************************************************
+ * NAME:          getDisplayedText
+ *
+ * PARAMETERS:    none 
+ *
+ * RETURNS:       String - The text that is displayed in the selected combobox
+ *
+ * DESCRIPTION:   Retrieves the text that is displayed in the selected combobox.
+ * 
+ *****************************************************************************/
+function getDisplayedText()
+{
+	return _text.value;
+}
+
+/******************************************************************************
+ * NAME:          findStringExact
+ *
+ * PARAMETERS:    text
+ *
+ * RETURNS:       The zero-based index of the first item found; returns -1 if
+ *                no match is found.
+ *
+ * DESCRIPTION:   Finds the first item in the combo box that matches the
+ *                specified string.
+ * 
+ * REMARKS:       This search is case sensitive.
+ *****************************************************************************/
+function findStringExact(text)
+{
+	_xml.setProperty("SelectionLanguage","XPath");
+	var xpath="/*/child::node()[child::node()[text()='"+text+"']]";
+	var oNode=_xml.selectSingleNode(xpath);
+	if(oNode!=null)
+	{
+		//calculate the index of what Node we have found in search
+		var index=0;
+		while(oNode.previousSibling!=null)
+		{
+			oNode=oNode.previousSibling;
+			index++;
+		}
+		return index;
+	}
+	return -1;
+}
+
+/******************************************************************************
+ * NAME:          setItemText
+ *
+ * PARAMETERS:    rowIndex
+ *                text
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   allow changing of displayed text by index location
+ * 
+ * REMARKS:       this will return error if index location doesn't exist
+ *****************************************************************************/
+function setItemText(rowIndex,text)
+{
+	rowIndex=parseInt(rowIndex);
+	if(isNaN(rowIndex))
+	{
+		ReturnError("3100","Row index is not a number {rowIndex="+rowIndex+"}");
+		return;
+	}
+	if(_popupTable!=null&&rowIndex<_popupTable.rows.length) // null if dropdwon created with no rows
+	{
+		_popupTable.rows.item(rowIndex).cells.item(0).innerText=text;
+	}
+
+	// update xml
+	_xml.setProperty("SelectionLanguage","XPath");
+	var xpath="/*/child::node()[position()="+(rowIndex+1)+"]/child::node()[position()=1]";
+	var oNode=_xml.selectSingleNode(xpath);
+	oNode.text=text;
+
+	if(rowIndex==_selectedIndex)
+	{
+		setSelectedIndex(rowIndex);
+	}
+}
+
+/******************************************************************************
+ * NAME:          focus
+ *
+ * PARAMETERS:    
+ *
+ * RETURNS:       
+ *
+ * DESCRIPTION:   
+ * 
+ * REMARKS:       
+ *****************************************************************************/
+function focus()
+{
+	//can not set focus to a disabled object
+	if(!element.disabled)
+	{
+		_mainTable.focus();
+	}
+}
+
+function onPropChange(e)
+{
+	if(element.readOnly) return;
+	var propertyName=e.propertyName;
+
+	if("value"==propertyName)
+	{
+		if(!_changedInternally)
+		{
+			changeValue();
+		}
+		else if(_prevRowSelected!=undefined)
+		{
+			_changedInternally=false;
+			fireOnChange();
+		}
+		else
+		{
+			_changedInternally=false;
+		}
+	}
+}
+
+function fireOnChange()
+{
+	var oEvent=createEventObject();
+	onChange.fire(oEvent);
+}
+
+
+function fireOnFocus()
+{
+	var oEvent=createEventObject();
+	onFocus.fire(oEvent);
+}
+
+function fireReadyStateChange()
+{
+	var oEvent=createEventObject();
+	readyStateID.fire(oEvent);
+}
+
+function changeValue()
+{
+	var xmlTagName=_xml.XMLDocument.documentElement.firstChild.tagName;
+	var xpath="//"+xmlTagName+"["+formfield+"[text()='"+element.value+"']]";
+	var selectedNode=_xml.selectSingleNode(xpath);
+	if(selectedNode!=null)
+	{
+		var p=0;
+		//calculate the index of what Node we have found in search
+		while (selectedNode.previousSibling!=null)
+		{
+			selectedNode=selectedNode.previousSibling;
+			p=p+1;
+		}
+		setSelectedIndex(p);
+	}
+	else
+	{
+		setSelectedIndex(0);
+	}
+	
+}
+
+function isTrue(vValue)
+{
+	
+	var temp=vValue.toString().toLowerCase();
+	return temp=="true";
+}
+
+function ReturnError(code,message)
+{
+	var oEvent=createEventObject();
+	oEvent.code=code;
+	oEvent.message=message;
+	errorID.fire(oEvent);
+}
+</script>

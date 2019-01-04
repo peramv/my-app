@@ -1,0 +1,216 @@
+/*********************************************************************************************
+ * @file	DesktopWeb.Common.css
+ * @author 	Rod Walker 
+ * @desc	Define CSS classes used throughout DesktopWeb screens, includeding overrides
+ * 			of classes defined in ExtJS library 
+ *********************************************************************************************/
+/*
+ * History : 
+ *
+ *  16 Jun 2015 Narin Suanlamyai P0241773 T81011
+ *                    - Add stylesheet for treegrid
+ *
+ */
+
+/******* Overwrites of ExtJS Classes *************/
+
+/* needed to fix error in ext's CSS where field borders aren't drawn properly in IE7*/
+.ext-ie6 .x-form-text, .ext-ie7 .x-form-text {
+    margin:0px 0; /* ie bogus margin bug */
+    height:22px; /* ie quirks */
+    line-height:18px;
+}
+
+.ext-ie6 .x-form-trigger, .ext-ie7 .x-form-trigger {
+    margin:1px 0; /* ie bogus margin bug */
+    height:21px; /* ie quirks */
+    line-height:18px;
+}
+
+.x-form-item {
+	margin-bottom: 6px
+}
+
+.x-fieldset
+{
+	padding: 3px 5px 3px 5px;
+}
+
+.x-fieldset-header
+{
+	margin-left:10px
+}
+
+.x-panel-body
+{
+	background: #E1E1E1 !important;
+}
+
+.x-form-invalid-icon 
+{
+    background-image:url(../images/error_small.png) !important;
+}
+
+.x-form-warning-icon 
+{
+    background-image:url(../images/warning_small.png) !important;
+}
+
+.x-form-invalid-tip .x-tip-body 
+{
+    background-image:url(../images/error_small.png) !important;
+}
+
+.x-form-warning-tip  .x-tip-body 
+{
+    background-image:url(../images/warning_small.png) !important;
+    background-repeat:no-repeat;
+    text-indent:15px;
+}
+
+.x-item-disabled .x-form-field
+{		
+	color: black !important;	
+	font-family: arial !important;
+	background-image: none !important;
+}
+
+.x-panel-bl, .x-panel-bc, .x-panel-br, .x-panel-ml, .x-panel-mr, .x-panel-mc, .x-window-body
+{
+	background: #E1E1E1 !important;
+}
+
+.x-form-empty-field
+{	
+	font-size: 10px;
+	color: #c0c0c0;;	
+}
+
+.x-fieldset
+{
+	padding-bottom: 0px !important;
+}
+
+.x-fieldset .ext-el-mask
+{
+	display: none !important;
+}
+
+
+/*********** DesktopWeb Classes **************/
+
+.DesktopWebFooter
+{
+	padding-bottom:2px !important;
+	background: #E1E1E1 !important;
+}
+
+
+.DesktopWeb-Grid-Body
+{
+	border: 1px solid #c6c6c6 !important;	
+}
+
+.DesktopWeb-Grid-Body .x-grid3-row-over
+{
+	background: none;
+	border-style: dashed !important;
+}
+
+.DesktopWeb-Grid-Selected-Row
+{	
+	background: #5E81BC !important;
+	color: white;
+	border-style: solid !important;	
+}
+
+.DesktopWeb-Grid-Selected-Row .x-grid3-cell
+{
+	color: white !important;
+}
+
+.DesktopWeb-TreeGrid-Body
+{
+	border: 1px solid #c6c6c6 !important;	
+    background: white !important;
+}
+
+.DesktopWeb-Disabled-Cell
+{
+	background: #e2e2e2 !important;
+}
+
+.DesktopWeb-ComboBox-Selected
+{
+	background: #5E81BC !important;
+	color: white; 
+}
+
+#DesktopWeb-Processing-Mask
+{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;	
+	z-index: 20000;
+	background-color: gray;
+	filter: alpha(opacity=30);
+	display: none
+}
+
+#DesktopWeb-Processing
+{
+	position: absolute;	
+	padding: 2px;
+	z-index: 20001;
+	height: auto;	
+	display: none;
+}
+
+#DesktopWeb-Processing .DesktopWeb-Processing-Message 
+{		
+	width: 300px;
+	height: 38px;
+	background: url(../images/ifds_small_logo.png) no-repeat;
+	background-position: 2px 2px;
+	background-color: white;
+	border: 1px solid #646464;
+	color: #555;
+	font: bold 13px tahoma,arial,helvetica;	
+	padding: 10px 40px;
+	margin: 0;
+	text-align: center;	
+}
+
+.DesktopWeb-Disabled-Field
+{	
+	background: none !important;
+	cursor: default !important;
+	color: #646464;
+}
+
+.DesktopWeb-BreadCrumbItem
+{
+	padding: 3px 10px 0px 0px;
+	font-size: 11px;
+	white-space: nowrap;
+	display: block;
+	float:left;
+		
+}
+
+.DesktopWeb-BreadCrumbItem-Enabled
+{	
+	cursor: pointer;
+}
+
+.DesktopWeb-BreadCrumbItem-Active
+{
+	font-weight: bold;
+}
+
+.DesktopWeb-BreadCrumbItem span
+{
+	text-decoration: underline;
+}

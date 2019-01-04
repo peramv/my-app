@@ -1,0 +1,698 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\MFDSTC_Config.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\MFDSTC_Config.ico"
+IDR_MFDSTC_ConfigTYPE   ICON                    "res\\MFDSTC_ConfigDoc.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR  16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        POPUP "Load from Registry"
+        BEGIN
+            MENUITEM "Placeholder",                 32774
+        END
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
+        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About MFDSTC_Config...",     ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+    VK_F1,          ID_CONTEXT_HELP,        VIRTKEY, SHIFT
+    VK_F1,          ID_HELP,                VIRTKEY 
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 235, 74
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "About MFDSTC_Config"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,21,20
+    LTEXT           "MFDSTC Configuration Editor",IDC_STATIC,40,10,119,8,
+                    SS_NOPREFIX
+    LTEXT           "Copyright (C) 2009",IDC_STATIC,40,52,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,16,WS_GROUP
+    LTEXT           "Version Number",IDC_VERSION_NUMBER,40,31,179,8
+END
+
+IDD_MFDSTC_CONFIG_FORM DIALOGEX 0, 0, 433, 284
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_PLACEHOLDER,"Static",SS_BLACKFRAME,7,7,419,270
+END
+
+IDD_GENERALPAGE DIALOGEX 0, 0, 400, 250
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "General"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    EDITTEXT        IDC_XML_DESCRIPTION,55,12,334,15,ES_AUTOHSCROLL
+    COMBOBOX        IDC_MARKET,55,52,65,45,CBS_DROPDOWNLIST | CBS_SORT | 
+                    CBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP,
+                    WS_EX_ACCEPTFILES
+    EDITTEXT        IDC_AWD_INTERFACE_DLL,261,46,99,12,ES_AUTOHSCROLL
+    CONTROL         "AutoLogon",IDC_AWD_AUTOLOGON,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,193,62,51,10
+    EDITTEXT        IDC_DATAPATH_PATH,55,99,317,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DATAPATH_FYI,55,120,317,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DATAPATH_REPOSITORY,55,139,317,14,ES_AUTOHSCROLL
+    LTEXT           "Market",IDC_STATIC,28,54,23,8
+    GROUPBOX        "Market",IDC_STATIC,7,38,157,36
+    GROUPBOX        "AWD",IDC_STATIC,181,38,200,43
+    LTEXT           "AWD Interface DLL",IDC_STATIC,193,47,64,8
+    GROUPBOX        "Data Paths",IDC_STATIC,7,85,386,78
+    LTEXT           "Path",IDC_STATIC,35,102,16,8
+    LTEXT           "FYI File",IDC_STATIC,27,123,24,8
+    LTEXT           "Repository",IDC_STATIC,17,142,34,8
+    LTEXT           "Description",IDC_STATIC,15,15,36,8
+    LTEXT           "Last Changed by",IDC_ST_LAST_CHANGED_USER,7,232,58,8
+    EDITTEXT        IDC_LAST_CHANGED_BY,67,229,104,14,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "on",IDC_STATIC,182,232,9,8
+    EDITTEXT        IDC_LAST_CHANGED_DATE,195,229,138,14,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    GROUPBOX        "CSI",IDC_STATIC,7,168,386,29
+    LTEXT           "Host",IDC_STATIC,11,179,16,8
+    EDITTEXT        IDC_CSI_HOST,41,176,93,14,ES_AUTOHSCROLL
+    LTEXT           "Param",IDC_STATIC,149,179,21,8
+    EDITTEXT        IDC_CSI_PARAM,177,176,107,14,ES_AUTOHSCROLL
+    LTEXT           "Type",IDC_STATIC,295,179,17,8
+    EDITTEXT        IDC_CSI_TYPE,316,176,73,14,ES_AUTOHSCROLL
+END
+
+IDD_SONICPAGE DIALOGEX 0, 0, 400, 255
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Transport"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    COMBOBOX        IDC_TL_USE_SONIC,40,7,48,41,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Persistent Connections",IDC_CHECK2,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,97,8,88,10
+    EDITTEXT        IDC_TL_RECYCLE_INTERVAL,258,6,40,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_TL_RECYCLE_INTERVAL_SPIN,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_HOTTRACK,296,7,11,14
+    EDITTEXT        IDC_TL_RTS_HOST,37,47,135,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TL_RTS_PORT,202,47,40,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_TL_ZTS_PRIMARY_PROTOCOL,77,90,34,63,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_TL_ZTS_PRIMARY_HOST,126,90,144,65,CBS_DROPDOWN | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TL_ZTS_PRIMARY_PORT,283,89,28,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_TL_ZTS_BACKUP_PROTOCOL,77,106,34,64,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_TL_ZTS_BACKUP_HOST,126,106,144,65,CBS_DROPDOWN | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TL_ZTS_BACKUP_PORT2,283,105,28,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_TL_SINGLEQ,77,122,219,58,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_TL_MULTIQ,77,138,219,66,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_TL_AUTHQ,77,154,219,56,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_TL_USERNS,77,184,76,43,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TL_SMQUSER,77,200,74,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_TL_SMQPASSWORD,214,200,60,14,ES_PASSWORD | 
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_TL_WAIT_TIMEOUT,78,218,40,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_TL_WAIT_TIMEOUT_SPIN,"msctls_updown32",
+                    UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | 
+                    UDS_ARROWKEYS | UDS_HOTTRACK,117,212,10,14
+    PUSHBUTTON      "Test",IDC_SONIC_TEST,330,220,50,14
+    LTEXT           "Transport",IDC_STATIC,7,9,31,8
+    LTEXT           "Recycle Interval",IDC_STATIC,197,9,52,8
+    GROUPBOX        "RTS",IDC_STATIC,7,33,386,36
+    LTEXT           "Host",IDC_STATIC,13,50,16,8
+    LTEXT           "Port",IDC_STATIC,184,50,14,8
+    GROUPBOX        "ZTS",IDC_STATIC,7,76,386,163
+    LTEXT           "Primary Broker URL",IDC_STATIC,14,92,63,8
+    LTEXT           "://",IDC_STATIC,114,92,10,8
+    LTEXT           ":",IDC_STATIC,274,92,8,8
+    LTEXT           "Backup Broker URL",IDC_STATIC,12,108,65,8
+    LTEXT           "://",IDC_STATIC,114,108,10,8
+    LTEXT           ":",IDC_STATIC,274,108,8,8
+    LTEXT           "Single Queue",IDC_STATIC,33,124,44,8
+    LTEXT           "Multi Queue",IDC_STATIC,38,140,39,8
+    LTEXT           "Auth Queue",IDC_STATIC,38,156,39,8
+    LTEXT           "User Namespace",IDC_STATIC,14,186,56,8
+    LTEXT           "SMQ User",IDC_STATIC,39,203,34,8
+    LTEXT           "SMQ Password",IDC_STATIC,160,196,50,8
+    LTEXT           "SMQ Timeout",IDC_STATIC,27,221,44,8
+    PUSHBUTTON      "Test",IDC_RTS_TEST,330,47,50,14
+    LTEXT           "Static",IDC_TX_RTS_TEST,260,49,59,9
+    CONTROL         "Use Single Connection",IDC_TL_SINGLE_CONNECTION,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,148,220,88,10
+    COMBOBOX        IDC_TL_AWDQ,77,169,219,56,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "AWD Queue",IDC_STATIC,37,172,42,8
+END
+
+IDD_SUPPORTPAGE DIALOGEX 0, 0, 400, 250
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Support"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    CONTROL         "Enable",IDC_SP_LOG_ENABLE,"Button",BS_AUTO3STATE | 
+                    WS_TABSTOP,16,19,38,10
+    EDITTEXT        IDC_SP_LOG_PATH,95,16,281,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_SP_LOG_LEVEL,52,36,75,72,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_SP_LOG_FILE,207,35,169,14,ES_AUTOHSCROLL
+    CONTROL         "Enable",IDC_SP_VIEWLOG_ENABLE,"Button",BS_AUTO3STATE | 
+                    WS_TABSTOP,16,76,38,10
+    EDITTEXT        IDC_SP_VIEWLOG_PATH,95,74,281,14,ES_AUTOHSCROLL
+    CONTROL         "Append",IDC_SP_VIEWLOG_APPEND,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,16,95,41,10
+    CONTROL         "Complete",IDC_SP_VIEWLOG_COMPLETE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,75,95,45,10
+    CONTROL         "Raw Request",IDC_SP_VIEWLOG_RAWREQ,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,138,95,59,10
+    CONTROL         "Raw Response",IDC_SP_VIEWLOG_RAWRESP,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,215,95,65,10
+    CONTROL         "Enable",IDC_SP_VIEWTIME_ENABLE,"Button",BS_AUTO3STATE | 
+                    WS_TABSTOP,15,133,38,10
+    EDITTEXT        IDC_SP_VIEWTIME_PATH,100,131,206,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_SP_VIEWTIME_SIZE,339,131,40,14,ES_AUTOHSCROLL
+    CONTROL         "Enable",IDC_SP_EXCEPTION_REPORT_ENABLE,"Button",
+                    BS_AUTO3STATE | WS_TABSTOP,15,169,38,10
+    EDITTEXT        IDC_SP_EXCEPTION_REPORT_PATH,100,167,281,14,
+                    ES_AUTOHSCROLL
+    CONTROL         "Display Connection Icon",IDC_SP_DISPLAYCONNECTIONICON,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,200,93,10
+    CONTROL         "Show Client Name Pane",IDC_SP_SHOW_CLIENT_NAME_PANE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,108,200,93,10
+    CONTROL         "Display Condition Name",IDC_SP_DISPLAY_CONDITION_NAME,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,202,200,91,10
+    EDITTEXT        IDC_SP_VIEWBATCH,74,217,302,14,ES_AUTOHSCROLL
+    GROUPBOX        "General Logging",IDC_STATIC,7,7,386,48
+    LTEXT           "Path",IDC_STATIC,71,21,16,8
+    LTEXT           "File",IDC_STATIC,181,38,12,8
+    LTEXT           "Level",IDC_STATIC,19,38,18,8
+    GROUPBOX        "View Data Logging",IDC_STATIC,7,60,386,57
+    LTEXT           "Path",IDC_STATIC,71,76,16,8
+    GROUPBOX        "View Time Logging",IDC_STATIC,7,121,386,33
+    LTEXT           "Path",IDC_STATIC,77,134,16,8
+    LTEXT           "Size",IDC_STATIC,315,134,14,8
+    LTEXT           "View Batch",IDC_STATIC,17,219,37,8
+    GROUPBOX        "Crash Reporting",IDC_STATIC,7,159,386,27
+    LTEXT           "Path",IDC_STATIC,77,170,16,8
+END
+
+IDD_CONNECTION_TEST DIALOGEX 0, 0, 242, 183
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "ZTS Connection Test"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Test",IDC_PB_CONNECT,185,25,50,14
+    PUSHBUTTON      "Test",IDC_PB_SINGLEQ,185,43,50,14
+    PUSHBUTTON      "Test",IDC_PB_MULTIQ,185,61,50,14
+    PUSHBUTTON      "Test",IDC_PB_AUTHQ,185,79,50,14
+    EDITTEXT        IDC_CONNECT_MESSAGE,7,115,228,40,ES_MULTILINE | 
+                    ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL | WS_HSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,7,162,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,63,162,50,14
+    LTEXT           "Connect to host/port",IDC_ST_PRIMARY,7,10,158,8
+    LTEXT           "Connect to Sonic Broker",IDC_ST_CONNECT,7,28,158,8
+    LTEXT           "Connect to DTop_DOM.ZTS.SingleRequest",IDC_ST_SINGLEQ,7,
+                    46,158,8
+    LTEXT           "Connect to DTop_DOM.ZTS.MultiRequest",IDC_ST_MULTIQ,7,
+                    64,158,8
+    LTEXT           "Connect to DTop_DOM.ZTS.AuthRequest",IDC_ST_AUTHQ,7,82,
+                    158,8
+    LTEXT           "Static",IDC_STATUS_CONNECT,200,28,23,8,NOT WS_VISIBLE
+    PUSHBUTTON      "Test",IDC_PB_PRIMARY_TELNET,185,7,50,14
+    LTEXT           "Passed",IDC_STATUS_TELNET,200,10,24,8,NOT WS_VISIBLE
+    LTEXT           "Static",IDC_STATUS_SINGLEQ,200,45,23,8,NOT WS_VISIBLE
+    LTEXT           "Static",IDC_STATUS_MULTIQ,200,63,23,8,NOT WS_VISIBLE
+    LTEXT           "Static",IDC_STATUS_AUTHQ,200,81,23,8,NOT WS_VISIBLE
+    PUSHBUTTON      "Test",IDC_PB_AWDQ,185,96,50,14
+    LTEXT           "Connect to DTop_DOM.ZTS.AwdRequest",IDC_ST_AWDQ,7,99,
+                    158,8
+    LTEXT           "Static",IDC_STATUS_AWDQ,200,99,23,8,NOT WS_VISIBLE
+END
+
+IDD_SPECIALPAGE DIALOGEX 0, 0, 400, 250
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Special"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Special Password Rules",IDC_SPEC_MMF,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,15,90,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "International Financial Data Services, Ltd."
+            VALUE "FileDescription", "iFAST/Desktop Configuration Editor"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "MFDSTC_Config.exe"
+            VALUE "LegalCopyright", "(c) International Financial Data Services.  All rights reserved."
+            VALUE "OriginalFilename", "MFDSTC_Config.exe"
+            VALUE "ProductName", "iFAST/Desktop Configuration Editor"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 67
+    END
+
+    IDD_MFDSTC_CONFIG_FORM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 426
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 277
+    END
+
+    IDD_GENERALPAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 393
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 243
+    END
+
+    IDD_SONICPAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 393
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 248
+    END
+
+    IDD_SUPPORTPAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 393
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 243
+    END
+
+    IDD_CONNECTION_TEST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 235
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_SPECIALPAGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 393
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 243
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_GENERALPAGE DLGINIT
+BEGIN
+    IDC_MARKET, 0x403, 4, 0
+0x754c, 0x0078, 
+    IDC_MARKET, 0x403, 7, 0
+0x6143, 0x616e, 0x6164, "\000" 
+    0
+END
+
+IDD_SONICPAGE DLGINIT
+BEGIN
+    IDC_TL_USE_SONIC, 0x403, 4, 0
+0x5452, 0x0053, 
+    IDC_TL_USE_SONIC, 0x403, 4, 0
+0x545a, 0x0053, 
+    IDC_TL_ZTS_PRIMARY_PROTOCOL, 0x403, 4, 0
+0x6374, 0x0070, 
+    IDC_TL_ZTS_PRIMARY_PROTOCOL, 0x403, 4, 0
+0x7373, 0x006c, 
+    IDC_TL_ZTS_PRIMARY_PROTOCOL, 0x403, 5, 0
+0x7468, 0x7074, "\000" 
+    IDC_TL_ZTS_PRIMARY_PROTOCOL, 0x403, 2, 0
+0x0020, 
+    IDC_TL_ZTS_BACKUP_PROTOCOL, 0x403, 4, 0
+0x6374, 0x0070, 
+    IDC_TL_ZTS_BACKUP_PROTOCOL, 0x403, 4, 0
+0x7373, 0x006c, 
+    IDC_TL_ZTS_BACKUP_PROTOCOL, 0x403, 5, 0
+0x7468, 0x7074, "\000" 
+    IDC_TL_ZTS_BACKUP_PROTOCOL, 0x403, 2, 0
+0x0020, 
+    0
+END
+
+IDD_SUPPORTPAGE DLGINIT
+BEGIN
+    IDC_SP_LOG_LEVEL, 0x403, 6, 0
+0x6544, 0x7562, 0x0067, 
+    IDC_SP_LOG_LEVEL, 0x403, 6, 0
+0x7254, 0x6361, 0x0065, 
+    IDC_SP_LOG_LEVEL, 0x403, 7, 0
+0x6f4e, 0x6974, 0x7966, "\000" 
+    IDC_SP_LOG_LEVEL, 0x403, 5, 0
+0x6e49, 0x6f66, "\000" 
+    IDC_SP_LOG_LEVEL, 0x403, 5, 0
+0x6157, 0x6e72, "\000" 
+    IDC_SP_LOG_LEVEL, 0x403, 6, 0
+0x7245, 0x6f72, 0x0072, 
+    IDC_SP_LOG_LEVEL, 0x403, 7, 0
+0x6553, 0x6576, 0x6572, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDP_OLE_INIT_FAILED     "OLE initialization failed.  Make sure that the OLE libraries are the correct version."
+    IDP_SOCKETS_INIT_FAILED "Windows sockets initialization failed."
+END
+
+STRINGTABLE 
+BEGIN
+    IDR_MAINFRAME           "iFAST/Desktop Configuration Editor\n\nMFDSTC_Config\nConfig Files (*.xml)\n.xml\nMFDSTCConfig.Document\nMFDSTC_Config.Document"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "iFAST/Desktop Configuration Editor"
+    AFX_IDS_IDLEMESSAGE     "For Help, press F1"
+    AFX_IDS_HELPMODEMESSAGE "Select an object on which to get Help"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+    ID_HELP_INDEX           "Opens Help\nHelp Topics"
+    ID_HELP_FINDER          "List Help topics\nHelp Topics"
+    ID_HELP_USING           "Display instructions about how to use help\nHelp"
+    ID_CONTEXT_HELP         "Display help for clicked on buttons, menus and windows\nHelp"
+    ID_HELP                 "Display help for current task or command\nHelp"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "Open this document"
+    ID_FILE_MRU_FILE2       "Open this document"
+    ID_FILE_MRU_FILE3       "Open this document"
+    ID_FILE_MRU_FILE4       "Open this document"
+    ID_FILE_MRU_FILE5       "Open this document"
+    ID_FILE_MRU_FILE6       "Open this document"
+    ID_FILE_MRU_FILE7       "Open this document"
+    ID_FILE_MRU_FILE8       "Open this document"
+    ID_FILE_MRU_FILE9       "Open this document"
+    ID_FILE_MRU_FILE10      "Open this document"
+    ID_FILE_MRU_FILE11      "Open this document"
+    ID_FILE_MRU_FILE12      "Open this document"
+    ID_FILE_MRU_FILE13      "Open this document"
+    ID_FILE_MRU_FILE14      "Open this document"
+    ID_FILE_MRU_FILE15      "Open this document"
+    ID_FILE_MRU_FILE16      "Open this document"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "Change the window size"
+    AFX_IDS_SCMOVE          "Change the window position"
+    AFX_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    AFX_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    AFX_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    AFX_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\MFDSTC_Config.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

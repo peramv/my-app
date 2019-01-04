@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Market Market_Id="1" Market_Name="No Market">
+    <Client Client_Id="1">No Client</Client>
+  </Market>
+  <Market Market_Id="2" Market_Name="Japan">
+    <Client Client_Id="1">No Client</Client>
+    <Client Client_Id="2">morgangui</Client>
+    <Client Client_Id="3">morganqa</Client>
+  </Market>
+  <Market Market_Id="3" Market_Name="Canada">
+    <Client Client_Id="1">No Client</Client>
+    <Client Client_Id="2">CFDS</Client>
+    <Client Client_Id="3">rch</Client>
+    <Client Client_Id="4">aicseg</Client>
+    <Client Client_Id="5">synergy</Client>
+    <Client Client_Id="6">nce</Client>
+    <Client Client_Id="7">artisan</Client>
+    <Client Client_Id="8">pbi</Client>
+    <Client Client_Id="9">zenith</Client>
+    <Client Client_Id="10">stone</Client>
+    <Client Client_Id="11">clb</Client>
+    <Client Client_Id="12">manuseg</Client>
+    <Client Client_Id="13">mmf</Client>
+    <Client Client_Id="14">bob</Client>
+    <Client Client_Id="15">cib</Client>
+    <Client Client_Id="16">dyn</Client>
+    <Client Client_Id="17">aim</Client>
+    <Client Client_Id="18">fdp</Client>
+    <Client Client_Id="19">ats</Client>
+    <Client Client_Id="20">sbf</Client>
+    <Client Client_Id="21">slf</Client>
+    <Client Client_Id="22">maw</Client>
+    <Client Client_Id="23">zag</Client>
+    <Client Client_Id="24">exl</Client>
+    <Client Client_Id="25">goc</Client>
+    <Client Client_Id="26">mif</Client>
+    <Client Client_Id="27">hob</Client>
+    <Client Client_Id="28">eqb</Client>
+    <Client Client_Id="29">sun</Client>
+    <Client Client_Id="30">hkb</Client>
+    <Client Client_Id="31">fco</Client>
+    <Client Client_Id="32">bmo</Client>
+  </Market>
+  <Market Market_Id="4" Market_Name="Lux">
+    <Client Client_Id="1">No Client</Client>
+    <Client Client_Id="2">gmx</Client>
+    <Client Client_Id="3">pbi</Client>
+    <Client Client_Id="4">pcb</Client>
+    <Client Client_Id="5">All</Client>
+    <Client Client_Id="6">gam</Client>
+    <Client Client_Id="7">igd</Client>
+    <Client Client_Id="8">ivt</Client>
+    <Client Client_Id="9">jan</Client>
+    <Client Client_Id="10">pan</Client>
+    <Client Client_Id="11">pgi</Client>
+    <Client Client_Id="12">axr</Client>
+    <Client Client_Id="13">nbg</Client>
+    <Client Client_Id="14">wlt</Client>
+    <Client Client_Id="15">wpc</Client>
+    <Client Client_Id="16">alt</Client>
+    <Client Client_Id="17">eav</Client>
+    <Client Client_Id="18">fss</Client>
+    <Client Client_Id="19">gsa</Client>
+    <Client Client_Id="20">kav</Client>
+    <Client Client_Id="21">kir</Client>
+    <Client Client_Id="22">pag</Client>
+    <Client Client_Id="23">qih</Client>
+    <Client Client_Id="24">stp</Client>
+    <Client Client_Id="25">uau</Client>
+  </Market>
+</Root>

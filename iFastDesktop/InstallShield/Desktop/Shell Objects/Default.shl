@@ -1,0 +1,50 @@
+[Shortcut0]
+Target=<TARGETDIR>\mfdstc.exe
+Parameters=
+ShortcutKey=
+SeparateMemorySpace=No
+Run=Normal Window
+FileGroup=
+Replace=Yes
+IconIndex=1
+StartIn=<TARGETDIR>
+InternetShortcut=No
+IconFile=<TARGETDIR>\mfdstc.exe
+Comments=
+DisplayText=iFAST Desktop
+
+[Shortcut1]
+Target=<TARGETDIR>\mfdstc.exe
+Parameters=
+ShortcutKey=
+SeparateMemorySpace=No
+Run=Normal Window
+FileGroup=
+Replace=Yes
+IconIndex=1
+StartIn=<TARGETDIR>
+InternetShortcut=No
+IconFile=<TARGETDIR>\mfdstc.exe
+Comments=
+DisplayText=iFAST Desktop
+
+[Folder4]
+Type=Common
+DisplayText=
+Comments=
+
+[Data]
+Shortcut0=Folder0\iFast Desktop
+Folder3=<FOLDER_STARTUP>
+Shortcut1=Folder4\iFast DeskTop
+Folder4=Folder2\International Data Services
+Group0=Main
+Group1=Startup
+Folder0=<FOLDER_DESKTOP>
+Folder1=<FOLDER_STARTMENU>
+Folder2=<FOLDER_PROGRAMS>
+
+[Info]
+Type=ShellObject
+Version=1.00.000
+

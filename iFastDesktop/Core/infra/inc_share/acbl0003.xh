@@ -1,0 +1,2532 @@
+
+/*
+ * //
+ *                                                                         //
+ *  ACBL0003  :  work select Driver view                                   //
+ *                                                                         //
+ *  This view takes the work select algorithm from WorkSelect, and picks   //
+ *       work items for the user.                                          //
+ *  This view is cloned from ACBL0007; they share similar interface        //
+ *                                                                         //
+ *  Note:   -ContinuationKey is used for init-call as well as re-call;     //
+ *          -The proper value in ContinuationFlag will indicate re-call;   //
+ *          -The LockFlag has no significance;                             //
+ *          -LOCK == 'Y'; different from other views where LOCK == 'L'     //
+ *          -The TargetQueue has no significance either;                   //
+ *          -No constructors are defined to avoid confusion.               //
+ *          -Userid is requied, and so is WorkSelect .                     //
+ *                                                                         //
+ *  ref.  acpy0009, acpy0011, and acbl0003                                 //
+ *                                                                         //
+ *  7/21/95                                                          dyxw  //
+ *     Original version; scraped                                           //
+ *                                                                         //
+ *  8/18/95                                                          dyxw  //
+ *     The only valid action is WORKSELECT    or '1' for this view.        //
+ *     --- CHANGED Continuation key structure ...                          //
+ *                                                                         //
+ *  10/12/95                                                         dyxw  //
+ *     setAction () use enum ACTION;                                       //
+ *     setWorkSelect() also use enum WORKSELECT;                           //
+ *     zap the definition for a Record Buffer Structure since it only has  //
+ *        AWDOBJECTSTRCT alone (per dcur )                                 //
+ *                                                                         //
+ * //
+ */
+
+
+#ifndef SOM_ACBL0003_xh
+#define SOM_ACBL0003_xh
+
+class ACBL0003;
+
+#define ACBL0003_MajorVersion 0
+#define ACBL0003_MinorVersion 0
+
+/*
+ * Passthru lines: File: "C.xh", "before"
+ */
+#include "structs.xh"
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_AWDView_xh
+#include <view.xh>
+#endif
+
+#ifndef ACBL0003_API
+#define ACBL0003_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+class SOMClass;
+class SOMObject;
+class somf_MLinkable;
+class AWDConnection;
+class AWDException;
+#define ACBL0003_CC_WHITE_SPACE ' '
+#define ACBL0003_CC_ZERO '0'
+#define ACBL0003_CC_NO 'N'
+#define ACBL0003_CC_CONTINUE_YES 'Y'
+#define ACBL0003_CC_CONTINUE_NO 'N'
+#define ACBL0003_CC_COMPLETE_YES 'Y'
+#define ACBL0003_CC_COMPLETE_NO 'N'
+#define ACBL0003_CC_UNDEFINED ' '
+#define ACBL0003_CC_CREATE 'C'
+#define ACBL0003_CC_LOCK 'Y'
+#define ACBL0003_CC_RETRIEVE 'R'
+#define ACBL0003_CC_UPDATE 'U'
+#define ACBL0003_CC_ADD 'A'
+#define ACBL0003_CC_CHANGE 'C'
+#define ACBL0003_CC_DELETE 'D'
+#define ACBL0003_CC_WORKSELECT '1'
+#define ACBL0003_CC_EXPAND '2'
+#define ACBL0003_CC_PERSONALQUEUE '3'
+#define ACBL0003_CC_WORKSELECT1 '1'
+#define ACBL0003_CC_WORKSELECT2 '2'
+#define ACBL0003_CC_WORKSELECT3 '3'
+#define ACBL0003_CC_WORKSELECT4 '4'
+#define ACBL0003_CC_WORKSELECT5 '5'
+#define ACBL0003_CC_WORKSELECT6 '6'
+#define ACBL0003_CC_WORKSELECT7 '7'
+#define ACBL0003_CC_WORKSELECT8 '8'
+#define ACBL0003_CC_WORKSELECT9 '9'
+typedef unsigned long ACBL0003_ACTION;
+#define ACBL0003_ACTION_WORKSELECT 1UL
+#define ACBL0003_ACTION_EXPAND 2UL
+#define ACBL0003_ACTION_PERSONALQUEUE 3UL
+typedef unsigned long ACBL0003_WORKSELECT;
+#define ACBL0003_WORKSELECT_1 1UL
+#define ACBL0003_WORKSELECT_2 2UL
+#define ACBL0003_WORKSELECT_3 3UL
+#define ACBL0003_WORKSELECT_4 4UL
+#define ACBL0003_WORKSELECT_5 5UL
+#define ACBL0003_WORKSELECT_6 6UL
+#define ACBL0003_WORKSELECT_7 7UL
+#define ACBL0003_WORKSELECT_8 8UL
+#define ACBL0003_WORKSELECT_9 9UL
+typedef
+struct ACBL0003_CONTINUATIONKEY {
+struct AWD_AWDOBJECTKEYSTRCT SelectedWorkKey;
+struct AWD_AWDOBJECTKEYSTRCT CaseKey;
+struct AWD_AWDOBJECTKEYSTRCT WorkKey;
+struct AWD_AWDOBJECTKEYSTRCT SourceKey;
+} ACBL0003_CONTINUATIONKEY;
+typedef
+struct ACBL0003_CONTINUATIONKEY* ACBL0003_PCONTINUATIONKEY;
+
+/*
+ *  ref. view input area //
+ */
+typedef
+struct ACBL0003_ACBL0003INPUT {
+char  Countrycd[3];
+char  Userid[8];
+char  Action;
+char  TargetQueue[8];
+char  WorkSelect;
+char  LockFlag;
+char  ContinuationFlag;
+struct ACBL0003_CONTINUATIONKEY ContinuationKey;
+} ACBL0003_ACBL0003INPUT;
+typedef
+struct ACBL0003_ACBL0003INPUT* ACBL0003_PACBL0003INPUT;
+
+/*
+ *  ref. view Output area //
+ */
+typedef
+struct ACBL0003_ACBL0003OUTPUT {
+char  return_code[7];
+char  return_message[78];
+char  viewComplete;
+struct ACBL0003_CONTINUATIONKEY continuationKey;
+} ACBL0003_ACBL0003OUTPUT;
+typedef
+struct ACBL0003_ACBL0003OUTPUT* ACBL0003_PACBL0003OUTPUT;
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_CC_WHITE_SPACE
+    #ifdef CC_WHITE_SPACE
+        #undef CC_WHITE_SPACE
+        #define SOMTGD_CC_WHITE_SPACE 1
+    #else
+        #define CC_WHITE_SPACE ACBL0003_CC_WHITE_SPACE
+    #endif /* CC_WHITE_SPACE */
+#endif /* SOMTGD_CC_WHITE_SPACE */
+#ifndef SOMTGD_CC_ZERO
+    #ifdef CC_ZERO
+        #undef CC_ZERO
+        #define SOMTGD_CC_ZERO 1
+    #else
+        #define CC_ZERO ACBL0003_CC_ZERO
+    #endif /* CC_ZERO */
+#endif /* SOMTGD_CC_ZERO */
+#ifndef SOMTGD_CC_NO
+    #ifdef CC_NO
+        #undef CC_NO
+        #define SOMTGD_CC_NO 1
+    #else
+        #define CC_NO ACBL0003_CC_NO
+    #endif /* CC_NO */
+#endif /* SOMTGD_CC_NO */
+#ifndef SOMTGD_CC_CONTINUE_YES
+    #ifdef CC_CONTINUE_YES
+        #undef CC_CONTINUE_YES
+        #define SOMTGD_CC_CONTINUE_YES 1
+    #else
+        #define CC_CONTINUE_YES ACBL0003_CC_CONTINUE_YES
+    #endif /* CC_CONTINUE_YES */
+#endif /* SOMTGD_CC_CONTINUE_YES */
+#ifndef SOMTGD_CC_CONTINUE_NO
+    #ifdef CC_CONTINUE_NO
+        #undef CC_CONTINUE_NO
+        #define SOMTGD_CC_CONTINUE_NO 1
+    #else
+        #define CC_CONTINUE_NO ACBL0003_CC_CONTINUE_NO
+    #endif /* CC_CONTINUE_NO */
+#endif /* SOMTGD_CC_CONTINUE_NO */
+#ifndef SOMTGD_CC_COMPLETE_YES
+    #ifdef CC_COMPLETE_YES
+        #undef CC_COMPLETE_YES
+        #define SOMTGD_CC_COMPLETE_YES 1
+    #else
+        #define CC_COMPLETE_YES ACBL0003_CC_COMPLETE_YES
+    #endif /* CC_COMPLETE_YES */
+#endif /* SOMTGD_CC_COMPLETE_YES */
+#ifndef SOMTGD_CC_COMPLETE_NO
+    #ifdef CC_COMPLETE_NO
+        #undef CC_COMPLETE_NO
+        #define SOMTGD_CC_COMPLETE_NO 1
+    #else
+        #define CC_COMPLETE_NO ACBL0003_CC_COMPLETE_NO
+    #endif /* CC_COMPLETE_NO */
+#endif /* SOMTGD_CC_COMPLETE_NO */
+#ifndef SOMTGD_CC_UNDEFINED
+    #ifdef CC_UNDEFINED
+        #undef CC_UNDEFINED
+        #define SOMTGD_CC_UNDEFINED 1
+    #else
+        #define CC_UNDEFINED ACBL0003_CC_UNDEFINED
+    #endif /* CC_UNDEFINED */
+#endif /* SOMTGD_CC_UNDEFINED */
+#ifndef SOMTGD_CC_CREATE
+    #ifdef CC_CREATE
+        #undef CC_CREATE
+        #define SOMTGD_CC_CREATE 1
+    #else
+        #define CC_CREATE ACBL0003_CC_CREATE
+    #endif /* CC_CREATE */
+#endif /* SOMTGD_CC_CREATE */
+#ifndef SOMTGD_CC_LOCK
+    #ifdef CC_LOCK
+        #undef CC_LOCK
+        #define SOMTGD_CC_LOCK 1
+    #else
+        #define CC_LOCK ACBL0003_CC_LOCK
+    #endif /* CC_LOCK */
+#endif /* SOMTGD_CC_LOCK */
+#ifndef SOMTGD_CC_RETRIEVE
+    #ifdef CC_RETRIEVE
+        #undef CC_RETRIEVE
+        #define SOMTGD_CC_RETRIEVE 1
+    #else
+        #define CC_RETRIEVE ACBL0003_CC_RETRIEVE
+    #endif /* CC_RETRIEVE */
+#endif /* SOMTGD_CC_RETRIEVE */
+#ifndef SOMTGD_CC_UPDATE
+    #ifdef CC_UPDATE
+        #undef CC_UPDATE
+        #define SOMTGD_CC_UPDATE 1
+    #else
+        #define CC_UPDATE ACBL0003_CC_UPDATE
+    #endif /* CC_UPDATE */
+#endif /* SOMTGD_CC_UPDATE */
+#ifndef SOMTGD_CC_ADD
+    #ifdef CC_ADD
+        #undef CC_ADD
+        #define SOMTGD_CC_ADD 1
+    #else
+        #define CC_ADD ACBL0003_CC_ADD
+    #endif /* CC_ADD */
+#endif /* SOMTGD_CC_ADD */
+#ifndef SOMTGD_CC_CHANGE
+    #ifdef CC_CHANGE
+        #undef CC_CHANGE
+        #define SOMTGD_CC_CHANGE 1
+    #else
+        #define CC_CHANGE ACBL0003_CC_CHANGE
+    #endif /* CC_CHANGE */
+#endif /* SOMTGD_CC_CHANGE */
+#ifndef SOMTGD_CC_DELETE
+    #ifdef CC_DELETE
+        #undef CC_DELETE
+        #define SOMTGD_CC_DELETE 1
+    #else
+        #define CC_DELETE ACBL0003_CC_DELETE
+    #endif /* CC_DELETE */
+#endif /* SOMTGD_CC_DELETE */
+#ifndef SOMTGD_CC_WORKSELECT
+    #ifdef CC_WORKSELECT
+        #undef CC_WORKSELECT
+        #define SOMTGD_CC_WORKSELECT 1
+    #else
+        #define CC_WORKSELECT ACBL0003_CC_WORKSELECT
+    #endif /* CC_WORKSELECT */
+#endif /* SOMTGD_CC_WORKSELECT */
+#ifndef SOMTGD_CC_EXPAND
+    #ifdef CC_EXPAND
+        #undef CC_EXPAND
+        #define SOMTGD_CC_EXPAND 1
+    #else
+        #define CC_EXPAND ACBL0003_CC_EXPAND
+    #endif /* CC_EXPAND */
+#endif /* SOMTGD_CC_EXPAND */
+#ifndef SOMTGD_CC_PERSONALQUEUE
+    #ifdef CC_PERSONALQUEUE
+        #undef CC_PERSONALQUEUE
+        #define SOMTGD_CC_PERSONALQUEUE 1
+    #else
+        #define CC_PERSONALQUEUE ACBL0003_CC_PERSONALQUEUE
+    #endif /* CC_PERSONALQUEUE */
+#endif /* SOMTGD_CC_PERSONALQUEUE */
+#ifndef SOMTGD_CC_WORKSELECT1
+    #ifdef CC_WORKSELECT1
+        #undef CC_WORKSELECT1
+        #define SOMTGD_CC_WORKSELECT1 1
+    #else
+        #define CC_WORKSELECT1 ACBL0003_CC_WORKSELECT1
+    #endif /* CC_WORKSELECT1 */
+#endif /* SOMTGD_CC_WORKSELECT1 */
+#ifndef SOMTGD_CC_WORKSELECT2
+    #ifdef CC_WORKSELECT2
+        #undef CC_WORKSELECT2
+        #define SOMTGD_CC_WORKSELECT2 1
+    #else
+        #define CC_WORKSELECT2 ACBL0003_CC_WORKSELECT2
+    #endif /* CC_WORKSELECT2 */
+#endif /* SOMTGD_CC_WORKSELECT2 */
+#ifndef SOMTGD_CC_WORKSELECT3
+    #ifdef CC_WORKSELECT3
+        #undef CC_WORKSELECT3
+        #define SOMTGD_CC_WORKSELECT3 1
+    #else
+        #define CC_WORKSELECT3 ACBL0003_CC_WORKSELECT3
+    #endif /* CC_WORKSELECT3 */
+#endif /* SOMTGD_CC_WORKSELECT3 */
+#ifndef SOMTGD_CC_WORKSELECT4
+    #ifdef CC_WORKSELECT4
+        #undef CC_WORKSELECT4
+        #define SOMTGD_CC_WORKSELECT4 1
+    #else
+        #define CC_WORKSELECT4 ACBL0003_CC_WORKSELECT4
+    #endif /* CC_WORKSELECT4 */
+#endif /* SOMTGD_CC_WORKSELECT4 */
+#ifndef SOMTGD_CC_WORKSELECT5
+    #ifdef CC_WORKSELECT5
+        #undef CC_WORKSELECT5
+        #define SOMTGD_CC_WORKSELECT5 1
+    #else
+        #define CC_WORKSELECT5 ACBL0003_CC_WORKSELECT5
+    #endif /* CC_WORKSELECT5 */
+#endif /* SOMTGD_CC_WORKSELECT5 */
+#ifndef SOMTGD_CC_WORKSELECT6
+    #ifdef CC_WORKSELECT6
+        #undef CC_WORKSELECT6
+        #define SOMTGD_CC_WORKSELECT6 1
+    #else
+        #define CC_WORKSELECT6 ACBL0003_CC_WORKSELECT6
+    #endif /* CC_WORKSELECT6 */
+#endif /* SOMTGD_CC_WORKSELECT6 */
+#ifndef SOMTGD_CC_WORKSELECT7
+    #ifdef CC_WORKSELECT7
+        #undef CC_WORKSELECT7
+        #define SOMTGD_CC_WORKSELECT7 1
+    #else
+        #define CC_WORKSELECT7 ACBL0003_CC_WORKSELECT7
+    #endif /* CC_WORKSELECT7 */
+#endif /* SOMTGD_CC_WORKSELECT7 */
+#ifndef SOMTGD_CC_WORKSELECT8
+    #ifdef CC_WORKSELECT8
+        #undef CC_WORKSELECT8
+        #define SOMTGD_CC_WORKSELECT8 1
+    #else
+        #define CC_WORKSELECT8 ACBL0003_CC_WORKSELECT8
+    #endif /* CC_WORKSELECT8 */
+#endif /* SOMTGD_CC_WORKSELECT8 */
+#ifndef SOMTGD_CC_WORKSELECT9
+    #ifdef CC_WORKSELECT9
+        #undef CC_WORKSELECT9
+        #define SOMTGD_CC_WORKSELECT9 1
+    #else
+        #define CC_WORKSELECT9 ACBL0003_CC_WORKSELECT9
+    #endif /* CC_WORKSELECT9 */
+#endif /* SOMTGD_CC_WORKSELECT9 */
+#ifndef SOMTGD_ACTION
+    #ifdef ACTION
+        #undef ACTION
+        #define SOMTGD_ACTION 1
+    #else
+        #define ACTION ACBL0003_ACTION
+    #endif /* ACTION */
+#endif /* SOMTGD_ACTION */
+#ifndef SOMTGD_WORKSELECT
+    #ifdef WORKSELECT
+        #undef WORKSELECT
+        #define SOMTGD_WORKSELECT 1
+    #else
+        #define WORKSELECT ACBL0003_WORKSELECT
+    #endif /* WORKSELECT */
+#endif /* SOMTGD_WORKSELECT */
+#ifndef SOMTGD_CONTINUATIONKEY
+    #ifdef CONTINUATIONKEY
+        #undef CONTINUATIONKEY
+        #define SOMTGD_CONTINUATIONKEY 1
+    #else
+        #define CONTINUATIONKEY ACBL0003_CONTINUATIONKEY
+    #endif /* CONTINUATIONKEY */
+#endif /* SOMTGD_CONTINUATIONKEY */
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_PCONTINUATIONKEY
+    #ifdef PCONTINUATIONKEY
+        #undef PCONTINUATIONKEY
+        #define SOMTGD_PCONTINUATIONKEY 1
+    #else
+        #define PCONTINUATIONKEY ACBL0003_PCONTINUATIONKEY
+    #endif /* PCONTINUATIONKEY */
+#endif /* SOMTGD_PCONTINUATIONKEY */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+#ifndef SOMTGD_ACBL0003INPUT
+    #ifdef ACBL0003INPUT
+        #undef ACBL0003INPUT
+        #define SOMTGD_ACBL0003INPUT 1
+    #else
+        #define ACBL0003INPUT ACBL0003_ACBL0003INPUT
+    #endif /* ACBL0003INPUT */
+#endif /* SOMTGD_ACBL0003INPUT */
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_PACBL0003INPUT
+    #ifdef PACBL0003INPUT
+        #undef PACBL0003INPUT
+        #define SOMTGD_PACBL0003INPUT 1
+    #else
+        #define PACBL0003INPUT ACBL0003_PACBL0003INPUT
+    #endif /* PACBL0003INPUT */
+#endif /* SOMTGD_PACBL0003INPUT */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+#ifndef SOMTGD_ACBL0003OUTPUT
+    #ifdef ACBL0003OUTPUT
+        #undef ACBL0003OUTPUT
+        #define SOMTGD_ACBL0003OUTPUT 1
+    #else
+        #define ACBL0003OUTPUT ACBL0003_ACBL0003OUTPUT
+    #endif /* ACBL0003OUTPUT */
+#endif /* SOMTGD_ACBL0003OUTPUT */
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_PACBL0003OUTPUT
+    #ifdef PACBL0003OUTPUT
+        #undef PACBL0003OUTPUT
+        #define SOMTGD_PACBL0003OUTPUT 1
+    #else
+        #define PACBL0003OUTPUT ACBL0003_PACBL0003OUTPUT
+    #endif /* PACBL0003OUTPUT */
+#endif /* SOMTGD_PACBL0003OUTPUT */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the ACBL0003 Class */
+SOMEXTERN
+#if (defined(SOM_Module_acbl0003_Source) || defined(ACBL0003_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_ACBL0003))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK ACBL0003NewClass(
+		integer4,
+		integer4 );
+
+/* The API to the ACBL0003 class object, and the methods it introduces. */
+SOMEXTERN struct ACBL0003ClassDataStructure {
+	SOMClass *classObject;
+	somMToken queueContinuationKey;
+	somMToken viewCompleteFlag;
+	somMToken setAction;
+	somMToken setCaseKey;
+	somMToken setContinuationFlag;
+	somMToken setContinuationKey;
+	somMToken setLockFlag;
+	somMToken setSourceKey;
+	somMToken setSelectedWorkKey;
+	somMToken setTargetQueue;
+	somMToken setUserid;
+	somMToken setWorkKey;
+	somMToken setWorkSelect;
+}
+#if !(defined(SOM_Module_acbl0003_Source) || defined(ACBL0003_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_ACBL0003))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK ACBL0003ClassData;
+#define _ACBL0003 ACBL0003ClassData.classObject
+
+/* The API to parentMtabs for ACBL0003, and the instance data it introduces. */
+SOMEXTERN struct ACBL0003CClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_acbl0003_Source) || defined(ACBL0003_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_ACBL0003))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK ACBL0003CClassData;
+
+/*
+ * -- Typedefs for ACBL0003 Method Procedures
+ */
+extern "C" {
+typedef void   SOMLINK somTP_ACBL0003_setAction(ACBL0003 *somSelf, Environment *ev,
+		ACBL0003_ACTION Action);
+typedef somTP_ACBL0003_setAction *somTD_ACBL0003_setAction;
+typedef void   SOMLINK somTP_ACBL0003_setCaseKey(ACBL0003 *somSelf, Environment *ev,
+		AWD_AWDOBJECTKEYSTRCT* pKey);
+typedef somTP_ACBL0003_setCaseKey *somTD_ACBL0003_setCaseKey;
+typedef void   SOMLINK somTP_ACBL0003_setContinuationFlag(ACBL0003 *somSelf, Environment *ev,
+		boolean fContinue);
+typedef somTP_ACBL0003_setContinuationFlag *somTD_ACBL0003_setContinuationFlag;
+typedef void   SOMLINK somTP_ACBL0003_setContinuationKey(ACBL0003 *somSelf, Environment *ev,
+		ACBL0003_CONTINUATIONKEY* pContinuationKey);
+typedef somTP_ACBL0003_setContinuationKey *somTD_ACBL0003_setContinuationKey;
+typedef void   SOMLINK somTP_ACBL0003_setLockFlag(ACBL0003 *somSelf, Environment *ev,
+		char LockFlag);
+typedef somTP_ACBL0003_setLockFlag *somTD_ACBL0003_setLockFlag;
+typedef void   SOMLINK somTP_ACBL0003_setSourceKey(ACBL0003 *somSelf, Environment *ev,
+		AWD_AWDOBJECTKEYSTRCT* pKey);
+typedef somTP_ACBL0003_setSourceKey *somTD_ACBL0003_setSourceKey;
+typedef void   SOMLINK somTP_ACBL0003_setSelectedWorkKey(ACBL0003 *somSelf, Environment *ev,
+		AWD_AWDOBJECTKEYSTRCT* pKey);
+typedef somTP_ACBL0003_setSelectedWorkKey *somTD_ACBL0003_setSelectedWorkKey;
+typedef void   SOMLINK somTP_ACBL0003_setTargetQueue(ACBL0003 *somSelf, Environment *ev,
+		string TargetQueue);
+typedef somTP_ACBL0003_setTargetQueue *somTD_ACBL0003_setTargetQueue;
+typedef void   SOMLINK somTP_ACBL0003_setUserid(ACBL0003 *somSelf, Environment *ev,
+		string Userid);
+typedef somTP_ACBL0003_setUserid *somTD_ACBL0003_setUserid;
+typedef void   SOMLINK somTP_ACBL0003_setWorkKey(ACBL0003 *somSelf, Environment *ev,
+		AWD_AWDOBJECTKEYSTRCT* pKey);
+typedef somTP_ACBL0003_setWorkKey *somTD_ACBL0003_setWorkKey;
+typedef void   SOMLINK somTP_ACBL0003_setWorkSelect(ACBL0003 *somSelf, Environment *ev,
+		ACBL0003_WORKSELECT WorkSelect);
+typedef somTP_ACBL0003_setWorkSelect *somTD_ACBL0003_setWorkSelect;
+typedef ACBL0003_CONTINUATIONKEY*   SOMLINK somTP_ACBL0003_queueContinuationKey(ACBL0003 *somSelf, Environment *ev,
+		ACBL0003_CONTINUATIONKEY* pIn);
+typedef somTP_ACBL0003_queueContinuationKey *somTD_ACBL0003_queueContinuationKey;
+typedef char   SOMLINK somTP_ACBL0003_viewCompleteFlag(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_viewCompleteFlag *somTD_ACBL0003_viewCompleteFlag;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef string   SOMLINK somTP_ACBL0003_app(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_app *somTD_ACBL0003_app;
+typedef void   SOMLINK somTP_ACBL0003_setApp(ACBL0003 *somSelf, Environment *ev,
+		string app);
+typedef somTP_ACBL0003_setApp *somTD_ACBL0003_setApp;
+typedef string   SOMLINK somTP_ACBL0003_targetApp(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_targetApp *somTD_ACBL0003_targetApp;
+typedef void   SOMLINK somTP_ACBL0003_setTargetApp(ACBL0003 *somSelf, Environment *ev,
+		string target);
+typedef somTP_ACBL0003_setTargetApp *somTD_ACBL0003_setTargetApp;
+typedef string   SOMLINK somTP_ACBL0003_name(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_name *somTD_ACBL0003_name;
+typedef void   SOMLINK somTP_ACBL0003_setName(ACBL0003 *somSelf, Environment *ev,
+		string aName);
+typedef somTP_ACBL0003_setName *somTD_ACBL0003_setName;
+typedef unsigned long   SOMLINK somTP_ACBL0003_size(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_size *somTD_ACBL0003_size;
+typedef void   SOMLINK somTP_ACBL0003_setSize(ACBL0003 *somSelf, Environment *ev,
+		unsigned long size);
+typedef somTP_ACBL0003_setSize *somTD_ACBL0003_setSize;
+typedef void*   SOMLINK somTP_ACBL0003_sendData(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_sendData *somTD_ACBL0003_sendData;
+typedef void   SOMLINK somTP_ACBL0003_setSendData(ACBL0003 *somSelf, Environment *ev,
+		void* data);
+typedef somTP_ACBL0003_setSendData *somTD_ACBL0003_setSendData;
+typedef AWDView_view_type   SOMLINK somTP_ACBL0003_mode(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_mode *somTD_ACBL0003_mode;
+typedef void   SOMLINK somTP_ACBL0003_setMode(ACBL0003 *somSelf, Environment *ev,
+		AWDView_view_type viewtype);
+typedef somTP_ACBL0003_setMode *somTD_ACBL0003_setMode;
+typedef unsigned long   SOMLINK somTP_ACBL0003_hwndNotify(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_hwndNotify *somTD_ACBL0003_hwndNotify;
+typedef void   SOMLINK somTP_ACBL0003_sethwndNotify(ACBL0003 *somSelf, Environment *ev,
+		unsigned long hwndNotify);
+typedef somTP_ACBL0003_sethwndNotify *somTD_ACBL0003_sethwndNotify;
+typedef unsigned long   SOMLINK somTP_ACBL0003_returnMsg(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_returnMsg *somTD_ACBL0003_returnMsg;
+typedef void   SOMLINK somTP_ACBL0003_setReturnMsg(ACBL0003 *somSelf, Environment *ev,
+		unsigned long msg);
+typedef somTP_ACBL0003_setReturnMsg *somTD_ACBL0003_setReturnMsg;
+typedef void*   SOMLINK somTP_ACBL0003_pfnCallBack(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_pfnCallBack *somTD_ACBL0003_pfnCallBack;
+typedef void   SOMLINK somTP_ACBL0003_setpfnCallBack(ACBL0003 *somSelf, Environment *ev,
+		void* pfnCallback);
+typedef somTP_ACBL0003_setpfnCallBack *somTD_ACBL0003_setpfnCallBack;
+typedef unsigned long   SOMLINK somTP_ACBL0003_timeOut(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_timeOut *somTD_ACBL0003_timeOut;
+typedef void   SOMLINK somTP_ACBL0003_setTimeOut(ACBL0003 *somSelf, Environment *ev,
+		unsigned long timeout);
+typedef somTP_ACBL0003_setTimeOut *somTD_ACBL0003_setTimeOut;
+typedef string   SOMLINK somTP_ACBL0003_host(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_host *somTD_ACBL0003_host;
+typedef void   SOMLINK somTP_ACBL0003_setHost(ACBL0003 *somSelf, Environment *ev,
+		string host);
+typedef somTP_ACBL0003_setHost *somTD_ACBL0003_setHost;
+typedef long   SOMLINK somTP_ACBL0003_queue(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_queue *somTD_ACBL0003_queue;
+typedef void   SOMLINK somTP_ACBL0003_setMessageQueue(ACBL0003 *somSelf, Environment *ev,
+		long que);
+typedef somTP_ACBL0003_setMessageQueue *somTD_ACBL0003_setMessageQueue;
+typedef void*   SOMLINK somTP_ACBL0003_receiveData(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_receiveData *somTD_ACBL0003_receiveData;
+typedef void   SOMLINK somTP_ACBL0003_setReceiveData(ACBL0003 *somSelf, Environment *ev,
+		void* pRData);
+typedef somTP_ACBL0003_setReceiveData *somTD_ACBL0003_setReceiveData;
+typedef unsigned long   SOMLINK somTP_ACBL0003_numRepeats(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_numRepeats *somTD_ACBL0003_numRepeats;
+typedef void   SOMLINK somTP_ACBL0003_setNumRepeats(ACBL0003 *somSelf, Environment *ev,
+		unsigned long repeats);
+typedef somTP_ACBL0003_setNumRepeats *somTD_ACBL0003_setNumRepeats;
+typedef unsigned long   SOMLINK somTP_ACBL0003_fixedLength(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_fixedLength *somTD_ACBL0003_fixedLength;
+typedef void   SOMLINK somTP_ACBL0003_setFixedLength(ACBL0003 *somSelf, Environment *ev,
+		unsigned long length);
+typedef somTP_ACBL0003_setFixedLength *somTD_ACBL0003_setFixedLength;
+typedef unsigned long   SOMLINK somTP_ACBL0003_repeatLength(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_repeatLength *somTD_ACBL0003_repeatLength;
+typedef void   SOMLINK somTP_ACBL0003_setRepeatLength(ACBL0003 *somSelf, Environment *ev,
+		unsigned long length);
+typedef somTP_ACBL0003_setRepeatLength *somTD_ACBL0003_setRepeatLength;
+typedef unsigned long   SOMLINK somTP_ACBL0003_currentIndex(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_currentIndex *somTD_ACBL0003_currentIndex;
+typedef void   SOMLINK somTP_ACBL0003_setCurrentIndex(ACBL0003 *somSelf, Environment *ev,
+		unsigned long index);
+typedef somTP_ACBL0003_setCurrentIndex *somTD_ACBL0003_setCurrentIndex;
+typedef void*   SOMLINK somTP_ACBL0003_lastView(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_lastView *somTD_ACBL0003_lastView;
+typedef void   SOMLINK somTP_ACBL0003_setLastView(ACBL0003 *somSelf, Environment *ev,
+		void* pRData);
+typedef somTP_ACBL0003_setLastView *somTD_ACBL0003_setLastView;
+typedef void*   SOMLINK somTP_ACBL0003_startData(ACBL0003 *somSelf, Environment *ev,
+		string app,
+		string targetapp,
+		string viewname,
+		void* senddata,
+		unsigned long size,
+		AWDView_view_type mode,
+		void* pfn,
+		unsigned long timeout,
+		unsigned long hwndnotify,
+		unsigned long returnmsg,
+		long queue,
+		string host);
+typedef somTP_ACBL0003_startData *somTD_ACBL0003_startData;
+typedef void*   SOMLINK somTP_ACBL0003_start(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_start *somTD_ACBL0003_start;
+typedef void*   SOMLINK somTP_ACBL0003_getRecord(ACBL0003 *somSelf, Environment *ev,
+		void* pv,
+		unsigned long userIndex,
+		AWDView_index_type indexvalue);
+typedef somTP_ACBL0003_getRecord *somTD_ACBL0003_getRecord;
+typedef boolean   SOMLINK somTP_ACBL0003_check(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_check *somTD_ACBL0003_check;
+typedef void   SOMLINK somTP_ACBL0003_checkForException(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_checkForException *somTD_ACBL0003_checkForException;
+typedef void   SOMLINK somTP_ACBL0003_setException(ACBL0003 *somSelf, Environment *ev,
+		unsigned short excType,
+		string pszFile,
+		unsigned short usLine,
+		string pszMessage,
+		unsigned short usReturnCd);
+typedef somTP_ACBL0003_setException *somTD_ACBL0003_setException;
+typedef void   SOMLINK somTP_ACBL0003_setViewMessage(ACBL0003 *somSelf, Environment *ev,
+		string pszMessage);
+typedef somTP_ACBL0003_setViewMessage *somTD_ACBL0003_setViewMessage;
+typedef string   SOMLINK somTP_ACBL0003_viewMessage(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_viewMessage *somTD_ACBL0003_viewMessage;
+typedef void*   SOMLINK somTP_ACBL0003_startString(ACBL0003 *somSelf, Environment *ev,
+		string pszSetupString);
+typedef somTP_ACBL0003_startString *somTD_ACBL0003_startString;
+typedef boolean   SOMLINK somTP_ACBL0003_scanArgString(ACBL0003 *somSelf, Environment *ev,
+		string pszSetupString,
+		string pszKey,
+		string pszValue,
+		unsigned long* pcbValue);
+typedef somTP_ACBL0003_scanArgString *somTD_ACBL0003_scanArgString;
+typedef boolean   SOMLINK somTP_ACBL0003_isComplete(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_isComplete *somTD_ACBL0003_isComplete;
+typedef void*   SOMLINK somTP_ACBL0003_restart(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_restart *somTD_ACBL0003_restart;
+typedef void*   SOMLINK somTP_ACBL0003_resolveIndex(ACBL0003 *somSelf, Environment *ev,
+		unsigned long* ulIndex);
+typedef somTP_ACBL0003_resolveIndex *somTD_ACBL0003_resolveIndex;
+typedef boolean   SOMLINK somTP_ACBL0003_addData(ACBL0003 *somSelf, Environment *ev,
+		void* pRcvData,
+		unsigned long ulNumberofRepeats);
+typedef somTP_ACBL0003_addData *somTD_ACBL0003_addData;
+typedef void*   SOMLINK somTP_ACBL0003_buffer(ACBL0003 *somSelf, Environment *ev,
+		AWDView_index_type index,
+		unsigned long theindex,
+		unsigned long* pulRepeats);
+typedef somTP_ACBL0003_buffer *somTD_ACBL0003_buffer;
+typedef unsigned long   SOMLINK somTP_ACBL0003_errCode(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_errCode *somTD_ACBL0003_errCode;
+typedef string   SOMLINK somTP_ACBL0003_errMsg(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_errMsg *somTD_ACBL0003_errMsg;
+typedef AWDConnection*   SOMLINK somTP_ACBL0003_setConnection(ACBL0003 *somSelf, Environment *ev,
+		AWDConnection* con);
+typedef somTP_ACBL0003_setConnection *somTD_ACBL0003_setConnection;
+typedef AWDConnection*   SOMLINK somTP_ACBL0003_localConnection(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_localConnection *somTD_ACBL0003_localConnection;
+typedef void   SOMLINK somTP_ACBL0003_setAutoRestart(ACBL0003 *somSelf, Environment *ev,
+		boolean flag);
+typedef somTP_ACBL0003_setAutoRestart *somTD_ACBL0003_setAutoRestart;
+typedef boolean   SOMLINK somTP_ACBL0003_isAutoRestart(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_isAutoRestart *somTD_ACBL0003_isAutoRestart;
+typedef void   SOMLINK somTP_ACBL0003_reset(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_reset *somTD_ACBL0003_reset;
+typedef boolean   SOMLINK somTP_ACBL0003_validateInput(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_validateInput *somTD_ACBL0003_validateInput;
+typedef void   SOMLINK somTP_ACBL0003_setPersistent(ACBL0003 *somSelf, Environment *ev,
+		boolean flag);
+typedef somTP_ACBL0003_setPersistent *somTD_ACBL0003_setPersistent;
+typedef boolean   SOMLINK somTP_ACBL0003_isPersistent(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_isPersistent *somTD_ACBL0003_isPersistent;
+typedef void   SOMLINK somTP_ACBL0003_setInProcess(ACBL0003 *somSelf, Environment *ev,
+		boolean flag);
+typedef somTP_ACBL0003_setInProcess *somTD_ACBL0003_setInProcess;
+typedef boolean   SOMLINK somTP_ACBL0003_isInProcess(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_isInProcess *somTD_ACBL0003_isInProcess;
+typedef void   SOMLINK somTP_ACBL0003_setPrimaryRc(ACBL0003 *somSelf, Environment *ev,
+		unsigned long rc);
+typedef somTP_ACBL0003_setPrimaryRc *somTD_ACBL0003_setPrimaryRc;
+typedef unsigned long   SOMLINK somTP_ACBL0003_primaryRc(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_primaryRc *somTD_ACBL0003_primaryRc;
+typedef void   SOMLINK somTP_ACBL0003_setSecondaryRc(ACBL0003 *somSelf, Environment *ev,
+		unsigned long rc);
+typedef somTP_ACBL0003_setSecondaryRc *somTD_ACBL0003_setSecondaryRc;
+typedef unsigned long   SOMLINK somTP_ACBL0003_secondaryRc(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_secondaryRc *somTD_ACBL0003_secondaryRc;
+typedef void   SOMLINK somTP_ACBL0003_somDefaultInit(ACBL0003 *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_ACBL0003_somDefaultInit *somTD_ACBL0003_somDefaultInit;
+typedef void   SOMLINK somTP_ACBL0003_somDestruct(ACBL0003 *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_ACBL0003_somDestruct *somTD_ACBL0003_somDestruct;
+typedef somf_MLinkable*   SOMLINK somTP_ACBL0003_somfMLinkableInit(ACBL0003 *somSelf, Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p);
+typedef somTP_ACBL0003_somfMLinkableInit *somTD_ACBL0003_somfMLinkableInit;
+typedef somf_MLinkable*   SOMLINK somTP_ACBL0003_somfGetNext(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_somfGetNext *somTD_ACBL0003_somfGetNext;
+typedef void   SOMLINK somTP_ACBL0003_somfSetNext(ACBL0003 *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_ACBL0003_somfSetNext *somTD_ACBL0003_somfSetNext;
+typedef somf_MLinkable*   SOMLINK somTP_ACBL0003_somfGetPrevious(ACBL0003 *somSelf, Environment *ev);
+typedef somTP_ACBL0003_somfGetPrevious *somTD_ACBL0003_somfGetPrevious;
+typedef void   SOMLINK somTP_ACBL0003_somfSetPrevious(ACBL0003 *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_ACBL0003_somfSetPrevious *somTD_ACBL0003_somfSetPrevious;
+typedef void   SOMLINK somTP_ACBL0003_somInit(ACBL0003 *somSelf);
+typedef somTP_ACBL0003_somInit *somTD_ACBL0003_somInit;
+typedef void   SOMLINK somTP_ACBL0003_somDefaultCopyInit(ACBL0003 *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003_somDefaultCopyInit *somTD_ACBL0003_somDefaultCopyInit;
+typedef ACBL0003*   SOMLINK somTP_ACBL0003_somDefaultAssign(ACBL0003 *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003_somDefaultAssign *somTD_ACBL0003_somDefaultAssign;
+typedef void   SOMLINK somTP_ACBL0003_somDefaultConstCopyInit(ACBL0003 *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003_somDefaultConstCopyInit *somTD_ACBL0003_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_ACBL0003_somDefaultVCopyInit(ACBL0003 *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003_somDefaultVCopyInit *somTD_ACBL0003_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_ACBL0003_somDefaultConstVCopyInit(ACBL0003 *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003_somDefaultConstVCopyInit *somTD_ACBL0003_somDefaultConstVCopyInit;
+typedef ACBL0003*   SOMLINK somTP_ACBL0003_somDefaultConstAssign(ACBL0003 *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003_somDefaultConstAssign *somTD_ACBL0003_somDefaultConstAssign;
+typedef ACBL0003*   SOMLINK somTP_ACBL0003_somDefaultVAssign(ACBL0003 *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003_somDefaultVAssign *somTD_ACBL0003_somDefaultVAssign;
+typedef ACBL0003*   SOMLINK somTP_ACBL0003_somDefaultConstVAssign(ACBL0003 *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003_somDefaultConstVAssign *somTD_ACBL0003_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_ACBL0003_somFree(ACBL0003 *somSelf);
+typedef somTP_ACBL0003_somFree *somTD_ACBL0003_somFree;
+typedef void   SOMLINK somTP_ACBL0003_somUninit(ACBL0003 *somSelf);
+typedef somTP_ACBL0003_somUninit *somTD_ACBL0003_somUninit;
+typedef SOMClass*   SOMLINK somTP_ACBL0003_somGetClass(ACBL0003 *somSelf);
+typedef somTP_ACBL0003_somGetClass *somTD_ACBL0003_somGetClass;
+typedef string   SOMLINK somTP_ACBL0003_somGetClassName(ACBL0003 *somSelf);
+typedef somTP_ACBL0003_somGetClassName *somTD_ACBL0003_somGetClassName;
+typedef long   SOMLINK somTP_ACBL0003_somGetSize(ACBL0003 *somSelf);
+typedef somTP_ACBL0003_somGetSize *somTD_ACBL0003_somGetSize;
+typedef boolean   SOMLINK somTP_ACBL0003_somIsA(ACBL0003 *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_ACBL0003_somIsA *somTD_ACBL0003_somIsA;
+typedef boolean   SOMLINK somTP_ACBL0003_somIsInstanceOf(ACBL0003 *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_ACBL0003_somIsInstanceOf *somTD_ACBL0003_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_ACBL0003_somRespondsTo(ACBL0003 *somSelf,
+		somId mId);
+typedef somTP_ACBL0003_somRespondsTo *somTD_ACBL0003_somRespondsTo;
+typedef boolean   SOMLINK somTP_ACBL0003_somDispatch(ACBL0003 *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_ACBL0003_somDispatch *somTD_ACBL0003_somDispatch;
+typedef boolean   SOMLINK somTP_ACBL0003_somClassDispatch(ACBL0003 *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_ACBL0003_somClassDispatch *somTD_ACBL0003_somClassDispatch;
+typedef boolean   SOMLINK somTP_ACBL0003_somCastObj(ACBL0003 *somSelf,
+		SOMClass* cls);
+typedef somTP_ACBL0003_somCastObj *somTD_ACBL0003_somCastObj;
+typedef boolean   SOMLINK somTP_ACBL0003_somResetObj(ACBL0003 *somSelf);
+typedef somTP_ACBL0003_somResetObj *somTD_ACBL0003_somResetObj;
+typedef SOMObject*   SOMLINK somTP_ACBL0003_somPrintSelf(ACBL0003 *somSelf);
+typedef somTP_ACBL0003_somPrintSelf *somTD_ACBL0003_somPrintSelf;
+typedef void   SOMLINK somTP_ACBL0003_somDumpSelf(ACBL0003 *somSelf,
+		long level);
+typedef somTP_ACBL0003_somDumpSelf *somTD_ACBL0003_somDumpSelf;
+typedef void   SOMLINK somTP_ACBL0003_somDumpSelfInt(ACBL0003 *somSelf,
+		long level);
+typedef somTP_ACBL0003_somDumpSelfInt *somTD_ACBL0003_somDumpSelfInt;
+}
+
+#endif /* ACBL0003_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for ACBL0003
+ */
+class ACBL0003 : public AWDView
+{
+public:
+
+// ACBL0003::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_ACBL0003) ACBL0003NewClass(ACBL0003_MajorVersion,ACBL0003_MinorVersion);
+   return (void*)
+      SOM_Resolve(_ACBL0003,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_ACBL0003));
+}
+
+// ACBL0003::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+ACBL0003()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (ACBL0003CClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+ACBL0003(ACBL0003* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (ACBL0003CClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+ACBL0003(const ACBL0003* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (ACBL0003CClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+
+/* method: setAction */
+void   setAction(Environment *ev,
+		ACBL0003_ACTION Action)
+{
+   SOM_ResolveD(this,ACBL0003,ACBL0003,setAction)
+	(this, ev,Action);
+}
+
+
+/* method: setCaseKey */
+void   setCaseKey(Environment *ev,
+		AWD_AWDOBJECTKEYSTRCT* pKey)
+{
+   SOM_ResolveD(this,ACBL0003,ACBL0003,setCaseKey)
+	(this, ev,pKey);
+}
+
+
+/* method: setContinuationFlag */
+void   setContinuationFlag(Environment *ev,
+		boolean fContinue)
+{
+   SOM_ResolveD(this,ACBL0003,ACBL0003,setContinuationFlag)
+	(this, ev,fContinue);
+}
+
+
+/* method: setContinuationKey */
+void   setContinuationKey(Environment *ev,
+		ACBL0003_CONTINUATIONKEY* pContinuationKey)
+{
+   SOM_ResolveD(this,ACBL0003,ACBL0003,setContinuationKey)
+	(this, ev,pContinuationKey);
+}
+
+
+/* method: setLockFlag */
+void   setLockFlag(Environment *ev,
+		char LockFlag)
+{
+   SOM_ResolveD(this,ACBL0003,ACBL0003,setLockFlag)
+	(this, ev,LockFlag);
+}
+
+
+/* method: setSourceKey */
+void   setSourceKey(Environment *ev,
+		AWD_AWDOBJECTKEYSTRCT* pKey)
+{
+   SOM_ResolveD(this,ACBL0003,ACBL0003,setSourceKey)
+	(this, ev,pKey);
+}
+
+
+/* method: setSelectedWorkKey */
+void   setSelectedWorkKey(Environment *ev,
+		AWD_AWDOBJECTKEYSTRCT* pKey)
+{
+   SOM_ResolveD(this,ACBL0003,ACBL0003,setSelectedWorkKey)
+	(this, ev,pKey);
+}
+
+
+/* method: setTargetQueue */
+void   setTargetQueue(Environment *ev,
+		string TargetQueue)
+{
+   SOM_ResolveD(this,ACBL0003,ACBL0003,setTargetQueue)
+	(this, ev,TargetQueue);
+}
+
+
+/* method: setUserid */
+void   setUserid(Environment *ev,
+		string Userid)
+{
+   SOM_ResolveD(this,ACBL0003,ACBL0003,setUserid)
+	(this, ev,Userid);
+}
+
+
+/* method: setWorkKey */
+void   setWorkKey(Environment *ev,
+		AWD_AWDOBJECTKEYSTRCT* pKey)
+{
+   SOM_ResolveD(this,ACBL0003,ACBL0003,setWorkKey)
+	(this, ev,pKey);
+}
+
+
+/* method: setWorkSelect */
+void   setWorkSelect(Environment *ev,
+		ACBL0003_WORKSELECT WorkSelect)
+{
+   SOM_ResolveD(this,ACBL0003,ACBL0003,setWorkSelect)
+	(this, ev,WorkSelect);
+}
+
+
+/* method: queueContinuationKey */
+ACBL0003_CONTINUATIONKEY*   queueContinuationKey(Environment *ev,
+		ACBL0003_CONTINUATIONKEY* pIn)
+{
+   return SOM_ResolveD(this,ACBL0003,ACBL0003,queueContinuationKey)
+	(this, ev,pIn);
+}
+
+
+/* method: viewCompleteFlag */
+char   viewCompleteFlag(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,ACBL0003,viewCompleteFlag)
+	(this, ev);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* method: app */
+string   app(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,app)
+	(this, ev);
+}
+
+
+/* method: setApp */
+void   setApp(Environment *ev,
+		string app)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setApp)
+	(this, ev,app);
+}
+
+
+/* method: targetApp */
+string   targetApp(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,targetApp)
+	(this, ev);
+}
+
+
+/* method: setTargetApp */
+void   setTargetApp(Environment *ev,
+		string target)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setTargetApp)
+	(this, ev,target);
+}
+
+
+/* method: name */
+string   name(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,name)
+	(this, ev);
+}
+
+
+/* method: setName */
+void   setName(Environment *ev,
+		string aName)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setName)
+	(this, ev,aName);
+}
+
+
+/* method: size */
+unsigned long   size(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,size)
+	(this, ev);
+}
+
+
+/* method: setSize */
+void   setSize(Environment *ev,
+		unsigned long size)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setSize)
+	(this, ev,size);
+}
+
+
+/* method: sendData */
+void*   sendData(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,sendData)
+	(this, ev);
+}
+
+
+/* method: setSendData */
+void   setSendData(Environment *ev,
+		void* data)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setSendData)
+	(this, ev,data);
+}
+
+
+/* method: mode */
+AWDView_view_type   mode(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,mode)
+	(this, ev);
+}
+
+
+/* method: setMode */
+void   setMode(Environment *ev,
+		AWDView_view_type viewtype)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setMode)
+	(this, ev,viewtype);
+}
+
+
+/* method: hwndNotify */
+unsigned long   hwndNotify(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,hwndNotify)
+	(this, ev);
+}
+
+
+/* method: sethwndNotify */
+void   sethwndNotify(Environment *ev,
+		unsigned long hwndNotify)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,sethwndNotify)
+	(this, ev,hwndNotify);
+}
+
+
+/* method: returnMsg */
+unsigned long   returnMsg(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,returnMsg)
+	(this, ev);
+}
+
+
+/* method: setReturnMsg */
+void   setReturnMsg(Environment *ev,
+		unsigned long msg)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setReturnMsg)
+	(this, ev,msg);
+}
+
+
+/* method: pfnCallBack */
+void*   pfnCallBack(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,pfnCallBack)
+	(this, ev);
+}
+
+
+/* method: setpfnCallBack */
+void   setpfnCallBack(Environment *ev,
+		void* pfnCallback)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setpfnCallBack)
+	(this, ev,pfnCallback);
+}
+
+
+/* method: timeOut */
+unsigned long   timeOut(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,timeOut)
+	(this, ev);
+}
+
+
+/* method: setTimeOut */
+void   setTimeOut(Environment *ev,
+		unsigned long timeout)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setTimeOut)
+	(this, ev,timeout);
+}
+
+
+/* method: host */
+string   host(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,host)
+	(this, ev);
+}
+
+
+/* method: setHost */
+void   setHost(Environment *ev,
+		string host)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setHost)
+	(this, ev,host);
+}
+
+
+/* method: queue */
+long   queue(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,queue)
+	(this, ev);
+}
+
+
+/* method: setMessageQueue */
+void   setMessageQueue(Environment *ev,
+		long que)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setMessageQueue)
+	(this, ev,que);
+}
+
+
+/* method: receiveData */
+void*   receiveData(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,receiveData)
+	(this, ev);
+}
+
+
+/* method: setReceiveData */
+void   setReceiveData(Environment *ev,
+		void* pRData)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setReceiveData)
+	(this, ev,pRData);
+}
+
+
+/* method: numRepeats */
+unsigned long   numRepeats(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,numRepeats)
+	(this, ev);
+}
+
+
+/* method: setNumRepeats */
+void   setNumRepeats(Environment *ev,
+		unsigned long repeats)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setNumRepeats)
+	(this, ev,repeats);
+}
+
+
+/* method: fixedLength */
+unsigned long   fixedLength(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,fixedLength)
+	(this, ev);
+}
+
+
+/* method: setFixedLength */
+void   setFixedLength(Environment *ev,
+		unsigned long length)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setFixedLength)
+	(this, ev,length);
+}
+
+
+/* method: repeatLength */
+unsigned long   repeatLength(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,repeatLength)
+	(this, ev);
+}
+
+
+/* method: setRepeatLength */
+void   setRepeatLength(Environment *ev,
+		unsigned long length)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setRepeatLength)
+	(this, ev,length);
+}
+
+
+/* method: currentIndex */
+unsigned long   currentIndex(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,currentIndex)
+	(this, ev);
+}
+
+
+/* method: setCurrentIndex */
+void   setCurrentIndex(Environment *ev,
+		unsigned long index)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setCurrentIndex)
+	(this, ev,index);
+}
+
+
+/* method: lastView */
+void*   lastView(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,lastView)
+	(this, ev);
+}
+
+
+/* method: setLastView */
+void   setLastView(Environment *ev,
+		void* pRData)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setLastView)
+	(this, ev,pRData);
+}
+
+
+/* method: startData */
+void*   startData(Environment *ev,
+		string app,
+		string targetapp,
+		string viewname,
+		void* senddata,
+		unsigned long size,
+		AWDView_view_type mode,
+		void* pfn,
+		unsigned long timeout,
+		unsigned long hwndnotify,
+		unsigned long returnmsg,
+		long queue,
+		string host)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,startData)
+	(this, ev,app,targetapp,viewname,senddata,size,mode,pfn,timeout,hwndnotify,returnmsg,queue,host);
+}
+
+
+/* method: start */
+void*   start(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,start)
+	(this, ev);
+}
+
+
+/* method: getRecord */
+void*   getRecord(Environment *ev,
+		void* pv,
+		unsigned long userIndex,
+		AWDView_index_type indexvalue)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,getRecord)
+	(this, ev,pv,userIndex,indexvalue);
+}
+
+
+/* method: check */
+boolean   check(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,check)
+	(this, ev);
+}
+
+
+/* method: checkForException */
+void   checkForException(Environment *ev)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,checkForException)
+	(this, ev);
+}
+
+
+/* method: setException */
+void   setException(Environment *ev,
+		unsigned short excType,
+		string pszFile,
+		unsigned short usLine,
+		string pszMessage,
+		unsigned short usReturnCd)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setException)
+	(this, ev,excType,pszFile,usLine,pszMessage,usReturnCd);
+}
+
+
+/* method: setViewMessage */
+void   setViewMessage(Environment *ev,
+		string pszMessage)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setViewMessage)
+	(this, ev,pszMessage);
+}
+
+
+/* method: viewMessage */
+string   viewMessage(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,viewMessage)
+	(this, ev);
+}
+
+
+/* method: startString */
+void*   startString(Environment *ev,
+		string pszSetupString)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,startString)
+	(this, ev,pszSetupString);
+}
+
+
+/* method: scanArgString */
+boolean   scanArgString(Environment *ev,
+		string pszSetupString,
+		string pszKey,
+		string pszValue,
+		unsigned long* pcbValue)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,scanArgString)
+	(this, ev,pszSetupString,pszKey,pszValue,pcbValue);
+}
+
+
+/* method: isComplete */
+boolean   isComplete(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,isComplete)
+	(this, ev);
+}
+
+
+/* method: restart */
+void*   restart(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,restart)
+	(this, ev);
+}
+
+
+/* method: resolveIndex */
+void*   resolveIndex(Environment *ev,
+		unsigned long* ulIndex)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,resolveIndex)
+	(this, ev,ulIndex);
+}
+
+
+/* method: addData */
+boolean   addData(Environment *ev,
+		void* pRcvData,
+		unsigned long ulNumberofRepeats)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,addData)
+	(this, ev,pRcvData,ulNumberofRepeats);
+}
+
+
+/* method: buffer */
+void*   buffer(Environment *ev,
+		AWDView_index_type index,
+		unsigned long theindex,
+		unsigned long* pulRepeats)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,buffer)
+	(this, ev,index,theindex,pulRepeats);
+}
+
+
+/* method: errCode */
+unsigned long   errCode(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,errCode)
+	(this, ev);
+}
+
+
+/* method: errMsg */
+string   errMsg(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,errMsg)
+	(this, ev);
+}
+
+
+/* method: setConnection */
+AWDConnection*   setConnection(Environment *ev,
+		AWDConnection* con)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,setConnection)
+	(this, ev,con);
+}
+
+
+/* method: localConnection */
+AWDConnection*   localConnection(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,localConnection)
+	(this, ev);
+}
+
+
+/* method: setAutoRestart */
+void   setAutoRestart(Environment *ev,
+		boolean flag)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setAutoRestart)
+	(this, ev,flag);
+}
+
+
+/* method: isAutoRestart */
+boolean   isAutoRestart(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,isAutoRestart)
+	(this, ev);
+}
+
+
+/* method: reset */
+void   reset(Environment *ev)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,reset)
+	(this, ev);
+}
+
+
+/* method: validateInput */
+boolean   validateInput(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,validateInput)
+	(this, ev);
+}
+
+
+/* method: setPersistent */
+void   setPersistent(Environment *ev,
+		boolean flag)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setPersistent)
+	(this, ev,flag);
+}
+
+
+/* method: isPersistent */
+boolean   isPersistent(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,isPersistent)
+	(this, ev);
+}
+
+
+/* method: setInProcess */
+void   setInProcess(Environment *ev,
+		boolean flag)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setInProcess)
+	(this, ev,flag);
+}
+
+
+/* method: isInProcess */
+boolean   isInProcess(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,isInProcess)
+	(this, ev);
+}
+
+
+/* method: setPrimaryRc */
+void   setPrimaryRc(Environment *ev,
+		unsigned long rc)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setPrimaryRc)
+	(this, ev,rc);
+}
+
+
+/* method: primaryRc */
+unsigned long   primaryRc(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,primaryRc)
+	(this, ev);
+}
+
+
+/* method: setSecondaryRc */
+void   setSecondaryRc(Environment *ev,
+		unsigned long rc)
+{
+   SOM_ResolveD(this,ACBL0003,AWDView,setSecondaryRc)
+	(this, ev,rc);
+}
+
+
+/* method: secondaryRc */
+unsigned long   secondaryRc(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,AWDView,secondaryRc)
+	(this, ev);
+}
+
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,ACBL0003,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,ACBL0003,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* method: somfMLinkableInit */
+somf_MLinkable*   somfMLinkableInit(Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p)
+{
+   return SOM_ResolveD(this,ACBL0003,somf_MLinkable,somfMLinkableInit)
+	(this, ev,n,p);
+}
+
+
+/* method: somfGetNext */
+somf_MLinkable*   somfGetNext(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,somf_MLinkable,somfGetNext)
+	(this, ev);
+}
+
+
+/* method: somfSetNext */
+void   somfSetNext(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,ACBL0003,somf_MLinkable,somfSetNext)
+	(this, ev,aLink);
+}
+
+
+/* method: somfGetPrevious */
+somf_MLinkable*   somfGetPrevious(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003,somf_MLinkable,somfGetPrevious)
+	(this, ev);
+}
+
+
+/* method: somfSetPrevious */
+void   somfSetPrevious(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,ACBL0003,somf_MLinkable,somfSetPrevious)
+	(this, ev,aLink);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,ACBL0003,SOMObject,somInit)
+	(this);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,ACBL0003,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+ACBL0003*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,ACBL0003,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,ACBL0003,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,ACBL0003,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,ACBL0003,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+ACBL0003*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,ACBL0003,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+ACBL0003*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,ACBL0003,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+ACBL0003*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,ACBL0003,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,ACBL0003,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,ACBL0003,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,ACBL0003,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,ACBL0003,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,ACBL0003,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,ACBL0003,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,ACBL0003,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,ACBL0003,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   ACBL0003_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,ACBL0003,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,ACBL0003,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   ACBL0003_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,ACBL0003,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,ACBL0003,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,ACBL0003,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,ACBL0003,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,ACBL0003,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,ACBL0003,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,ACBL0003,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* ACBL0003 */
+
+
+
+#endif       /* SOM_ACBL0003_xh */
+
+#ifndef SOM_ACBL0003Record_xh
+#define SOM_ACBL0003Record_xh
+
+class ACBL0003Record;
+
+#define ACBL0003Record_MajorVersion 0
+#define ACBL0003Record_MinorVersion 0
+
+/*
+ * Passthru lines: File: "C.xh", "before"
+ */
+#include "structs.xh"
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_RECORD_xh
+#include <view.xh>
+#endif
+
+#ifndef ACBL0003Record_API
+#define ACBL0003Record_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the ACBL0003Record Class */
+SOMEXTERN
+#if (defined(SOM_Module_acbl0003_Source) || defined(ACBL0003Record_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_ACBL0003Record))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK ACBL0003RecordNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the ACBL0003Record class object, and the methods it introduces. */
+SOMEXTERN struct ACBL0003RecordClassDataStructure {
+	SOMClass *classObject;
+	somMToken awdObject;
+	somMToken setInfo;
+	somMToken withNonFormattedBuffer;
+}
+#if !(defined(SOM_Module_acbl0003_Source) || defined(ACBL0003Record_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_ACBL0003Record))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK ACBL0003RecordClassData;
+#define _ACBL0003Record ACBL0003RecordClassData.classObject
+
+/* The API to parentMtabs for ACBL0003Record, and the instance data it introduces. */
+SOMEXTERN struct ACBL0003RecordCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_acbl0003_Source) || defined(ACBL0003Record_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_ACBL0003Record))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK ACBL0003RecordCClassData;
+
+/*
+ * -- Typedefs for ACBL0003Record Method Procedures
+ */
+extern "C" {
+typedef AWD_AWDOBJECTSTRCT*   SOMLINK somTP_ACBL0003Record_awdObject(ACBL0003Record *somSelf, Environment *ev,
+		AWD_AWDOBJECTSTRCT* pIn);
+typedef somTP_ACBL0003Record_awdObject *somTD_ACBL0003Record_awdObject;
+typedef void   SOMLINK somTP_ACBL0003Record_setInfo(ACBL0003Record *somSelf, Environment *ev,
+		AWD_AWDOBJECTSTRCT* pBuffer);
+typedef somTP_ACBL0003Record_setInfo *somTD_ACBL0003Record_setInfo;
+typedef void   SOMLINK somTP_ACBL0003Record_withNonFormattedBuffer(ACBL0003Record *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_AWDOBJECTSTRCT* pBuffer);
+typedef somTP_ACBL0003Record_withNonFormattedBuffer *somTD_ACBL0003Record_withNonFormattedBuffer;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef void*   SOMLINK somTP_ACBL0003Record_buffer(ACBL0003Record *somSelf, Environment *ev);
+typedef somTP_ACBL0003Record_buffer *somTD_ACBL0003Record_buffer;
+typedef void   SOMLINK somTP_ACBL0003Record_setBuffer(ACBL0003Record *somSelf, Environment *ev,
+		void* pv);
+typedef somTP_ACBL0003Record_setBuffer *somTD_ACBL0003Record_setBuffer;
+typedef void   SOMLINK somTP_ACBL0003Record_somDefaultInit(ACBL0003Record *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_ACBL0003Record_somDefaultInit *somTD_ACBL0003Record_somDefaultInit;
+typedef void   SOMLINK somTP_ACBL0003Record_somDestruct(ACBL0003Record *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_ACBL0003Record_somDestruct *somTD_ACBL0003Record_somDestruct;
+typedef somf_MLinkable*   SOMLINK somTP_ACBL0003Record_somfMLinkableInit(ACBL0003Record *somSelf, Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p);
+typedef somTP_ACBL0003Record_somfMLinkableInit *somTD_ACBL0003Record_somfMLinkableInit;
+typedef somf_MLinkable*   SOMLINK somTP_ACBL0003Record_somfGetNext(ACBL0003Record *somSelf, Environment *ev);
+typedef somTP_ACBL0003Record_somfGetNext *somTD_ACBL0003Record_somfGetNext;
+typedef void   SOMLINK somTP_ACBL0003Record_somfSetNext(ACBL0003Record *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_ACBL0003Record_somfSetNext *somTD_ACBL0003Record_somfSetNext;
+typedef somf_MLinkable*   SOMLINK somTP_ACBL0003Record_somfGetPrevious(ACBL0003Record *somSelf, Environment *ev);
+typedef somTP_ACBL0003Record_somfGetPrevious *somTD_ACBL0003Record_somfGetPrevious;
+typedef void   SOMLINK somTP_ACBL0003Record_somfSetPrevious(ACBL0003Record *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_ACBL0003Record_somfSetPrevious *somTD_ACBL0003Record_somfSetPrevious;
+typedef void   SOMLINK somTP_ACBL0003Record_somInit(ACBL0003Record *somSelf);
+typedef somTP_ACBL0003Record_somInit *somTD_ACBL0003Record_somInit;
+typedef void   SOMLINK somTP_ACBL0003Record_somDefaultCopyInit(ACBL0003Record *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003Record_somDefaultCopyInit *somTD_ACBL0003Record_somDefaultCopyInit;
+typedef ACBL0003Record*   SOMLINK somTP_ACBL0003Record_somDefaultAssign(ACBL0003Record *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003Record_somDefaultAssign *somTD_ACBL0003Record_somDefaultAssign;
+typedef void   SOMLINK somTP_ACBL0003Record_somDefaultConstCopyInit(ACBL0003Record *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003Record_somDefaultConstCopyInit *somTD_ACBL0003Record_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_ACBL0003Record_somDefaultVCopyInit(ACBL0003Record *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003Record_somDefaultVCopyInit *somTD_ACBL0003Record_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_ACBL0003Record_somDefaultConstVCopyInit(ACBL0003Record *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003Record_somDefaultConstVCopyInit *somTD_ACBL0003Record_somDefaultConstVCopyInit;
+typedef ACBL0003Record*   SOMLINK somTP_ACBL0003Record_somDefaultConstAssign(ACBL0003Record *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003Record_somDefaultConstAssign *somTD_ACBL0003Record_somDefaultConstAssign;
+typedef ACBL0003Record*   SOMLINK somTP_ACBL0003Record_somDefaultVAssign(ACBL0003Record *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003Record_somDefaultVAssign *somTD_ACBL0003Record_somDefaultVAssign;
+typedef ACBL0003Record*   SOMLINK somTP_ACBL0003Record_somDefaultConstVAssign(ACBL0003Record *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_ACBL0003Record_somDefaultConstVAssign *somTD_ACBL0003Record_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_ACBL0003Record_somFree(ACBL0003Record *somSelf);
+typedef somTP_ACBL0003Record_somFree *somTD_ACBL0003Record_somFree;
+typedef void   SOMLINK somTP_ACBL0003Record_somUninit(ACBL0003Record *somSelf);
+typedef somTP_ACBL0003Record_somUninit *somTD_ACBL0003Record_somUninit;
+typedef SOMClass*   SOMLINK somTP_ACBL0003Record_somGetClass(ACBL0003Record *somSelf);
+typedef somTP_ACBL0003Record_somGetClass *somTD_ACBL0003Record_somGetClass;
+typedef string   SOMLINK somTP_ACBL0003Record_somGetClassName(ACBL0003Record *somSelf);
+typedef somTP_ACBL0003Record_somGetClassName *somTD_ACBL0003Record_somGetClassName;
+typedef long   SOMLINK somTP_ACBL0003Record_somGetSize(ACBL0003Record *somSelf);
+typedef somTP_ACBL0003Record_somGetSize *somTD_ACBL0003Record_somGetSize;
+typedef boolean   SOMLINK somTP_ACBL0003Record_somIsA(ACBL0003Record *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_ACBL0003Record_somIsA *somTD_ACBL0003Record_somIsA;
+typedef boolean   SOMLINK somTP_ACBL0003Record_somIsInstanceOf(ACBL0003Record *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_ACBL0003Record_somIsInstanceOf *somTD_ACBL0003Record_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_ACBL0003Record_somRespondsTo(ACBL0003Record *somSelf,
+		somId mId);
+typedef somTP_ACBL0003Record_somRespondsTo *somTD_ACBL0003Record_somRespondsTo;
+typedef boolean   SOMLINK somTP_ACBL0003Record_somDispatch(ACBL0003Record *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_ACBL0003Record_somDispatch *somTD_ACBL0003Record_somDispatch;
+typedef boolean   SOMLINK somTP_ACBL0003Record_somClassDispatch(ACBL0003Record *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_ACBL0003Record_somClassDispatch *somTD_ACBL0003Record_somClassDispatch;
+typedef boolean   SOMLINK somTP_ACBL0003Record_somCastObj(ACBL0003Record *somSelf,
+		SOMClass* cls);
+typedef somTP_ACBL0003Record_somCastObj *somTD_ACBL0003Record_somCastObj;
+typedef boolean   SOMLINK somTP_ACBL0003Record_somResetObj(ACBL0003Record *somSelf);
+typedef somTP_ACBL0003Record_somResetObj *somTD_ACBL0003Record_somResetObj;
+typedef SOMObject*   SOMLINK somTP_ACBL0003Record_somPrintSelf(ACBL0003Record *somSelf);
+typedef somTP_ACBL0003Record_somPrintSelf *somTD_ACBL0003Record_somPrintSelf;
+typedef void   SOMLINK somTP_ACBL0003Record_somDumpSelf(ACBL0003Record *somSelf,
+		long level);
+typedef somTP_ACBL0003Record_somDumpSelf *somTD_ACBL0003Record_somDumpSelf;
+typedef void   SOMLINK somTP_ACBL0003Record_somDumpSelfInt(ACBL0003Record *somSelf,
+		long level);
+typedef somTP_ACBL0003Record_somDumpSelfInt *somTD_ACBL0003Record_somDumpSelfInt;
+}
+
+#endif /* ACBL0003Record_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for ACBL0003Record
+ */
+class ACBL0003Record : public RECORD
+{
+public:
+
+// ACBL0003Record::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_ACBL0003Record) ACBL0003RecordNewClass(ACBL0003Record_MajorVersion,ACBL0003Record_MinorVersion);
+   return (void*)
+      SOM_Resolve(_ACBL0003Record,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_ACBL0003Record));
+}
+
+// ACBL0003Record::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+ACBL0003Record()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (ACBL0003RecordCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+ACBL0003Record(ACBL0003Record* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (ACBL0003RecordCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+ACBL0003Record(const ACBL0003Record* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (ACBL0003RecordCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+ACBL0003Record(Environment *ev,AWD_AWDOBJECTSTRCT* pBuffer) 
+{
+   withNonFormattedBuffer(ev,0,pBuffer);
+}
+
+
+/* method: awdObject */
+AWD_AWDOBJECTSTRCT*   awdObject(Environment *ev,
+		AWD_AWDOBJECTSTRCT* pIn)
+{
+   return SOM_ResolveD(this,ACBL0003Record,ACBL0003Record,awdObject)
+	(this, ev,pIn);
+}
+
+
+/* method: setInfo */
+void   setInfo(Environment *ev,
+		AWD_AWDOBJECTSTRCT* pBuffer)
+{
+   SOM_ResolveD(this,ACBL0003Record,ACBL0003Record,setInfo)
+	(this, ev,pBuffer);
+}
+
+
+/* initializer method: withNonFormattedBuffer */
+void   withNonFormattedBuffer(Environment *ev,
+		somInitCtrl* ctrl,
+		AWD_AWDOBJECTSTRCT* pBuffer)
+{
+   SOM_ResolveD(this,ACBL0003Record,ACBL0003Record,withNonFormattedBuffer)
+	(this, ev,ctrl,pBuffer);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* method: buffer */
+void*   buffer(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003Record,RECORD,buffer)
+	(this, ev);
+}
+
+
+/* method: setBuffer */
+void   setBuffer(Environment *ev,
+		void* pv)
+{
+   SOM_ResolveD(this,ACBL0003Record,RECORD,setBuffer)
+	(this, ev,pv);
+}
+
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,ACBL0003Record,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,ACBL0003Record,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* method: somfMLinkableInit */
+somf_MLinkable*   somfMLinkableInit(Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p)
+{
+   return SOM_ResolveD(this,ACBL0003Record,somf_MLinkable,somfMLinkableInit)
+	(this, ev,n,p);
+}
+
+
+/* method: somfGetNext */
+somf_MLinkable*   somfGetNext(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003Record,somf_MLinkable,somfGetNext)
+	(this, ev);
+}
+
+
+/* method: somfSetNext */
+void   somfSetNext(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,ACBL0003Record,somf_MLinkable,somfSetNext)
+	(this, ev,aLink);
+}
+
+
+/* method: somfGetPrevious */
+somf_MLinkable*   somfGetPrevious(Environment *ev)
+{
+   return SOM_ResolveD(this,ACBL0003Record,somf_MLinkable,somfGetPrevious)
+	(this, ev);
+}
+
+
+/* method: somfSetPrevious */
+void   somfSetPrevious(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,ACBL0003Record,somf_MLinkable,somfSetPrevious)
+	(this, ev,aLink);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,ACBL0003Record,SOMObject,somInit)
+	(this);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,ACBL0003Record,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+ACBL0003Record*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,ACBL0003Record,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,ACBL0003Record,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,ACBL0003Record,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,ACBL0003Record,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+ACBL0003Record*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,ACBL0003Record,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+ACBL0003Record*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,ACBL0003Record,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+ACBL0003Record*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,ACBL0003Record,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,ACBL0003Record,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,ACBL0003Record,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,ACBL0003Record,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,ACBL0003Record,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,ACBL0003Record,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,ACBL0003Record,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,ACBL0003Record,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,ACBL0003Record,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   ACBL0003Record_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,ACBL0003Record,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,ACBL0003Record,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   ACBL0003Record_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,ACBL0003Record,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,ACBL0003Record,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,ACBL0003Record,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,ACBL0003Record,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,ACBL0003Record,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,ACBL0003Record,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,ACBL0003Record,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* ACBL0003Record */
+
+
+
+#endif       /* SOM_ACBL0003Record_xh */

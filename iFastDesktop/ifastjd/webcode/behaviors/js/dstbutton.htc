@@ -1,0 +1,123 @@
+<!-- ---------------------------------------------------------------------
+//
+//  FILE        : dstbutton.htc
+//
+//  DESCRIPTION :
+//
+//  PROPERTIES  :
+//
+//
+//  METHODS     :
+//
+//   disable - disables or enables the control
+//	 
+//
+//  COPYRIGHT   :
+//
+//   The computer systems, procedures, data bases and programs
+//   created and maintained by DST Systems, Inc., are proprietary
+//   in nature and as such are confidential.  Any unauthorized
+//   use or disclosure of such information may result in civil
+//   liabilities.
+//
+//   Copyright© 2004 by DST Systems, Inc.
+//   All rights reserved.
+//
+//-------------------------------------------------------------------- -->
+
+<PUBLIC:PROPERTY name="escape" value="false"/>
+
+<PUBLIC:METHOD name="disable"/>
+
+<public:event name="onerror" ID=errorID />
+
+<public:attach event="ondetach" onevent="cleanup()"/>
+<public:attach event="oncontentready" onevent="init();"/>
+
+<script language="javascript">
+
+function init()
+{
+/*
+	if(element.tagName.toLowerCase()!='button')
+	{
+		ReturnError("3000","Error: DSTButton not attached to a button element");
+	}
+
+	element.attachEvent('onmouseover',onMouseOver);
+	element.attachEvent('onmouseout',onMouseOut);
+
+	element.style.height="24px";
+	element.style.fontSize="12px";
+	element.disable(element.disabled);
+	*/
+}
+
+function cleanup()
+{
+	//element.detachEvent('onmouseover',onMouseOver);
+	//element.detachEvent('onmouseout',onMouseOut);
+}
+
+function onMouseOver(e)
+{
+	//changeColor(element,"rgb(197,197,197)");
+}
+
+
+function onMouseOut(e)
+{
+	//changeColor(element,"rgb(220,220,220)");
+}
+
+function changeColor(obj,color)
+{
+	if (null==obj)
+	{
+		return;
+	}
+	obj.runtimeStyle.backgroundColor=color;
+	changeColor(obj.childElement,color);
+}
+
+function disable(disabled)
+{
+/*
+	element.disabled=isTrue(disabled);
+	if(isTrue(disabled))
+	{
+		changeColor(element,"rgb(245,245,245)");
+		element.style.border="1px solid rgb(172,168,153)";
+		element.style.color="rgb(81,81,81)";
+		element.document.detachEvent("onkeypress",onKeyPress);
+	}
+	else
+	{
+		changeColor(element,"rgb(220,220,220)");
+		element.style.border="1px solid black";
+		element.style.color="black";
+		if(isTrue(escape)) element.document.attachEvent("onkeypress",onKeyPress);
+	}
+	*/
+}
+
+function onKeyPress(e)
+{
+	if(e.keyCode==27) element.click();
+}
+
+function isTrue(vValue)
+{
+	
+	var temp=vValue.toString().toLowerCase();
+	return temp=="true";
+}
+
+function ReturnError(code,message)
+{
+	var oEvent=createEventObject();
+	oEvent.code=code;
+	oEvent.message=message;
+	errorID.fire(oEvent);
+}
+</script>

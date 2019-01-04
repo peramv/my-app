@@ -1,0 +1,837 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="SmartHeap Release|Win32">
+      <Configuration>SmartHeap Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="SmartHeap Symbols|Win32">
+      <Configuration>SmartHeap Symbols</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName />
+    <SccLocalPath />
+    <ProjectGuid>{68942A81-BE87-49AF-A8D6-61A52D281166}</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110_xp</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110_xp</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">
+    <OutDir>.\../../bin/releaseSH\</OutDir>
+    <IntDir>.\releaseSH\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">
+    <OutDir>.\../../bin/relSym\</OutDir>
+    <IntDir>.\relSym\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\../../bin/debug\</OutDir>
+    <IntDir>.\debug\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>bfutil_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\../../bin/release\</OutDir>
+    <IntDir>.\release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>.;..;../ifdscore;../ifdscore/win32;../3rdparty/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\releaseSH/BFUtil.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\releaseSH/</AssemblerListingLocation>
+      <ObjectFileName>.\releaseSH/</ObjectFileName>
+      <ProgramDataBaseFileName>.\releaseSH/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <CompileAs>Default</CompileAs>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>shdsmpmt.lib;ifdscore_sh.lib;boost_thread.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/releaseSH/bfutil_sh.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>../../lib/releaseSH;../3rdparty/smartheap;../3rdparty/boost/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\../../bin/releaseSH/bfutil_sh.pdb</ProgramDatabaseFile>
+      <ImportLibrary>../../lib/releaseSH/bfutil_sh.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/releaseSH/BFUtil.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <PostBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Finished building bfutil (SmartHeap Release) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Building bfutil (SmartHeap Release) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.;..;../ifdscore;../ifdscore/win32;../3rdparty/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\relSym/BFUtil.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\relSym/</AssemblerListingLocation>
+      <ObjectFileName>.\relSym/</ObjectFileName>
+      <ProgramDataBaseFileName>.\relSym/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>shdsmpmt.lib;ifdscore_sym.lib;boost_thread.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/relSym/bfutil_sym.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>../../lib/relSym;../3rdparty/smartheap;../3rdparty/boost/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\../../bin/relSym/bfutil_sym.pdb</ProgramDatabaseFile>
+      <ImportLibrary>../../lib/relSym/bfutil_sym.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/relSym/BFUtil.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <PostBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Finished building bfutil (SmartHeap Symbols) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Building bfutil (SmartHeap Symbols) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/EHa %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.;..;../ifdscore;../ifdscore/win32;../3rdparty/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\debug/BFUtil.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\debug/</AssemblerListingLocation>
+      <ObjectFileName>.\debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>ifdscore_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../bin/debug/bfutil_d.dll </OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>../../lib/debug;../3rdparty/boost/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\../../bin/debug/bfutil_d.pdb</ProgramDatabaseFile>
+      <ImportLibrary>../../lib/debug/bfutil_d.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
+      <DataExecutionPrevention>false</DataExecutionPrevention>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/debug/BFUtil.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <PostBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Finished building bfutil (Debug) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Building bfutil (Debug) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>.;..;../ifdscore;../ifdscore/win32;../3rdparty/boost;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\release/BFUtil.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\release/</AssemblerListingLocation>
+      <ObjectFileName>.\release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>ifdscore.lib;boost_thread-vc110-mt-1_54.lib;libboost_thread-vc110-mt-1_54.lib;libboost_system-vc110-mt-1_54.lib;libboost_date_time-vc110-mt-1_54.lib;libboost_chrono-vc110-mt-1_54.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\../../bin/release/BFUtil.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>../../lib/release;../3rdparty/boost/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\../../bin/release/BFUtil.pdb</ProgramDatabaseFile>
+      <ImportLibrary>../../lib/release/bfutil.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+      <DataExecutionPrevention>false</DataExecutionPrevention>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\../../bin/release/BFUtil.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <PostBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Finished building bfutil (Release) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PostBuildEvent>
+    <PreBuildEvent>
+      <Message>Updating Status...</Message>
+      <Command>if DEFINED _JOBSTATUSFILE echo Building bfutil (Release) &gt; %25_JOBSTATUSFILE%25 nul</Command>
+    </PreBuildEvent>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="bfcontextconditions.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BFCritSec.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="bfdate.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BFEvent.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BFException.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BFExecutionContext.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="bffiletime.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BFguard.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="bfhrtimer.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BFIPBlast.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BFJob.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BFJobQueue.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BFKernel.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="bfmath.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BFMutex.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BFPooledThread.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BFSemaphore.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="bfsha1_string.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="bfstringfunctions.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BFThread.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="BFThreadPool.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="bfutil_conditions.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">
+      </PrecompiledHeader>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="BFWaitableSet.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="clientlocalecontext.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="ConsoleCanvas.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="ConsoleInput.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="decimal.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/EHa %(AdditionalOptions)</AdditionalOptions>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="elementattribute.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="ElementWriter.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="exechist.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">
+      </PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="localetraits.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="log.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="logstream.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="logtargetconsole.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="logtargetdisk.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="programoptions.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="RTHeaderRevision.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="RTRevision.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="RTRevisionReport.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="RTSourceRevision.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="sha-1.c">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExceptionHandling>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeTypeInfo Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</RuntimeTypeInfo>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsCpp</CompileAs>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExceptionHandling>
+      <RuntimeTypeInfo Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</RuntimeTypeInfo>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsCpp</CompileAs>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">
+      </ExceptionHandling>
+      <RuntimeTypeInfo Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">false</RuntimeTypeInfo>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">CompileAsCpp</CompileAs>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">
+      </ExceptionHandling>
+      <RuntimeTypeInfo Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">false</RuntimeTypeInfo>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">
+      </PrecompiledHeader>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">CompileAsCpp</CompileAs>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">Create</PrecompiledHeader>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="txnstats.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="verify.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="version_core.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Disabled</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_MBCS;_DEBUG;MT_DEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <BasicRuntimeChecks Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">EnableFastChecks</BasicRuntimeChecks>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">MaxSpeed</Optimization>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Release|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='SmartHeap Symbols|Win32'">NDEBUG;WIN32;_WINDOWS;DST_UNICODE;BFUTIL_DLL;BFRELSYM</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="bfutil.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\bf\log\abstractlogtarget.hpp" />
+    <ClInclude Include="bfcontextconditions.hpp" />
+    <ClInclude Include="BFCritSec.hpp" />
+    <ClInclude Include="bfdate.hpp" />
+    <ClInclude Include="BFEvent.hpp" />
+    <ClInclude Include="BFException.hpp" />
+    <ClInclude Include="BFExecutionContext.hpp" />
+    <ClInclude Include="bffiletime.hpp" />
+    <ClInclude Include="BFGuard.hpp" />
+    <ClInclude Include="bfhrtimer.hpp" />
+    <ClInclude Include="bfifds.hpp" />
+    <ClInclude Include="BFIPBlast.hpp" />
+    <ClInclude Include="BFJob.hpp" />
+    <ClInclude Include="BFJobQueue.hpp" />
+    <ClInclude Include="BFKernel.hpp" />
+    <ClInclude Include="..\bf\log\bflog.hpp" />
+    <ClInclude Include="bfmath.hpp" />
+    <ClInclude Include="BFMutex.hpp" />
+    <ClInclude Include="BFPooledThread.hpp" />
+    <ClInclude Include="BFSemaphore.hpp" />
+    <ClInclude Include="BFserialsync.hpp" />
+    <ClInclude Include="bfsha1_string.hpp" />
+    <ClInclude Include="bfstringfunctions.hpp" />
+    <ClInclude Include="BFThread.hpp" />
+    <ClInclude Include="BFThreadPool.hpp" />
+    <ClInclude Include="BFWaitableSet.hpp" />
+    <ClInclude Include="clientlocalecontext.hpp" />
+    <ClInclude Include="Console.hpp" />
+    <ClInclude Include="ConsoleCanvas.hpp" />
+    <ClInclude Include="ConsoleInput.hpp" />
+    <ClInclude Include="decimal.hpp" />
+    <ClInclude Include="dll_interface.hpp" />
+    <ClInclude Include="ElementAttribute.hpp" />
+    <ClInclude Include="ElementWriter.hpp" />
+    <ClInclude Include="exechist.hpp" />
+    <ClInclude Include="localetraits.hpp" />
+    <ClInclude Include="..\bf\log\log.hpp" />
+    <ClInclude Include="..\bf\log\logstream.hpp" />
+    <ClInclude Include="..\bf\log\logtargetconsole.hpp" />
+    <ClInclude Include="..\bf\log\logtargetdisk.hpp" />
+    <ClInclude Include="programoptions.hpp" />
+    <ClInclude Include="publisher.hpp" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="RTHeaderRevision.hpp" />
+    <ClInclude Include="RTRevision.hpp" />
+    <ClInclude Include="RTRevisionDefines.hpp" />
+    <ClInclude Include="RTRevisionReport.hpp" />
+    <ClInclude Include="RTSourceRevision.hpp" />
+    <ClInclude Include="seh_exception.hpp" />
+    <ClInclude Include="sha-1.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="subscriber.hpp" />
+    <ClInclude Include="txnstatelement.hpp" />
+    <ClInclude Include="txnstats.hpp" />
+    <ClInclude Include="verify.hpp" />
+    <ClInclude Include="version_core.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ifdscore\ifdscore.vcxproj">
+      <Project>{811acbd3-dda5-4661-9eff-cec364e715cb}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

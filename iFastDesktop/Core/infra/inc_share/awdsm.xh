@@ -1,0 +1,2228 @@
+
+#ifndef SOM_AWDServiceManager_xh
+#define SOM_AWDServiceManager_xh
+
+class AWDServiceManager;
+
+#define AWDServiceManager_MajorVersion 2
+#define AWDServiceManager_MinorVersion 3
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_SOMObject_xh
+#include <somobj.xh>
+#endif
+
+#ifndef AWDServiceManager_API
+#define AWDServiceManager_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+class SOMClass;
+class SOMObject;
+class AWDVisitor;
+class AWDPersist;
+class AWDBase;
+class iostream;
+class AWDServiceManager;
+class AWDCommentAid;
+class AWDString;
+class AWDAlphaField;
+class AWDDateTime;
+class AWDBaseField;
+class AWDDictionary;
+class AWDDateTimeField;
+class AWDGroupField;
+class AWDApplication;
+class AWDFieldFactory;
+class AWDEntityKey;
+class AWDMenu;
+class CCriticalSection;
+class FieldList;
+class AWDRelationship;
+class AWDTreeVisitor;
+class AWDTreeIterator;
+class ACBL0008;
+class LookupServiceAid;
+class AWDWork;
+class ostrstream;
+class AWDEvent;
+class appRegisterObject;
+class appRegisterList;
+class AWDListener;
+typedef
+struct AWDServiceManager_SERVICEDAT {
+char  szCategory[50];
+char  szService[50];
+long  lMajorVersion;
+long  lMinorVersion;
+} AWDServiceManager_SERVICEDAT;
+typedef
+struct AWDServiceManager_SERVICEDAT* AWDServiceManager_PSERVICEDAT;
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_SERVICEDAT
+    #ifdef SERVICEDAT
+        #undef SERVICEDAT
+        #define SOMTGD_SERVICEDAT 1
+    #else
+        #define SERVICEDAT AWDServiceManager_SERVICEDAT
+    #endif /* SERVICEDAT */
+#endif /* SOMTGD_SERVICEDAT */
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_PSERVICEDAT
+    #ifdef PSERVICEDAT
+        #undef PSERVICEDAT
+        #define SOMTGD_PSERVICEDAT 1
+    #else
+        #define PSERVICEDAT AWDServiceManager_PSERVICEDAT
+    #endif /* PSERVICEDAT */
+#endif /* SOMTGD_PSERVICEDAT */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+
+/*
+ * End of user-defined types.
+ */
+
+/*
+ * Passthru lines: File: "C.xh", "after"
+ */
+#include <awdtree.xh>
+#include <awdbsrv.xh>
+
+/* A procedure to create the AWDServiceManager Class */
+SOMEXTERN
+#if (defined(SOM_Module_awdsm_Source) || defined(AWDServiceManager_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDServiceManager))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK AWDServiceManagerNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the AWDServiceManager class object, and the methods it introduces. */
+SOMEXTERN struct AWDServiceManagerClassDataStructure {
+	SOMClass *classObject;
+	somMToken appRegister;
+	somMToken getClass;
+	somMToken isRegistered;
+	somMToken sendError;
+	somMToken startService;
+	somMToken stopService;
+	somMToken unRegister;
+	somMToken setAssociation;
+	somMToken startBatchService;
+	somMToken countByObject;
+	somMToken removeService;
+	somMToken findService;
+	somMToken stopAllServicesExcept;
+}
+#if !(defined(SOM_Module_awdsm_Source) || defined(AWDServiceManager_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDServiceManager))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDServiceManagerClassData;
+#define _AWDServiceManager AWDServiceManagerClassData.classObject
+
+/* The API to parentMtabs for AWDServiceManager, and the instance data it introduces. */
+SOMEXTERN struct AWDServiceManagerCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_awdsm_Source) || defined(AWDServiceManager_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDServiceManager))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDServiceManagerCClassData;
+
+/*
+ * -- Typedefs for AWDServiceManager Method Procedures
+ */
+extern "C" {
+typedef void   SOMLINK somTP_AWDServiceManager_appRegister(AWDServiceManager *somSelf, Environment *ev,
+		void* cbFA,
+		AWDBase* pAWDOBJ,
+		long zMsgType);
+typedef somTP_AWDServiceManager_appRegister *somTD_AWDServiceManager_appRegister;
+typedef boolean   SOMLINK somTP_AWDServiceManager_isRegistered(AWDServiceManager *somSelf, Environment *ev,
+		AWDBase* pAWDOBJ);
+typedef somTP_AWDServiceManager_isRegistered *somTD_AWDServiceManager_isRegistered;
+typedef void   SOMLINK somTP_AWDServiceManager_sendError(AWDServiceManager *somSelf, Environment *ev,
+		char* szErr,
+		long zMsgType);
+typedef somTP_AWDServiceManager_sendError *somTD_AWDServiceManager_sendError;
+typedef boolean   SOMLINK somTP_AWDServiceManager_startService(AWDServiceManager *somSelf, Environment *ev,
+		char* szCategory,
+		AWDBase* pAWDOBJ);
+typedef somTP_AWDServiceManager_startService *somTD_AWDServiceManager_startService;
+typedef boolean   SOMLINK somTP_AWDServiceManager_stopService(AWDServiceManager *somSelf, Environment *ev,
+		char* szCategory,
+		AWDBase* pAWDOBJ);
+typedef somTP_AWDServiceManager_stopService *somTD_AWDServiceManager_stopService;
+typedef boolean   SOMLINK somTP_AWDServiceManager_unRegister(AWDServiceManager *somSelf, Environment *ev,
+		void* cbFA,
+		AWDBase* pAWDOBJ,
+		long zMsgType);
+typedef somTP_AWDServiceManager_unRegister *somTD_AWDServiceManager_unRegister;
+typedef boolean   SOMLINK somTP_AWDServiceManager_setAssociation(AWDServiceManager *somSelf, Environment *ev,
+		char* szOwner,
+		char* szCatagory);
+typedef somTP_AWDServiceManager_setAssociation *somTD_AWDServiceManager_setAssociation;
+typedef boolean   SOMLINK somTP_AWDServiceManager_startBatchService(AWDServiceManager *somSelf, Environment *ev,
+		char* szCategory,
+		AWDBase** pAWDOBJ,
+		AWDTree* pAWDTree);
+typedef somTP_AWDServiceManager_startBatchService *somTD_AWDServiceManager_startBatchService;
+typedef unsigned short   SOMLINK somTP_AWDServiceManager_countByObject(AWDServiceManager *somSelf, Environment *ev,
+		AWDBase* pAWDBase);
+typedef somTP_AWDServiceManager_countByObject *somTD_AWDServiceManager_countByObject;
+typedef boolean   SOMLINK somTP_AWDServiceManager_removeService(AWDServiceManager *somSelf, Environment *ev,
+		string szCategory,
+		AWDBase* pAWDBase);
+typedef somTP_AWDServiceManager_removeService *somTD_AWDServiceManager_removeService;
+typedef AWDBaseService*   SOMLINK somTP_AWDServiceManager_findService(AWDServiceManager *somSelf, Environment *ev,
+		string szCategory,
+		AWDBase* pAWDBase);
+typedef somTP_AWDServiceManager_findService *somTD_AWDServiceManager_findService;
+typedef boolean   SOMLINK somTP_AWDServiceManager_stopAllServicesExcept(AWDServiceManager *somSelf, Environment *ev,
+		char* szCategory,
+		AWDBase* pAWDOBJ);
+typedef somTP_AWDServiceManager_stopAllServicesExcept *somTD_AWDServiceManager_stopAllServicesExcept;
+typedef boolean   SOMLINK somTP_AWDServiceManager_getClass(AWDServiceManager *somSelf, Environment *ev,
+		char* pszCategory,
+		AWDServiceManager_SERVICEDAT* pzSD);
+typedef somTP_AWDServiceManager_getClass *somTD_AWDServiceManager_getClass;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef void   SOMLINK somTP_AWDServiceManager_somDefaultInit(AWDServiceManager *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_AWDServiceManager_somDefaultInit *somTD_AWDServiceManager_somDefaultInit;
+typedef void   SOMLINK somTP_AWDServiceManager_somDestruct(AWDServiceManager *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_AWDServiceManager_somDestruct *somTD_AWDServiceManager_somDestruct;
+typedef void   SOMLINK somTP_AWDServiceManager_somDefaultCopyInit(AWDServiceManager *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDServiceManager_somDefaultCopyInit *somTD_AWDServiceManager_somDefaultCopyInit;
+typedef AWDServiceManager*   SOMLINK somTP_AWDServiceManager_somDefaultAssign(AWDServiceManager *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDServiceManager_somDefaultAssign *somTD_AWDServiceManager_somDefaultAssign;
+typedef void   SOMLINK somTP_AWDServiceManager_somDefaultConstCopyInit(AWDServiceManager *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDServiceManager_somDefaultConstCopyInit *somTD_AWDServiceManager_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_AWDServiceManager_somDefaultVCopyInit(AWDServiceManager *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDServiceManager_somDefaultVCopyInit *somTD_AWDServiceManager_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_AWDServiceManager_somDefaultConstVCopyInit(AWDServiceManager *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDServiceManager_somDefaultConstVCopyInit *somTD_AWDServiceManager_somDefaultConstVCopyInit;
+typedef AWDServiceManager*   SOMLINK somTP_AWDServiceManager_somDefaultConstAssign(AWDServiceManager *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDServiceManager_somDefaultConstAssign *somTD_AWDServiceManager_somDefaultConstAssign;
+typedef AWDServiceManager*   SOMLINK somTP_AWDServiceManager_somDefaultVAssign(AWDServiceManager *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDServiceManager_somDefaultVAssign *somTD_AWDServiceManager_somDefaultVAssign;
+typedef AWDServiceManager*   SOMLINK somTP_AWDServiceManager_somDefaultConstVAssign(AWDServiceManager *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDServiceManager_somDefaultConstVAssign *somTD_AWDServiceManager_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_AWDServiceManager_somInit(AWDServiceManager *somSelf);
+typedef somTP_AWDServiceManager_somInit *somTD_AWDServiceManager_somInit;
+typedef void   SOMLINK somTP_AWDServiceManager_somFree(AWDServiceManager *somSelf);
+typedef somTP_AWDServiceManager_somFree *somTD_AWDServiceManager_somFree;
+typedef void   SOMLINK somTP_AWDServiceManager_somUninit(AWDServiceManager *somSelf);
+typedef somTP_AWDServiceManager_somUninit *somTD_AWDServiceManager_somUninit;
+typedef SOMClass*   SOMLINK somTP_AWDServiceManager_somGetClass(AWDServiceManager *somSelf);
+typedef somTP_AWDServiceManager_somGetClass *somTD_AWDServiceManager_somGetClass;
+typedef string   SOMLINK somTP_AWDServiceManager_somGetClassName(AWDServiceManager *somSelf);
+typedef somTP_AWDServiceManager_somGetClassName *somTD_AWDServiceManager_somGetClassName;
+typedef long   SOMLINK somTP_AWDServiceManager_somGetSize(AWDServiceManager *somSelf);
+typedef somTP_AWDServiceManager_somGetSize *somTD_AWDServiceManager_somGetSize;
+typedef boolean   SOMLINK somTP_AWDServiceManager_somIsA(AWDServiceManager *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDServiceManager_somIsA *somTD_AWDServiceManager_somIsA;
+typedef boolean   SOMLINK somTP_AWDServiceManager_somIsInstanceOf(AWDServiceManager *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDServiceManager_somIsInstanceOf *somTD_AWDServiceManager_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_AWDServiceManager_somRespondsTo(AWDServiceManager *somSelf,
+		somId mId);
+typedef somTP_AWDServiceManager_somRespondsTo *somTD_AWDServiceManager_somRespondsTo;
+typedef boolean   SOMLINK somTP_AWDServiceManager_somDispatch(AWDServiceManager *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDServiceManager_somDispatch *somTD_AWDServiceManager_somDispatch;
+typedef boolean   SOMLINK somTP_AWDServiceManager_somClassDispatch(AWDServiceManager *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDServiceManager_somClassDispatch *somTD_AWDServiceManager_somClassDispatch;
+typedef boolean   SOMLINK somTP_AWDServiceManager_somCastObj(AWDServiceManager *somSelf,
+		SOMClass* cls);
+typedef somTP_AWDServiceManager_somCastObj *somTD_AWDServiceManager_somCastObj;
+typedef boolean   SOMLINK somTP_AWDServiceManager_somResetObj(AWDServiceManager *somSelf);
+typedef somTP_AWDServiceManager_somResetObj *somTD_AWDServiceManager_somResetObj;
+typedef SOMObject*   SOMLINK somTP_AWDServiceManager_somPrintSelf(AWDServiceManager *somSelf);
+typedef somTP_AWDServiceManager_somPrintSelf *somTD_AWDServiceManager_somPrintSelf;
+typedef void   SOMLINK somTP_AWDServiceManager_somDumpSelf(AWDServiceManager *somSelf,
+		long level);
+typedef somTP_AWDServiceManager_somDumpSelf *somTD_AWDServiceManager_somDumpSelf;
+typedef void   SOMLINK somTP_AWDServiceManager_somDumpSelfInt(AWDServiceManager *somSelf,
+		long level);
+typedef somTP_AWDServiceManager_somDumpSelfInt *somTD_AWDServiceManager_somDumpSelfInt;
+}
+
+#endif /* AWDServiceManager_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for AWDServiceManager
+ */
+class AWDServiceManager : public SOMObject
+{
+public:
+
+// AWDServiceManager::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_AWDServiceManager) AWDServiceManagerNewClass(AWDServiceManager_MajorVersion,AWDServiceManager_MinorVersion);
+   return (void*)
+      SOM_Resolve(_AWDServiceManager,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_AWDServiceManager));
+}
+
+// AWDServiceManager::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+AWDServiceManager()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDServiceManagerCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+AWDServiceManager(AWDServiceManager* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDServiceManagerCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDServiceManager(const AWDServiceManager* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDServiceManagerCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+
+/* method: appRegister */
+void   appRegister(Environment *ev,
+		void* cbFA,
+		AWDBase* pAWDOBJ,
+		long zMsgType)
+{
+   SOM_ResolveD(this,AWDServiceManager,AWDServiceManager,appRegister)
+	(this, ev,cbFA,pAWDOBJ,zMsgType);
+}
+
+
+/* method: isRegistered */
+boolean   isRegistered(Environment *ev,
+		AWDBase* pAWDOBJ)
+{
+   return SOM_ResolveD(this,AWDServiceManager,AWDServiceManager,isRegistered)
+	(this, ev,pAWDOBJ);
+}
+
+
+/* method: sendError */
+void   sendError(Environment *ev,
+		char* szErr,
+		long zMsgType)
+{
+   SOM_ResolveD(this,AWDServiceManager,AWDServiceManager,sendError)
+	(this, ev,szErr,zMsgType);
+}
+
+
+/* method: startService */
+boolean   startService(Environment *ev,
+		char* szCategory,
+		AWDBase* pAWDOBJ)
+{
+   return SOM_ResolveD(this,AWDServiceManager,AWDServiceManager,startService)
+	(this, ev,szCategory,pAWDOBJ);
+}
+
+
+/* method: stopService */
+boolean   stopService(Environment *ev,
+		char* szCategory,
+		AWDBase* pAWDOBJ)
+{
+   return SOM_ResolveD(this,AWDServiceManager,AWDServiceManager,stopService)
+	(this, ev,szCategory,pAWDOBJ);
+}
+
+
+/* method: unRegister */
+boolean   unRegister(Environment *ev,
+		void* cbFA,
+		AWDBase* pAWDOBJ,
+		long zMsgType)
+{
+   return SOM_ResolveD(this,AWDServiceManager,AWDServiceManager,unRegister)
+	(this, ev,cbFA,pAWDOBJ,zMsgType);
+}
+
+
+/* method: setAssociation */
+boolean   setAssociation(Environment *ev,
+		char* szOwner,
+		char* szCatagory)
+{
+   return SOM_ResolveD(this,AWDServiceManager,AWDServiceManager,setAssociation)
+	(this, ev,szOwner,szCatagory);
+}
+
+
+/* method: startBatchService */
+boolean   startBatchService(Environment *ev,
+		char* szCategory,
+		AWDBase** pAWDOBJ,
+		AWDTree* pAWDTree)
+{
+   return SOM_ResolveD(this,AWDServiceManager,AWDServiceManager,startBatchService)
+	(this, ev,szCategory,pAWDOBJ,pAWDTree);
+}
+
+
+/* method: countByObject */
+unsigned short   countByObject(Environment *ev,
+		AWDBase* pAWDBase)
+{
+   return SOM_ResolveD(this,AWDServiceManager,AWDServiceManager,countByObject)
+	(this, ev,pAWDBase);
+}
+
+
+/* method: removeService */
+boolean   removeService(Environment *ev,
+		string szCategory,
+		AWDBase* pAWDBase)
+{
+   return SOM_ResolveD(this,AWDServiceManager,AWDServiceManager,removeService)
+	(this, ev,szCategory,pAWDBase);
+}
+
+
+/* method: findService */
+AWDBaseService*   findService(Environment *ev,
+		string szCategory,
+		AWDBase* pAWDBase)
+{
+   return SOM_ResolveD(this,AWDServiceManager,AWDServiceManager,findService)
+	(this, ev,szCategory,pAWDBase);
+}
+
+
+/* method: stopAllServicesExcept */
+boolean   stopAllServicesExcept(Environment *ev,
+		char* szCategory,
+		AWDBase* pAWDOBJ)
+{
+   return SOM_ResolveD(this,AWDServiceManager,AWDServiceManager,stopAllServicesExcept)
+	(this, ev,szCategory,pAWDOBJ);
+}
+
+
+/* method: getClass */
+boolean   getClass(Environment *ev,
+		char* pszCategory,
+		AWDServiceManager_SERVICEDAT* pzSD)
+{
+   return SOM_ResolveD(this,AWDServiceManager,AWDServiceManager,getClass)
+	(this, ev,pszCategory,pzSD);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDServiceManager,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDServiceManager,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDServiceManager,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+AWDServiceManager*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDServiceManager,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDServiceManager,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDServiceManager,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDServiceManager,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+AWDServiceManager*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDServiceManager,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+AWDServiceManager*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDServiceManager,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+AWDServiceManager*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDServiceManager,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,AWDServiceManager,SOMObject,somInit)
+	(this);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,AWDServiceManager,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,AWDServiceManager,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,AWDServiceManager,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,AWDServiceManager,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,AWDServiceManager,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDServiceManager,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDServiceManager,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,AWDServiceManager,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   AWDServiceManager_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDServiceManager,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDServiceManager,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   AWDServiceManager_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDServiceManager,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDServiceManager,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,AWDServiceManager,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,AWDServiceManager,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,AWDServiceManager,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,AWDServiceManager,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,AWDServiceManager,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* AWDServiceManager */
+
+
+
+#endif       /* SOM_AWDServiceManager_xh */
+
+#ifndef SOM_appRegisterObject_xh
+#define SOM_appRegisterObject_xh
+
+class appRegisterObject;
+
+#define appRegisterObject_MajorVersion 2
+#define appRegisterObject_MinorVersion 3
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_somf_MLinkable_xh
+#include <mlink.xh>
+#endif
+
+#ifndef appRegisterObject_API
+#define appRegisterObject_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the appRegisterObject Class */
+SOMEXTERN
+#if (defined(SOM_Module_awdsm_Source) || defined(appRegisterObject_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_appRegisterObject))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK appRegisterObjectNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the appRegisterObject class object, and the methods it introduces. */
+SOMEXTERN struct appRegisterObjectClassDataStructure {
+	SOMClass *classObject;
+	somMToken awdobj;
+	somMToken msg;
+	somMToken padr;
+	somMToken set_msg;
+	somMToken set_padr;
+	somMToken set_awdobj;
+	somMToken set_str;
+	somMToken str;
+	somMToken fnType;
+	somMToken set_fnType;
+	somMToken set_str1;
+	somMToken str1;
+	somMToken catagoryNumber;
+	somMToken set_catagoryNumber;
+}
+#if !(defined(SOM_Module_awdsm_Source) || defined(appRegisterObject_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_appRegisterObject))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK appRegisterObjectClassData;
+#define _appRegisterObject appRegisterObjectClassData.classObject
+
+/* The API to parentMtabs for appRegisterObject, and the instance data it introduces. */
+SOMEXTERN struct appRegisterObjectCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_awdsm_Source) || defined(appRegisterObject_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_appRegisterObject))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK appRegisterObjectCClassData;
+
+/*
+ * -- Typedefs for appRegisterObject Method Procedures
+ */
+extern "C" {
+typedef long   SOMLINK somTP_appRegisterObject_msg(appRegisterObject *somSelf, Environment *ev);
+typedef somTP_appRegisterObject_msg *somTD_appRegisterObject_msg;
+typedef void   SOMLINK somTP_appRegisterObject_set_msg(appRegisterObject *somSelf, Environment *ev,
+		long zM);
+typedef somTP_appRegisterObject_set_msg *somTD_appRegisterObject_set_msg;
+typedef void*   SOMLINK somTP_appRegisterObject_padr(appRegisterObject *somSelf, Environment *ev);
+typedef somTP_appRegisterObject_padr *somTD_appRegisterObject_padr;
+typedef void   SOMLINK somTP_appRegisterObject_set_padr(appRegisterObject *somSelf, Environment *ev,
+		void* pA);
+typedef somTP_appRegisterObject_set_padr *somTD_appRegisterObject_set_padr;
+typedef AWDBase*   SOMLINK somTP_appRegisterObject_awdobj(appRegisterObject *somSelf, Environment *ev);
+typedef somTP_appRegisterObject_awdobj *somTD_appRegisterObject_awdobj;
+typedef void   SOMLINK somTP_appRegisterObject_set_awdobj(appRegisterObject *somSelf, Environment *ev,
+		AWDBase* pB);
+typedef somTP_appRegisterObject_set_awdobj *somTD_appRegisterObject_set_awdobj;
+typedef char*   SOMLINK somTP_appRegisterObject_str(appRegisterObject *somSelf, Environment *ev);
+typedef somTP_appRegisterObject_str *somTD_appRegisterObject_str;
+typedef void   SOMLINK somTP_appRegisterObject_set_str(appRegisterObject *somSelf, Environment *ev,
+		char* pszStr);
+typedef somTP_appRegisterObject_set_str *somTD_appRegisterObject_set_str;
+typedef char   SOMLINK somTP_appRegisterObject_fnType(appRegisterObject *somSelf, Environment *ev);
+typedef somTP_appRegisterObject_fnType *somTD_appRegisterObject_fnType;
+typedef void   SOMLINK somTP_appRegisterObject_set_fnType(appRegisterObject *somSelf, Environment *ev,
+		char cType);
+typedef somTP_appRegisterObject_set_fnType *somTD_appRegisterObject_set_fnType;
+typedef char*   SOMLINK somTP_appRegisterObject_str1(appRegisterObject *somSelf, Environment *ev);
+typedef somTP_appRegisterObject_str1 *somTD_appRegisterObject_str1;
+typedef void   SOMLINK somTP_appRegisterObject_set_str1(appRegisterObject *somSelf, Environment *ev,
+		char* pszStr);
+typedef somTP_appRegisterObject_set_str1 *somTD_appRegisterObject_set_str1;
+typedef unsigned short   SOMLINK somTP_appRegisterObject_catagoryNumber(appRegisterObject *somSelf, Environment *ev);
+typedef somTP_appRegisterObject_catagoryNumber *somTD_appRegisterObject_catagoryNumber;
+typedef void   SOMLINK somTP_appRegisterObject_set_catagoryNumber(appRegisterObject *somSelf, Environment *ev,
+		unsigned short usCatNum);
+typedef somTP_appRegisterObject_set_catagoryNumber *somTD_appRegisterObject_set_catagoryNumber;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef somf_MLinkable*   SOMLINK somTP_appRegisterObject_somfMLinkableInit(appRegisterObject *somSelf, Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p);
+typedef somTP_appRegisterObject_somfMLinkableInit *somTD_appRegisterObject_somfMLinkableInit;
+typedef somf_MLinkable*   SOMLINK somTP_appRegisterObject_somfGetNext(appRegisterObject *somSelf, Environment *ev);
+typedef somTP_appRegisterObject_somfGetNext *somTD_appRegisterObject_somfGetNext;
+typedef void   SOMLINK somTP_appRegisterObject_somfSetNext(appRegisterObject *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_appRegisterObject_somfSetNext *somTD_appRegisterObject_somfSetNext;
+typedef somf_MLinkable*   SOMLINK somTP_appRegisterObject_somfGetPrevious(appRegisterObject *somSelf, Environment *ev);
+typedef somTP_appRegisterObject_somfGetPrevious *somTD_appRegisterObject_somfGetPrevious;
+typedef void   SOMLINK somTP_appRegisterObject_somfSetPrevious(appRegisterObject *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_appRegisterObject_somfSetPrevious *somTD_appRegisterObject_somfSetPrevious;
+typedef void   SOMLINK somTP_appRegisterObject_somInit(appRegisterObject *somSelf);
+typedef somTP_appRegisterObject_somInit *somTD_appRegisterObject_somInit;
+typedef void   SOMLINK somTP_appRegisterObject_somDefaultInit(appRegisterObject *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_appRegisterObject_somDefaultInit *somTD_appRegisterObject_somDefaultInit;
+typedef void   SOMLINK somTP_appRegisterObject_somDestruct(appRegisterObject *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_appRegisterObject_somDestruct *somTD_appRegisterObject_somDestruct;
+typedef void   SOMLINK somTP_appRegisterObject_somDefaultCopyInit(appRegisterObject *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterObject_somDefaultCopyInit *somTD_appRegisterObject_somDefaultCopyInit;
+typedef appRegisterObject*   SOMLINK somTP_appRegisterObject_somDefaultAssign(appRegisterObject *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterObject_somDefaultAssign *somTD_appRegisterObject_somDefaultAssign;
+typedef void   SOMLINK somTP_appRegisterObject_somDefaultConstCopyInit(appRegisterObject *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterObject_somDefaultConstCopyInit *somTD_appRegisterObject_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_appRegisterObject_somDefaultVCopyInit(appRegisterObject *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterObject_somDefaultVCopyInit *somTD_appRegisterObject_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_appRegisterObject_somDefaultConstVCopyInit(appRegisterObject *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterObject_somDefaultConstVCopyInit *somTD_appRegisterObject_somDefaultConstVCopyInit;
+typedef appRegisterObject*   SOMLINK somTP_appRegisterObject_somDefaultConstAssign(appRegisterObject *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterObject_somDefaultConstAssign *somTD_appRegisterObject_somDefaultConstAssign;
+typedef appRegisterObject*   SOMLINK somTP_appRegisterObject_somDefaultVAssign(appRegisterObject *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterObject_somDefaultVAssign *somTD_appRegisterObject_somDefaultVAssign;
+typedef appRegisterObject*   SOMLINK somTP_appRegisterObject_somDefaultConstVAssign(appRegisterObject *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterObject_somDefaultConstVAssign *somTD_appRegisterObject_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_appRegisterObject_somFree(appRegisterObject *somSelf);
+typedef somTP_appRegisterObject_somFree *somTD_appRegisterObject_somFree;
+typedef void   SOMLINK somTP_appRegisterObject_somUninit(appRegisterObject *somSelf);
+typedef somTP_appRegisterObject_somUninit *somTD_appRegisterObject_somUninit;
+typedef SOMClass*   SOMLINK somTP_appRegisterObject_somGetClass(appRegisterObject *somSelf);
+typedef somTP_appRegisterObject_somGetClass *somTD_appRegisterObject_somGetClass;
+typedef string   SOMLINK somTP_appRegisterObject_somGetClassName(appRegisterObject *somSelf);
+typedef somTP_appRegisterObject_somGetClassName *somTD_appRegisterObject_somGetClassName;
+typedef long   SOMLINK somTP_appRegisterObject_somGetSize(appRegisterObject *somSelf);
+typedef somTP_appRegisterObject_somGetSize *somTD_appRegisterObject_somGetSize;
+typedef boolean   SOMLINK somTP_appRegisterObject_somIsA(appRegisterObject *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_appRegisterObject_somIsA *somTD_appRegisterObject_somIsA;
+typedef boolean   SOMLINK somTP_appRegisterObject_somIsInstanceOf(appRegisterObject *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_appRegisterObject_somIsInstanceOf *somTD_appRegisterObject_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_appRegisterObject_somRespondsTo(appRegisterObject *somSelf,
+		somId mId);
+typedef somTP_appRegisterObject_somRespondsTo *somTD_appRegisterObject_somRespondsTo;
+typedef boolean   SOMLINK somTP_appRegisterObject_somDispatch(appRegisterObject *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_appRegisterObject_somDispatch *somTD_appRegisterObject_somDispatch;
+typedef boolean   SOMLINK somTP_appRegisterObject_somClassDispatch(appRegisterObject *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_appRegisterObject_somClassDispatch *somTD_appRegisterObject_somClassDispatch;
+typedef boolean   SOMLINK somTP_appRegisterObject_somCastObj(appRegisterObject *somSelf,
+		SOMClass* cls);
+typedef somTP_appRegisterObject_somCastObj *somTD_appRegisterObject_somCastObj;
+typedef boolean   SOMLINK somTP_appRegisterObject_somResetObj(appRegisterObject *somSelf);
+typedef somTP_appRegisterObject_somResetObj *somTD_appRegisterObject_somResetObj;
+typedef SOMObject*   SOMLINK somTP_appRegisterObject_somPrintSelf(appRegisterObject *somSelf);
+typedef somTP_appRegisterObject_somPrintSelf *somTD_appRegisterObject_somPrintSelf;
+typedef void   SOMLINK somTP_appRegisterObject_somDumpSelf(appRegisterObject *somSelf,
+		long level);
+typedef somTP_appRegisterObject_somDumpSelf *somTD_appRegisterObject_somDumpSelf;
+typedef void   SOMLINK somTP_appRegisterObject_somDumpSelfInt(appRegisterObject *somSelf,
+		long level);
+typedef somTP_appRegisterObject_somDumpSelfInt *somTD_appRegisterObject_somDumpSelfInt;
+}
+
+#endif /* appRegisterObject_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for appRegisterObject
+ */
+class appRegisterObject : public somf_MLinkable
+{
+public:
+
+// appRegisterObject::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_appRegisterObject) appRegisterObjectNewClass(appRegisterObject_MajorVersion,appRegisterObject_MinorVersion);
+   return (void*)
+      SOM_Resolve(_appRegisterObject,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_appRegisterObject));
+}
+
+// appRegisterObject::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+appRegisterObject()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (appRegisterObjectCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+appRegisterObject(appRegisterObject* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (appRegisterObjectCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+appRegisterObject(const appRegisterObject* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (appRegisterObjectCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+
+/* method: msg */
+long   msg(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterObject,appRegisterObject,msg)
+	(this, ev);
+}
+
+
+/* method: set_msg */
+void   set_msg(Environment *ev,
+		long zM)
+{
+   SOM_ResolveD(this,appRegisterObject,appRegisterObject,set_msg)
+	(this, ev,zM);
+}
+
+
+/* method: padr */
+void*   padr(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterObject,appRegisterObject,padr)
+	(this, ev);
+}
+
+
+/* method: set_padr */
+void   set_padr(Environment *ev,
+		void* pA)
+{
+   SOM_ResolveD(this,appRegisterObject,appRegisterObject,set_padr)
+	(this, ev,pA);
+}
+
+
+/* method: awdobj */
+AWDBase*   awdobj(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterObject,appRegisterObject,awdobj)
+	(this, ev);
+}
+
+
+/* method: set_awdobj */
+void   set_awdobj(Environment *ev,
+		AWDBase* pB)
+{
+   SOM_ResolveD(this,appRegisterObject,appRegisterObject,set_awdobj)
+	(this, ev,pB);
+}
+
+
+/* method: str */
+char*   str(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterObject,appRegisterObject,str)
+	(this, ev);
+}
+
+
+/* method: set_str */
+void   set_str(Environment *ev,
+		char* pszStr)
+{
+   SOM_ResolveD(this,appRegisterObject,appRegisterObject,set_str)
+	(this, ev,pszStr);
+}
+
+
+/* method: fnType */
+char   fnType(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterObject,appRegisterObject,fnType)
+	(this, ev);
+}
+
+
+/* method: set_fnType */
+void   set_fnType(Environment *ev,
+		char cType)
+{
+   SOM_ResolveD(this,appRegisterObject,appRegisterObject,set_fnType)
+	(this, ev,cType);
+}
+
+
+/* method: str1 */
+char*   str1(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterObject,appRegisterObject,str1)
+	(this, ev);
+}
+
+
+/* method: set_str1 */
+void   set_str1(Environment *ev,
+		char* pszStr)
+{
+   SOM_ResolveD(this,appRegisterObject,appRegisterObject,set_str1)
+	(this, ev,pszStr);
+}
+
+
+/* method: catagoryNumber */
+unsigned short   catagoryNumber(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterObject,appRegisterObject,catagoryNumber)
+	(this, ev);
+}
+
+
+/* method: set_catagoryNumber */
+void   set_catagoryNumber(Environment *ev,
+		unsigned short usCatNum)
+{
+   SOM_ResolveD(this,appRegisterObject,appRegisterObject,set_catagoryNumber)
+	(this, ev,usCatNum);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* method: somfMLinkableInit */
+somf_MLinkable*   somfMLinkableInit(Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p)
+{
+   return SOM_ResolveD(this,appRegisterObject,somf_MLinkable,somfMLinkableInit)
+	(this, ev,n,p);
+}
+
+
+/* method: somfGetNext */
+somf_MLinkable*   somfGetNext(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterObject,somf_MLinkable,somfGetNext)
+	(this, ev);
+}
+
+
+/* method: somfSetNext */
+void   somfSetNext(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,appRegisterObject,somf_MLinkable,somfSetNext)
+	(this, ev,aLink);
+}
+
+
+/* method: somfGetPrevious */
+somf_MLinkable*   somfGetPrevious(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterObject,somf_MLinkable,somfGetPrevious)
+	(this, ev);
+}
+
+
+/* method: somfSetPrevious */
+void   somfSetPrevious(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,appRegisterObject,somf_MLinkable,somfSetPrevious)
+	(this, ev,aLink);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,appRegisterObject,SOMObject,somInit)
+	(this);
+}
+
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,appRegisterObject,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,appRegisterObject,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,appRegisterObject,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+appRegisterObject*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,appRegisterObject,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,appRegisterObject,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,appRegisterObject,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,appRegisterObject,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+appRegisterObject*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,appRegisterObject,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+appRegisterObject*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,appRegisterObject,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+appRegisterObject*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,appRegisterObject,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,appRegisterObject,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,appRegisterObject,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,appRegisterObject,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,appRegisterObject,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,appRegisterObject,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,appRegisterObject,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,appRegisterObject,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,appRegisterObject,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   appRegisterObject_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,appRegisterObject,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,appRegisterObject,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   appRegisterObject_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,appRegisterObject,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,appRegisterObject,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,appRegisterObject,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,appRegisterObject,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,appRegisterObject,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,appRegisterObject,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,appRegisterObject,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* appRegisterObject */
+
+
+
+#endif       /* SOM_appRegisterObject_xh */
+
+#ifndef SOM_appRegisterList_xh
+#define SOM_appRegisterList_xh
+
+class appRegisterList;
+
+#define appRegisterList_MajorVersion 2
+#define appRegisterList_MinorVersion 3
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_SOMList_xh
+#include <somlist.xh>
+#endif
+
+#ifndef appRegisterList_API
+#define appRegisterList_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the appRegisterList Class */
+SOMEXTERN
+#if (defined(SOM_Module_awdsm_Source) || defined(appRegisterList_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_appRegisterList))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK appRegisterListNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the appRegisterList class object, and the methods it introduces. */
+SOMEXTERN struct appRegisterListClassDataStructure {
+	SOMClass *classObject;
+	somMToken add;
+	somMToken count;
+	somMToken get;
+	somMToken remove;
+	somMToken getFromCatNum;
+	somMToken countByObject;
+}
+#if !(defined(SOM_Module_awdsm_Source) || defined(appRegisterList_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_appRegisterList))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK appRegisterListClassData;
+#define _appRegisterList appRegisterListClassData.classObject
+
+/* The API to parentMtabs for appRegisterList, and the instance data it introduces. */
+SOMEXTERN struct appRegisterListCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_awdsm_Source) || defined(appRegisterList_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_appRegisterList))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK appRegisterListCClassData;
+
+/*
+ * -- Typedefs for appRegisterList Method Procedures
+ */
+extern "C" {
+typedef boolean   SOMLINK somTP_appRegisterList_add(appRegisterList *somSelf, Environment *ev,
+		appRegisterObject* obj);
+typedef somTP_appRegisterList_add *somTD_appRegisterList_add;
+typedef unsigned long   SOMLINK somTP_appRegisterList_count(appRegisterList *somSelf, Environment *ev);
+typedef somTP_appRegisterList_count *somTD_appRegisterList_count;
+typedef appRegisterObject*   SOMLINK somTP_appRegisterList_get(appRegisterList *somSelf, Environment *ev,
+		AWDBase* key);
+typedef somTP_appRegisterList_get *somTD_appRegisterList_get;
+typedef boolean   SOMLINK somTP_appRegisterList_remove(appRegisterList *somSelf, Environment *ev,
+		appRegisterObject* obj);
+typedef somTP_appRegisterList_remove *somTD_appRegisterList_remove;
+typedef appRegisterObject*   SOMLINK somTP_appRegisterList_getFromCatNum(appRegisterList *somSelf, Environment *ev,
+		unsigned short usCatNum);
+typedef somTP_appRegisterList_getFromCatNum *somTD_appRegisterList_getFromCatNum;
+typedef unsigned short   SOMLINK somTP_appRegisterList_countByObject(appRegisterList *somSelf, Environment *ev,
+		AWDBase* pAWDBase);
+typedef somTP_appRegisterList_countByObject *somTD_appRegisterList_countByObject;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef boolean   SOMLINK somTP_appRegisterList_deleteAll(appRegisterList *somSelf, Environment *ev);
+typedef somTP_appRegisterList_deleteAll *somTD_appRegisterList_deleteAll;
+typedef boolean   SOMLINK somTP_appRegisterList_forAll(appRegisterList *somSelf, Environment *ev,
+		void* pfn,
+		void* pData,
+		somf_MLinkable** pLastObject);
+typedef somTP_appRegisterList_forAll *somTD_appRegisterList_forAll;
+typedef boolean   SOMLINK somTP_appRegisterList_visitAll(appRegisterList *somSelf, Environment *ev,
+		AWDVisitor* visitor);
+typedef somTP_appRegisterList_visitAll *somTD_appRegisterList_visitAll;
+typedef boolean   SOMLINK somTP_appRegisterList_invariantOK(appRegisterList *somSelf, Environment *ev);
+typedef somTP_appRegisterList_invariantOK *somTD_appRegisterList_invariantOK;
+typedef void   SOMLINK somTP_appRegisterList_somDefaultInit(appRegisterList *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_appRegisterList_somDefaultInit *somTD_appRegisterList_somDefaultInit;
+typedef void   SOMLINK somTP_appRegisterList_somDestruct(appRegisterList *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_appRegisterList_somDestruct *somTD_appRegisterList_somDestruct;
+typedef unsigned long   SOMLINK somTP_appRegisterList_somfCount(appRegisterList *somSelf, Environment *ev);
+typedef somTP_appRegisterList_somfCount *somTD_appRegisterList_somfCount;
+typedef void   SOMLINK somTP_appRegisterList_somfRemove(appRegisterList *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_appRegisterList_somfRemove *somTD_appRegisterList_somfRemove;
+typedef void   SOMLINK somTP_appRegisterList_somfRemoveAll(appRegisterList *somSelf, Environment *ev);
+typedef somTP_appRegisterList_somfRemoveAll *somTD_appRegisterList_somfRemoveAll;
+typedef somf_MLinkable*   SOMLINK somTP_appRegisterList_somfRemoveFirst(appRegisterList *somSelf, Environment *ev);
+typedef somTP_appRegisterList_somfRemoveFirst *somTD_appRegisterList_somfRemoveFirst;
+typedef somf_MLinkable*   SOMLINK somTP_appRegisterList_somfRemoveLast(appRegisterList *somSelf, Environment *ev);
+typedef somTP_appRegisterList_somfRemoveLast *somTD_appRegisterList_somfRemoveLast;
+typedef void   SOMLINK somTP_appRegisterList_somfAddBefore(appRegisterList *somSelf, Environment *ev,
+		somf_MLinkable* existing,
+		somf_MLinkable* obj);
+typedef somTP_appRegisterList_somfAddBefore *somTD_appRegisterList_somfAddBefore;
+typedef void   SOMLINK somTP_appRegisterList_somfAddAfter(appRegisterList *somSelf, Environment *ev,
+		somf_MLinkable* existing,
+		somf_MLinkable* obj);
+typedef somTP_appRegisterList_somfAddAfter *somTD_appRegisterList_somfAddAfter;
+typedef void   SOMLINK somTP_appRegisterList_somfAddFirst(appRegisterList *somSelf, Environment *ev,
+		somf_MLinkable* obj);
+typedef somTP_appRegisterList_somfAddFirst *somTD_appRegisterList_somfAddFirst;
+typedef void   SOMLINK somTP_appRegisterList_somfAddLast(appRegisterList *somSelf, Environment *ev,
+		somf_MLinkable* obj);
+typedef somTP_appRegisterList_somfAddLast *somTD_appRegisterList_somfAddLast;
+typedef somf_MLinkable*   SOMLINK somTP_appRegisterList_somfAfter(appRegisterList *somSelf, Environment *ev,
+		somf_MLinkable* existingobj);
+typedef somTP_appRegisterList_somfAfter *somTD_appRegisterList_somfAfter;
+typedef somf_MLinkable*   SOMLINK somTP_appRegisterList_somfBefore(appRegisterList *somSelf, Environment *ev,
+		somf_MLinkable* existingobj);
+typedef somTP_appRegisterList_somfBefore *somTD_appRegisterList_somfBefore;
+typedef somf_MLinkable*   SOMLINK somTP_appRegisterList_somfFirst(appRegisterList *somSelf, Environment *ev);
+typedef somTP_appRegisterList_somfFirst *somTD_appRegisterList_somfFirst;
+typedef somf_MLinkable*   SOMLINK somTP_appRegisterList_somfLast(appRegisterList *somSelf, Environment *ev);
+typedef somTP_appRegisterList_somfLast *somTD_appRegisterList_somfLast;
+typedef void   SOMLINK somTP_appRegisterList_somInit(appRegisterList *somSelf);
+typedef somTP_appRegisterList_somInit *somTD_appRegisterList_somInit;
+typedef void   SOMLINK somTP_appRegisterList_somUninit(appRegisterList *somSelf);
+typedef somTP_appRegisterList_somUninit *somTD_appRegisterList_somUninit;
+typedef void   SOMLINK somTP_appRegisterList_somDefaultCopyInit(appRegisterList *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterList_somDefaultCopyInit *somTD_appRegisterList_somDefaultCopyInit;
+typedef appRegisterList*   SOMLINK somTP_appRegisterList_somDefaultAssign(appRegisterList *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterList_somDefaultAssign *somTD_appRegisterList_somDefaultAssign;
+typedef void   SOMLINK somTP_appRegisterList_somDefaultConstCopyInit(appRegisterList *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterList_somDefaultConstCopyInit *somTD_appRegisterList_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_appRegisterList_somDefaultVCopyInit(appRegisterList *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterList_somDefaultVCopyInit *somTD_appRegisterList_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_appRegisterList_somDefaultConstVCopyInit(appRegisterList *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterList_somDefaultConstVCopyInit *somTD_appRegisterList_somDefaultConstVCopyInit;
+typedef appRegisterList*   SOMLINK somTP_appRegisterList_somDefaultConstAssign(appRegisterList *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterList_somDefaultConstAssign *somTD_appRegisterList_somDefaultConstAssign;
+typedef appRegisterList*   SOMLINK somTP_appRegisterList_somDefaultVAssign(appRegisterList *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterList_somDefaultVAssign *somTD_appRegisterList_somDefaultVAssign;
+typedef appRegisterList*   SOMLINK somTP_appRegisterList_somDefaultConstVAssign(appRegisterList *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_appRegisterList_somDefaultConstVAssign *somTD_appRegisterList_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_appRegisterList_somFree(appRegisterList *somSelf);
+typedef somTP_appRegisterList_somFree *somTD_appRegisterList_somFree;
+typedef SOMClass*   SOMLINK somTP_appRegisterList_somGetClass(appRegisterList *somSelf);
+typedef somTP_appRegisterList_somGetClass *somTD_appRegisterList_somGetClass;
+typedef string   SOMLINK somTP_appRegisterList_somGetClassName(appRegisterList *somSelf);
+typedef somTP_appRegisterList_somGetClassName *somTD_appRegisterList_somGetClassName;
+typedef long   SOMLINK somTP_appRegisterList_somGetSize(appRegisterList *somSelf);
+typedef somTP_appRegisterList_somGetSize *somTD_appRegisterList_somGetSize;
+typedef boolean   SOMLINK somTP_appRegisterList_somIsA(appRegisterList *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_appRegisterList_somIsA *somTD_appRegisterList_somIsA;
+typedef boolean   SOMLINK somTP_appRegisterList_somIsInstanceOf(appRegisterList *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_appRegisterList_somIsInstanceOf *somTD_appRegisterList_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_appRegisterList_somRespondsTo(appRegisterList *somSelf,
+		somId mId);
+typedef somTP_appRegisterList_somRespondsTo *somTD_appRegisterList_somRespondsTo;
+typedef boolean   SOMLINK somTP_appRegisterList_somDispatch(appRegisterList *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_appRegisterList_somDispatch *somTD_appRegisterList_somDispatch;
+typedef boolean   SOMLINK somTP_appRegisterList_somClassDispatch(appRegisterList *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_appRegisterList_somClassDispatch *somTD_appRegisterList_somClassDispatch;
+typedef boolean   SOMLINK somTP_appRegisterList_somCastObj(appRegisterList *somSelf,
+		SOMClass* cls);
+typedef somTP_appRegisterList_somCastObj *somTD_appRegisterList_somCastObj;
+typedef boolean   SOMLINK somTP_appRegisterList_somResetObj(appRegisterList *somSelf);
+typedef somTP_appRegisterList_somResetObj *somTD_appRegisterList_somResetObj;
+typedef SOMObject*   SOMLINK somTP_appRegisterList_somPrintSelf(appRegisterList *somSelf);
+typedef somTP_appRegisterList_somPrintSelf *somTD_appRegisterList_somPrintSelf;
+typedef void   SOMLINK somTP_appRegisterList_somDumpSelf(appRegisterList *somSelf,
+		long level);
+typedef somTP_appRegisterList_somDumpSelf *somTD_appRegisterList_somDumpSelf;
+typedef void   SOMLINK somTP_appRegisterList_somDumpSelfInt(appRegisterList *somSelf,
+		long level);
+typedef somTP_appRegisterList_somDumpSelfInt *somTD_appRegisterList_somDumpSelfInt;
+}
+
+#endif /* appRegisterList_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for appRegisterList
+ */
+class appRegisterList : public SOMList
+{
+public:
+
+// appRegisterList::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_appRegisterList) appRegisterListNewClass(appRegisterList_MajorVersion,appRegisterList_MinorVersion);
+   return (void*)
+      SOM_Resolve(_appRegisterList,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_appRegisterList));
+}
+
+// appRegisterList::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+appRegisterList()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (appRegisterListCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+appRegisterList(appRegisterList* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (appRegisterListCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+appRegisterList(const appRegisterList* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (appRegisterListCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+
+/* method: add */
+boolean   add(Environment *ev,
+		appRegisterObject* obj)
+{
+   return SOM_ResolveD(this,appRegisterList,appRegisterList,add)
+	(this, ev,obj);
+}
+
+
+/* method: count */
+unsigned long   count(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterList,appRegisterList,count)
+	(this, ev);
+}
+
+
+/* method: get */
+appRegisterObject*   get(Environment *ev,
+		AWDBase* key)
+{
+   return SOM_ResolveD(this,appRegisterList,appRegisterList,get)
+	(this, ev,key);
+}
+
+
+/* method: remove */
+boolean   remove(Environment *ev,
+		appRegisterObject* obj)
+{
+   return SOM_ResolveD(this,appRegisterList,appRegisterList,remove)
+	(this, ev,obj);
+}
+
+
+/* method: getFromCatNum */
+appRegisterObject*   getFromCatNum(Environment *ev,
+		unsigned short usCatNum)
+{
+   return SOM_ResolveD(this,appRegisterList,appRegisterList,getFromCatNum)
+	(this, ev,usCatNum);
+}
+
+
+/* method: countByObject */
+unsigned short   countByObject(Environment *ev,
+		AWDBase* pAWDBase)
+{
+   return SOM_ResolveD(this,appRegisterList,appRegisterList,countByObject)
+	(this, ev,pAWDBase);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* method: deleteAll */
+boolean   deleteAll(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterList,SOMList,deleteAll)
+	(this, ev);
+}
+
+
+/* method: forAll */
+boolean   forAll(Environment *ev,
+		void* pfn,
+		void* pData,
+		somf_MLinkable** pLastObject)
+{
+   return SOM_ResolveD(this,appRegisterList,SOMList,forAll)
+	(this, ev,pfn,pData,pLastObject);
+}
+
+
+/* method: visitAll */
+boolean   visitAll(Environment *ev,
+		AWDVisitor* visitor)
+{
+   return SOM_ResolveD(this,appRegisterList,SOMList,visitAll)
+	(this, ev,visitor);
+}
+
+
+/* method: invariantOK */
+boolean   invariantOK(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterList,SOMList,invariantOK)
+	(this, ev);
+}
+
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,appRegisterList,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,appRegisterList,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* method: somfCount */
+unsigned long   somfCount(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterList,somf_TPrimitiveLinkedList,somfCount)
+	(this, ev);
+}
+
+
+/* method: somfRemove */
+void   somfRemove(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,appRegisterList,somf_TPrimitiveLinkedList,somfRemove)
+	(this, ev,aLink);
+}
+
+
+/* method: somfRemoveAll */
+void   somfRemoveAll(Environment *ev)
+{
+   SOM_ResolveD(this,appRegisterList,somf_TPrimitiveLinkedList,somfRemoveAll)
+	(this, ev);
+}
+
+
+/* method: somfRemoveFirst */
+somf_MLinkable*   somfRemoveFirst(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterList,somf_TPrimitiveLinkedList,somfRemoveFirst)
+	(this, ev);
+}
+
+
+/* method: somfRemoveLast */
+somf_MLinkable*   somfRemoveLast(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterList,somf_TPrimitiveLinkedList,somfRemoveLast)
+	(this, ev);
+}
+
+
+/* method: somfAddBefore */
+void   somfAddBefore(Environment *ev,
+		somf_MLinkable* existing,
+		somf_MLinkable* obj)
+{
+   SOM_ResolveD(this,appRegisterList,somf_TPrimitiveLinkedList,somfAddBefore)
+	(this, ev,existing,obj);
+}
+
+
+/* method: somfAddAfter */
+void   somfAddAfter(Environment *ev,
+		somf_MLinkable* existing,
+		somf_MLinkable* obj)
+{
+   SOM_ResolveD(this,appRegisterList,somf_TPrimitiveLinkedList,somfAddAfter)
+	(this, ev,existing,obj);
+}
+
+
+/* method: somfAddFirst */
+void   somfAddFirst(Environment *ev,
+		somf_MLinkable* obj)
+{
+   SOM_ResolveD(this,appRegisterList,somf_TPrimitiveLinkedList,somfAddFirst)
+	(this, ev,obj);
+}
+
+
+/* method: somfAddLast */
+void   somfAddLast(Environment *ev,
+		somf_MLinkable* obj)
+{
+   SOM_ResolveD(this,appRegisterList,somf_TPrimitiveLinkedList,somfAddLast)
+	(this, ev,obj);
+}
+
+
+/* method: somfAfter */
+somf_MLinkable*   somfAfter(Environment *ev,
+		somf_MLinkable* existingobj)
+{
+   return SOM_ResolveD(this,appRegisterList,somf_TPrimitiveLinkedList,somfAfter)
+	(this, ev,existingobj);
+}
+
+
+/* method: somfBefore */
+somf_MLinkable*   somfBefore(Environment *ev,
+		somf_MLinkable* existingobj)
+{
+   return SOM_ResolveD(this,appRegisterList,somf_TPrimitiveLinkedList,somfBefore)
+	(this, ev,existingobj);
+}
+
+
+/* method: somfFirst */
+somf_MLinkable*   somfFirst(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterList,somf_TPrimitiveLinkedList,somfFirst)
+	(this, ev);
+}
+
+
+/* method: somfLast */
+somf_MLinkable*   somfLast(Environment *ev)
+{
+   return SOM_ResolveD(this,appRegisterList,somf_TPrimitiveLinkedList,somfLast)
+	(this, ev);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,appRegisterList,SOMObject,somInit)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,appRegisterList,SOMObject,somUninit)
+	(this);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,appRegisterList,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+appRegisterList*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,appRegisterList,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,appRegisterList,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,appRegisterList,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,appRegisterList,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+appRegisterList*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,appRegisterList,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+appRegisterList*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,appRegisterList,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+appRegisterList*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,appRegisterList,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,appRegisterList,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,appRegisterList,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,appRegisterList,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,appRegisterList,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,appRegisterList,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,appRegisterList,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,appRegisterList,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   appRegisterList_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,appRegisterList,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,appRegisterList,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   appRegisterList_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,appRegisterList,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,appRegisterList,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,appRegisterList,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,appRegisterList,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,appRegisterList,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,appRegisterList,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,appRegisterList,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* appRegisterList */
+
+
+
+#endif       /* SOM_appRegisterList_xh */

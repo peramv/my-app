@@ -1,0 +1,7 @@
+#tranRecord {width: 100%}
+th {font-weight: bold; font-size: x-small}
+th:first-child {width:160px}
+td {font-size: x-small}
+.panel .x-panel-header{color: #777}
+.x-grid3-dirty-cell {background-image: none;}
+.err {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFB8B8', endColorstr='#FFE6E6',GradientType=1 );}

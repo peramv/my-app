@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="build_uat" name="pvcs">
+	<property file="desktop.properties"/>
+
+	<target name="release">
+		<antcall target="package">
+			<param name="EAR_NAME" value="ifastjd"/>		
+		</antcall>
+	</target>
+		
+	<target description="Create ZIP for Ecomm" name="package">
+		<antcall target="package_lib"/>
+		<antcall target="create_ZIP"/> 
+	</target>
+
+
+	<target description="Copy File" name="package_lib" >
+		<tstamp>
+			<format property="TODAY" pattern="MM-dd-yyyy" locale="en"/>
+		</tstamp>
+		<copy todir="${PACKAGE_FLD}/${TODAY}/" overwrite="true" preservelastmodified="true" includeEmptyDirs="false" flatten="false">
+			<fileset dir="${COMPILE_DIR}">
+			</fileset>
+		</copy>
+
+	</target>
+
+	<target name="create_ZIP">
+		<tstamp>
+			<format property="TODAY" pattern="MM-dd-yyyy" locale="en"/>
+		</tstamp>
+		<zip destfile="${PACKAGE_FLD}/${TODAY}/${EAR_NAME}.zip" basedir="${PACKAGE_FLD}/${TODAY}/" />
+	</target>
+</project>

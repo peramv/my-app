@@ -1,0 +1,3183 @@
+<!-- ---------------------------------------------------------------------
+//
+//   The computer systems, procedures, data bases and programs
+//   created and maintained by DST Systems, Inc., are proprietary
+//   in nature and as such are confidential.  Any unauthorized
+//   use or disclosure of such information may result in civil
+//   liabilities.
+//
+//   Copyright© 2004 by DST Systems, Inc.
+//   All rights reserved.
+//
+//-------------------------------------------------------------------- -->
+<PUBLIC:COMPONENT tagName="dstgrid" literalContent="true">
+
+        <PUBLIC:PROPERTY name="allowHeaderWrap"    value="false"/>
+        <PUBLIC:PROPERTY name="allowSorting"       value="true"/>
+        <PUBLIC:PROPERTY name="altRowColor"        value="true"/>
+        <PUBLIC:PROPERTY name="columnCount"        get="getColumnCount"/>
+        <PUBLIC:PROPERTY name="empty"              get="getEmpty" put="setEmpty"/>
+        <PUBLIC:PROPERTY name="evenRowBackColor"   value="beige"/>
+        <PUBLIC:PROPERTY name="evenRowForeColor"   value="black"/>
+        <PUBLIC:PROPERTY name="expanded"           get="getExpanded" put="setExpanded"/>
+        <PUBLIC:PROPERTY name="height"             value="100%"/>
+        <PUBLIC:PROPERTY name="hiliteColor"/>
+        <PUBLIC:PROPERTY name="oddRowBackColor"    value="white"/>
+        <PUBLIC:PROPERTY name="oddRowForeColor"    value="black"/>
+        <PUBLIC:PROPERTY name="isPersisted"        value="false"/>
+        <PUBLIC:PROPERTY name="readyState"         value="uninitialized"/>
+        <PUBLIC:PROPERTY name="rowPadding"         value="1"/>
+        <PUBLIC:PROPERTY name="select"             value="none"/>
+        <PUBLIC:PROPERTY name="selectionForeColor" value="black"/>
+        <PUBLIC:PROPERTY name="selectionBackColor" value="rgb(174,197,232)"/>
+        <PUBLIC:PROPERTY name="showColumnHeaders"  get="getShowColumnHeaders" put="setShowColumnHeaders"/>
+        <PUBLIC:PROPERTY name="showEditColumns"    get="getShowEditColumns" put="setShowEditColumns"/>
+        <PUBLIC:PROPERTY name="showFind"           get="getShowFind" put="setShowFind"/>
+        <PUBLIC:PROPERTY name="showGridLines"      value="true"/>
+        <PUBLIC:PROPERTY name="showHorzScroll"     get="getShowHorzScroll" put="setShowHorzScroll"/>
+        <PUBLIC:PROPERTY name="showPrint"          get="getShowPrint" put="setShowPrint"/>
+        <PUBLIC:PROPERTY name="showSaveToFile"     get="getShowSaveToFile" put="setShowSaveToFile"/>
+        <PUBLIC:PROPERTY name="showSort"           get="getShowSort" put="setShowSort"/>
+        <PUBLIC:PROPERTY name="width"              value="100%"/>
+        <PUBLIC:PROPERTY name="XMLDocument"        get="getXMLDocument"/>
+
+        <PUBLIC:EVENT name="ondoubleclick"       ID=doubleClick />
+        <PUBLIC:EVENT name="oneditchange"        ID=editChangeID />
+        <PUBLIC:EVENT name="onerror"             ID=errorID />
+        <PUBLIC:EVENT name="onpreferenceschange" ID=preferencesID />
+        <PUBLIC:EVENT name="onreadystatechange"  ID=readyStateID />
+        <PUBLIC:EVENT name="onrowselect"         ID=rowSelect />
+        <PUBLIC:EVENT name="onurlclick"          ID=urlClick />
+
+        <PUBLIC:METHOD name="addRows"/>
+        <PUBLIC:METHOD name="deleteAllRows"/>
+        <PUBLIC:METHOD name="deleteRow"/>
+        <PUBLIC:METHOD name="deleteSelectedRows"/>
+        <PUBLIC:METHOD name="ensureVisible"/>
+        <PUBLIC:METHOD name="findCellItemData"/>
+        <PUBLIC:METHOD name="findFunction"/>
+        <PUBLIC:METHOD name="findRowItemData"/>
+        <PUBLIC:METHOD name="findString"/>
+        <PUBLIC:METHOD name="focus"/>
+        <PUBLIC:METHOD name="getAllRows"/>
+        <PUBLIC:METHOD name="getFirstSelectedItem"/>
+        <PUBLIC:METHOD name="getItem"/>
+        <PUBLIC:METHOD name="getItemCount"/>
+        <PUBLIC:METHOD name="getItemState"/>
+        <PUBLIC:METHOD name="getCellItemData"/>
+        <PUBLIC:METHOD name="getColumnIndex"/>
+        <PUBLIC:METHOD name="getColumnName"/>
+        <PUBLIC:METHOD name="getRowItemData"/>
+        <PUBLIC:METHOD name="getItemText"/>
+        <PUBLIC:METHOD name="getNextSelectedItem"/>
+        <PUBLIC:METHOD name="getPreferences"/>
+        <PUBLIC:METHOD name="getSelectedCount"/>
+        <PUBLIC:METHOD name="getSelectedRows"/>
+        <PUBLIC:METHOD name="persist"/>
+        <PUBLIC:METHOD name="resort"/>
+        <PUBLIC:METHOD name="setCellFocus"/>
+        <PUBLIC:METHOD name="setItemState"/>
+        <PUBLIC:METHOD name="setItemText"/>
+        <PUBLIC:METHOD name="setCellItemData"/>
+        <PUBLIC:METHOD name="setCellReadOnly"/>
+        <PUBLIC:METHOD name="setRowItemData"/>
+        <PUBLIC:METHOD name="showColumn"/>
+
+        <PUBLIC:DEFAULTS tabStop="true" viewInheritStyle="true" viewLinkContent="true" viewMasterTab="false"/>
+        <PUBLIC:ATTACH event="oncontentready" onevent="init()"/>
+</PUBLIC:COMPONENT>
+
+<HTML>
+<head>
+<meta name=vs_targetSchema content="http://schemas.microsoft.com/intellisense/ie5">
+<style>
+        td{font-size:12px}
+        .link{padding-right:15px;color:blue;text-decoration:underline;cursor:hand}
+</style>
+
+<script language="javascript">
+var _oDoc;
+var _base;
+var _oContainer;
+var _oHeader=null; // header div
+var _oRows; // rows div
+var _oddRowSelectColor;
+var _expanded=false;
+var _empty=""; // message to display if no rows
+var _showColumHeaders=true;
+var _showHorzScroll=true;
+var _hidPersistence;
+var _tooltip=null; // popup window used for header and cell text
+
+var _currRow=-1; // the TR object that the mouse is currently hovering. When the mouse is
+                 // not hovering any rows (outside the grid) then set this variable to -1.
+
+var _selRow=-1;  // the TR object that was last clicked/selected. This will be the row that
+                 // has focus. When there are no rows selected then set this variable to -1.
+
+var _showLinks=0;
+var _SHOW_EDITCOLUMNS=1;
+var _SHOW_FIND=2;
+var _SHOW_SORT=4;
+var _SHOW_PRINT=8;
+var _SHOW_SAVETOFILE=16;
+
+// drag-n-drop variables
+var _bDragMode=false;
+var _resizeColumn; // column being resized
+var _minLeft;
+var _objDragItem; // temp object that is displayed as the column resize is being dragged
+var _dx; // x-cordinate of initial mouse down
+var _columnWidthsChanged=false; // boolean flag to know when to reapply colgroup tag to rows section in function redraw()
+
+function init()
+{
+        // check to see if this grid's data was persisted to UserData
+        var xml=null;
+        if(isTrue(isPersisted))
+        {
+                try
+                {
+                        _hidPersistence=element.document.createElement("INPUT");
+                        _hidPersistence.type="HIDDEN";
+                        _hidPersistence.id="hidPersistence";
+                        _hidPersistence.name="hidPersistence";
+                        element.insertAdjacentElement("AfterEnd",_hidPersistence);
+
+                        var id=element.getAttribute("id");
+                        _hidPersistence.addBehavior("#default#userData");
+                        _hidPersistence.load("dstgrid");
+                        xml=_hidPersistence.getAttribute(id);
+                }
+                catch(e) {}
+        }
+        if(null==xml) xml=element.innerHTML;
+
+        _oDoc=new ActiveXObject("Msxml2.DOMDocument");
+        _oDoc.async=false;
+        if(!_oDoc.loadXML(xml))
+        {
+                returnError("3000",getXmlError(_oDoc));
+                return;
+        }
+        _oDoc.setProperty("SelectionLanguage","XPath");
+
+        // parse XML adding ID attributes
+        _oDoc.transformNodeToObject(xslInit.XMLDocument,_oDoc);
+
+        for(var i=0;i<element.document.styleSheets.length;i++)
+        {
+                var item=element.document.styleSheets(i);
+                for(var j=0;j<item.rules.length;j++)
+                {
+                        var oRule=item.rules(j);
+                        document.styleSheets[0].addRule(oRule.selectorText,oRule.style.cssText);
+                }
+        }
+
+        // check for combo data type
+        var oComboColumns=getColumns().selectNodes("descendant::node()[@type='combo']");
+        if(oComboColumns.length>0)
+        {
+                // add xml data islands to document
+                for(var i=0;i<oComboColumns.length;i++)
+                {
+                        var node=oComboColumns.item(i);
+                        var oXML=document.createElement("XML");
+                        oXML.setAttribute("id","xmlCombo_"+node.tagName);
+                        oXML.innerHTML=node.selectSingleNode("combobox").xml;
+                        document.body.appendChild(oXML);
+                }
+        }
+
+        // scan the documents IMPORT processing instructions to find the url to the .HTC file
+
+        // +++
+        // Changed to use a more efficient regular expression.
+        // if(-1!=element.document.body.innerHTML.search(/<\?import.*implementation.*=.*\"(.*)dstgrid.htc\".*\/>/i)) _base=RegExp.$1;
+        if(-1!=element.document.body.innerHTML.search(/<\?import.*implementation[ \t]*=[ \t]*\"(.*)dstgrid.htc\".*\/>/i)) _base=RegExp.$1;
+        // ---
+
+        if(altRowColor=="true")
+        {
+                if(selectionBackColor.search(/rgb\((\d{1,3}),(\d{1,3}),(\d{1,3})\)/i)!=-1)
+                {
+                        var red=RegExp.$1-6;
+                        var green=RegExp.$2-6;
+                        var blue=RegExp.$3-21;
+                        _oddRowSelectColor="rgb("+red+","+green+","+blue+")";
+                }
+        }
+
+        // add column headers
+        xslHeader.XMLDocument.selectSingleNode("//xsl:param[@name='base']").text=_base;
+        xslHeader.XMLDocument.selectSingleNode("//xsl:param[@name='allowHeaderWrap']").text=allowHeaderWrap;
+        var columnsNode=_oDoc.selectSingleNode("/*/preferences/columns");
+        if(columnsNode==null) columnsNode=_oDoc.selectSingleNode("/*/columns");
+        document.all.item("divHeaders").innerHTML=columnsNode.transformNode(xslHeader.XMLDocument);
+
+        // add grid rows
+        var rowsNode=_oDoc.selectSingleNode("/*/rows");
+        if(rowsNode==null) // create a ROWS element if one does not exist.
+        {
+                rowsNode=_oDoc.createElement("rows");
+                _oDoc.documentElement.appendChild(rowsNode);
+        }
+        refresh();
+        showEmpty((null==rowsNode||rowsNode.childNodes.length==0)&&empty.length>0);
+
+        _oContainer=document.all.item("divContainer");
+        _oHeader=document.all.item("divHeaders");
+        _oRows=document.all.item("divRows");
+
+        window.attachEvent("onbeforeprint",onBeforePrint);
+        window.attachEvent("onafterprint",onAfterPrint);
+
+        readyState="complete";
+        fireReadyStateChange();
+}
+
+function refresh()
+{
+        var columnsNode=getColumns();
+        var rowsNode=_oDoc.selectSingleNode("/*/rows");
+
+        var oNode=xslRows.selectSingleNode("//table");
+        while(oNode.firstChild!=null) oNode.removeChild(oNode.firstChild);
+
+        // create COLGROUP node to put in XSL
+        var temp=new ActiveXObject("Msxml2.DOMDocument");
+        columnsNode.transformNodeToObject(xslColGroup.XMLDocument,temp);
+        oNode.appendChild(temp.documentElement);
+
+        // create sort nodes
+        var sortNode=_oDoc.selectSingleNode("/*/preferences/sortorder");
+        if(sortNode==null) sortNode=_oDoc.selectSingleNode("/*/sortorder");
+        if(sortNode==null) // create an empty sortorder
+        {
+                sortNode=temp.createElement("sortorder");
+                temp.appendChild(sortNode);
+        }
+        sortNode.transformNodeToObject(xslSort.XMLDocument,temp);
+        oNode=xslRows.selectSingleNode("//table");
+        oNode.appendChild(temp.documentElement);
+
+        // insert XSL for cells into xslRows
+        oNode=xslRows.selectSingleNode("//tr");
+        // remove old td's
+        var tdNodeList=xslRows.selectNodes("//td");
+
+        var nodeCount=tdNodeList.length;
+        for(var i=0;i<nodeCount;i++)
+        {
+                oNode.removeChild(tdNodeList.item(i));
+        }
+        // add new td's
+        xslCell.XMLDocument.selectSingleNode("//xsl:param[@name='showGridLines']").text=showGridLines;
+        xslCell.XMLDocument.selectSingleNode("//xsl:param[@name='base']").text=_base;
+        columnsNode.transformNodeToObject(xslCell.XMLDocument,temp);
+
+        tdNodeList=temp.selectNodes("//td");
+        var nodeCount=tdNodeList.length;
+        for(var i=0;i<nodeCount;i++)
+        {
+                oNode.appendChild(tdNodeList.item(i));
+        }
+
+        // transform ROWS node with our customized XSL
+        xslRows.XMLDocument.selectSingleNode("//xsl:param[@name='altRowColor']").text=altRowColor;
+        xslRows.XMLDocument.selectSingleNode("//xsl:param[@name='evenRowBackColor']").text=evenRowBackColor;
+        xslRows.XMLDocument.selectSingleNode("//xsl:param[@name='oddRowBackColor']").text=oddRowBackColor;
+        xslRows.XMLDocument.selectSingleNode("//xsl:param[@name='selectionBackColor']").text=selectionBackColor;
+        xslRows.XMLDocument.selectSingleNode("//xsl:param[@name='oddRowSelectColor']").text=_oddRowSelectColor;
+        xslRows.XMLDocument.selectSingleNode("//xsl:param[@name='selectionForeColor']").text=selectionForeColor;
+        xslRows.XMLDocument.selectSingleNode("//xsl:param[@name='select']").text=select;
+
+        _columnWidthsChanged=false;
+        redrawRows();
+}
+
+function redrawRows()
+{
+//*** for debug only ***
+//var re=/(<input[.\n]*type="checkbox"[.\n]*?>)/i;
+//var re=/(<input[.\n]*class="dstcombobox"[.\n]*?>)/i;
+//var re=/(<span.*href.*?>)/i;
+//re.exec(_oDoc.selectSingleNode("/*/rows").transformNode(xslRows.XMLDocument));
+//alert(RegExp.$1);
+//alert(_oDoc.selectSingleNode("/*/rows").transformNode(xslRows.XMLDocument));
+//**********************
+        if(_columnWidthsChanged)
+        {
+                // delete existing COLGROUP (first child of TABLE element
+                var oColgroupNode=xslRows.selectSingleNode("//table/colgroup[@id='COLUMNPROPS']");
+                var oTableNode=oColgroupNode.parentNode;
+                oTableNode.removeChild(oColgroupNode);
+
+                // get updated COLGROUP element with new column widths
+                var columnsNode=getColumns();
+                var temp=new ActiveXObject("Msxml2.DOMDocument");
+                columnsNode.transformNodeToObject(xslColGroup.XMLDocument,temp);
+                oTableNode.insertBefore(temp.documentElement,oTableNode.firstChild);
+                _columnWidthsChanged=false;
+        }
+        var rowsNode=_oDoc.selectSingleNode("/*/rows");
+        if(null!=rowsNode) document.all.item("divRows").innerHTML=rowsNode.transformNode(xslRows.XMLDocument);
+
+        // the following code will allow a horizontal scroll bar to display.
+        var divRows=document.all.item("divRows");
+        var oTable=divRows.firstChild;
+        if(empty.length==0&&oTable.rows.length==0)
+        {
+                var oColgroup=oTable.all.item("COLUMNPROPS");
+                var oTR=oTable.insertRow();
+                var oTD=oTR.insertCell();
+                oTD.colSpan=oColgroup.children.length;
+                oTD.innerHTML="&nbsp;";
+        }
+}
+
+function onBeforePrint(e)
+{
+        setExpanded(true);
+}
+
+function onAfterPrint(e)
+{
+        setExpanded(false);
+}
+
+function getShowEditColumns() {return getShowLink(_SHOW_EDITCOLUMNS);}
+function getShowFind() {return getShowLink(_SHOW_FIND);}
+function getShowPrint() {return getShowLink(_SHOW_PRINT);}
+function getShowSaveToFile() {return getShowLink(_SHOW_SAVETOFILE);}
+function getShowSort() {return getShowLink(_SHOW_SORT);}
+
+function setShowEditColumns(vValue) {setShowLink(_SHOW_EDITCOLUMNS,isTrue(vValue));}
+function setShowFind(vValue) {setShowLink(_SHOW_FIND,isTrue(vValue));}
+function setShowPrint(vValue) {setShowLink(_SHOW_PRINT,isTrue(vValue));}
+function setShowSaveToFile(vValue) {setShowLink(_SHOW_SAVETOFILE,isTrue(vValue));}
+function setShowSort(vValue) {setShowLink(_SHOW_SORT,isTrue(vValue));}
+
+function setShowLink(link,show)
+{
+        if(show) _showLinks|=link;
+        else _showLinks^=link;
+
+        switch(link)
+        {
+                case _SHOW_EDITCOLUMNS:
+                        spanEditColumns.style.display=show?"inline":"none";
+                        break;
+                case _SHOW_FIND:
+                        spanFind.style.display=show?"inline":"none";
+                        break;
+                case _SHOW_SORT:
+                        spanSort.style.display=show?"inline":"none";
+                        break;
+                case _SHOW_PRINT:
+                        spanPrint.style.display=show?"inline":"none";
+                        break;
+                case _SHOW_SAVETOFILE:
+                        spanSaveToFile.style.display=show?"inline":"none";
+                        break;
+        }
+
+        if(_showLinks>0)
+        {
+                trLinks.style.display="inline";
+                tdGrid.height="99%";
+        }
+        else
+        {
+                trLinks.style.display="none";
+                tdGrid.height="100%";
+        }
+}
+
+function getShowLink(link)
+{
+        return (_showLinks&link)>0;
+}
+
+/******************************************************************************
+ * NAME:          isTrue
+ *
+ * PARAMETERS:    vValue
+ *
+ * RETURNS:       Boolean. TRUE if vValue is true. Otherwise returns false.
+ *
+ * DESCRIPTION:   The different string values of true were taken from the
+ *                isTrue() function of the SortListControl ActiveX control.
+ *****************************************************************************/
+function isTrue(vValue)
+{
+//alert("isTrue()...\ntypeof(vValue)="+typeof(vValue));
+        if(typeof(vValue)=="boolean") return vValue;
+        var temp=vValue.toLowerCase();
+        return temp=="true"||temp=="yes"||temp=="t"||temp=="y"||temp=="on"||temp=="1";
+}
+
+function getExpanded()
+{
+        return _expanded;
+}
+
+function setExpanded(isExpanded)
+{
+        _oContainer.style.overflow=isExpanded?"visible":"hidden";
+        _oRows.style.overflow=isExpanded?"visible":"auto";
+        _expanded=isExpanded;
+}
+
+/******************************************************************************
+ * NAME:          resort
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Resorts the grid using the preferences sort order if it
+ *                exists. It the preferences sort order does not exist then it
+ *                will use the sort order off the root. If no sort order
+ *                exists in the xml document then the function does nothing.
+ *****************************************************************************/
+function resort()
+{
+        redrawRows();
+}
+
+/******************************************************************************
+ * NAME:          getColumnType
+ *
+ * PARAMETERS:    tagName
+ *
+ * RETURNS:       String. Defaults to text if no other value is found.
+ *
+ * DESCRIPTION:
+ *****************************************************************************/
+function getColumnType(tagName)
+{
+        var column=element.XMLDocument.selectSingleNode("/*/columns/"+tagName);
+        if(null!=column)
+        {
+                var type=column.getAttribute("type");
+                return type==null?"text":type; // default to "text" if none specified
+        }
+}
+
+/******************************************************************************
+ * NAME:          getColumnIndex
+ *
+ * PARAMETERS:    tagName
+ *
+ * RETURNS:       Integer. -1 if the tagName is not found.
+ *
+ * DESCRIPTION:
+ *****************************************************************************/
+function getColumnIndex(tagName)
+{
+        var oTR=_oHeader.firstChild.rows.item(0);
+        var numCols=oTR.cells.length;
+        for(var colIndex=0;colIndex<numCols;colIndex+=2)
+        {
+                var oTD=oTR.cells.item(colIndex);
+                if(oTD.xmlTagName==tagName) return colIndex/2; // every other column is a resizing column
+        }
+        return -1;
+}
+
+/******************************************************************************
+ * NAME:          getColumnName
+ *
+ * PARAMETERS:    columnIndex
+ *
+ * RETURNS:       String
+ *
+ * DESCRIPTION:
+ *****************************************************************************/
+function getColumnName(columnIndex)
+{
+        var oTR=_oHeader.firstChild.rows.item(0);
+        var numCols=oTR.cells.length;
+        if(columnIndex>=numCols)
+        {
+                returnError("3100","Column index is not a number {columnIndex="+columnIndex+"}");
+                return false;
+        }
+        var oTD=oTR.cells.item(columnIndex*2); // odd numbered columns are the resizing cells
+        return oTD.xmlTagName;
+}
+
+//function getColumnAlignment(tagName)
+//{
+//      var column=element.XMLDocument.selectSingleNode("/*/columns/"+tagName);
+//      if(null!=column)
+//      {
+//              var align=column.getAttribute("align");
+//              if(null==align)
+//              {
+//                      var type=column.getAttribute("type");
+//                      if(type=="number") return "right";
+//                      else return "left";
+//              }
+//      }
+//}
+
+/******************************************************************************
+ * Message handler for when the mouse cursor hovers a grid row (TR) element.
+ * It should apply the hilite color to the row being hovered.
+ *****************************************************************************/
+function onMouseOver()
+{
+        if(hiliteColor!=null)
+        {
+                srcElem=window.event.srcElement;
+                //crawl up to find the row
+                while (srcElem.tagName!="TR"&&srcElem.tagName!="TABLE")
+                {
+                        srcElem=srcElem.parentElement;
+                }
+                if(srcElem.tagName!="TR") return;
+                hilite(srcElem);
+        }
+}
+
+/******************************************************************************
+ * Message handler for when the mouse cursor leaves a grid row (TR) element.
+ *****************************************************************************/
+function onMouseOut()
+{
+        if(hiliteColor!=null) hilite(-1);
+}
+
+function hilite(newRow)
+{
+        if(_currRow!=-1&&_currRow!=_selRow)
+        {
+//                      // set the row back to its previous color
+//                      if(_currRow.getAttribute("selected")==true)
+//                      {
+//                              _currRow.runtimeStyle.backgroundColor=(_currRow.rowIndex%2==0)?evenRowSelectColor:oddRowSelectColor;
+//                      }
+//                      else
+//                      {
+                _currRow.runtimeStyle.backgroundColor='';
+//                      }
+        }
+
+        if(newRow!=-1&&newRow!=_selRow)
+        {
+                newRow.runtimeStyle.backgroundColor=hiliteColor;
+        }
+        _currRow=newRow;
+}
+
+function onClickColumnHeader()
+{
+        if(!isTrue(allowSorting)||getItemCount()<=1) return;
+
+        var srcElem=window.event.srcElement;
+        while(srcElem.tagName!="TD"&&srcElem.tagName!=null) srcElem=srcElem.parentElement;
+        if(srcElem==null) return;
+
+        var sortAsc=srcElem.getAttribute("sortAsc");
+        if(sortAsc==null) sortAsc=true;
+        else sortAsc=!sortAsc;
+        srcElem.setAttribute("sortAsc",sortAsc);
+        sortColumns(new Array(srcElem.getAttribute("xmlTagName")+":"+(sortAsc?"A":"D")));
+}
+
+function onMouseOverColumnHeader()
+{
+        if(!_bDragMode) // only show tooltip when not in drag mode
+        {
+                var srcElem=window.event.srcElement;
+                while(srcElem.tagName!="DIV"&&srcElem.tagName!=null) srcElem=srcElem.parentElement;
+                if(srcElem==null) return;
+        //      window.status=srcElem.tagName+".scrollWidth="+srcElem.scrollWidth+"; offsetWidth="+srcElem.offsetWidth;
+                if(srcElem.offsetWidth<srcElem.scrollWidth)
+                {
+                        // show a popup (tooltip)
+                        _tooltip=window.createPopup();
+
+                        var oStyleSheet=_tooltip.document.createStyleSheet();
+                        var item=document.styleSheets[0];
+                        for(var j=0;j<item.rules.length;j++)
+                        {
+                                var oRule=item.rules(j);
+                                oStyleSheet.addRule(oRule.selectorText,oRule.style.cssText);
+                        }
+
+                        var oPopupBody=_tooltip.document.body;
+                        oPopupBody.style.margin="2px 4px 3px 4px";
+                        oPopupBody.style.backgroundColor="rgb(255,255,227)";
+                        oPopupBody.style.cursor="default";
+                        oPopupBody.attachEvent("onclick",onClickColumnHeaderTooltip);
+                        oPopupBody.attachEvent("onmouseout",onMouseOutColumnHeader);
+
+                        var parent=srcElem.parentElement;
+                        oPopupBody.parentObject=srcElem; // set this expando variable to be used in the onClickColumnHeaderTooltip function
+                        oPopupBody.innerHTML=srcElem.innerText;
+                        _tooltip.show(0,0,srcElem.scrollWidth+8,parent.offsetHeight,parent); // add 8 to width because of the 4px left and 4px right margin
+                }
+        }
+}
+
+function onMouseOutColumnHeader()
+{
+        _tooltip.hide();
+}
+
+function onClickColumnHeaderTooltip(e)
+{
+        _tooltip.document.body.parentObject.click();
+}
+
+function sortColumns(columnArray)
+{
+        window.status="Sorting...";
+
+        var preferences=getPreferences();
+        var sortorder=preferences.selectSingleNode("sortorder");
+        if(null==sortorder)
+        {
+                sortorder=_oDoc.createElement("sortorder");
+                preferences.appendChild(sortorder);
+        }
+        else
+        {
+                // clear sortorder
+                while(sortorder.firstChild!=null) sortorder.removeChild(sortorder.firstChild);
+        }
+        for(var i=0;i<columnArray.length;i++)
+        {
+                var tempArray=columnArray[i].split(":");
+                var sortElement=_oDoc.createElement(tempArray[0]);
+                sortElement.setAttribute("sort",(tempArray[1]=="A")?"ascending":"descending");
+                sortorder.appendChild(sortElement);
+        }
+
+        refresh();
+        window.status="";
+}
+
+/******************************************************************************
+ * NAME:          onClick
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Event handler for the onClick of column rows (TR tags).
+ *
+ * REMARKS:
+ *****************************************************************************/
+function onClick()
+{
+        srcElem=window.event.srcElement;
+
+        //crawl up the tree to find the table row
+        while(srcElem.tagName!="TR"||srcElem.name!="DSTGRIDROW") srcElem=srcElem.parentElement;
+        if(srcElem.tagName!="TR") return;
+
+        if(_selRow!=-1)
+        {
+                if(select=="multiple")
+                {
+                        if(window.event.ctrlKey)
+                        {
+                                // toggle the row clicked from select to unselected and vice versa.
+                                setRowState(srcElem,srcElem.getAttribute("selected")!=true);
+                                _selRow=srcElem;
+                                fireRowSelect(srcElem);
+                        }
+                        else
+                        {
+                                //crawl up the tree to find the table object
+                                var oTABLE=srcElem;
+                                while(oTABLE.tagName!="TABLE") oTABLE=oTABLE.parentElement;
+                                if(oTABLE.tagName!="TABLE") return;
+
+                                // unselect all previously selected rows
+                                setItemState(-1,false);
+
+                                if(window.event.shiftKey)
+                                {
+                                        // select the rows from the previous row click to the row just clicked
+                                        var min=srcElem.rowIndex>_selRow.rowIndex?_selRow.rowIndex:srcElem.rowIndex;
+                                        var max=srcElem.rowIndex>_selRow.rowIndex?srcElem.rowIndex:_selRow.rowIndex;
+                                        for(var i=min;i<max+1;i++)
+                                        {
+                                                setRowState(oTABLE.rows(i),true);
+                                        }
+                                        _selRow=srcElem;
+                                        fireRowSelect(srcElem);
+                                }
+                                else
+                                {
+                                        // select the one row clicked
+                                        setRowState(srcElem,true);
+                                        _selRow=srcElem;
+                                        fireRowSelect(srcElem);
+                                }
+                        }
+                }
+                else
+                {
+                        // grid allows single select only. unselect previous selection and then select the row clicked.
+                        setItemState(-1,false);
+                        setRowState(srcElem,true);
+                        _selRow=srcElem;
+                        fireRowSelect(srcElem);
+                }
+        }
+        else
+        {
+                // first item to be selected in the grid. doesn't matter if control or
+                // shift keys are pressed, if it single or multiple select, etc.
+                setRowState(srcElem,true);
+                _selRow=srcElem;
+                fireRowSelect(srcElem);
+        }
+}
+
+function onDoubleClick()
+{
+        srcElem=window.event.srcElement;
+        while(srcElem.tagName!="TR") srcElem=srcElem.parentElement;
+        fireDoubleClick(srcElem);
+}
+
+function setRowState(oTR,selected)
+{
+//alert("setRowState...\n\noTR.rowIndex="+oTR.rowIndex); -->
+        var oXmlRow=_oDoc.selectSingleNode("/*/rows/row[@id='"+oTR.getAttribute("id")+"']");
+        if(oXmlRow!=null) oXmlRow.setAttribute("selected",selected?"true":"false");
+//      var newHTML=oXmlRow.transformNode(xslRows.XMLDocument);
+//alert(newHTML);
+        var backgroundColor="";
+        var foreColor="";
+        if(selected)
+        {
+                backgroundColor=altRowColor=="true"?((oTR.rowIndex%2==0)?_oddRowSelectColor:selectionBackColor):selectionBackColor;
+                foreColor=selectionForeColor;
+        }
+        else
+        {
+                backgroundColor=altRowColor=="true"?((oTR.rowIndex%2==0)?oddRowBackColor:evenRowBackColor):oddRowBackColor;
+                foreColor=altRowColor=="true"?((oTR.rowIndex%2==0)?oddRowForeColor:evenRowForeColor):oddRowForeColor;
+        }
+        oTR.style.backgroundColor=backgroundColor;
+        oTR.style.color=foreColor;
+        oTR.setAttribute("selected",selected);
+}
+
+function fireRowSelect(oTR)
+{
+        var oEvent=createEventObject();
+        oEvent.selected=_selRow;
+        rowSelect.fire(oEvent);
+}
+
+function fireDoubleClick(oTR)
+{
+        var oEvent=createEventObject();
+        oEvent.rowIndex=oTR.rowIndex;
+        doubleClick.fire(oEvent);
+}
+
+function fireReadyStateChange()
+{
+        var oEvent=createEventObject();
+        readyStateID.fire(oEvent);
+}
+
+function firePreferencesChange()
+{
+        var oEvent=createEventObject();
+        preferencesID.fire(oEvent);
+}
+
+/*
+ * This is the onblur event handler for listbox cells. It is called when the
+ * listbox loses focus. It should return the table cell back to its "non-edit" mode.
+ */
+function onBlurListBox()
+{
+        // get selected value and text
+        srcElem=window.event.srcElement;
+        var selText=srcElem.options[srcElem.selectedIndex].text;
+
+        // crawl to find parent table cell
+        while(srcElem.getAttribute("NAME")!="CELLCONTENTS")
+        {
+                srcElem=srcElem.parentElement;
+        }
+        if(srcElem.tagName!="TD") return;
+        insertNonEditListBox(srcElem,selText);
+}
+
+/******************************************************************************
+ * NAME:          rows_onscroll
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Event handler. Aligns the header's scroll position with the
+ *                rows scroll position whenever the rows DIV is scrolled.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function rows_onscroll()
+{
+        if(_oHeader!=null) _oHeader.style.pixelLeft=0-_oRows.scrollLeft;
+}
+
+/******************************************************************************
+ * NAME:          rows_onresize
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Event handler. Aligns the header's scroll position with the
+ *                rows scroll position whenever the grid resizes.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function rows_onresize()
+{
+        if(_oHeader!=null) _oHeader.style.pixelLeft=0-_oRows.scrollLeft;
+}
+
+/******************************************************************************
+ * NAME:          onMouseDown
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Event handler. Initiates the drag-n-drop of the column header
+ *                resize handle
+ *
+ * REMARKS:
+ *****************************************************************************/
+function onMouseDown()
+{
+        var e=window.event;
+        _dx=e.screenX;
+        _bDragMode=true;
+        src=e.srcElement;
+        while(src.tagName!="TD") src=src.parentElement;
+        _resizeColumn=src.previousSibling;
+
+        //calc the left of _resizeColumn (sum widths of all previous siblings
+        var sibling=_resizeColumn.previousSibling;
+        _minLeft=0;
+        while(sibling!=null)
+        {
+                _minLeft+=sibling.style.pixelWidth;
+                sibling=sibling.previousSibling;
+        }
+
+        // create drag object
+        _objDragItem=document.createElement("DIV");
+        _objDragItem.style.height=1200;//src.clientHeight;
+        _objDragItem.style.width=src.currentStyle.width;
+        _objDragItem.style.backgroundImage="url("+_base+"dstgrid_resize_black.gif)";//src.currentStyle.backgroundImage;
+        _objDragItem.style.backgroundRepeat=src.currentStyle.backgroundRepeat;
+        //element.document.body.style.cursor="col-resize";
+        //document.body.style.cursor="col-resize";
+        //_objDragItem.style.cursor=src.currentStyle.cursor;
+        _objDragItem.style.position="absolute";
+
+        var c=e.srcElement;
+        var left=0;
+        while(c.offsetParent!=null)
+        {
+                left+=c.offsetLeft;
+                c=c.offsetParent;
+        }
+        _objDragItem.style.top=0;
+        _objDragItem.style.pixelLeft=left+_oRows.scrollLeft;
+
+        src.insertBefore(_objDragItem);
+
+        // attach event handlers to the behavior's parent document body to listen for onmousemove and onmouseup.
+        element.document.body.attachEvent("onmousemove",onMouseMove);
+        element.document.body.attachEvent("onmouseup",onMouseUp);
+}
+
+/******************************************************************************
+ * NAME:          onMouseMove
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Event handler for drag-n-drop of the column header resize
+ *                handle.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function onMouseMove()
+{
+        if(!_bDragMode||!_objDragItem) return; // if we aren't dragging or our object is null, we return
+        var e=window.event;
+
+        var intLeft=e.offsetX+element.document.body.scrollLeft-element.document.body.scrollLeft; // Save mouse's horizontal position in the document
+        var cx=0;
+        var elCurrent=_objDragItem.offsetParent;
+        while(elCurrent.offsetParent!=null)
+        {
+                cx+=elCurrent.offsetLeft;
+                elCurrent=elCurrent.offsetParent;
+        }
+
+        if((intLeft-cx-1)>_minLeft)
+        {
+                // move horizontally only. does not move vertically.
+                _objDragItem.style.pixelLeft=intLeft-cx-1; // subtract 1 = is about half of 3px (the width of resize TD.
+        }
+        else
+        {
+                _objDragItem.style.pixelLeft=_minLeft; // subtract 1 = is about half of 3px (the width of resize TD.
+        }
+
+        e.cancelBubble=false;
+        e.returnValue=false;
+}
+
+/******************************************************************************
+ * NAME:          onMouseUp
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Event handler for drag-n-drop of the column header resize
+ *                handle.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function onMouseUp()
+{
+        if(!_bDragMode) return; // if we aren't dragging we return
+
+        // Detach the event handlers attached to the behavior's parent document body
+        // by the onMouseDown() function.
+        element.document.body.detachEvent("onmousemove",onMouseMove);
+        element.document.body.detachEvent("onmouseup",onMouseUp);
+
+        var e=window.event;
+        var cellIndex=_resizeColumn.cellIndex/2; // this will be the zero based cell index in the grid (header has twice the cells because of the resize cells).
+
+        // calc new size
+        var newDataWidth=parseInt(_resizeColumn.width)+(e.screenX-_dx);
+
+        //update preferences
+        var preferences=getPreferences();
+        var columns=preferences.selectSingleNode("columns");
+        if(null==columns)
+        {
+                columns=_oDoc.selectSingleNode("/*/columns").cloneNode(true);
+                preferences.appendChild(columns);
+        }
+        var column=columns.selectSingleNode(_resizeColumn.getAttribute("xmlTagName"));
+        column.setAttribute("width",newDataWidth);
+
+        var newHeaderWidth=newDataWidth-(cellIndex==0?1:3)+"px";
+
+        // resize the column in the header
+        _resizeColumn.width=newHeaderWidth;
+
+        // resize the column in the data rows
+        var oCOLGROUP=_oRows.all.item("COLUMNPROPS");
+        var oCOL=oCOLGROUP.children.item(cellIndex).width=newDataWidth;
+
+        _bDragMode=false;
+        _objDragItem.removeNode(true);
+        _objDragItem=null;
+        _columnWidthsChanged=true;
+
+        e.cancelBubble=false; // allow the next event handler in the hierarchy to receive the event
+        e.returnValue=false; // cancel the default action of the event on the source object
+}
+
+/*
+ * When the user leaves the TABLE containing the column headers then stop the drag-n-drop.
+ */
+function onDragMouseOut()
+{
+        if(!_bDragMode) return;
+        if(window.event.srcElement.tagName=="TABLE")
+        {
+                _bDragMode=false;
+                _objDragItem.removeNode(true);
+                _objDragItem=null;
+        }
+}
+
+function onSelect()
+{
+        //disable selection
+        window.event.returnValue=false;
+        window.event.cancelBubble=true;
+        return false;
+}
+
+/******************************************************************************
+ * NAME:          addRows
+ *
+ * PARAMETERS:    xml. XML string or XML DOM Document
+ *                clearSelect. optional boolean. True will remove the selected
+ *                  attributes. Otherwise, the selected attributes will remain
+ *                  unchanged.
+ *
+ * RETURNS:       Boolean. Returns true if successful. Otherwise returns false.
+ *
+ * DESCRIPTION:   Adds one or more rows and then performs a sort(if sortorder
+ *                node exists in the control's XML).
+ *
+ * REMARKS:
+ *****************************************************************************/
+function addRows(xml,clearSelect)
+{
+        var oDoc;
+        if("string"!=typeof(xml))
+        {
+                xml=xml.xml;
+        }
+        oDoc=new ActiveXObject("Msxml2.DOMDocument");
+        if(!oDoc.loadXML(xml))
+        {
+                returnError("3000",getXmlError(oDoc));
+                return false;
+        }
+
+        if(null==oDoc.selectSingleNode("//row[@id]")) oDoc.transformNodeToObject(xslInit.XMLDocument,oDoc); // add ID attributes
+
+        if(clearSelect==undefined) clearSelect=true; // default value is TRUE if nothing is passed
+
+        var rowsNode=_oDoc.selectSingleNode("//rows");
+        if(null==rowsNode) // add node if it does not exist
+        {
+                rowsNode=_oDoc.createElement("rows");
+                _oDoc.documentElement.appendChild(rowsNode);
+        }
+        var rowSelected=false;
+        var oRowNodes=oDoc.selectNodes("//row");
+        var numRows=oRowNodes.length;
+        for(var i=0;i<numRows;i++)
+        {
+                var oRow=oRowNodes.item(i);
+                if(clearSelect==true) oRow.removeAttribute("selected");
+                else if(oRow.getAttribute("selected")=="true") rowSelected=true;
+                rowsNode.appendChild(oRow);
+        }
+
+        if(numRows>0)
+        {
+                redrawRows();
+                showEmpty(_oDoc.selectNodes("//row").length==0&&empty.length>0);
+                if(rowSelected) rowSelect.fire();
+        }
+        return true;
+}
+
+/******************************************************************************
+ * NAME:          getSelectedRows
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   returns the selected rows in XML format.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function getSelectedRows()
+{
+        var oDoc=new ActiveXObject("Msxml2.DOMDocument");
+        var oRowsNode=oDoc.createElement("rows");
+        oDoc.appendChild(oRowsNode);
+
+        var index=getFirstSelectedItem();
+        while(-1!=index)
+        {
+                var oRow=getItem(index);
+                oRowsNode.appendChild(oRow);
+                index=getNextSelectedItem(index);
+        }
+
+        return oRowsNode;
+}
+
+/******************************************************************************
+ * NAME:          deleteSelectedRows
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Deletes the selected row(s).
+ *
+ * REMARKS:
+ *****************************************************************************/
+function deleteSelectedRows()
+{
+        var rowCount=getItemCount();
+        if(rowCount==0) return;
+
+        var oRows=_oRows.firstChild.rows;
+        var redraw=false;
+        for(var rowIndex=0;rowIndex<rowCount;rowIndex++)
+        {
+                var oRow=oRows.item(rowIndex);
+                if(oRow.getAttribute("selected"))
+                {
+                        var id=oRows.item(rowIndex).getAttribute("id");
+                        var oNode=_oDoc.selectSingleNode("//row[@id='"+id+"']");
+                        if(null!=oNode)
+                        {
+                                redraw=true;
+                                oNode.parentNode.removeChild(oNode);
+                        }
+                }
+        }
+        if(redraw)
+        {
+                showEmpty(_oDoc.selectNodes("//row").length==0&&empty.length>0);
+                redrawRows();
+        }
+}
+
+function getAllRows()
+{
+        return _oDoc.selectSingleNode("//rows").cloneNode(true);
+}
+
+/******************************************************************************
+ * NAME:          deleteAllRows
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Deletes all items from the control.
+ *
+ * REMARKS:       This method deletes all items from the list control. To
+ *                remove a single item, see deleteRow.
+ *****************************************************************************/
+function deleteAllRows()
+{
+        var oNodeList=_oDoc.selectNodes("//row");
+        var nodeCount=oNodeList.length;
+        if(nodeCount>0)
+        {
+                oNodeList.removeAll();
+                showEmpty(empty.length>0);
+                redrawRows();
+        }
+}
+
+function editColumns()
+{
+        var args=new Array(document.styleSheets[0],_oDoc.documentElement.cloneNode(true));
+        var returnValue=showModalDialog(_base+"dstgrid_editcolumns.htm",args,"dialogHeight:482px;dialogWidth:482px;center:yes;resizable:yes;status:no");
+        if(null!=returnValue)
+        {
+                saveColumnOrder(returnValue);
+
+                // refresh column headers
+                var columnsNode=_oDoc.selectSingleNode("/*/preferences/columns");
+                document.all.item("divHeaders").innerHTML=columnsNode.transformNode(xslHeader.XMLDocument);
+
+                //refresh rows
+                refresh();
+        }
+}
+
+function sort()
+{
+        var args=new Array(document.styleSheets[0],getColumns(),_oDoc.selectSingleNode("/*/preferences/sortorder"));
+        var returnValue=showModalDialog(_base+"dstgrid_sort.htm",args,"dialogHeight:361px;dialogWidth:400px;center:yes;resizable:no;status:no");
+        if(null!=returnValue)
+        {
+                saveSortOrder(returnValue);
+                refresh();
+        }
+}
+
+function find()
+{
+        var args=element;
+        showModalDialog(_base+"dstgrid_find.htm",args,"dialogHeight:240px;dialogWidth:350px;center:yes;resizable:no;status:no");
+}
+
+/******************************************************************************
+ * NAME:          findFunction
+ *
+ * PARAMETERS:    findWhat,matchCase,matchExactly,altSearch,useWildcards
+ *
+ * RETURNS:       Integer - Index of the row with text or -1 if the text was
+ *                          not found.
+ *
+ * DESCRIPTION:   Takes the search criteria and if it makes a match it selects
+ *                that row.
+ *
+ * REMARKS:       Called by the find modal dialog to search the grid.
+ *****************************************************************************/
+function findFunction(findWhat,matchCase,matchExactly,altSearch,useWildcards)
+{
+        var rowCount=getItemCount();
+        if(rowCount==0) return -1;
+        var colCount=columnCount;
+
+        if(!matchCase) findWhat=findWhat.toLowerCase();
+        var oRows=_oRows.firstChild.rows;
+
+        var pattern=pattern=findWhat.replace(/(\W)/g,"\\$1"); // escape non-digit and non-alpha characters so that we don't have problems with the regular expression
+        if(useWildcards)
+        {
+                // convert wildcards (* and ?) in input pattern to regular expression wildcards
+                pattern=pattern.replace(/(?:\\\*)/g,".*");
+                pattern=pattern.replace(/(?:\\\?)/g,".");
+        }
+        if(matchExactly) pattern="^"+pattern+"$";
+        var re;
+        if(matchCase) re=new RegExp(pattern);
+        else re=new RegExp(pattern,"i");
+
+        if(altSearch)
+        {
+                var startIndex=getFirstSelectedItem();
+                for(var colIndex=0;colIndex<colCount;colIndex++)
+                {
+                        var rowIndex=startIndex+1;
+                        while(rowIndex!=startIndex)
+                        {
+                                if(rowIndex>=rowCount)
+                                {
+                                        if(startIndex<=0) break; //if no items previously selected or first item selected then exit from loop
+                                        rowIndex=0;
+                                }
+                                var oRow=oRows.item(rowIndex);
+                                var comparetext=oRow.cells.item(colIndex).innerText;
+                                match=(-1!=comparetext.search(re));
+                                if(match)
+                                {
+                                        setItemState(-1,false); // unselect all rows
+                                        setItemState(rowIndex,true); // select row with found text
+                                        ensureVisible(rowIndex,false);
+                                        return rowIndex;
+                                }
+                                rowIndex++;
+                        }
+                }
+        }
+        else
+        {
+                var startIndex=getFirstSelectedItem();
+                var rowIndex=startIndex+1;
+                while(rowIndex!=startIndex)
+                {
+                        if(rowIndex>=rowCount)
+                        {
+                                if(startIndex<=0) break; //if no items previously selected or first item selected then exit from loop
+                                rowIndex=0;
+                        }
+                        var oRow=oRows.item(rowIndex);
+                        for(var colIndex=0;colIndex<colCount;colIndex++)
+                        {
+                                var comparetext=oRow.cells.item(colIndex).innerText;
+                                match=(-1!=comparetext.search(re));
+                                if(match)
+                                {
+                                        setItemState(-1,false); // unselect all rows
+                                        setItemState(rowIndex,true); // select row with found text
+                                        ensureVisible(rowIndex,false);
+                                        return rowIndex;
+                                }
+                        }
+                        rowIndex++;
+                }
+        }
+        return -1;
+}
+
+function print()
+{
+        var oPrintWindow=window.open('',null,"height=1,width=1,center:yes;resizable:no;status:no,toolbar=no,menubar=no,location=no,titlebar=no");
+        //save off expaned variable to reset back after Print Window is loaded.
+        var temp=expanded;
+        setExpanded(true);
+        oPrintWindow.document.body.innerHTML=_oContainer.parentElement.innerHTML;
+        setExpanded(temp);
+        oPrintWindow.print();
+        oPrintWindow.close();
+}
+
+function saveToFile()
+{
+        var args=new Array(_oContainer,element);
+        showModalDialog(_base+"dstgrid_savetofile.htm",args,"dialogHeight:500px;dialogWidth:500px;center:yes;resizable:no;status:no");
+//      var args=element;
+//      showModalDialog(_base+"dstgrid_savetofile.htm",args,"dialogHeight:500px;dialogWidth:500px;center:yes;resizable:no;status:no");
+//
+//      var oDialog=new ActiveXObject("MSComDlg.CommonDialog");
+//      var oDialog=document.all.item("objCommonDialog");
+//alert(oDialog.outerHTML);
+//alert(oDialog);
+//      oDialog.Filter="XML Files (*.xml)|*.xml";
+//      oDialog.ShowSave();
+//alert(oDialog.FileName);
+//      var fso = new ActiveXObject("Scripting.FileSystemObject");
+//      var f=fso.CreateTextFile(txtFilename.value,true);
+//      f.Write(window.dialogArguments);
+//      f.Close();
+/*
+        var oDialog=new ActiveXObject("MSComDlg.CommonDialog");
+        //var oDialog=document.all.item("objCommonDialog");
+        try
+        {
+                oDialog.Filter="HTM Files (*.htm)|*.htm|XML Files (*.xml)|*.xml|Text Files (*.txt)|*.txt";
+                oDialog.ShowSave();
+                var fso = new ActiveXObject("Scripting.FileSystemObject");
+                var f = fso.CreateTextFile(oDialog.filename, true);
+                switch (oDialog.FilterIndex)
+                {
+                        case 1:
+                                f.write(_oContainer.innerHTML);
+                                break;
+                        case 2:
+                                f.write(element.innerHTML);
+                                break;
+                        case 3:
+                                f.write(_oContainer.innerHTML);
+                                break;
+                }
+                f.Close();
+        }
+        catch(e)
+        {
+                returnError("3050",e.message);
+        }
+*/
+}
+
+function returnError(code,message)
+{
+        var oEvent=createEventObject();
+        oEvent.code=code;
+        oEvent.message=message;
+        errorID.fire(oEvent);
+}
+
+/******************************************************************************
+ * NAME:          getXmlError
+ *
+ * PARAMETERS:    XML DOM Document object
+ *
+ * RETURNS:       String. The concatenated parse error strings
+ *
+ * DESCRIPTION:   Generates a string representation of the XML parse error.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function getXmlError(oDoc)
+{
+        return oDoc.parseError.errorCode+
+                "\nfilepos: "+oDoc.parseError.filepos+
+                "\nline: "+oDoc.parseError.line+
+                "\nlinepos: "+oDoc.parseError.linepos+
+                "\nreason: "+oDoc.parseError.reason+
+                "\nsrcText: "+oDoc.parseError.srcText+
+                "\nurl: "+oDoc.parseError.url+
+                "\n\n"+element.innerHTML;
+}
+
+/******************************************************************************
+ * NAME:          getSelectedCount
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       Integer - The number of selected items in the control
+ *
+ * DESCRIPTION:   Retrieves the number of selected items in the control.
+ *
+ * REMARKS:       Use the method getItemCount() to retrieve the number of
+ *                items in the control.
+ *****************************************************************************/
+function getSelectedCount()
+{
+        var rowCount=getItemCount();
+        if(getItemCount()==0) return 0;
+
+        var count=0;
+        var oRows=_oRows.firstChild.rows;
+        for(var i=rowCount-1;i>=0;i--)
+        {
+                var oRow=oRows.item(i);
+                if(oRow.getAttribute("selected"))
+                {
+                        count++;
+                }
+        }
+        return count;
+}
+
+/******************************************************************************
+ * NAME:          getItemCount
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       Integer - The number of items in the control
+ *
+ * DESCRIPTION:   Retrieves the number of items in the control.
+ *
+ * REMARKS:       Use the method getSelectedCount() to retrieve the number of
+ *                selected items in the control.
+ *****************************************************************************/
+function getItemCount()
+{
+        return _oDoc.selectNodes("/*/rows/row").length;
+}
+
+/******************************************************************************
+ * NAME:          getItemText
+ *
+ * PARAMETERS:    rowIndex
+ *                tagName
+ *
+ * RETURNS:       The text of the specified grid cell.
+ *
+ * DESCRIPTION:   Retrieves the text of a row's subitem.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function getItemText(rowIndex,tagName)
+{
+        rowIndex=parseInt(rowIndex);
+        if(isNaN(rowIndex))
+        {
+                returnError("3100","Row index is not a number {rowIndex="+rowIndex+"}");
+                return "";
+        }
+        if(rowIndex>=getItemCount())
+        {
+                returnError("3101","Row index out of range {rowIndex="+rowIndex+"}");
+                return "";
+        }
+        var colIndex=getColumnIndex(tagName);
+        if(colIndex==-1)
+        {
+                returnError("3102","Invalid tagName passed to the function getItemText {tagName="+tagName+"}");
+                return;
+        }
+
+        var oNode=_oDoc.selectSingleNode("//row[@id='"+_oRows.firstChild.rows.item(rowIndex).getAttribute("ID")+"']/"+tagName);
+        if(oNode==null) return "";
+        else return oNode.text;
+}
+
+/******************************************************************************
+ * NAME:          setItemText
+ *
+ * PARAMETERS:    rowIndex
+ *                tagName
+ *                text
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Changes the text of a row's subitem.
+ *
+ * REMARKS:       Does not resort the grid after changing the text
+ *****************************************************************************/
+function setItemText(rowIndex,tagName,textError)
+{
+
+//alert("setItemText()...\nrowIndex="+rowIndex+"\ntagName="+tagName+"\ntext="+text);
+
+		var text = "" + textError;
+		var errorMessage = "Unknown Error Occured";
+		if (text.indexOf('~') != -1)
+		{
+			text = textError.substring(0,textError.indexOf('~'));
+			errorMessage = textError.substring(textError.indexOf('~')+1);
+		}
+		//alert(text + "<- : ->" + errorMessage);
+		
+        rowIndex=parseInt(rowIndex);
+        if(isNaN(rowIndex))
+        {
+                returnError("3100","Row index is not a number {rowIndex="+rowIndex+"}");
+                return;
+        }
+        if(rowIndex>getItemCount()) // null if grid created with no rows
+        {
+                returnError("3101","Row index out of range {rowIndex="+rowIndex+"}");
+                return;
+        }
+        var colIndex=getColumnIndex(tagName);
+        if(colIndex==-1)
+        {
+                returnError("3102","Invalid tagName passed to the function setItemText {tagName="+tagName+"}");
+                return;
+        }
+
+        var oRow=_oRows.firstChild.rows.item(rowIndex);
+        var oCell=oRow.cells.item(colIndex);
+        var dataType=getColumnType(tagName);
+        var inputs=oCell.getElementsByTagName("INPUT");
+        debug(dataType);
+
+        if(dataType=="check")
+        {
+                var oCheckbox=oCell.getElementsByTagName("INPUT")[0];
+                oCheckbox.checked=isTrue(text);
+        }
+        else if ( dataType == "errorIcon" )
+        {
+           // find the inner-most element and set it's text
+           var srcElem=oCell;
+
+           while(srcElem.firstChild!=null && srcElem.firstChild.tagName != undefined)
+           {
+             srcElem=srcElem.firstChild;
+           }
+
+           // srcElem.outerHTML = "<img src=\"" + text + "\"/>";
+           if ( text == 'X' )
+           {
+             var errorImageURL = _base + "bad2.gif";
+             srcElem.outerHTML = "<img src=\"" + errorImageURL + "\" title = \"" + errorMessage + " \"/>";
+           }
+           else if ( text == '!' )
+           {
+             var warningImageURL = _base + "warning.gif";
+             srcElem.outerHTML = "<img src=\"" + warningImageURL + "\" title = \"" + errorMessage + " \" />";
+           }
+           else
+           {
+             srcElem.outerHTML = "<b/>";
+           }
+
+        } 
+        else if ( dataType == "imageIcon" )
+        {
+           // find the inner-most element and set it's text
+           var srcElem=oCell;
+
+           while(srcElem.firstChild!=null && srcElem.firstChild.tagName != undefined)
+           {
+             srcElem=srcElem.firstChild;
+           }
+       
+          srcElem.outerHTML = "<img src=\"" +  _base + "bad2.gif" + "\"/>";
+        
+        }
+
+
+
+        else if(inputs.length>0)
+        {
+                inputs[0].value=text;
+        }
+        else
+        {
+                // find the inner-most element and set it's text
+                var srcElem=oCell;
+                while(srcElem.firstChild!=null && srcElem.firstChild.tagName!=undefined)
+                        srcElem=srcElem.firstChild;
+                srcElem.innerText=text; 
+	
+        }
+
+        // update xml
+        var oRow=_oDoc.selectSingleNode("//row[@id='"+oRow.getAttribute("ID")+"']");
+        var oNode=oRow.selectSingleNode(tagName);
+        if(oNode==null)
+        {
+                // The specified cell may not have been included for this row. If a cell
+                // has no data (is blank) then it is not necessary to include that cell
+                // under the rows tag when doing an AddRows. We need it now so create it now.
+                oNode=_oDoc.createElement(tagName);
+                oRow.appendChild(oNode);
+        }
+        oNode.text=text;
+}
+
+/******************************************************************************
+ * NAME:          findString
+ *
+ * PARAMETERS:    text. String to search for.
+ *                tagName. The XML tag name of the column to be searched.
+ *
+ * RETURNS:       Integer. Zero based index of the item if successful or -1
+ *                         otherwise.
+ *
+ * DESCRIPTION:   Searches for a list item with the given string in the
+ *                specified column.
+ *
+ * REMARKS:       The search is case sensitive.
+ *****************************************************************************/
+function findString(text,tagName)
+{
+        var rowCount=getItemCount();
+        if(rowCount==0) return -1;
+
+        var colIndex=getColumnIndex(tagName);
+        var oRows=_oRows.firstChild.rows;
+
+        if(colIndex>=oRows.item(0).cells.length)
+        {
+                returnError("3101","Column index out of range {colIndex="+colIndex+"}");
+                return "";
+        }
+        text=text.toLowerCase();
+        for(var i=0;i<rowCount;i++)
+        {
+                var oRow=oRows.item(i);
+                var cellText=oRow.cells.item(colIndex).innerText;
+                if(cellText.toLowerCase()==text)
+                {
+                        return i;
+                }
+        }
+
+        return -1;
+}
+
+/******************************************************************************
+ * NAME:          findRowItemData
+ *
+ * PARAMETERS:    itemdata
+ *
+ * RETURNS:       Integer. Zero based index of the item if successful or -1
+ *                         otherwise.
+ *
+ * DESCRIPTION:
+ *
+ * REMARKS:
+ *****************************************************************************/
+function findRowItemData(itemdata)
+{
+        var oNode=_oDoc.selectSingleNode("/*/rows/row[@itemdata='"+itemdata+"']");
+        if(oNode==null) return -1;
+        return _oRows.firstChild.rows(oNode.getAttribute("id")).rowIndex;
+}
+
+/******************************************************************************
+ * NAME:          findCellItemData
+ *
+ * PARAMETERS:    tagName
+ *                itemdata
+ *
+ * RETURNS:       Integer. Zero based index of the item if successful or -1
+ *                         otherwise.
+ *
+ * DESCRIPTION:
+ *
+ * REMARKS:
+ *****************************************************************************/
+function findCellItemData(tagName,itemdata)
+{
+        var rowCount=getItemCount();
+        if(rowCount==0) return -1;
+
+        if(typeof(itemdata)!="string") itemdata=itemdata.toString(); // conver numbers and such to string
+        else itemdata=itemdata.toLowerCase();
+
+        for(var rowIndex=0;rowIndex<rowCount;rowIndex++)
+        {
+                var cellItemData=getCellItemData(rowIndex,tagName);
+                if(cellItemData!=null&&cellItemData.toLowerCase()==itemdata) return rowIndex;
+        }
+        return -1;
+}
+
+/******************************************************************************
+ * NAME:          getFirstSelectedItem
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       Integer. The index of the first selected item or -1 if none
+ *                are selected.
+ *
+ * DESCRIPTION:   Retrieves the index of the first selected row in the control.
+ *
+ * REMARKS:       Call GetFirstSelectedItem to get the first selected item.
+ *                Then call GetNextSelectedItem to get all the rest of the
+ *                selected item.
+ *****************************************************************************/
+function getFirstSelectedItem()
+{
+        return getNextSelectedItem(-1);
+}
+
+/******************************************************************************
+ * NAME:          getNextSelectedItem
+ *
+ * PARAMETERS:    rowIndex. Integer. Zero based index returned by a previous
+ *                          call to GetNextSelectedItem or GetFirstSelectedItem.
+ *
+ * RETURNS:       Integer. The index of the next selected item or -1 if no more
+ *                items are selected.
+ *
+ * DESCRIPTION:   Retrieves the next selected row for iterating.
+ *
+ * REMARKS:       Call GetFirstSelectedItem to get the first selected item.
+ *                Then call GetNextSelectedItem to get all the rest of the
+ *                selected items.
+ *****************************************************************************/
+function getNextSelectedItem(rowIndex)
+{
+        rowIndex=parseInt(rowIndex);
+        if(isNaN(rowIndex))
+        {
+                returnError("3100","Row index is not a number {rowIndex="+rowIndex+"}");
+                return;
+        }
+
+        var rowCount=getItemCount();
+        if(rowIndex>=rowCount)
+        {
+                returnError("3101","Row index out of range {rowIndex="+rowIndex+"}");
+                return -1;
+        }
+
+        var oRows=_oRows.firstChild.rows;
+        for(var i=rowIndex+1;i<rowCount;i++)
+        {
+                if(oRows.item(i).getAttribute("selected"))
+                {
+                        return i;
+                }
+        }
+        return -1;
+}
+
+/******************************************************************************
+ * NAME:          setItemState
+ *
+ * PARAMETERS:    rowIndex. Integer. -1 will apply the selected argument to all
+ *                          items in the list.
+ *                selected. Boolean
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Changes the selection state of a row.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function setItemState(rowIndex,selected)
+{
+        rowIndex=parseInt(rowIndex);
+        if(isNaN(rowIndex))
+        {
+                returnError("3100","Row index is not a number {rowIndex="+rowIndex+"}");
+                return;
+        }
+
+        var rowCount=getItemCount();
+
+        if(rowIndex==-1) // apply "selected" argument to all items in the list
+        {
+                if(rowCount>0)
+                {
+                        var oRows=_oRows.firstChild.rows;
+                        for(var i=0;i<rowCount;i++) setRowState(oRows.item(i),selected);
+                }
+                return;
+        }
+
+        if(rowIndex>=rowCount)
+        {
+                returnError("3101","Row index out of range {rowIndex="+rowIndex+"}");
+                return;
+        }
+
+        var oTR=_oRows.firstChild.rows.item(rowIndex);
+
+        // this function has the same logic as onClick() but without the shift key and control key stuff
+        if(_selRow!=-1)
+        {
+                if(select=="multiple")
+                {
+                        setRowState(oTR,selected);
+                        _selRow=oTR;
+                        fireRowSelect(_selRow);
+                }
+                else
+                {
+                        if(selected) setRowState(_selRow,false);
+                        setRowState(oTR,selected);
+                        _selRow=oTR;
+                        fireRowSelect(_selRow);
+                }
+        }
+        else
+        {
+                setRowState(oTR,selected);
+                _selRow=oTR;
+                fireRowSelect(_selRow);
+        }
+}
+
+/******************************************************************************
+ * NAME:          getItemState
+ *
+ * PARAMETERS:    rowIndex
+ *
+ * RETURNS:       Boolean. Returns true if the row is selected. Otherwise, returns false.
+ *
+ * DESCRIPTION:   Retrieves the selection state of a row.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function getItemState(rowIndex)
+{
+        rowIndex=parseInt(rowIndex);
+        if(isNaN(rowIndex))
+        {
+                returnError("3100","Row index is not a number {rowIndex="+rowIndex+"}");
+                return false;
+        }
+        if(rowIndex>=getItemCount())
+        {
+                returnError("3101","Row index out of range {rowIndex="+rowIndex+"}");
+                return false;
+        }
+        var selected=_oRows.firstChild.rows.item(rowIndex).getAttribute("selected");
+        if(selected==null) return false;
+        return isTrue(selected);
+}
+
+/******************************************************************************
+ * NAME:          getItem
+ *
+ * PARAMETERS:    rowIndex. Integer. The index of row to retrieve.
+ *
+ * RETURNS:       XMLDocument if successful. Otherwise, returns null.
+ *
+ * DESCRIPTION:   Retrieves a row's attributes in the form of XML.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function getItem(rowIndex)
+{
+        rowIndex=parseInt(rowIndex);
+        if(isNaN(rowIndex))
+        {
+                returnError("3100","Row index is not a number {rowIndex="+rowIndex+"}");
+                return null;
+        }
+        if(rowIndex>=getItemCount())
+        {
+                returnError("3101","Row index out of range {rowIndex="+rowIndex+"}");
+                return null;
+        }
+        return _oDoc.selectSingleNode("//row[@id='"+_oRows.firstChild.rows.item(rowIndex).getAttribute("id")+"']").cloneNode(true);
+}
+
+/******************************************************************************
+ * NAME:          getRowItemData
+ *
+ * PARAMETERS:    rowIndex
+ *
+ * RETURNS:       String.
+ *
+ * DESCRIPTION:
+ *
+ * REMARKS:       convienince method.
+ *****************************************************************************/
+function getRowItemData(rowIndex)
+{
+        var oDoc=getItem(rowIndex);
+        if(oDoc!=null) return oDoc.getAttribute("itemdata");
+        return null;
+}
+
+/******************************************************************************
+ * NAME:          setRowItemData
+ *
+ * PARAMETERS:    rowIndex
+ *                text
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:
+ *
+ * REMARKS:
+ *****************************************************************************/
+function setRowItemData(rowIndex,text)
+{
+        var oDoc=getItem(rowIndex);
+        if(oDoc!=null)
+        {
+                oDoc.documentElement.setAttribute("itemdata",text);
+                _oRows.firstChild.rows.item(rowIndex).setAttribute("innerXML",oDoc);
+        }
+}
+
+/******************************************************************************
+ * NAME:          getCellItemData
+ *
+ * PARAMETERS:    rowIndex
+ *                tagName
+ *
+ * RETURNS:       String.
+ *
+ * DESCRIPTION:
+ *
+ * REMARKS:       convienince method.
+ *****************************************************************************/
+function getCellItemData(rowIndex,tagName)
+{
+//alert("getCellItemData()...\nrowIndex="+rowIndex+"\ntagName="+tagName);
+        var oDoc=getItem(rowIndex);
+        if(oDoc!=null) return oDoc.selectSingleNode("./"+tagName).getAttribute("itemdata");
+        return null;
+}
+
+/******************************************************************************
+ * NAME:          setCellItemData
+ *
+ * PARAMETERS:    rowIndex
+ *                tagName
+ *                text
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:
+ *
+ * REMARKS:
+ *****************************************************************************/
+function setCellItemData(rowIndex,tagName,text)
+{
+        var oDoc=getItem(rowIndex);
+        if(oDoc!=null)
+        {
+                var oNode=oDoc.selectSingleNode("./"+tagName);
+                oNode.setAttribute("itemdata",text);
+                _oRows.firstChild.rows.item(rowIndex).setAttribute("innerXML",oDoc);
+        }
+}
+
+/******************************************************************************
+ * NAME:          deleteRow
+ *
+ * PARAMETERS:    rowIndex. Integer. Zero based index to the row to be deleted.
+ *
+ * RETURNS:       Boolean. True if the item is successfully deleted. Otherwise
+ *                returns false.
+ *
+ * DESCRIPTION:   Deletes an item from the control.
+ *
+ * REMARKS:       This method deletes a single item from the list control. To
+ *                remove all of the items in the control, see DeleteAllRows.
+ *****************************************************************************/
+function deleteRow(rowIndex)
+{
+        rowIndex=parseInt(rowIndex);
+        if(isNaN(rowIndex))
+        {
+                returnError("3100","Row index is not a number {rowIndex="+rowIndex+"}");
+                return null;
+        }
+        if(rowIndex>=getItemCount())
+        {
+                returnError("3101","Row index out of range {rowIndex="+rowIndex+"}");
+                return false;
+        }
+        var id=_oRows.firstChild.rows.item(rowIndex).getAttribute("id");
+        var oNode=_oDoc.selectSingleNode("//row[@id='"+id+"']");
+        if(null!=oNode)
+        {
+                oNode.parentNode.removeChild(oNode);
+                showEmpty(_oDoc.selectNodes("//row").length==0&&empty.length>0);
+                redrawRows();
+        }
+}
+
+/******************************************************************************
+ * NAME:          onClickUrl
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       window.event.rowIndex
+ *                window.event.columnIndex
+ *                window.event.columnName
+ *                window.event.href
+ *
+ * DESCRIPTION:   Event handler for clicking on links
+ *
+ * REMARKS:
+ *****************************************************************************/
+function onClickUrl()
+{
+        var oTD=window.event.srcElement;
+        while(oTD.getAttribute("NAME")!="CELLCONTENTS") oTD=oTD.parentElement;
+        if(oTD.tagName!="TD") return;
+        var oTR=oTD.parentElement;
+
+        var id=oTR.getAttribute("id");
+
+        var nodes=_oDoc.selectNodes("//row[@id='"+id+"']/child::node()");
+        var node=nodes.item(oTD.cellIndex);
+        var href=node.getAttribute("href");
+
+        var oEvent=createEventObject();
+        oEvent.rowIndex=oTR.rowIndex;
+        oEvent.columnIndex=oTD.cellIndex;
+        oEvent.columnName=getColumnName(oTD.cellIndex);
+        oEvent.href=href;
+
+        urlClick.fire(oEvent);
+        return false;
+}
+
+/******************************************************************************
+ * NAME:          focus
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Sets focus to the control.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function focus()
+{
+        if(readyState=="complete")
+        {
+                var grid=divContainer.childNodes(0);
+                if(grid.style.display=="inline") grid.focus();
+                else divContainer.childNodes(1).focus();
+        }
+}
+
+/******************************************************************************
+ * NAME:          onkeydown
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Event handler to capture the up and down arrow keys.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function onKeyDown()
+{
+        // keyboard handler only neccessary when rows exist
+        if(getItemCount()==0) return;
+
+        switch(window.event.keyCode)
+        {
+                case 38: // up arrow
+                        if(_selRow==-1) // if nothing selected then select the 1st row
+                        {
+                                setItemState(0,true);
+                        }
+                        else
+                        {
+                                var prev=_selRow.previousSibling;
+                                if(null!=prev)
+                                {
+                                        if(select=="multiple") setItemState(-1,false); // unselect all previously selected items
+                                        else setRowState(_selRow,false); // grid allows single select only. unselect previous selection and then select the row clicked.
+                                        _selRow=prev;
+                                        setRowState(_selRow,true);
+                                        ensureVisible(_selRow.rowIndex,false);
+                                        fireRowSelect(_selRow);
+                                }
+                        }
+                        window.event.returnValue=false;
+                        window.event.cancelBubble=true;
+                        return false;
+                        break;
+                case 40: // down arrow
+                        if(_selRow==-1) // if nothing selected then select the 1st row
+                        {
+                                setItemState(0,true);
+                        }
+                        else
+                        {
+                                var next=_selRow.nextSibling;
+                                if(null!=next)
+                                {
+                                        if(select=="multiple") setItemState(-1,false); // unselect all previously selected items
+                                        else setRowState(_selRow,false); // grid allows single select only. unselect previous selection and then select the row clicked.
+                                        _selRow=next;
+                                        setRowState(_selRow,true);
+                                        ensureVisible(_selRow.rowIndex,false);
+                                        fireRowSelect(_selRow);
+                                }
+                        }
+                        window.event.returnValue=false;
+                        window.event.cancelBubble=true;
+                        return false;
+                        break;
+                case 65: // Letter 'A'
+                        if(window.event.ctrlKey)
+                        {
+                                if(select=="multiple") setItemState(-1,true);
+                                window.event.returnValue=false;
+                                window.event.cancelBubble=true;
+                                return false;
+                        }
+                        break;
+        }
+}
+
+/******************************************************************************
+ * NAME:          getColumnCount
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       Integer. The number of columns in the grid control.
+ *
+ * DESCRIPTION:
+ *
+ * REMARKS:
+ *****************************************************************************/
+function getColumnCount()
+{
+        var columnsNode=getColumns();
+        return columnsNode.childNodes.length;
+}
+
+/******************************************************************************
+ * NAME:          getColumns
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       Integer. The number of columns in the grid control.
+ *
+ * DESCRIPTION:
+ *
+ * REMARKS:
+ *****************************************************************************/
+function getColumns()
+{
+        var columnsNode=_oDoc.selectSingleNode("/*/preferences/columns");
+        if(columnsNode==null) columnsNode=_oDoc.selectSingleNode("/*/columns");
+        return columnsNode;
+}
+
+/******************************************************************************
+ * NAME:          saveSortOrder
+ *
+ * PARAMETERS:    oDoc
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Saves the sort order set to the preferences section of the
+ *                XML DOM Document.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function saveSortOrder(oDoc)
+{
+//alert("saveSortOrder()...\noDoc="+oDoc.xml);
+        var preferences=getPreferences();
+
+        // delete current sortorder node (if one exists)
+        var sortorder=preferences.selectSingleNode("sortorder");
+        if(null!=sortorder) sortorder.parentNode.removeChild(sortorder);
+
+        preferences.appendChild(oDoc.selectSingleNode("//sortorder").cloneNode(true));
+        firePreferencesChange();
+}
+
+/******************************************************************************
+ * NAME:          saveColumnOrder
+ *
+ * PARAMETERS:    oDoc
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Saves the column order to the preferences section of the
+ *                XML DOM Document.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function saveColumnOrder(oDoc)
+{
+        var preferences=getPreferences();
+
+        // delete current columns node (if one exists)
+        var columns=preferences.selectSingleNode("columns");
+        if(null!=columns) columns.parentNode.removeChild(columns);
+
+        preferences.appendChild(oDoc.selectSingleNode("//columns").cloneNode(true));
+        firePreferencesChange();
+}
+
+/******************************************************************************
+ * NAME:          getPreferences
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       XML Element
+ *
+ * DESCRIPTION:
+ *
+ * REMARKS:
+ *****************************************************************************/
+function getPreferences()
+{
+        var preferences=_oDoc.selectSingleNode("/*/preferences");
+        if(null==preferences)
+        {
+                preferences=_oDoc.createElement("preferences");
+                _oDoc.documentElement.appendChild(preferences);
+        }
+        return preferences;
+}
+
+function getEmpty()
+{
+        return _empty;
+}
+
+function setEmpty(vValue)
+{
+        _empty=vValue;
+        document.all.item("divContainer").childNodes(1).rows(0).cells(0).innerHTML=_empty;
+}
+
+function showEmpty(show)
+{
+        var divContainer=document.all.item("divContainer");
+        divContainer.childNodes(0).style.display=show?"none":"inline";
+        divContainer.childNodes(1).style.display=show?"inline":"none";
+}
+
+function getShowColumnHeaders()
+{
+        return _showColumnHeaders;
+}
+
+function setShowColumnHeaders(vValue)
+{
+        _showColumnHeaders=isTrue(vValue);
+        document.all.item("divContainer").childNodes(0).rows(0).style.display=_showColumnHeaders?"inline":"none";
+}
+
+function getShowHorzScroll()
+{
+        return _showHorzScroll;
+}
+
+function setShowHorzScroll(vValue)
+{
+        _showHorzScroll=isTrue(vValue);
+        document.all.item("divRows").style.overflowX=_showHorzScroll?"auto":"hidden";
+}
+
+/******************************************************************************
+ * NAME:          ensureVisible
+ *
+ * PARAMETERS:    rowIndex -   Integer. Zero based index of the list item that
+ *                             is to be visible.
+ *
+ *                alignToTop - Optional. Boolean that specifies one of the
+ *                             following values:
+ *
+ *                     true -  Default. Scrolls the row so that top of the row
+ *                             is visible at the top of the window.
+ *
+ *                     false - Scrolls the row so that the bottom of the row
+ *                             is visible at the bottom of the window.
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Returns a clone of the XML DOM Document used to render the grid.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function ensureVisible(rowIndex,alignToTop)
+{
+        rowIndex=parseInt(rowIndex);
+        if(isNaN(rowIndex))
+        {
+                returnError("3100","Row index is not a number {rowIndex="+rowIndex+"}");
+                return "";
+        }
+        if(rowIndex>=getItemCount())
+        {
+                returnError("3101","Row index out of range {rowIndex="+rowIndex+"}");
+                return;
+        }
+        if(alignToTop==undefined) alignToTop=true;
+        _oRows.firstChild.rows.item(rowIndex).scrollIntoView(alignToTop);
+}
+
+/******************************************************************************
+ * NAME:          getXMLDocument
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       XML DOMDocument
+ *
+ * DESCRIPTION:   Returns a clone of the XML DOM Document used to render the grid.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function getXMLDocument()
+{
+        var oDoc=new ActiveXObject("Msxml2.DOMDocument");
+        oDoc.appendChild(_oDoc.documentElement.cloneNode(true));
+        return oDoc;
+}
+
+/******************************************************************************
+ * NAME:          onEditChange
+ *
+ * PARAMETERS:    none
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:   Event handler for when the value of a cell changes do to it
+ *                being edited by the user.
+ *
+ * REMARKS:
+ *****************************************************************************/
+function onEditChange()
+{
+        var text="";
+        var srcElement=window.event.srcElement;
+//alert("tagName="+srcElement.tagName+"\nclassName="+srcElement.type.toLowerCase());
+        switch(srcElement.type.toLowerCase())
+        {
+                case "checkbox":
+                        text=srcElement.checked?"true":"false";
+                        break;
+                default: // dstinteger,dsttextbox,dstcombobox,dstdatepicker
+                        text=srcElement.value;
+                        break;
+        }
+
+        //crawl up the tree to find the table cell
+        var oTD=srcElement;
+        while(oTD.getAttribute("NAME")!="CELLCONTENTS") oTD=oTD.parentElement;
+        if(oTD.tagName!="TD") return;
+        var oTR=oTD.parentElement;
+
+        var id=oTR.getAttribute("id");
+        var columnName=getColumnName(oTD.cellIndex);
+
+        var node=_oDoc.selectSingleNode("//row[@id='"+id+"']/"+columnName);
+        node.text=text;
+
+        var oEvent=createEventObject();
+        oEvent.rowIndex=oTR.rowIndex;
+        oEvent.columnIndex=oTD.cellIndex;
+        oEvent.columnName=columnName;
+        oEvent.text=text;
+        editChangeID.fire(oEvent);
+}
+
+function persist()
+{
+        try
+        {
+                if(isPersisted)
+                {
+                        // set expiration to 20 minutes from now
+                        var now=new Date();
+                        now.setMinutes(now.getMinutes()+20);
+
+                        // reload before making changes and saving in case there are two
+                        // grids on the screen being persisted. Otherwise, the second
+                        // (or subsequent) grid will not save the changes from prior controls.
+                        _hidPersistence.load("dstgrid");
+                        _hidPersistence.expires=now.toUTCString();
+                        _hidPersistence.setAttribute(element.getAttribute("id"),_oDoc.xml);
+                        _hidPersistence.save("dstgrid");
+                }
+        }
+        catch(e) {}
+}
+
+/******************************************************************************
+ * NAME:          showColumn
+ *
+ * PARAMETERS:    tagName
+ *                show - Boolean. True will show the column. False will hide
+ *                       the column.
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:
+ *
+ * REMARKS:       This function flips the 'showColumn' attribute instead of
+ *                adding or removing the column element. It was implemented
+ *                this way so that the insertion placement of the column being
+ *                shown would not have to be calculated.
+ *****************************************************************************/
+function showColumn(tagName,show)
+{
+//alert("showColumn...\ntagName="+tagName+"\nnshow="+show);
+        show=isTrue(show);
+        var preferences=getPreferences();
+        var columns=preferences.selectSingleNode("columns");
+        if(columns==null)
+        {
+                columns=_oDoc.selectSingleNode("//columns").cloneNode(true);
+                preferences.appendChild(columns); // create columns node if needed
+        }
+        var column=columns.selectSingleNode(tagName);
+        if(column!=null)
+        {
+                column.setAttribute("showColumn",show?"true":"false");
+
+                // refresh header div
+                document.all.item("divHeaders").innerHTML=columns.transformNode(xslHeader.XMLDocument);
+
+                // refresh rows div
+                refresh();
+        }
+}
+
+function setCellFocus(rowIndex,tagName)
+{
+//alert("setCellFocus()...\nrowIndex="+rowIndex+"\ntagName="+tagName);
+        var columnIndex=getColumnIndex(tagName);
+        var oTable=_oRows.firstChild;
+        var oRows=oTable.rows;
+        var oRow=oRows[rowIndex];
+        var oCell=oRow.cells[columnIndex];
+
+        // set focus to the first child INPUT control (if one exists)
+        var inputs=oCell.getElementsByTagName("INPUT");
+        if(inputs.length>0) inputs[0].focus();
+}
+
+/******************************************************************************
+ *  add the following event handler to the BODY tag:
+ *    oncontextmenu="showColumnWidths();return false;"
+ *****************************************************************************/
+function showColumnWidths()
+{
+        var oDoc=getPreferences();
+        var oNodes=oDoc.selectNodes("columns/child::node()");
+        var msg="title="+element.document.title+"\ngrid="+element.id+"\n\n";
+        for(var i=0;i<oNodes.length;i++)
+        {
+                var oNode=oNodes[i];
+                msg+=oNode.getAttribute("width")+"\t="+oNode.tagName+"\n";
+        }
+        alert(msg);
+}
+
+/******************************************************************************
+ * NAME:          setCellReadOnly
+ *
+ * PARAMETERS:    rowIndex
+ *                tagName
+ *                readOnly - Boolean.
+ *
+ * RETURNS:       none
+ *
+ * DESCRIPTION:
+ *
+ * REMARKS:
+ *****************************************************************************/
+function setCellReadOnly(rowIndex,tagName,readOnly)
+{
+//alert("setCellReadOnly()...\nrowIndex="+rowIndex+"\ntagName="+tagName+"\nreadOnly="+readOnly);
+        rowIndex=parseInt(rowIndex);
+        if(isNaN(rowIndex))
+        {
+                returnError("3100","Row index is not a number {rowIndex="+rowIndex+"}");
+                return "";
+        }
+        if(rowIndex>=getItemCount())
+        {
+                returnError("3101","Row index out of range {rowIndex="+rowIndex+"}");
+                return null;
+        }
+
+        var oHtmlRows=_oRows.firstChild.rows;
+        var oHtmlRow=oHtmlRows.item(rowIndex);
+
+        // update the XML. Cannot use getItem() function because it returns a clone of the node.
+        var oXmlRow=_oDoc.selectSingleNode("/*/rows/row[@id='"+oHtmlRow.getAttribute("id")+"']");
+        var oXmlCell=oXmlRow.selectSingleNode(tagName);
+        oXmlCell.setAttribute("readOnly",readOnly?"true":"false");
+
+        // transform the XML to HTML. remove all tabs, newline, and carrige return characters.
+        var newHTML=oXmlRow.transformNode(xslRows.XMLDocument);
+        newHTML=newHTML.replace(/[\n\t\r]/gim,"");
+
+        // locate the specific table cell in the newly created html
+        var oCellArray=newHTML.match(/<td.*?name="CELLCONTENTS".*?>(.*?)<\/td>/gim);
+        var columnIndex=getColumnIndex(tagName);
+        var html=oCellArray[columnIndex];
+
+        // get the html from between the td tags
+        oCellArray=html.match(/(?:<td.*?>)(.*?)<\/td>/i);
+
+        // set the html into the table cell
+        var oHtmlCell=oHtmlRow.cells[columnIndex];
+        oHtmlCell.innerHTML=oCellArray[1];
+}
+</script>
+
+</head>
+
+<xml id="xslInit">
+        <?xml version="1.0"?>
+        <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:user="http://mycompany.com/mynamespace">
+
+                <msxsl:script language="JavaScript" implements-prefix="user">
+                        <![CDATA[
+                        function generateId()
+                        {
+                                var now=new Date();
+                                return now.valueOf();
+                        }
+                        ]]>
+                </msxsl:script>
+
+                <xsl:template match="/ | @* | node()">
+                        <xsl:copy>
+                                <xsl:apply-templates select="@* | node()"/>
+                        </xsl:copy>
+                </xsl:template>
+
+                <xsl:template match="row">
+                        <xsl:copy>
+                                <xsl:attribute name="id"><xsl:value-of select="concat(generate-id(),'_',user:generateId())"/></xsl:attribute>
+                                <xsl:apply-templates select="@* | node()"/>
+                        </xsl:copy>
+                </xsl:template>
+
+        </xsl:stylesheet>
+</xml>
+
+<xml id="xslHeader">
+        <?xml version='1.0'?>
+        <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:user="http://mycompany.com/mynamespace">
+                <xsl:output omit-xml-declaration="yes"/>
+                <xsl:param name="base"/>
+                <xsl:param name="allowHeaderWrap"/>
+
+                <msxsl:script implements-prefix="user">
+                        <![CDATA[
+                        function getWidth(e)
+                        {
+                                var node=e.nextNode;
+                                var width=node.getAttribute("width");
+
+                                if(width==null||width.length==0) width=50;
+                                else width=parseInt(width);
+
+                                if(node.previousSibling==null) width-=1;
+                                else width-=3;
+
+                                return width;
+                        }
+                        ]]>
+                </msxsl:script>
+
+                <xsl:template match="columns">
+                        <table style="table-layout:fixed;background-color:PaleGoldenrod;border-collapse:collapse" cellpadding="0" cellspacing="0"
+                                onmousemove="onMouseMove()" onmouseup="onMouseUp()" onmouseout="onDragMouseOut()" onselectstart="onSelect()">
+                                <tr id="trHeaders" onselectstart="onSelect()">
+                                        <xsl:for-each select="child::*[not(@showColumn) or @showColumn='true']">
+                                                <xsl:element name="td">
+                                                        <xsl:attribute name="xmlTagName"><xsl:value-of select="name()"/></xsl:attribute>
+                                                        <xsl:attribute name="width"><xsl:value-of select="user:getWidth(.)"/></xsl:attribute>
+                                                        <xsl:attribute name="onselectstart">onSelect()</xsl:attribute>
+                                                        <xsl:attribute name="onclick">onClickColumnHeader()</xsl:attribute>
+                                                        <xsl:choose>
+                                                                <xsl:when test="$allowHeaderWrap!='true'">
+                                                                        <div onselectstart="onSelect()">
+                                                                                <xsl:attribute name="style">
+                                                                                        width:100%;overflow-x:hidden;text-overflow:ellipsis;margin:2px 4px 3px 4px;cursor:default;
+                                                                                        <xsl:choose>
+                                                                                                <xsl:when test="@align='left'">text-align:left;</xsl:when>
+                                                                                                <xsl:when test="@align='right'">text-align:right;</xsl:when>
+                                                                                                <xsl:when test="@align='center'">text-align:center;</xsl:when>
+                                                                                                <xsl:otherwise>
+                                                                                                        <xsl:choose>
+                                                                                                                <xsl:when test="@type='number'">text-align:right;</xsl:when>
+                                                                                                                <xsl:when test="@type='check'">text-align:center;</xsl:when>
+                                                                                                                <xsl:otherwise>text-align:left;</xsl:otherwise>
+                                                                                                        </xsl:choose>
+                                                                                                </xsl:otherwise>
+                                                                                        </xsl:choose>
+                                                                                </xsl:attribute>
+                                                                                <xsl:attribute name="onmouseover">onMouseOverColumnHeader()</xsl:attribute>
+                                                                                <nobr onselectstart="onSelect()">
+                                                                                        <xsl:value-of select="text()"/>
+                                                                                </nobr>
+                                                                        </div>
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                        <xsl:attribute name="style">
+                                                                                padding:2px 4px 3px 4px;cursor:default;
+                                                                                <xsl:choose>
+                                                                                        <xsl:when test="@type='number'">text-align:right;</xsl:when>
+                                                                                        <xsl:when test="@type='check'">text-align:center;</xsl:when>
+                                                                                        <xsl:otherwise>text-align:left;</xsl:otherwise>
+                                                                                </xsl:choose>
+                                                                        </xsl:attribute>
+                                                                        <xsl:value-of select="text()"/>
+                                                                </xsl:otherwise>
+                                                        </xsl:choose>
+                                                </xsl:element>
+                                                <xsl:element name="td">
+                                                        <xsl:attribute name="onselectstart">onSelect()</xsl:attribute>
+                                                        <xsl:attribute name="style"><xsl:value-of select="concat('width:3px;background:url(',$base,'dstgrid_resize.gif) repeat-y;cursor:col-resize')"/></xsl:attribute>
+                                                        <xsl:attribute name="onmousedown">onMouseDown()</xsl:attribute>
+                                                </xsl:element>
+                                        </xsl:for-each>
+                                </tr>
+                        </table>
+                </xsl:template>
+        </xsl:stylesheet>
+</xml>
+
+<xml id="xslColGroup">
+        <?xml version='1.0'?>
+        <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                <xsl:output method="xml" omit-xml-declaration="yes"/>
+                <xsl:template match="columns">
+                        <colgroup id="COLUMNPROPS">
+                                <xsl:for-each select="child::*[not(@showColumn) or @showColumn='true']">
+                                        <xsl:element name="col">
+                                                <xsl:choose>
+                                                        <xsl:when test="@width">
+                                                                <xsl:attribute name="width"><xsl:value-of select="@width"/></xsl:attribute>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                                <xsl:attribute name="width">50</xsl:attribute>
+                                                        </xsl:otherwise>
+                                                </xsl:choose>
+                                                <xsl:choose>
+                                                        <xsl:when test="@align='left'">
+                                                                <xsl:attribute name="align">left</xsl:attribute>
+                                                        </xsl:when>
+                                                        <xsl:when test="@align='center'">
+                                                                <xsl:attribute name="align">center</xsl:attribute>
+                                                        </xsl:when>
+                                                        <xsl:when test="@align='right'">
+                                                                <xsl:attribute name="align">right</xsl:attribute>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                                <xsl:choose>
+                                                                        <xsl:when test="@type='number'">
+                                                                                <xsl:attribute name="align">right</xsl:attribute>
+                                                                        </xsl:when>
+                                                                        <xsl:when test="@type='check'">
+                                                                                <xsl:attribute name="align">center</xsl:attribute>
+                                                                        </xsl:when>
+                                                                        <xsl:otherwise>
+                                                                                <xsl:attribute name="align">left</xsl:attribute>
+                                                                        </xsl:otherwise>
+                                                                </xsl:choose>
+                                                        </xsl:otherwise>
+                                                </xsl:choose>
+                                        </xsl:element>
+                                </xsl:for-each>
+                        </colgroup>
+                </xsl:template>
+        </xsl:stylesheet>
+</xml>
+
+<xml id="xslCell">
+        <?xml version='1.0'?>
+        <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                <xsl:output method="xml" omit-xml-declaration="yes"/>
+                <xsl:param name="showGridLines">true</xsl:param>
+                <xsl:param name="base"/>
+
+                <xsl:template match="columns">
+                        <tr>
+                                <xsl:for-each select="child::*[not(@showColumn) or @showColumn='true']">
+                                        <td name="CELLCONTENTS">
+                                                <xsl:attribute name="style">
+                                                        cursor:default;<xsl:if test="$showGridLines='true'">border:1px solid rgb(211,211,211)</xsl:if>
+                                                </xsl:attribute>
+                                                <xsl:choose>
+                                                        <xsl:when test="@type='check'"><xsl:call-template name="check"/></xsl:when>
+                                                        <xsl:when test="@type='combo'"><xsl:call-template name="combo"/></xsl:when>
+                                                        <xsl:when test="@type='date'"><xsl:call-template name="date"/></xsl:when>
+                                                        <xsl:when test="@type='number'"><xsl:call-template name="number"/></xsl:when>
+                                                        <xsl:when test="@type='url'"><xsl:call-template name="url"/></xsl:when>
+                                                        <xsl:when test="@type='errorIcon'"><xsl:call-template name="errorIcon"/></xsl:when>
+														<xsl:when test="@type='imageIcon'"><xsl:call-template name="imageIcon"/></xsl:when>
+                                                        <xsl:otherwise><xsl:call-template name="text"/></xsl:otherwise>
+                                                </xsl:choose>
+                                        </td>
+                                </xsl:for-each>
+                        </tr>
+                </xsl:template>
+
+                <xsl:template name="static-text">
+                        <xsl:element name="xsl:attribute"><xsl:attribute name="name">onselectstart</xsl:attribute>onSelect()</xsl:element>
+                        <div>
+                                <xsl:choose>
+                                        <xsl:when test="@allowCellWrap='true'">
+                                                <xsl:attribute name="style">
+                                                        width:100%;margin:2px 4px 3px 4px
+                                                </xsl:attribute>
+                                                <xsl:element name="xsl:value-of">
+                                                        <xsl:attribute name="select"><xsl:value-of select="name()"/>/text()</xsl:attribute>
+                                                </xsl:element>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                                <xsl:attribute name="style">
+                                                        width:100%;overflow-x:hidden;text-overflow:ellipsis;margin:2px 4px 3px 4px
+                                                </xsl:attribute>
+                                                <nobr>
+                                                        <xsl:element name="xsl:choose">
+                                                                <xsl:element name="xsl:when">
+                                                                        <xsl:attribute name="test">not(<xsl:value-of select="name()"/>) or <xsl:value-of select="name()"/>[.='']</xsl:attribute>
+                                                                        &#160;
+                                                                </xsl:element>
+                                                                <xsl:element name="xsl:otherwise">
+                                                                        <xsl:element name="xsl:value-of">
+                                                                                <xsl:attribute name="select"><xsl:value-of select="name()"/>/text()</xsl:attribute>
+                                                                        </xsl:element>
+                                                                </xsl:element>
+                                                        </xsl:element>
+                                                </nobr>
+                                        </xsl:otherwise>
+                                </xsl:choose>
+                        </div>
+                </xsl:template>
+
+                <xsl:template name="check">
+                        <xsl:element name="xsl:attribute"><xsl:attribute name="name">onselectstart</xsl:attribute>onSelect()</xsl:element>
+                        <input type="checkbox" style="margin:0">
+                                <xsl:choose>
+                                        <xsl:when test="@readOnly='true'">
+                                                <xsl:attribute name="onclick">return false;</xsl:attribute>
+                                                <xsl:attribute name="tabIndex">-1</xsl:attribute>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                                <!-- For each cell, check if it is readonly or not -->
+                                                <xsl:element name="xsl:choose">
+                                                        <xsl:element name="xsl:when">
+                                                                <xsl:attribute name="test"><xsl:value-of select="name()"/>/@readOnly='true'</xsl:attribute>
+                                                                <xsl:element name="xsl:attribute">
+                                                                        <xsl:attribute name="name">onclick</xsl:attribute>
+                                                                        return false;
+                                                                </xsl:element>
+                                                                <xsl:element name="xsl:attribute">
+                                                                        <xsl:attribute name="name">tabIndex</xsl:attribute>
+                                                                        -1
+                                                                </xsl:element>
+                                                        </xsl:element>
+                                                        <xsl:element name="xsl:otherwise">
+                                                                <xsl:element name="xsl:attribute"><xsl:attribute name="name">onclick</xsl:attribute>onEditChange()</xsl:element>
+                                                        </xsl:element>
+                                                </xsl:element>
+                                        </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:element name="xsl:if">
+                                        <xsl:attribute name="test">user:trim(string(<xsl:value-of select="name()"/>/text()))='true'</xsl:attribute>
+                                        <xsl:element name="xsl:attribute">
+                                                <xsl:attribute name="name">checked</xsl:attribute>
+                                                true
+                                        </xsl:element>
+                                </xsl:element>
+                        </input>
+                </xsl:template>
+
+                <xsl:template name="combo">
+                     <xsl:element name="xsl:variable">
+                        <xsl:attribute name="name">newComboData<xsl:value-of select="position()"/></xsl:attribute>
+                        <xsl:element name="xsl:value-of">
+                           <xsl:attribute name="select"><xsl:value-of select="name()"/>/@data</xsl:attribute>
+                        </xsl:element>
+                     </xsl:element>
+                     <xsl:element name="xsl:variable">
+                        <xsl:attribute name="name">newComboFormField<xsl:value-of select="position()"/></xsl:attribute>
+                        <xsl:element name="xsl:value-of">
+                           <xsl:attribute name="select"><xsl:value-of select="name()"/>/@formField</xsl:attribute>
+                        </xsl:element>
+                     </xsl:element>
+                     <xsl:element name="xsl:variable">
+                        <xsl:attribute name="name">readOnlyCombo<xsl:value-of select="position()"/></xsl:attribute>
+                        <xsl:element name="xsl:value-of">
+                           <xsl:attribute name="select"><xsl:value-of select="name()"/>/@readonly</xsl:attribute>
+                        </xsl:element>
+                     </xsl:element>
+                     <xsl:element name="xsl:choose">
+                        <xsl:element name="xsl:when">
+                           <xsl:attribute name="test"><xsl:value-of select="name()"/>/@readOnly='true'</xsl:attribute>
+                           <xsl:call-template name="static-text"/>
+                        </xsl:element>
+                        <xsl:element name="xsl:when">
+                           <xsl:attribute name="test">$readOnlyCombo<xsl:value-of select="position()"/>='true'</xsl:attribute>
+                           <xsl:call-template name="static-text"/>
+                        </xsl:element>
+                     <xsl:element name="xsl:otherwise">
+                        <div style="width:100%;margin:0;padding:0 0px 0 1px">
+                        <input type="hidden" class="dstcombobox" width="100%" showBorder="false" bgColor="transparent"
+                               onchange="onEditChange()" onerror="returnError(window.event.code,window.event.message)">
+                        <xsl:attribute name="data"><xsl:value-of select="concat('xmlCombo_',name())"/></xsl:attribute>
+                        <xsl:attribute name="formField"><xsl:value-of select="@formField"/></xsl:attribute>
+                        <xsl:element name="xsl:attribute">
+                        <xsl:attribute name="name">value</xsl:attribute>
+                        <xsl:element name="xsl:value-of">
+                           <xsl:attribute name="select"><xsl:value-of select="name()"/>/text()</xsl:attribute>
+                        </xsl:element>
+                     </xsl:element>
+                     <xsl:element name="xsl:if">
+                        <xsl:attribute name="test">$newComboData<xsl:value-of select="position()"/>!=""</xsl:attribute>
+                        <xsl:element name="xsl:attribute">
+                           <xsl:attribute name="name">data</xsl:attribute>
+                           <xsl:element name="xsl:value-of">
+                              <xsl:attribute name="select"><xsl:value-of select="name()"/>/@data</xsl:attribute>
+                           </xsl:element>
+                        </xsl:element>
+                     </xsl:element> 
+                     <xsl:element name="xsl:if">
+                        <xsl:attribute name="test">$newComboData<xsl:value-of select="position()"/>!=""</xsl:attribute>
+                        <xsl:element name="xsl:attribute">
+                           <xsl:attribute name="name">data</xsl:attribute>
+                           <xsl:element name="xsl:value-of">
+                              <xsl:attribute name="select"><xsl:value-of select="name()"/>/@data</xsl:attribute>
+                           </xsl:element>
+                        </xsl:element>
+                     </xsl:element> 
+                     <xsl:element name="xsl:if">
+                        <xsl:attribute name="test">$newComboFormField<xsl:value-of select="position()"/>!=""</xsl:attribute>
+                        <xsl:element name="xsl:attribute">
+                           <xsl:attribute name="name">formField</xsl:attribute>
+                           <xsl:element name="xsl:value-of">
+                              <xsl:attribute name="select"><xsl:value-of select="name()"/>/@formField</xsl:attribute>
+                           </xsl:element>
+                        </xsl:element>
+                     </xsl:element>
+                     </input>
+                     </div>
+                     </xsl:element>
+                  </xsl:element>
+                </xsl:template>
+
+                <xsl:template name="date">
+                        <xsl:choose>
+                                <xsl:when test="@readOnly='false'">
+                                        <div style="width:100%;margin:0;padding:0 1px 0 2px">
+                                                <input type="text" class="dstdatepicker" showBorder="false" bgColor="transparent"
+                                                        onchange="onEditChange()" onerror="returnError(window.event.code,window.event.message)">
+                                                        <xsl:element name="xsl:attribute">
+                                                                <xsl:attribute name="name">value</xsl:attribute>
+                                                                <xsl:element name="xsl:value-of">
+                                                                        <xsl:attribute name="select"><xsl:value-of select="name()"/>/text()</xsl:attribute>
+                                                                </xsl:element>
+                                                        </xsl:element>
+                                                </input>
+                                        </div>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                        <xsl:call-template name="static-text"/>
+                                </xsl:otherwise>
+                        </xsl:choose>
+                </xsl:template>
+
+                <xsl:template name="number">
+                        <xsl:choose>
+                                <xsl:when test="@readOnly='false'">
+                                        <!-- For each cell, check if it is readonly or not -->
+                                        <xsl:element name="xsl:choose">
+                                                <xsl:element name="xsl:when">
+                                                        <xsl:attribute name="test"><xsl:value-of select="name()"/>/@readOnly='true'</xsl:attribute>
+                                                        <xsl:call-template name="static-text"/>
+                                                </xsl:element>
+                                                <xsl:element name="xsl:otherwise">
+                                                        <input type="text" class="dstinteger" showBorder="false" bgColor="transparent" style="width:100%;margin:0 2px"
+                                                                onchange="onEditChange()" onerror="returnError(window.event.code,window.event.message)">
+                                                                <xsl:if test="@align">
+                                                                        <xsl:attribute name="textAlign">
+                                                                                <xsl:value-of select="@align"/>
+                                                                        </xsl:attribute>
+                                                                </xsl:if>
+                                                                <xsl:element name="xsl:attribute">
+                                                                        <xsl:attribute name="name">value</xsl:attribute>
+                                                                        <xsl:element name="xsl:value-of">
+                                                                                <xsl:attribute name="select"><xsl:value-of select="name()"/>/text()</xsl:attribute>
+                                                                        </xsl:element>
+                                                                </xsl:element>
+                                                        </input>
+                                                </xsl:element>
+                                        </xsl:element>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                        <xsl:copy-of select="."/>
+                                </xsl:otherwise>
+                        </xsl:choose>
+                </xsl:template>
+
+                <xsl:template name="text">
+                        <xsl:choose>
+                                <xsl:when test="@readOnly='false'">
+                                        <input type="text" class="dsttextbox" showBorder="false" bgColor="transparent" style="width:100%;margin:0 4px"
+                                                onchange="onEditChange()" onerror="returnError(window.event.code,window.event.message)">
+                                                <xsl:element name="xsl:attribute">
+                                                        <xsl:attribute name="name">value</xsl:attribute>
+                                                        <xsl:element name="xsl:value-of">
+                                                                <xsl:attribute name="select"><xsl:value-of select="name()"/>/text()</xsl:attribute>
+                                                        </xsl:element>
+                                                </xsl:element>
+                                        </input>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                        <xsl:call-template name="static-text"/>
+                                </xsl:otherwise>
+                        </xsl:choose>
+                </xsl:template>
+
+                <xsl:template name="url">
+                        <xsl:element name="xsl:attribute"><xsl:attribute name="name">onselectstart</xsl:attribute>onSelect()</xsl:element>
+                        <div style="width:100%;overflow-x:hidden;text-overflow:ellipsis;margin:2px 4px 3px 4px">
+                                <nobr>
+                                        <span>
+                                                <xsl:element name="xsl:if">
+                                                        <xsl:attribute name="test"><xsl:value-of select="name()"/>/@href</xsl:attribute>
+                                                        <xsl:element name="xsl:attribute">
+                                                                <xsl:attribute name="name">href</xsl:attribute>
+                                                                <xsl:element name="xsl:value-of">
+                                                                        <xsl:attribute name="select"><xsl:value-of select="name()"/>/@href</xsl:attribute>
+                                                                </xsl:element>
+                                                        </xsl:element>
+                                                        <xsl:element name="xsl:attribute"><xsl:attribute name="name">onclick</xsl:attribute>onClickUrl()</xsl:element>
+                                                        <xsl:element name="xsl:attribute"><xsl:attribute name="name">style</xsl:attribute>cursor:hand;text-decoration:underline;color:blue</xsl:element>
+                                                </xsl:element>
+                                                <xsl:element name="xsl:value-of">
+                                                        <xsl:attribute name="select"><xsl:value-of select="name()"/>/text()</xsl:attribute>
+                                                </xsl:element>
+                                        </span>
+                                </nobr>
+                        </div>
+                </xsl:template>
+
+                <xsl:template name="errorIcon">
+                        <xsl:element name="xsl:attribute"><xsl:attribute name="name">onselectstart</xsl:attribute>onSelect()</xsl:element>
+                        <div style="width:100%;overflow-x:hidden;text-overflow:ellipsis;margin:2px 4px 3px 4px">
+                                <nobr>
+                                     <span>
+
+                                          <xsl:element name="xsl:if">
+                                            <xsl:attribute name="test"><xsl:value-of select="name()"/>/text()='X'</xsl:attribute>
+                                              <xsl:element name="img">
+                                                <xsl:attribute name="src"><xsl:value-of select="concat($base,'bad2.gif')"/></xsl:attribute>
+                                              </xsl:element>
+                                          </xsl:element>
+
+
+                                     </span>
+                                </nobr>
+                        </div>
+                </xsl:template>
+
+
+ 	<xsl:template name="imageIcon">
+                        <xsl:element name="xsl:attribute"><xsl:attribute name="name">onselectstart</xsl:attribute>onSelect()</xsl:element>
+                        <div style="width:100%;overflow-x:hidden;text-overflow:ellipsis;margin:2px 4px 3px 4px">  
+                         		
+                              test
+                              <xsl:element name="xsl:value-of">
+                              <xsl:attribute name="select"><xsl:value-of select="name()"/>/text()</xsl:attribute>
+                              </xsl:element>test
+                             
+                              
+                            
+                             
+                                <nobr>
+                                     <span>
+                                 			<xsl:element name="img">
+                                             
+                              				</xsl:element></xsl:attribute>
+                                              </xsl:element>
+                                     </span>
+                                </nobr>
+                        </div>
+                </xsl:template>
+
+        </xsl:stylesheet>
+</xml>
+
+<xml id="xslSort">
+        <?xml version='1.0'?>
+        <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:user="http://mycompany.com/mynamespace">
+                <xsl:output method="xml" omit-xml-declaration="yes"/>
+
+                <msxsl:script implements-prefix="user">
+                        <![CDATA[
+                        function getDataType(e)
+                        {
+                                var sortNode=e.nextNode;
+                                var node=sortNode.selectSingleNode("/*/columns/"+sortNode.tagName);
+                                return node.getAttribute("type");
+                        }
+                        ]]>
+                </msxsl:script>
+
+                <xsl:template match="sortorder">
+                        <xsl:element name="xsl:apply-templates">
+                                <xsl:for-each select="child::node()">
+                                        <xsl:attribute name="select">row</xsl:attribute>
+                                        <xsl:element name="xsl:sort">
+                                                <xsl:variable name="dataType"><xsl:value-of select="user:getDataType(.)"/></xsl:variable>
+                                                <xsl:choose>
+                                                        <xsl:when test="$dataType='number'">
+                                                                <xsl:attribute name="select"><xsl:value-of select="concat('user:getNumber(',name(),')')"/></xsl:attribute>
+                                                                <xsl:attribute name="order"><xsl:value-of select="@sort"/></xsl:attribute>
+                                                                <xsl:attribute name="data-type">number</xsl:attribute>
+                                                        </xsl:when>
+                                                        <xsl:when test="$dataType='date'">
+                                                                <xsl:attribute name="select"><xsl:value-of select="concat('user:getTimestamp(',name(),')')"/></xsl:attribute>
+                                                                <xsl:attribute name="order"><xsl:value-of select="@sort"/></xsl:attribute>
+                                                                <xsl:attribute name="data-type">number</xsl:attribute>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                                <xsl:attribute name="select"><xsl:value-of select="name()"/></xsl:attribute>
+                                                                <xsl:attribute name="order"><xsl:value-of select="@sort"/></xsl:attribute>
+                                                                <xsl:attribute name="data-type">text</xsl:attribute>
+                                                        </xsl:otherwise>
+                                                </xsl:choose>
+                                        </xsl:element>
+                                </xsl:for-each>
+                        </xsl:element>
+                </xsl:template>
+        </xsl:stylesheet>
+</xml>
+
+<xml id="xslRows">
+        <?xml version='1.0'?>
+        <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" xmlns:user="http://mycompany.com/mynamespace">
+                <xsl:output method="html" omit-xml-declaration="yes"/>
+                <xsl:param name="altRowColor">true</xsl:param>
+                <xsl:param name="evenRowBackColor">beige</xsl:param>
+                <xsl:param name="oddRowBackColor">white</xsl:param>
+                <xsl:param name="selectionBackColor">rgb(174,197,232)</xsl:param>
+                <xsl:param name="oddRowSelectColor">rgb(168,191,211)</xsl:param>
+                <xsl:param name="selectionForeColor">black</xsl:param>
+                <xsl:param name="select">none</xsl:param>
+
+                <msxsl:script implements-prefix="user">
+                        <![CDATA[
+                        function getTimestamp(e)
+                        {
+                                var oDate=Date.parse(e.nextNode.text);
+                                return oDate.valueOf();
+                        }
+                        function getNumber(e)
+                        {
+                                return e.nextNode.text.replace(/[^0-9.]/g,"");
+                        }
+                        function trim(e)
+                        {
+                                return e.replace(/(^\s*)|(\s*$)/g,"");
+                        }
+                        ]]>
+                </msxsl:script>
+
+                <xsl:template match="rows">
+                        <table cellpadding="0" cellspacing="0" style="table-layout:fixed;border-collapse:collapse">
+                        </table>
+                </xsl:template>
+
+                <xsl:template match="row">
+                        <tr name="DSTGRIDROW">
+                                <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+                                <xsl:attribute name="onmouseover">onMouseOver()</xsl:attribute>
+                                <xsl:attribute name="onmouseout">onMouseOut()</xsl:attribute>
+                                <xsl:if test="$select!='none'">
+                                        <xsl:attribute name="onclick">onClick()</xsl:attribute>
+                                        <xsl:attribute name="ondblclick">onDoubleClick()</xsl:attribute>
+                                </xsl:if>
+                                <xsl:if test="$select!='none' and @selected='true'">
+                                        <xsl:attribute name="selected">true</xsl:attribute>
+                                </xsl:if>
+                                <xsl:attribute name="style">
+                                        <xsl:choose>
+                                                <xsl:when test="$select!='none' and @selected='true'">
+                                                        <xsl:if test="not($altRowColor='true') or ($altRowColor='true' and position() mod 2 = 0)">
+                                                                <xsl:value-of select="concat('background-color:',$selectionBackColor,';')"/>
+                                                        </xsl:if>
+                                                        <xsl:if test="$altRowColor='true' and position() mod 2 != 0">
+                                                                <xsl:value-of select="concat('background-color:',$oddRowSelectColor,';')"/>
+                                                        </xsl:if>
+                                                        <xsl:value-of select="concat('color:',$selectionForeColor,';')"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                        <xsl:if test="@forecolor">
+                                                                <xsl:value-of select="concat('color:',@forecolor,';')"/>
+                                                        </xsl:if>
+                                                        <xsl:if test="@backcolor">
+                                                                <xsl:value-of select="concat('background-color:',@backcolor,';')"/>
+                                                        </xsl:if>
+                                                        <xsl:if test="$altRowColor='true' and not(@backcolor)">
+                                                                <xsl:if test="position() mod 2 = 0">
+                                                                        <xsl:value-of select="concat('background-color:',$evenRowBackColor,';')"/>
+                                                                </xsl:if>
+                                                                <xsl:if test="position() mod 2 != 0">
+                                                                        <xsl:value-of select="concat('background-color:',$oddRowBackColor,';')"/>
+                                                                </xsl:if>
+                                                        </xsl:if>
+                                                </xsl:otherwise>
+                                        </xsl:choose>
+                                </xsl:attribute>
+                        </tr>
+                </xsl:template>
+        </xsl:stylesheet>
+</xml>
+
+        <body tabindex="-1" style="background-color:transparent;border:0;margin:0px;padding:0px;">
+                <table id="tblGrid" height="100%" width="100%" cellpadding="0" cellspacing="0">
+                        <tr id="trLinks" style="display:none">
+                                <td width="100%" height="1%" style="padding-bottom:10px">
+                                        <span id="spanEditColumns" class="link" style="display:none" onclick="editColumns()">Edit Columns...</span>
+                                        <span id="spanFind" class="link" style="display:none" onclick="find()">Find...</span>
+                                        <span id="spanSort" class="link" style="display:none" onclick="sort()">Sort...</span>
+                                        <span id="spanPrint" class="link" style="display:none" onclick="print()">Print...</span>
+                                        <span id="spanSaveToFile" class="link" style="display:none" onclick="saveToFile()">Save to File...</span>
+                                </td>
+                        </tr>
+                        <tr>
+                                <td id="tdGrid" width="100%" height="100%">
+                                        <!-- tabindex and key (up and down arrows) listeners here -->
+                                        <div id="divContainer" style="width:100%;height:100%;border:1px solid black;overflow:hidden;margin:0px;padding:0px;background-color:white;" onkeydown="onKeyDown()" tabIndex="0">
+                                                <table height="100%" width="100%" cellpadding="0" cellspacing="0" style="table-layout:fixed;display:none" onselectstart="onSelect()">
+                                                        <tr onselectstart="onSelect()">
+                                                                <!-- column headers -->
+                                                                <td height="1%" width="100%" onselectstart="onSelect()">
+                                                                        <div id="divHeaders" style="width:100%;height:100%;position:relative" onselectstart="onSelect()">
+                                                                        </div>
+                                                                </td>
+                                                        </tr>
+                                                        <tr>
+                                                                <!-- grid rows -->
+                                                                <td style="width:100%;height:99%">
+                                                                        <div id="divRows" style="width:100%;height:100%;overflow:auto;scrollbar-face-color:rgb(236,233,216);vertical-align:middle"
+                                                                                onselectstart="onSelect" onscroll="rows_onscroll()" onresize="rows_onresize()">
+                                                                        </div>
+                                                                </td>
+                                                        </tr>
+                                                </table>
+                                                <table height="100%" width="100%" style="display:none">
+                                                        <tr>
+                                                                <td align="center" valign="center"></td>
+                                                        </tr>
+                                                </table>
+                                        </div>
+                                </td>
+                        </tr>
+                </table>
+        </body>
+</html>

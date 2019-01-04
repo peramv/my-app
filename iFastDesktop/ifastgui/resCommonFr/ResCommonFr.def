@@ -1,0 +1,7 @@
+; ResCommonFr.def : Declares the module parameters for the DLL.
+
+LIBRARY      "ResCommonFr"
+; DESCRIPTION  'ResCommon Windows Dynamic Link Library French Language'
+
+EXPORTS
+    ; Explicit exports can go here

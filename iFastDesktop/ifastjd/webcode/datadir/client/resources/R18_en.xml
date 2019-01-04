@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Property>
+	<propertyItem>
+		<key>TF_R18_ACCT_LABEL</key>
+		<value><![CDATA[Numéro de compte :]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_fundName</key>
+		<value><![CDATA[cornerBoxNumber:17;leftPosition:319px;textAlign:left;fontName:Helvetica;fontSize:10pt;columnWidth:0.25in;<br/><br/><br/><br/><br/><br/><br/><br/><br/>Description des titres<br/><br/><br/>]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_costOfBookValue</key>
+		<value><![CDATA[cornerBoxNumber:20;leftPosition:469.5px;textAlign:left;fontName:Helvetica;fontSize:10pt;columnWidth:0.25in;<br/><br/><br/><br/><br/><br/><br/><br/><br/>Coût  ou valeur comptable<br/><br/><br/>]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_proceedsOfDisposition</key>
+		<value><![CDATA[cornerBoxNumber:21;leftPosition:537.85px;textAlign:left;fontName:Helvetica;fontSize:10pt;columnWidth:0.25in;<br/><br/><br/><br/><br/><br/><br/><br/><br/>Produit<br/><br/> de I´aliénation <br/><br/>ou paiement<br/><br/><br/>]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_releveNumber</key>
+		<value><![CDATA[<br/><br/><br/>Numéro<br/><br/>séquentiel<br/><br/>XML<br/><br/><br/>]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_prevReleveNumber</key>
+		<value><![CDATA[<br/><br/><br/>No du dernier<br/><br/> relevé<br/><br/> transmis<br/><br/><br/>]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_strMMDD</key>
+		<value><![CDATA[cornerBoxNumber:14;leftPosition:182.5px;textAlign:left;fontName:Helvetica;fontSize:10pt;columnWidth:0.25in;<br/><br/><br/><br/><br/><br/><br/><br/><br/>MM/JJ <br/><br/><br/>]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_securityCode</key>
+		<value><![CDATA[cornerBoxNumber:15;leftPosition:206.75px;textAlign:left;fontName:Helvetica;fontSize:10pt;columnWidth:0.25in;<br/><br/><br/><br/><br/><br/><br/><br/><br/>Code de genre<br/>De titres<br/><br/><br/>]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_foreignCurrency</key>
+		<value><![CDATA[<br/><br/><br/><br/><br/>Code de la<br/><br/><br/>devise<br/><br/><br/>]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_quantityOfSeq</key>
+		<value><![CDATA[cornerBoxNumber:16;leftPosition:249.85px;textAlign:left;fontName:Helvetica;fontSize:10pt;columnWidth:0.25in;<br/><br/><br/><br/><br/><br/><br/><br/><br/>Quantité de  titre<br/><br/><br/>]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_facsimileNumber</key>
+		<value><![CDATA[<br/><br/><br/>Numéro<br/><br/><br/>séquentiel<br/><br/><br/>papier<br/>]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_otherInc</key>
+		<value><![CDATA[<br/><br/><br/>Autres revenus <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>QUÉ G<br/><br/>]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_capGain</key>
+		<value><![CDATA[<br/><br/><br/>Gains en capital <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>QUÉ A<br/><br/>]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_ROC</key>
+		<value><![CDATA[<br/><br/><br/>Rajustement du prix de base d'une participation  <br/><br/><br/>QUÉ M<br/><br/>]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_Total</key>
+		<value><![CDATA[Total - Tous les Fonds]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_Rel16Supplementaire</key>
+		<value><![CDATA[REL 16 Supplémentaire]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_Acct</key>
+		<value><![CDATA[No. de compte]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_Xref</key>
+		<value><![CDATA[X-REF]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TF_R18_Int</key>
+		<value><![CDATA[Int #]]></value>
+	</propertyItem>	
+	<propertyItem>
+		<key>TaxForms</key>
+		<value><![CDATA[Tax Forms]]></value>
+	</propertyItem>	
+</Property>

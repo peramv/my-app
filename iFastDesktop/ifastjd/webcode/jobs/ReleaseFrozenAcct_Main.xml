@@ -1,0 +1,424 @@
+<root><processControl><job name="ReleaseFrozenAcct_Main" oldID="202"><name>ReleaseFrozenAcct_Main</name><description></description><configData><config><jobVersion>1.20-2008-10-30</jobVersion><lastChangedID>walkerro</lastChangedID><lastChangedName>Rod Walker</lastChangedName><startLeft>3195</startLeft><startTop>510</startTop><startWidth>1200</startWidth><startHeight>495</startHeight></config>
+				<![CDATA[PABjAG8AbgBmAGkAZwA+ADwAagBvAGIAVgBlAHIAcwBpAG8AbgA+ADEALgAyADAALQAyADAA
+MAA4AC0AMQAwAC0AMwAwADwALwBqAG8AYgBWAGUAcgBzAGkAbwBuAD4APABsAGEAcwB0AEMA
+aABhAG4AZwBlAGQASQBEAD4AdwBhAGwAawBlAHIAcgBvADwALwBsAGEAcwB0AEMAaABhAG4A
+ZwBlAGQASQBEAD4APABsAGEAcwB0AEMAaABhAG4AZwBlAGQATgBhAG0AZQA+AFIAbwBkACAA
+VwBhAGwAawBlAHIAPAAvAGwAYQBzAHQAQwBoAGEAbgBnAGUAZABOAGEAbQBlAD4APABzAHQA
+YQByAHQATABlAGYAdAA+ADMAMQA5ADUAPAAvAHMAdABhAHIAdABMAGUAZgB0AD4APABzAHQA
+YQByAHQAVABvAHAAPgA1ADEAMAA8AC8AcwB0AGEAcgB0AFQAbwBwAD4APABzAHQAYQByAHQA
+VwBpAGQAdABoAD4AMQAyADAAMAA8AC8AcwB0AGEAcgB0AFcAaQBkAHQAaAA+ADwAcwB0AGEA
+cgB0AEgAZQBpAGcAaAB0AD4ANAA5ADUAPAAvAHMAdABhAHIAdABIAGUAaQBnAGgAdAA+ADwA
+LwBjAG8AbgBmAGkAZwA+AA0ACg==
+]]></configData><jobFlow><processStep name="DumpWhiteboard                                    " oldID="1797" sortID="1951485"><stepType>2</stepType><initialStep>-1</initialStep><name>DumpWhiteboard                                    </name><description>Write the contents of the whiteboard to a file.   </description><taskOrJobID>9</taskOrJobID><configInfo><config><fileName>{$INFOCFG:workingDirectory}/{$XPATH:.//userID}_ManagmentFeeRebate_Main.xml</fileName><sourceNode></sourceNode></config>
+						<![CDATA[PABjAG8AbgBmAGkAZwA+ADwAZgBpAGwAZQBOAGEAbQBlAD4AewAkAEkATgBGAE8AQwBGAEcA
+OgB3AG8AcgBrAGkAbgBnAEQAaQByAGUAYwB0AG8AcgB5AH0ALwB7ACQAWABQAEEAVABIADoA
+LgAvAC8AdQBzAGUAcgBJAEQAfQBfAE0AYQBuAGEAZwBtAGUAbgB0AEYAZQBlAFIAZQBiAGEA
+dABlAF8ATQBhAGkAbgAuAHgAbQBsADwALwBmAGkAbABlAE4AYQBtAGUAPgA8AHMAbwB1AHIA
+YwBlAE4AbwBkAGUAPgA8AC8AcwBvAHUAcgBjAGUATgBvAGQAZQA+ADwALwBjAG8AbgBmAGkA
+ZwA+AA0ACg==
+]]></configInfo><guiData><node name="Key_1797"><left>1485</left><top>1950</top><width>555</width><height>555</height><link linkKey="LNK87689500" newLinkKey="LNK1797_EQ_0"/></node><![CDATA[PABuAG8AZABlACAAbgBhAG0AZQA9ACIASwBlAHkAXwAxADcAOQA3ACIAPgA8AGwAZQBmAHQA
+PgAxADQAOAA1ADwALwBsAGUAZgB0AD4APAB0AG8AcAA+ADEAOQA1ADAAPAAvAHQAbwBwAD4A
+PAB3AGkAZAB0AGgAPgA1ADUANQA8AC8AdwBpAGQAdABoAD4APABoAGUAaQBnAGgAdAA+ADUA
+NQA1ADwALwBoAGUAaQBnAGgAdAA+ADwAbABpAG4AawAgAGwAaQBuAGsASwBlAHkAPQAiAEwA
+TgBLADgANwA2ADgAOQA1ADAAMAAiACAAbgBlAHcATABpAG4AawBLAGUAeQA9ACIATABOAEsA
+MQA3ADkANwBfAEUAUQBfADAAIgAvAD4APAAvAG4AbwBkAGUAPg==
+]]></guiData><taskName>DumpWhiteboard</taskName><processStepLinks><link><operator>= </operator><returnCode>0</returnCode><nextProcessStep>TransformNode                                     </nextProcessStep><nextProcessID>1802</nextProcessID></link></processStepLinks></processStep><processStep name="LoadWhiteboard                                    " oldID="1798" sortID="2060310"><stepType>2</stepType><initialStep>0</initialStep><name>LoadWhiteboard                                    </name><description>Loads the Whiteboard from an XML file.            </description><taskOrJobID>19</taskOrJobID><configInfo><config><fileNameNode></fileNameNode><fileName>{$INFOCFG:workingDirectory}/{$XPATH:.//userID}_ManagmentFeeRebate_Main.xml</fileName><sourceNode>*</sourceNode><cacheFile>false</cacheFile><targetNode>.</targetNode></config>
+						<![CDATA[PABjAG8AbgBmAGkAZwA+ADwAZgBpAGwAZQBOAGEAbQBlAE4AbwBkAGUAPgA8AC8AZgBpAGwA
+ZQBOAGEAbQBlAE4AbwBkAGUAPgA8AGYAaQBsAGUATgBhAG0AZQA+AHsAJABJAE4ARgBPAEMA
+RgBHADoAdwBvAHIAawBpAG4AZwBEAGkAcgBlAGMAdABvAHIAeQB9AC8AewAkAFgAUABBAFQA
+SAA6AC4ALwAvAHUAcwBlAHIASQBEAH0AXwBNAGEAbgBhAGcAbQBlAG4AdABGAGUAZQBSAGUA
+YgBhAHQAZQBfAE0AYQBpAG4ALgB4AG0AbAA8AC8AZgBpAGwAZQBOAGEAbQBlAD4APABzAG8A
+dQByAGMAZQBOAG8AZABlAD4AKgA8AC8AcwBvAHUAcgBjAGUATgBvAGQAZQA+ADwAYwBhAGMA
+aABlAEYAaQBsAGUAPgBmAGEAbABzAGUAPAAvAGMAYQBjAGgAZQBGAGkAbABlAD4APAB0AGEA
+cgBnAGUAdABOAG8AZABlAD4ALgA8AC8AdABhAHIAZwBlAHQATgBvAGQAZQA+ADwALwBjAG8A
+bgBmAGkAZwA+AA0ACg==
+]]></configInfo><guiData><node name="Key_1798"><left>5310</left><top>2055</top><width>555</width><height>555</height><link linkKey="LNK87692015" newLinkKey="LNK1798_EQ_0"/></node><![CDATA[PABuAG8AZABlACAAbgBhAG0AZQA9ACIASwBlAHkAXwAxADcAOQA4ACIAPgA8AGwAZQBmAHQA
+PgA1ADMAMQAwADwALwBsAGUAZgB0AD4APAB0AG8AcAA+ADIAMAA1ADUAPAAvAHQAbwBwAD4A
+PAB3AGkAZAB0AGgAPgA1ADUANQA8AC8AdwBpAGQAdABoAD4APABoAGUAaQBnAGgAdAA+ADUA
+NQA1ADwALwBoAGUAaQBnAGgAdAA+ADwAbABpAG4AawAgAGwAaQBuAGsASwBlAHkAPQAiAEwA
+TgBLADgANwA2ADkAMgAwADEANQAiACAAbgBlAHcATABpAG4AawBLAGUAeQA9ACIATABOAEsA
+MQA3ADkAOABfAEUAUQBfADAAIgAvAD4APAAvAG4AbwBkAGUAPg==
+]]></guiData><taskName>LoadWhiteboard</taskName><processStepLinks><link><operator>= </operator><returnCode>0</returnCode><nextProcessStep>TransformNode                                     </nextProcessStep><nextProcessID>1802</nextProcessID></link></processStepLinks></processStep><processStep name="TransformNode                                     " oldID="1802" sortID="3633510"><stepType>2</stepType><initialStep>0</initialStep><name>TransformNode                                     </name><description>Transform the Whiteboard                          </description><taskOrJobID>34</taskOrJobID><configInfo><Param1>.</Param1><Param2>.</Param2><Param3><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+								<xsl:template match="/">
+									<message>
+										<request>
+											<dtRelFrozenAcctInitRequest>
+												<RequestHeader>
+													<apiName>dtRelFrozenAcctInit</apiName>
+													<ruserid><xsl:value-of select="/websrvXML/FormInformation/ruserId"/></ruserid>
+													<clientCode><xsl:value-of select="/websrvXML/FormInformation/companyCode"/></clientCode>
+													<sessionId><xsl:value-of select="/websrvXML/FormInformation/sessionId"/></sessionId>
+													<envName><xsl:value-of select="/websrvXML/FormInformation/envName"/></envName>
+													<dateFormat><xsl:value-of select="/websrvXML/FormInformation/dateFormat"/></dateFormat>
+													<elementLength>short</elementLength>
+													<interfaceName/>
+													<dataMode>inquire</dataMode>
+													<language>en</language>
+													<downLoadMode>no</downLoadMode>
+													<locale>enUS</locale>
+												</RequestHeader>
+												<data>
+												</data>
+											</dtRelFrozenAcctInitRequest>
+										</request>
+									</message>
+								</xsl:template>
+							</xsl:stylesheet>
+						</Param3><![CDATA[LgDHAC4AxwA8AD8AeABtAGwAIAB2AGUAcgBzAGkAbwBuAD0AIgAxAC4AMAAiAD8APgANAAoA
+PAB4AHMAbAA6AHMAdAB5AGwAZQBzAGgAZQBlAHQAIAB4AG0AbABuAHMAOgB4AHMAbAA9ACIA
+aAB0AHQAcAA6AC8ALwB3AHcAdwAuAHcAMwAuAG8AcgBnAC8AMQA5ADkAOQAvAFgAUwBMAC8A
+VAByAGEAbgBzAGYAbwByAG0AIgAgAHYAZQByAHMAaQBvAG4AIAA9ACAAIgAxAC4AMAAiAD4A
+DQAKACAAIAA8AHgAcwBsADoAdABlAG0AcABsAGEAdABlACAAbQBhAHQAYwBoAD0AIgAvACIA
+PgANAAoADQAKADwAbQBlAHMAcwBhAGcAZQA+AA0ACgAgACAAIAAgADwAcgBlAHEAdQBlAHMA
+dAA+AA0ACgAgACAAIAAgACAAPABkAHQAUgBlAGwARgByAG8AegBlAG4AQQBjAGMAdABJAG4A
+aQB0AFIAZQBxAHUAZQBzAHQAPgANAAoADQAKACAAIAAgACAAIAAgACAAPABSAGUAcQB1AGUA
+cwB0AEgAZQBhAGQAZQByAD4ADQAKACAAIAAgACAAIAAgACAAIAAgACAAIAA8AGEAcABpAE4A
+YQBtAGUAPgBkAHQAUgBlAGwARgByAG8AegBlAG4AQQBjAGMAdABJAG4AaQB0ADwALwBhAHAA
+aQBOAGEAbQBlAD4AIAANAAoAIAAgACAAIAAgACAAIAAgACAAIAAgADwAcgB1AHMAZQByAGkA
+ZAA+ADwAeABzAGwAOgB2AGEAbAB1AGUALQBvAGYAIABzAGUAbABlAGMAdAA9ACIALwB3AGUA
+YgBzAHIAdgBYAE0ATAAvAEYAbwByAG0ASQBuAGYAbwByAG0AYQB0AGkAbwBuAC8AcgB1AHMA
+ZQByAEkAZAAiAC8APgA8AC8AcgB1AHMAZQByAGkAZAA+ACAADQAKACAAIAAgACAAIAAgACAA
+IAAgACAAIAA8AGMAbABpAGUAbgB0AEMAbwBkAGUAPgA8AHgAcwBsADoAdgBhAGwAdQBlAC0A
+bwBmACAAcwBlAGwAZQBjAHQAPQAiAC8AdwBlAGIAcwByAHYAWABNAEwALwBGAG8AcgBtAEkA
+bgBmAG8AcgBtAGEAdABpAG8AbgAvAGMAbwBtAHAAYQBuAHkAQwBvAGQAZQAiAC8APgA8AC8A
+YwBsAGkAZQBuAHQAQwBvAGQAZQA+AA0ACgAgACAAIAAgACAAIAAgACAAIAAgACAAPABzAGUA
+cwBzAGkAbwBuAEkAZAA+ADwAeABzAGwAOgB2AGEAbAB1AGUALQBvAGYAIABzAGUAbABlAGMA
+dAA9ACIALwB3AGUAYgBzAHIAdgBYAE0ATAAvAEYAbwByAG0ASQBuAGYAbwByAG0AYQB0AGkA
+bwBuAC8AcwBlAHMAcwBpAG8AbgBJAGQAIgAvAD4APAAvAHMAZQBzAHMAaQBvAG4ASQBkAD4A
+IAANAAoAIAAgACAAIAAgACAAIAAgACAAIAAgADwAZQBuAHYATgBhAG0AZQA+ADwAeABzAGwA
+OgB2AGEAbAB1AGUALQBvAGYAIABzAGUAbABlAGMAdAA9ACIALwB3AGUAYgBzAHIAdgBYAE0A
+TAAvAEYAbwByAG0ASQBuAGYAbwByAG0AYQB0AGkAbwBuAC8AZQBuAHYATgBhAG0AZQAiAC8A
+PgA8AC8AZQBuAHYATgBhAG0AZQA+AA0ACgAgACAAIAAgACAAIAAgACAAIAAgACAAPABkAGEA
+dABlAEYAbwByAG0AYQB0AD4APAB4AHMAbAA6AHYAYQBsAHUAZQAtAG8AZgAgAHMAZQBsAGUA
+YwB0AD0AIgAvAHcAZQBiAHMAcgB2AFgATQBMAC8ARgBvAHIAbQBJAG4AZgBvAHIAbQBhAHQA
+aQBvAG4ALwBkAGEAdABlAEYAbwByAG0AYQB0ACIALwA+ADwALwBkAGEAdABlAEYAbwByAG0A
+YQB0AD4ADQAKACAAIAAgACAAIAAgACAAIAAgACAAIAA8AGUAbABlAG0AZQBuAHQATABlAG4A
+ZwB0AGgAPgBzAGgAbwByAHQAPAAvAGUAbABlAG0AZQBuAHQATABlAG4AZwB0AGgAPgAgACAA
+IAAgACAAIAAgACAAIAAgAA0ACgAgACAAIAAgACAAIAAgACAAIAAgACAAPABpAG4AdABlAHIA
+ZgBhAGMAZQBOAGEAbQBlAC8APgANAAoAIAAgACAAIAAgACAAIAAgACAAIAAgADwAZABhAHQA
+YQBNAG8AZABlAD4AaQBuAHEAdQBpAHIAZQA8AC8AZABhAHQAYQBNAG8AZABlAD4AIAANAAoA
+IAAgACAAIAAgACAAIAAgACAAIAAgADwAbABhAG4AZwB1AGEAZwBlAD4AZQBuADwALwBsAGEA
+bgBnAHUAYQBnAGUAPgAgAA0ACgAgACAAIAAgACAAIAAgACAAIAAgACAAPABkAG8AdwBuAEwA
+bwBhAGQATQBvAGQAZQA+AG4AbwA8AC8AZABvAHcAbgBMAG8AYQBkAE0AbwBkAGUAPgAgAA0A
+CgAgACAAIAAgACAAIAAgACAAIAAgACAAPABsAG8AYwBhAGwAZQA+AGUAbgBVAFMAPAAvAGwA
+bwBjAGEAbABlAD4AIAANAAoAIAAgACAAIAAgACAAIAA8AC8AUgBlAHEAdQBlAHMAdABIAGUA
+YQBkAGUAcgA+AA0ACgANAAoAIAAgACAAIAAgACAAIAA8AGQAYQB0AGEAPgANAAoAIAAgACAA
+IAAgACAAIAAgACAAIAAgAA0ACgAgACAAIAAgACAAIAAgADwALwBkAGEAdABhAD4ADQAKAA0A
+CgAgACAAIAAgACAAPAAvAGQAdABSAGUAbABGAHIAbwB6AGUAbgBBAGMAYwB0AEkAbgBpAHQA
+UgBlAHEAdQBlAHMAdAA+AA0ACgANAAoAIAAgACAAIAA8AC8AcgBlAHEAdQBlAHMAdAA+AA0A
+CgA8AC8AbQBlAHMAcwBhAGcAZQA+ACAAIAANAAoADQAKACAAIAA8AC8AeABzAGwAOgB0AGUA
+bQBwAGwAYQB0AGUAPgANAAoAPAAvAHgAcwBsADoAcwB0AHkAbABlAHMAaABlAGUAdAA+AA0A
+Cg==
+]]></configInfo><guiData><node name="Key_1802"><left>3510</left><top>3630</top><width>555</width><height>555</height><link linkKey="LNK93327375" newLinkKey="LNK1802_EQ_0"/></node><![CDATA[PABuAG8AZABlACAAbgBhAG0AZQA9ACIASwBlAHkAXwAxADgAMAAyACIAPgA8AGwAZQBmAHQA
+PgAzADUAMQAwADwALwBsAGUAZgB0AD4APAB0AG8AcAA+ADMANgAzADAAPAAvAHQAbwBwAD4A
+PAB3AGkAZAB0AGgAPgA1ADUANQA8AC8AdwBpAGQAdABoAD4APABoAGUAaQBnAGgAdAA+ADUA
+NQA1ADwALwBoAGUAaQBnAGgAdAA+ADwAbABpAG4AawAgAGwAaQBuAGsASwBlAHkAPQAiAEwA
+TgBLADkAMwAzADIANwAzADcANQAiACAAbgBlAHcATABpAG4AawBLAGUAeQA9ACIATABOAEsA
+MQA4ADAAMgBfAEUAUQBfADAAIgAvAD4APAAvAG4AbwBkAGUAPg==
+]]></guiData><taskName>TransformNode</taskName><processStepLinks><link><operator>= </operator><returnCode>0</returnCode><nextProcessStep>SetNodeValue                                      </nextProcessStep><nextProcessID>1799</nextProcessID></link></processStepLinks></processStep><processStep name="SetNodeValue                                      " oldID="1799" sortID="5463510"><stepType>2</stepType><initialStep>0</initialStep><name>SetNodeValue                                      </name><description>Sets the value of an XML node.                    </description><taskOrJobID>29</taskOrJobID><configInfo><config><initNode><sourceNode>transformNode/sourceNode</sourceNode><valueNode>/websrvXML</valueNode><ARFlagNode>Add</ARFlagNode></initNode><initNode><sourceNode>transformNode/xsltFileName</sourceNode><valueNode>{$APPCFG:ApplicationPrivateDirectory}{$APPCFG:DataDirectory}{$APP:CLIENT}/screens/ReleaseFrozenAcct_Main.xsl</valueNode><ARFlagNode>Add</ARFlagNode></initNode><initNode><sourceNode>transformNode/targetNode</sourceNode><valueNode>.</valueNode><ARFlagNode>Add</ARFlagNode></initNode><initNode><sourceNode>transformNode/datadir</sourceNode><valueNode>{$APPCFG:DataDirectory}</valueNode><ARFlagNode>Add</ARFlagNode></initNode></config>
+						<![CDATA[PABjAG8AbgBmAGkAZwA+ADwAaQBuAGkAdABOAG8AZABlAD4APABzAG8AdQByAGMAZQBOAG8A
+ZABlAD4AdAByAGEAbgBzAGYAbwByAG0ATgBvAGQAZQAvAHMAbwB1AHIAYwBlAE4AbwBkAGUA
+PAAvAHMAbwB1AHIAYwBlAE4AbwBkAGUAPgA8AHYAYQBsAHUAZQBOAG8AZABlAD4ALwB3AGUA
+YgBzAHIAdgBYAE0ATAA8AC8AdgBhAGwAdQBlAE4AbwBkAGUAPgA8AEEAUgBGAGwAYQBnAE4A
+bwBkAGUAPgBBAGQAZAA8AC8AQQBSAEYAbABhAGcATgBvAGQAZQA+ADwALwBpAG4AaQB0AE4A
+bwBkAGUAPgA8AGkAbgBpAHQATgBvAGQAZQA+ADwAcwBvAHUAcgBjAGUATgBvAGQAZQA+AHQA
+cgBhAG4AcwBmAG8AcgBtAE4AbwBkAGUALwB4AHMAbAB0AEYAaQBsAGUATgBhAG0AZQA8AC8A
+cwBvAHUAcgBjAGUATgBvAGQAZQA+ADwAdgBhAGwAdQBlAE4AbwBkAGUAPgB7ACQAQQBQAFAA
+QwBGAEcAOgBBAHAAcABsAGkAYwBhAHQAaQBvAG4AUAByAGkAdgBhAHQAZQBEAGkAcgBlAGMA
+dABvAHIAeQB9AHsAJABBAFAAUABDAEYARwA6AEQAYQB0AGEARABpAHIAZQBjAHQAbwByAHkA
+fQB7ACQAQQBQAFAAOgBDAEwASQBFAE4AVAB9AC8AcwBjAHIAZQBlAG4AcwAvAFIAZQBsAGUA
+YQBzAGUARgByAG8AegBlAG4AQQBjAGMAdABfAE0AYQBpAG4ALgB4AHMAbAA8AC8AdgBhAGwA
+dQBlAE4AbwBkAGUAPgA8AEEAUgBGAGwAYQBnAE4AbwBkAGUAPgBBAGQAZAA8AC8AQQBSAEYA
+bABhAGcATgBvAGQAZQA+ADwALwBpAG4AaQB0AE4AbwBkAGUAPgA8AGkAbgBpAHQATgBvAGQA
+ZQA+ADwAcwBvAHUAcgBjAGUATgBvAGQAZQA+AHQAcgBhAG4AcwBmAG8AcgBtAE4AbwBkAGUA
+LwB0AGEAcgBnAGUAdABOAG8AZABlADwALwBzAG8AdQByAGMAZQBOAG8AZABlAD4APAB2AGEA
+bAB1AGUATgBvAGQAZQA+AC4APAAvAHYAYQBsAHUAZQBOAG8AZABlAD4APABBAFIARgBsAGEA
+ZwBOAG8AZABlAD4AQQBkAGQAPAAvAEEAUgBGAGwAYQBnAE4AbwBkAGUAPgA8AC8AaQBuAGkA
+dABOAG8AZABlAD4APABpAG4AaQB0AE4AbwBkAGUAPgA8AHMAbwB1AHIAYwBlAE4AbwBkAGUA
+PgB0AHIAYQBuAHMAZgBvAHIAbQBOAG8AZABlAC8AZABhAHQAYQBkAGkAcgA8AC8AcwBvAHUA
+cgBjAGUATgBvAGQAZQA+ADwAdgBhAGwAdQBlAE4AbwBkAGUAPgB7ACQAQQBQAFAAQwBGAEcA
+OgBEAGEAdABhAEQAaQByAGUAYwB0AG8AcgB5AH0APAAvAHYAYQBsAHUAZQBOAG8AZABlAD4A
+PABBAFIARgBsAGEAZwBOAG8AZABlAD4AQQBkAGQAPAAvAEEAUgBGAGwAYQBnAE4AbwBkAGUA
+PgA8AC8AaQBuAGkAdABOAG8AZABlAD4APAAvAGMAbwBuAGYAaQBnAD4ADQAK
+]]></configInfo><guiData><node name="Key_1799"><left>3510</left><top>5460</top><width>555</width><height>555</height><link linkKey="LNK251309296" newLinkKey="LNK1799_EQ_0"/></node><![CDATA[PABuAG8AZABlACAAbgBhAG0AZQA9ACIASwBlAHkAXwAxADcAOQA5ACIAPgA8AGwAZQBmAHQA
+PgAzADUAMQAwADwALwBsAGUAZgB0AD4APAB0AG8AcAA+ADUANAA2ADAAPAAvAHQAbwBwAD4A
+PAB3AGkAZAB0AGgAPgA1ADUANQA8AC8AdwBpAGQAdABoAD4APABoAGUAaQBnAGgAdAA+ADUA
+NQA1ADwALwBoAGUAaQBnAGgAdAA+ADwAbABpAG4AawAgAGwAaQBuAGsASwBlAHkAPQAiAEwA
+TgBLADIANQAxADMAMAA5ADIAOQA2ACIAIABuAGUAdwBMAGkAbgBrAEsAZQB5AD0AIgBMAE4A
+SwAxADcAOQA5AF8ARQBRAF8AMAAiAC8APgA8AC8AbgBvAGQAZQA+
+]]></guiData><taskName>SetNodeValue</taskName><processStepLinks><link><operator>= </operator><returnCode>0</returnCode><nextProcessStep>TransformNodeEx                                   </nextProcessStep><nextProcessID>1800</nextProcessID></link></processStepLinks></processStep><processStep name="TransformNodeEx                                   " oldID="1800" sortID="7308495"><stepType>2</stepType><initialStep>0</initialStep><name>TransformNodeEx                                   </name><description>Transform the Whiteboard                          </description><taskOrJobID>39</taskOrJobID><configInfo><config><sourceNode>transformNode</sourceNode></config>
+						<![CDATA[PABjAG8AbgBmAGkAZwA+ADwAcwBvAHUAcgBjAGUATgBvAGQAZQA+AHQAcgBhAG4AcwBmAG8A
+cgBtAE4AbwBkAGUAPAAvAHMAbwB1AHIAYwBlAE4AbwBkAGUAPgA8AC8AYwBvAG4AZgBpAGcA
+PgANAAo=
+]]></configInfo><guiData><node name="Key_1800"><left>3495</left><top>7305</top><width>555</width><height>555</height><link linkKey="LNK251314562" newLinkKey="LNK1800_EQ_0"/></node><![CDATA[PABuAG8AZABlACAAbgBhAG0AZQA9ACIASwBlAHkAXwAxADgAMAAwACIAPgA8AGwAZQBmAHQA
+PgAzADQAOQA1ADwALwBsAGUAZgB0AD4APAB0AG8AcAA+ADcAMwAwADUAPAAvAHQAbwBwAD4A
+PAB3AGkAZAB0AGgAPgA1ADUANQA8AC8AdwBpAGQAdABoAD4APABoAGUAaQBnAGgAdAA+ADUA
+NQA1ADwALwBoAGUAaQBnAGgAdAA+ADwAbABpAG4AawAgAGwAaQBuAGsASwBlAHkAPQAiAEwA
+TgBLADIANQAxADMAMQA0ADUANgAyACIAIABuAGUAdwBMAGkAbgBrAEsAZQB5AD0AIgBMAE4A
+SwAxADgAMAAwAF8ARQBRAF8AMAAiAC8APgA8AC8AbgBvAGQAZQA+
+]]></guiData><taskName>TransformNodeEx</taskName><processStepLinks><link><operator>= </operator><returnCode>0</returnCode><nextProcessStep>TransformNode                                     </nextProcessStep><nextProcessID>1801</nextProcessID></link></processStepLinks></processStep><processStep name="TransformNode                                     " oldID="1801" sortID="9108495"><stepType>2</stepType><initialStep>0</initialStep><name>TransformNode                                     </name><description>Transform the Whiteboard                          </description><taskOrJobID>34</taskOrJobID><configInfo><Param1>.</Param1><Param2>.</Param2><Param3><xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+								<xsl:output method="xml" version="1.0" encoding="UTF-16" indent="yes"/>
+								<xsl:variable name="nodeSource" select="//htmlForm"/>
+								<xsl:template match="/">
+									<responseInfo>
+										<responseNode>.//responseHTML/*</responseNode>
+										<headers>
+											<header>
+												<name>Content-Type</name>
+												<value>text/html</value>
+											</header>
+											<header>
+												<name>Cache-Control</name>
+												<value>no-cache</value>
+											</header>
+										</headers>
+										<responseHTML>
+											<xsl:copy-of select="//Screen/*"/>
+										</responseHTML>
+									</responseInfo>
+								</xsl:template>
+							</xsl:stylesheet>
+						</Param3><![CDATA[LgDHAC4AxwA8AHgAcwBsADoAcwB0AHkAbABlAHMAaABlAGUAdAAgAHYAZQByAHMAaQBvAG4A
+PQAiADEALgAwACIAIAB4AG0AbABuAHMAOgB4AHMAbAA9ACIAaAB0AHQAcAA6AC8ALwB3AHcA
+dwAuAHcAMwAuAG8AcgBnAC8AMQA5ADkAOQAvAFgAUwBMAC8AVAByAGEAbgBzAGYAbwByAG0A
+IgA+AA0ACgAJADwAeABzAGwAOgBvAHUAdABwAHUAdAAgAG0AZQB0AGgAbwBkAD0AIgB4AG0A
+bAAiACAAdgBlAHIAcwBpAG8AbgA9ACIAMQAuADAAIgAgAGUAbgBjAG8AZABpAG4AZwA9ACIA
+VQBUAEYALQAxADYAIgAgAGkAbgBkAGUAbgB0AD0AIgB5AGUAcwAiAC8APgANAAoACQA8AHgA
+cwBsADoAdgBhAHIAaQBhAGIAbABlACAAbgBhAG0AZQA9ACIAbgBvAGQAZQBTAG8AdQByAGMA
+ZQAiACAAcwBlAGwAZQBjAHQAPQAiAC8ALwBoAHQAbQBsAEYAbwByAG0AIgAvAD4ADQAKAAkA
+PAB4AHMAbAA6AHQAZQBtAHAAbABhAHQAZQAgAG0AYQB0AGMAaAA9ACIALwAiAD4ADQAKAAkA
+CQA8AHIAZQBzAHAAbwBuAHMAZQBJAG4AZgBvAD4ADQAKAAkACQAJADwAcgBlAHMAcABvAG4A
+cwBlAE4AbwBkAGUAPgAuAC8ALwByAGUAcwBwAG8AbgBzAGUASABUAE0ATAAvACoAPAAvAHIA
+ZQBzAHAAbwBuAHMAZQBOAG8AZABlAD4ADQAKAAkACQAJADwAaABlAGEAZABlAHIAcwA+AA0A
+CgAJAAkACQAJADwAaABlAGEAZABlAHIAPgANAAoACQAJAAkACQAJADwAbgBhAG0AZQA+AEMA
+bwBuAHQAZQBuAHQALQBUAHkAcABlADwALwBuAGEAbQBlAD4ADQAKAAkACQAJAAkACQA8AHYA
+YQBsAHUAZQA+AHQAZQB4AHQALwBoAHQAbQBsADwALwB2AGEAbAB1AGUAPgANAAoACQAJAAkA
+CQA8AC8AaABlAGEAZABlAHIAPgANAAoACQAJAAkACQA8AGgAZQBhAGQAZQByAD4ADQAKAAkA
+CQAJAAkACQA8AG4AYQBtAGUAPgBDAGEAYwBoAGUALQBDAG8AbgB0AHIAbwBsADwALwBuAGEA
+bQBlAD4ADQAKAAkACQAJAAkACQA8AHYAYQBsAHUAZQA+AG4AbwAtAGMAYQBjAGgAZQA8AC8A
+dgBhAGwAdQBlAD4ADQAKAAkACQAJAAkAPAAvAGgAZQBhAGQAZQByAD4ADQAKAAkACQAJADwA
+LwBoAGUAYQBkAGUAcgBzAD4ADQAKAAkACQAJADwAcgBlAHMAcABvAG4AcwBlAEgAVABNAEwA
+PgANAAoAIAAgACAAIAAgACAAIAAgACAAIAAgADwAeABzAGwAOgBjAG8AcAB5AC0AbwBmACAA
+cwBlAGwAZQBjAHQAPQAiAC8ALwBTAGMAcgBlAGUAbgAvACoAIgAvAD4ADQAKAAkACQAJADwA
+LwByAGUAcwBwAG8AbgBzAGUASABUAE0ATAA+AA0ACgAJAAkAPAAvAHIAZQBzAHAAbwBuAHMA
+ZQBJAG4AZgBvAD4ADQAKAAkAPAAvAHgAcwBsADoAdABlAG0AcABsAGEAdABlAD4ADQAKADwA
+LwB4AHMAbAA6AHMAdAB5AGwAZQBzAGgAZQBlAHQAPgANAAoADQAK
+]]></configInfo><guiData><node name="Key_1801"><left>3495</left><top>9105</top><width>555</width><height>555</height></node><![CDATA[PABuAG8AZABlACAAbgBhAG0AZQA9ACIASwBlAHkAXwAxADgAMAAxACIAPgA8AGwAZQBmAHQA
+PgAzADQAOQA1ADwALwBsAGUAZgB0AD4APAB0AG8AcAA+ADkAMQAwADUAPAAvAHQAbwBwAD4A
+PAB3AGkAZAB0AGgAPgA1ADUANQA8AC8AdwBpAGQAdABoAD4APABoAGUAaQBnAGgAdAA+ADUA
+NQA1ADwALwBoAGUAaQBnAGgAdAA+ADwALwBuAG8AZABlAD4=
+]]></guiData><taskName>TransformNode</taskName><processStepLinks/></processStep></jobFlow></job><task name="DumpWhiteboard" oldID="9"><name>DumpWhiteboard</name><description>Write the contents of the whiteboard to a file.</description><programID>GenericTasksEx.DumpWhiteboard</programID><className>com.dstsystems.de.contact.tasks.DumpWhiteboard</className><imageData><![CDATA[Qk0aDQAAAAAAADYAAAAoAAAAIQAAACEAAAABABgAAAAAAOQMAAAAAAAAAAAAAAAAAAAAAAAA
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////AP/////+//3/
+//3//v////7//f////79//////////7+/v////////////////////////////////////7+
+/v///////////////////////////////////////////////wD9//7////+/f///v///v//
+///////////////////////////////////+/v7////5+fnx8fH39/f+/v7////////9/f3/
+//////////////////////////////////////8A/f///v/9///////+/v7+/P3//f////7/
+/////////////v7+/v7+/////v7+9PT0z8/Ptra2ysrK8fHx/v7+////////////////////
+////////////////////////////AP////////79//79//z//fz//f7+/v///v//////////
+//////////7+/uvr68nJydXV1dzc3KqqqsjIyPf39///////////////////////////////
+/////////////////wD//v////7+/v78/v7+/v7//v////7///79/f3+/v7////////9/f3f
+39/FxcXg4OD+/v7////S0tKjo6PS0tL7+/v/////////////////////////////////////
+//////8A//7///////7//fz//v3//////f//7/Ty9vb2////////+/v71tbWw8PD5+fn////
+////////////xMTEq6ur3d3d/f39////////////////////////////////////////AP//
+/////v7/+v/+//3//tze3np1ilZTYmJiYsbGxvX19dPT08fHx/Dw8P////39/fLy8vj4+P//
+//z8/Lq6urS0tOjo6P////////7+/v7+/v////////7+/v7+/v///////wD////////////9
+///Nzd88OlAAAAAAAAEAAAAmJiZsbGzGxsbz8/P////8/Pzv7+/l5eXp6en6+vr////x8fGr
+q6u7u7vx8fH///////////////////////////////////8A///////+1NbuZmGYICBEAAAA
+KywqSEZFXF1bZ2ZoWl1bTElLp6Kk3OHg7e7q7evr8fLu6+zq6+zq/Pz8////5+fnqampx8fH
+9fX1/////////////////////v7+////////AP///ubg5V1echscNk1NTXx6eoaDhXV3d290
+d3t+fISBg1RWViIkJEdERsnHxvHy7vT18fHy8Orr6e/v7/7+/v///9ra2qenp9PT0/r6+v//
+//////7+/v////////7+/v///wD9///k5uZ2c3VUVlc/QD5UUlJ3goCGamlUKitlWVnQ0NCs
+sKtJR0cCAAA1NTXBxcD5+vb09fPu7+3e393y8/H////9/f3MzMyoqKjc3Nz7+/v/////////
+///9/f3///////8A/v7+29zacXNzDxIWUVFRt8PDwaqoykJGfwAAdwIDtZya////5ubmMS8v
+BQYKhYaE7e7q6+zo4uPh4uPh4uPh9vf1/v7++vr6vr6+q6ur5ubm/v7+////////////////
+////AP///9jY2FBRVQMACTk/Pp6godZZW5QEA3gBAI0hIHIPEfXv8NPT0zEzMxsYGpGUktrb
+19re2eLm4enq6OTl4+Tl4/z8/P7+/vPz87Ozs7a2tu3t7f////7+/v///////////wD////6
++PiLi5EJCRkHExOBXFi6KCiKAAF4AAG6hoaSW1iVj5A8OjofIBxVVlTEwL/s7ene39vd4dzn
+6OTn6Obk5ePn6Ob9/f3+/v7p6emqqqq+vr709PT////+/v7///////8A//7////+5evqSktf
+AQAJBAAAPAABagEAagABeC0rNT08DA4PNTMzYGBgrq+r5OTk6Onl6erm29/a4eLe6erm4+Ti
+3+De7O3r/////v7+3NzcpKSky8vL+vr6/v7+////////AP/////////+/8O/yigoRhASHCIo
+Jz0uMkEtLDAiIzY2NmlmXk1MSLm6tvX38ePh4N7f2+nq5ujp593e3N3e2uTl4err6efq6PDw
+8P///////83NzaWlpdbW1vv7+////////wD///7p6enZ2dn//v+0trdMTk9OUlNUWVpLVlNT
+Wl1EQGlRUo+ip6r9/O7k6OPp6uji5N7f5Nvj5+Hh4t7b29vr7Oj2+PL7+fHp7efk4fD////+
+/fm8wb+oqqvh4eH+/v7///8A///+zs7OcXFxzc3N////3t7e0dHRtLWzvb68xcTGVFi+Dwbf
+bmry0dTLr6+pyMjI7O3r29za29za8O7t8vTu5ebi///x3+DqWF7VQ0vU1Nj0///+9vf1tLGz
+ubK16efn////AP////Pz85mZmU1NTXV1ddza2f///vf19Obi5/v7++zr/1JOxSUfikdHa7u8
+s9/g19nc2u/r6uPm5OTm5vz98/b56pad1Cs00gAD2gMA0nF03P7//f3//ubm5q2trcfFxfz8
+/AD//v/////19fWysrJbW1s4ODg7Ozs1NjQmJiYrKytYV1NWVV8hH3gVCbV1fNnx9OTm6eDl
+7On09fHw9+rT1uViadgLFtIBAs4IDdRfadvd2vP//v/9+/r+//3P0dHAwMD6+voA////////
+/v7+////5ObmiYuLVFZWU1VVWFhYUU9Oen55wL24k5bDDArmCgfmjI7m/P7r9fXp8/XpoaTh
+HybJAAbPAAfaMjnWtLrp/////v7++v/++vj45OLix8bI4N/h/v7+AP///v////////7+/v//
+//////7+/v////79///+/9vW1+Xl5f7795WS5wYB5h0O66Kh69rc5mJmzAUO0AAA2xEYzXJ2
+3Orq+v///v/+//z//e7r7dPR0NDQ0PXu8f///v///wD/////////////////////////////
+/////v79///4+vrPz8/v7eX2+vV4eeEAAOMXGNQUIckBAs4ABcwyOda1ue79//7//v37/P/2
+9/Pf3uDJycng4OD6/Pz//v/9//////8A/////////////////////v7+/////f///////P/7
+//7+7uvtyMzN9fbt7erzVFjPAQDHAADHDxTHamrW4uLw/v/9+vr69vj56ujn19TQ0tPR8/L0
+//////7////+////////AP////////////////////////////////z//f/8///9//z+/uXm
+6tLSzP3/8d/c7DxAziQqyaCm2/z59P79+fr4+PP08t7f3c3NzeLi4vv7+/////////7+/v7+
+/v///////wD///////////////////////////////////77/f79//////z//f3i4ObT1Nj9
+//nOz+nQ0eX///f6+Pf8+vnu6+fN0M7V1tTv7+/+/v7////+/v7////////+/v7///////8A
+//////////////////////////////////7+/f///f/+//3/////+fz62Nnd3NrZ/f/5//35
+/Pj39fT42drWzMrK4+Di/Pr6/////////////v7+////////////////////AP//////////
+/////////////////////////v37//////3+/P////////b199PT097g4fz+/u7u7tHMzdLT
+0evw7//+//3///////////39/f////////7+/v////7+/v///wD/////////////////////
+///////////9/////////v78/v/9/P7//f/////y9fPX2tjY1tXPz8/k4uL8+fv+/v7////+
+//v+/v7////+/v7+/v7+/v7///////////////8A////////////////////////////////
+///+//////7//////////v7+////////7u7u3drc8O/x/P7+/P7+/P/9///++/z//////Pz8
+/////f39////////////////////AP/////////////////////////////////+////////
+/v7//f////////7//f/+///+//3///z//f///v///v3////+//////////////7+/v//////
+/////////////////wD////////////////////////////////////+//3//////v//////
+//////7//////////v////z//v////////7////9//7////////////////+/v7/////////
+//////8=
+]]></imageData><taskReturns><returnCode><code>0</code><description>Successful completion                             </description></returnCode><returnCode><code>1</code><description>Failure                                           </description></returnCode><returnCode><code>998</code><description>Exception                                         </description></returnCode></taskReturns></task><task name="LoadWhiteboard" oldID="19"><name>LoadWhiteboard</name><description>Loads the Whiteboard from an XML file.</description><programID>GenericTasksEx.LoadWhiteBoard</programID><className>com.dstsystems.de.contact.tasks.LoadWhiteboard</className><imageData><![CDATA[AAABAAEAICAQfAAAAADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAgAIAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAgICAAMDAwAAAAP8AAP8AAAD/
+/wD/AAAA/wD/AP//AAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHMzMzMzMzMzMzMzMzMzAAB7i4uLi4uLi4
+uLi4uLgwAAeLi4uLi4uLi4uLi4uLMAB4uLi4uLi4uLi4uLi4uAAAe4uLi4uLi4uLi4uLi4gA
+AHi4uLi4uLi4uLi4uLi3AAB7i4uLi4uLi4uLi4uLhwAHuLi4uLi4uLi4uLi4uLAwB4uLi4uL
+i4uLi4uLi4uAMAe4uLi4uLi4uLi4uLi4cDAHi4uLi4uLi4uLi4uLi3AweLi4uLi4uLi4uLi4
+uLgHMHuLi4uLi4uLi4uLi4uLBzB4uLi4uLi4uLi4uLi4twswe4uLi4uLi4uLi4uLi4cIMH//
+///////////////wezAHeIiIiIiIiIiIiIiIiLgwAAf7i4uLgAuLi4uLi4uLMAAH+Li4uAAA
+uLi4uLi4uDAAB/uLi4AAAAuLi4uLi4swAAf4uLAAAAAAD///////AAAH+4uLiwAAC4d3d3d3
+dwAAAH+4uLiwAAhwAAAAAAAAAAAH+4uLgAAAAAAAAAAAAAAAAH////8AAAAAAAAAAAAAAAAH
+d3d3cAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////////////
+///wAAAB4AAAAOAAAADgAAAAwAAAAMAAAADAAAAAwAAAAIAAAACAAAAAgAAAAIAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAIAAAADgAAAA4AAAAOAAAADgAAAB4AAAA/AAH//4AD///AAf//4A
+D////wP///+D
+]]></imageData><taskReturns><returnCode><code>0</code><description>Whiteboard Load was successful                    </description></returnCode><returnCode><code>1</code><description>Source node not found                             </description></returnCode><returnCode><code>2</code><description>Target node not found                             </description></returnCode><returnCode><code>3</code><description>Failed while loading the XML file                 </description></returnCode><returnCode><code>998</code><description>Unknown error                                     </description></returnCode></taskReturns></task><task name="SetNodeValue" oldID="29"><name>SetNodeValue</name><description>Sets the value of an XML node.</description><programID>GenericTasksEx.SetNodeValue</programID><className>com.dstsystems.de.contact.tasks.SetNodeValue</className><imageData><![CDATA[Qk02DAAAAAAAADYAAAAoAAAAHwAAACAAAAABABgAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAA
+/P7+/v7+//////////3//v/9///+///////+9PH/zbz8rIr/j2P8fUj9czj/cjX7fkX+jVv8
+pHz/vKH/1sj+9/f9/f/////////////+/f/////+/P7+///+/f//AAAA/////P/9/P7++f/6
++/39/f/++/v749z/r5H6fEf8WhT7Xxv8ZST8aSr8cDH9dTj+eDz+eT7+ez/9fEP6fkX8nnD+
+xKz67On4/fj6/Pr6////+Pj++/3+/fz+//3/AAAA/fz//////v3/+/398/78//79up//ekP+
+Ug79WBP9XRv9YyH8aCj+cjP/dTj+eTv/eDz+eT7+fUP8f0b9gEf9gUr7hUv+oXX+z779+P75
+/v7++Pn9/Pb/+/z//f//AAAA/P/9//76+/3+/v7+8O38oH39VA39Uwz9WBP+Wxn6YR77aib/
+cTD/dTn7dzv9dzv9ekD9e0H+f0X+f0b8gkn/hE77hU79iFH6jFb9v6b89Pb+9fz39/z6+f78
++/39AAAA/P/9//7+/v3/8/L7l2f9Tgj9Uwz8WRT/Xhn8YyD9aif+bzD8djj+eDz8eT7+ej//
+e0H9fkX8f0b9gUn8hU79g036hlD9iVH9iVX8jFn9tpX9+Pf7/P/2/Pz8+v7/AAAA+/z//f//
+//39mHH9TAf8VAr8WBP+Wxn7YB/+Zib7bS/9dDf9eDr+eTz+ez//fEL7fkX8f0b9gkn/g0z9
+g0z7h1D/h1H+jFT/jFn9jln8kF37vJf//f76//79/f//AAAA///5/f//tpf/UAn6Uwv/VBD9
+Xhb8YyD/Zyf9bC78cTb8dTr6eDz+ekD8e0H6fkT9fkf8gkv8gkr9hE38hU/8iFH/ilb9jFf7
+i1n9jlv/kV78lF79zrb+/v7++/78AAAA//z/6+X2XRv8VAr8Vg77XhT8Yh/+ZiX9bSz9czT/
+djr9eD39eT7+fEP8fET7fkb9gUr/gkz9hU/8hU79iFT8iVX8ilX/jlr7jVz+j1/7k138lWD9
+nWb98Oj//P/9AAAA+f78j13/UQr7Vg//XBf8Xx3+ZiT/bSz5czP+djr8eDz8fT/9e0H+fkX+
++Pj+/v7+hUv9hkz/h03/iVL7iVL7jFX+j1r9j1r9jln8kl/9k2D+lGL8mGX9soj9//7/AAAA
++///XhX9VhH8WRf5YBv+ZiX9air/czP+djn/eT39ez7/e0L7fEL79fH9/P7+/f///P7+iFD9
+iVL7i1P/jFX+jVj7jln9kV3+kl7/kV77kl7/mGj+mWb+lFz7/v/9AAAA/P/9VQr/WBX6YBv+
+ZSP+bSz+cjT8dTn8dzv+ekD8ekH6fkP/9O7////7/v/7/f39/v3//v3/ilT7jFf7jVj8j1v8
+kV3+kl/8kmL4lGH/mGb/lWT8mGb6lmH+//7/AAAA////WBL/XRv8ZSL/aSv7cjH+djn/dzv9
+eTz+ekP+fUH/9O/+/v3//v3//v3///7//f/5/////v7+jln8j1r9kV3+kF37k2D9k2H7l2T7
+mGT+mWf7nWr/mWb9////AAAA////Wxj9ZCP7aSn+cTP7djj8dzv+eDz+ekH6fEL78+3//f78
+/P/7//////7+/P7+//3//////v/9+fr+j1v8kV78lWL/lGH+lmT+mGX9mWf7mmn5m2j/nGr+
+///+AAAA////ZSD9Zyf8cTH/dTn8dzr8eD77ej/7fEL+8Oz////+/f///v7+/f///P/7/v7+
+/v7+/v/9/fz//P/9/P/9kl/9lGH+lmX9lmb8mmf+mmj8m2j/nWz+m2n9///+AAAA//7/aSH9
+bi3+dTn8dzr8djr8ekD8fEP6fkP/gEf9gkr9hEr8/v/7+vz8/f///////////v7+q4X8kl3/
+kl7/k2D+lWP9mWb+l2j/m2n9nWz+mmb/nGv7mGb6/v3/AAAA///+fz/9dDf9djn7fDz/eED9
+e0H9fkL/gEf9gkv+gkv8hU799fP//v/7//3/+//6/v3/+/z/k2H7kl/8k2D9lGL8mGX8mWb9
+lmn7mGn7m2n9nm39nm/7oXL+/f//AAAA///8k13+dTf7dzz8ekD9fEL/fUX8f0f+gUn8g0v+
+hE77hU/87uj7/P/9/fz+/f39/f398uz9mGT+lWD9l2P9lmb8lmj+lmf/m2r8nGr+nW37n27+
+n3D8uZf7////AAAA/f//39L/dzr8eT7+e0L7fkT9gEb/gkn/g0z9hE3+hVD+iVH9y7j9////
+/P7//P7+/v7+59v/mmf+l2T8l2T7l2f9mGj+mGj8m2r6m2r6n27+n27+o3f5+PT////+AAAA
+/f///P/9uZz/fEL7fkT9f0b8gUj+gkr9g036hlD9hlP7ilL+zLX//v7+/P7+/P/9////5Nf9
+nWz+mGX9mWb+m2n9mmf+nWv/nGr+nm39nm3/oHD+2sn8/f39/v3/AAAA/v7+/v/9/P/2spH6
+fkX8gkr9gUv8gkv+hE38h1L9ilL+jFb9xaT//v7+//7//f39/v/92Mb7onT8mmb/mmj8mmj8
+m2j/nWz+nWz8nGz6n2/9x63/+//6+vr6//7/AAAA/////vv9//399/b4uJf/g0z9g0z9hU//
+iFD9iVX9jFb9jVf+vpn//Pv9//79/v3//fz+2sf+onT8mmn7m2n9nGv9nGv7nWz8nWz8oHD+
+yKz/+Pj++/39//7//fz+AAAA/P7////8///8/f397+r/v6P9ilL+iFD8iVT/i1j8ilj5kVn/
+s5D+/vr//v3//////v7+2cb/q4L7m2n9m2n9nWv/nGv9nm3/oXP7zbP/+ff9/v/9////////
+/v/7AAAA+v75//7//v/9/v3/+vr//P7+0cD5pXv+iVX8i1f+jVz+kFz9tZT8/v3/+/78/v7+
+/f7639D8rYT9m2r8nW37nWz+n2/9tpL+2sj9/////////v7+/v/9//7/////AAAA/v7+/v7+
+/////v7++vz8+f/6+P386+n9xrD+p4L+jVr+kF7/waL/+fr+/v3/////////zrb+p3z7nGr+
+nm39tZH90r758u38/v/7///+/v7+/v7+//7//f/5////AAAA/////////////v7+/P7++/39
++/39+/39/v7++fb/3tH3yK/5w6b7/v7+/v/9/v3////7u5b+vp79zbX749X/9/j8+vz8/P/9
+/////v7+/v7+/v7+/v7+/v7+////AAAA/v7+/v7+/v7+/v7+/v7+/P7+/f///f///fz//Pv9
+/f768vbrvJz7///+/v3//////v7+vJz76Ofp/v/7/v/9/Pv9+/z4/v3//v7+/v7+////////
+/////////v7+AAAA/////////////v7+/f39/f39/f39/v7+/v7+/f78/Pr/z87QsrGz/fz+
+/v7+///+/f/+wsXDur27+vz8/////f78/Pv9/////v7+/v7+////////////////////AAAA
+/////////////////v7+///////////////+/v/9////s7Gxsq+x/////////v7+/P7+w8XG
+oqSk+/z6/f78/v3//v7+/////////////////v7+////////////AAAA////////////////
+//////////////////////7//fz+vru9srCv///+/v/9/fz+/v/9x8fHpqam+/r+/v/7/v7+
+/fz+///+/////////////v7+////////////AAAA/////////////////////////v7+/v7+
+/v7+/v3/////39/fmpqatra26urq7u7uvb29mJmX0dLQ/v3//v7+//////7//v/9////////
+/////v7+////////////AAAA/////////////////////////////////////Pv9/////f39
+zczOlJOVlZWVnJ2bkZKOv7+/+Pj4/////Pz8/v/9/v7+///+/////v7+////////////////
+////AAAA/////////////////////////////////v7+/////v/7/v7+/v3/4+Tix8fHx8fH
+3Nvd/f39///+/Pv//v7++/z6/f39/v7+/////v7+////////////////////AAA=
+]]></imageData><taskReturns><returnCode><code>0</code><description>Node value was set successfully                   </description></returnCode><returnCode><code>998</code><description>Unknown error                                     </description></returnCode></taskReturns></task><task name="TransformNode" oldID="34"><name>TransformNode</name><description>Transform the Whiteboard</description><programID>GenericTasksEx.TransformNode</programID><className>com.dstsystems.de.contact.tasks.TransformNode</className><imageData><![CDATA[AAABAAEAICAQAAAAAADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAgAIAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAgICAAMDAwAAAAP8AAP8AAAD/
+/wD/AAAA/wD/AP//AAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAAAAAAAAAAAA
+AAAAAAAAefAAAAAAAAAAAAAAAAAAAHmfAAAAAAAAAAAAAAAAAAB5mfAAAAAAAAAAAAAAAAAA
+CZmfAAAAAAAAAAAAAAAP//mZmfAAAAAAAAAAAA//+ZmZmZmfAAAAAAAAAA/5uZmZmZmZmfAA
+AAAAAA/7u5mZmZmZmZmfAAAAAAD7ubm5mZmZmZmZmQAAAAAPu7u7mZmZmZmZmZcAAAAL+7u5
+ubmZmZmZmZlwAAAAu7u7u7uZmZmZmZmXAAAAALu7u7m5uZl3eZmZcAAAAAu7u7u7u3d3d3mZ
+lwAAAAALu7u7u3d3cAB5mXAAAAAAu7u7u3dwAAAAeZcAAAAAALu7u7dwAAAAAHlwAAAAAAe7
+u7twAAAAAAB3AAAAAAALu7u3AAAAAAAAcAAAAAAAC7u7cAAAAAAAAAAAAAAAAHu7uwAAAAAA
+AAAAAAAAAAB7u7AAAAAAAAAAAAAAAAAAe7uwAAAAAAAAAAAAAAAAAHu7AAAAAAAAAAAAAAAA
+AAB7uwAAAAAAAAAAAAAAAAAAe7sAAAAAAAAAAAAAAAAAAHewAAAAAAAAAAAAAAAAAAB3sAAA
+AAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAD///v////5////
+8P////B////wP///gB//+AAP/+AAB/+AAAP/AAAB/gAAA/wAAAP4AAAH8AAAD/AAAB/gAAA/
+4ABwf8AH8P/AH/H/gH/z/4D/9/+B////A////wf///8H////D////w////8P////H////x//
+//+/////v///
+]]></imageData><taskReturns><returnCode><code>0</code><description>Transform was successful                          </description></returnCode><returnCode><code>1</code><description>Source node not found                             </description></returnCode><returnCode><code>2</code><description>Target node not found                             </description></returnCode><returnCode><code>3</code><description>Transform node failed                             </description></returnCode><returnCode><code>998</code><description>Unknown error                                     </description></returnCode></taskReturns></task><task name="TransformNodeEx" oldID="39"><name>TransformNodeEx</name><description>Transform the Whiteboard</description><programID>GenericTasksEx.TransformNodeEx</programID><className>com.dstsystems.de.contact.tasks.TransformNodeEx</className><imageData><![CDATA[Qk0aDQAAAAAAADYAAAAoAAAAIQAAACEAAAABABgAAAAAAOQMAAAAAAAAAAAAAAAAAAAAAAAA
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////AP//////////
+//////////////////////3////////////////////////////////+///+//z//f////3/
+/v79//3//v/9/////v////////////////////////7+/v///wD/////////////////////
+///////////////////////+//3///////////7///77/////v7//v////////7////+/f//
+//7//v///v/////////////////+/v7///////8A////////////////////////////////
+/////////////////f///f///f///f/////8+v37/v7+/f///f7////+//7////+////////
+/////////v7+/////////v7+////AP////////////////////////////////////z+/vz+
+/vz+/v3///7+/v79//3//+jt/Onn5+bp4P////z+//3///////79/////v///v7//f///v//
+//7+/v///////////wD////////////////////////////////////9///9//////////7/
+//7///7//v3P1v1lc/WtqrrZ2Mr8+vr9//////v9////////////////////////////////
+//////8A/////////////////////////////////////////////////////////////f//
+8PX+Lkn+Hi/wfIG+wb665+nj//7////+//7//v3///7///7//v7+/v7+////////////AP//
+/////////////////////////////////////////////v///v///v////z+/////5Si/wIN
+/wcX+UdP2J+aucfFxPLz6f/9/P///v/+/v////////////////7+/v///wD/////////////
+/////////////////////////////v3++/f99/D99u348eju6eDh396irOIGKP0AFv4ADf8N
+F/ddXNCTlbjHyL7r7OP5+fP///7///////////////////8A/f///f///f////7////+//7+
+/f/+//79/O7o4t3etczcm7nUhqnUcZnUWYfOR3LTOGLdJ1DoAzD9ACH/ABb+Ag//AAD+EhP3
+SEjaeXjAsq++3NzK6+vf8/Ty/v/9////////AP////3///3//v/9/v////37+9rc3JTK21W6
+4C+j4heV7QqL8gR9+AFu/wBZ/wBP/wBE/wI5/wAz/wMo/gAd/wAU/wQM/wAC/wIA/goH/SYl
+6UZH03V2xqakws3Oyujr6f7+/gD//v3////+/v78/v7f6+tt0uEgy+sEwPcAt/0Arf8Aov8C
+k/8AiP0Bev8CbP8BYP0BVP0BR/4BO/8AL/0CJf8BG/8BEf4BDP4AAv8AAP4AAP4AAP4ODvo1
+NvKKjPLr6/f///8A+/////z///3/s/D0GuX0AOH6Adn/AND8AML+ALf9AKr/AJ78AZH/AIP8
+AHX9AGT+AVb/AEj+AEL9Ajj/ASz/AiL+ABb+AQX+AQb9GBj+QkD+lZf93t3/+Pb8+/n///7/
+////AP3////+/7D7+Q71+QDx/QDp/wDe/ADY/AHK/QLA+wKz/gCm/wCU/AGG/wB++xN6/yt+
+/zN3/g5U/wE9/wEz/QAf/gEY/zhE/3yD/trb//7+/v3////////+//3///7+/v///wD////l
+//8p//oA/v0A9vwC7/wA5f0D2/4A0/wCx/8Au/8Aqf48uP58yP2k1P6/3f/Y6/+71f0SWv4A
+Qv8BM/86Xfqaq/zs7v////7+/v79///////9///8/f/9//z///////8A////rf/+AP79AP/8
+Avz9APT+AO79AOT8ANv9AM/7GcT4pOL67Pb9/P/9//////////7/iLf/AU77EVv5lbL96u7/
+//7+/////f///v3//////v/7//////////79////////AP///5///wD//wD//gH//gD5/gHx
+/ADp/QLg/xDP8LTe6v/////+/v3///3//////uv2/iOE/EaO+drk/P/+//3//v///v/+//3/
+///////+/v///v/////+///+/////////wD///+5//8G/v4A//0C//oA/f8A+PwC7/wA5v5X
+zd766+n//v/////9///////9///M5v6GwPv//v////7//v////////////////79/////v/9
+/////////v////7///////8A////7v//Pf/+AP/8AP/+A//+APz6APX/AOn5dsbN8Ojo/f//
+///+/////f//////8vj////////+/v7+///+/v7+/f/////+//3//////////f///////v7+
+///+////////AP///v3//6j//Av//gD//AD9/AD//gD8/wPx/F7Gy+TV0/////7+/v3///3/
+///9//3///z+/v/+//////////3//P////z+/vv//v/+//3//v/+/v///v///v/9///+////
+/wD9/////////v9w/v8A/vsC//4A/v0C//wA+v8x2OHBvLn69/n///7////9//7/////////
+/////////////////v///////v///v/9/////f/9//7///////78/v7///////8A/f//////
+////+///Zf7/AP79AP79Af/+AP/9CfP5erq/3tHP///////////+/f////7///7//f//////
+////////////+/////7//P/9/////v7+//7//P7+/f//////////AP///////P/+//////r/
+/2v//QP//QD+/gD+/QD9/ynh7aKzsOfg3f///v/////+/////v3///7//f/+////////////
+//3//////P/////9/////v///v3///79/////////wD////9//////7//////v////6X//0S
+//wB//4A//wA+f482N6zsbHi5OX//f/9//79///////////////9/v////////7//v/7////
+//7//v////78/v7////////9//////8A//7///7////+/f////////7/////yP7/Rv7+AP/6
+AP79Aff/Q9XbrK+z4NjZ///+/f////7////+/f/+////0NbzP0zQPlfPoq3r6ev2ZXvbsr/t
+cILbtrvs//7//f/+////AP////////////////////////////////X//6H+/yD/+wH8/QD0
+/ynX5JWyt9LIyPr38/3////+//r//v///7G97SA7yL/G8ezw+/n6/qu56hc1yXWK3/Lz/f/+
+/////v///wD///////////////////////////////////7////v//+V/P41+vwI9P8H3/J0
+vcXGw8Xy6Oj19vT///////+9w/ABFcBPZtTn7fr//v7J0PEjPc2iren2+/r///7///////8A
+/////////////////////////////////f///////v3//P7++///rPv+bPj/SfD9deDuptnc
+3unt+/v7///+wsvxHDvMWG7Yr7vr8PD8TmzVhpbjTmrWvMXw////////////AP//////////
+//////////////////////3//////v/+//3//////////////ur9/736/tX7//X//////v//
+//f1+7/H77fA7N/i9/L2+9je9f///ufq+eXo9//////+/////wD/////////////////////
+///////////////////9//79//7///7///7////9/////v////7+/v79///8//37//////7/
+/v////z6//7////+/f/////+/f///v////7///8A////////////////////////////////
+/////f///////v7++//////////+//3///7//f/+//7///////////7//v/9//////////7/
+/v7+///////////+/v3/////////AP///////////////////////////////////v//////
+//3///////7+/v3///3//v///v///v7//f///v79//////////////z+/v///v//////////
+//7+/v///P/+/////wD////////////////////////////////9/////////v/////9////
+///////////9/////v/////8//3///79///9/////////v/////9///+//v9/v/9//////79
+//////8=
+]]></imageData><taskReturns><returnCode><code>0</code><description>Transform was successful                          </description></returnCode><returnCode><code>1</code><description>Source node not found                             </description></returnCode><returnCode><code>2</code><description>Target node not found                             </description></returnCode><returnCode><code>3</code><description>Transform node failed                             </description></returnCode><returnCode><code>4</code><description>XSLTSource node not found                         </description></returnCode><returnCode><code>5</code><description>XMLSource node not found                          </description></returnCode><returnCode><code>998</code><description>Unknown error                                     </description></returnCode></taskReturns></task></processControl></root>

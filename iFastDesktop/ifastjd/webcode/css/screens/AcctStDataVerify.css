@@ -1,0 +1,27 @@
+.DesktopWeb-Grid-Selected-Row
+{	
+	border-style: solid !important;	
+}
+.DesktopWeb-Grid-Selected-Row .x-grid3-cell, .DesktopWeb-Grid-Selected-Row .x-grid3-body-cell 
+{
+}
+.DetailsSectionDiv
+{
+	width: 620px;	
+	height:100px;
+					        		
+	margin-left:20px;
+	text-align:left;
+	border: 1px solid gray !important;
+}
+
+.DetailsSectionDiv td
+{
+	padding: 2px;
+}
+
+.DetailsSectionDiv tr
+{
+	padding: 2px;
+	border: 51px solid gray !important;
+}

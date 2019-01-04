@@ -1,0 +1,7 @@
+// stdafx.cpp : source file that includes just the standard includes
+//	RRCust.pch will be the pre-compiled header
+//	stdafx.obj will contain the pre-compiled type information
+
+#include <srcprag.h>
+#include "stdafx.h"
+

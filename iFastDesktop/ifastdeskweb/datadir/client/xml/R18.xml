@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SmartPDF>
+	<layout>
+		<simple-page-master>
+			<page-height>11in</page-height>
+			<page-width>8.5in</page-width>
+			<margin-left>0.5in</margin-left>
+			<margin-right>0.5in</margin-right>
+			<margin-bottom>0.5in</margin-bottom>
+			<margin-top>0.5in</margin-top>
+			<margin>.5cm</margin>
+			<master-name>TaxForms</master-name>
+		</simple-page-master>
+		<region-body>
+			<margin>.5cm</margin>
+		</region-body>
+	</layout>
+	<pageControl>
+		<numberOfCopies>1</numberOfCopies>
+		<noOfTrnInFirstPage>24</noOfTrnInFirstPage>
+		<noOfTrnInOtherPage>27</noOfTrnInOtherPage>
+		<rowWidth>8</rowWidth>
+		<headerWidth>130</headerWidth>
+		<noOfDummySection>6</noOfDummySection>
+		<tablePositionOnOtherPage>90</tablePositionOnOtherPage>
+	</pageControl>	
+	<page>
+		<pagename>TaxForms</pagename>
+		<section-name>xsl-region-body</section-name>
+		<section>
+			<control>
+				<position>absolute</position>
+				<type>image</type>
+				<top>0px</top>
+				<description>Background Image</description>
+				<top/>
+				<left/>
+				<content-height>11in</content-height>
+				<content-width>8.5in</content-width>
+				<height>1063px</height>
+				<width>2550px</width>
+				<viewMapping/>
+				<dir>images</dir>
+				<imageKey>backgroundImagePage1</imageKey>
+				<defaultValue>.hum</defaultValue>
+			</control>
+  		
+			<!-- A. Client Name and Address -->
+			<control>
+				<type>multi-line</type>
+				<position>absolute</position>
+				<description>Client Name and Address</description>
+                <top>165pt</top>
+				<left>33pt</left>
+				<height>50pt</height>
+				<width>125pt</width>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>rRecipient Name</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxName</viewMapping>
+					<font>Helvetica</font>
+					<font-size>10pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>R3_ADD_LABEL(ITF)</description>
+					<RequiresFormatting>yes</RequiresFormatting>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/inTrustName</viewMapping>
+					<font>Helvetica</font>
+					<font-size>10pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description> jnt account name</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/jntAcctName</viewMapping>
+					<font>Helvetica</font>
+					<font-size>10pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr1</viewMapping>
+					<font>Helvetica</font>
+					<font-size>10pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr2</viewMapping>
+					<font>Helvetica</font>
+					<font-size>10pt</font-size>
+					<defaultValue/>
+				</control>
+					<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr3</viewMapping>
+					<font>Helvetica</font>
+					<font-size>10pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr4</viewMapping>
+					<font>Helvetica</font>
+					<font-size>10pt</font-size>
+					<defaultValue/>
+				</control>	
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Date</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/taxAddr5</viewMapping>
+					<font>Helvetica</font>
+					<font-size>10pt</font-size>
+					<defaultValue/>
+				</control>				
+			</control>
+			
+			<!-- B. Company Name and Address -->
+			<control>
+				<type>multi-line</type>
+				<position>absolute</position>
+				<description>Recipient Name Address</description>
+				<top>150pt</top>
+				<left>275pt</left>
+				<height>50pt</height>
+				<width>125pt</width>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>rRecipient Name</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/clientName</viewMapping>
+					<font>Helvetica</font>
+					<font-size>10pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Address line 1</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/clientAddr1</viewMapping>
+					<font>Helvetica</font>
+					<font-size>10pt</font-size>
+					<defaultValue/>
+				</control>
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Address line 2</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/clientAddr2</viewMapping>
+					<font>Helvetica</font>
+					<font-size>10pt</font-size>
+					<defaultValue/>
+				</control>	
+				<control>
+					<position/>
+					<type>text</type>
+					<description>Address line 3</description>
+					<height>7px</height>
+					<width/>
+					<viewMapping>//TaxFormDtls/clientAddr3</viewMapping>
+					<font>Helvetica</font>
+					<font-size>10pt</font-size>
+					<defaultValue/>
+				</control>				
+			</control>
+			<!-- Header Table -->
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Account number</description>
+				<RequiresFormatting>yes</RequiresFormatting>
+				<top>220px</top>
+				<left>320px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/acct</viewMapping>
+				<font>Helvetica</font>
+				<font-size>10pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>x-ref</description>
+				<RequiresFormatting>yes</RequiresFormatting>
+				<top>220px</top>
+				<left>435px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/altAcct</viewMapping>
+				<font>Helvetica</font>
+				<font-size>10pt</font-size>
+				<defaultValue/>
+			</control>
+			
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Year</description>
+				<RequiresFormatting>yes</RequiresFormatting>
+				<top>313px</top>
+				<left>25px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/yearEnd</viewMapping>
+				<font>Helvetica</font>
+				<font-size>10pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Year</description>
+				<RequiresFormatting>yes</RequiresFormatting>
+				<top>313px</top>
+				<left>95px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/rptCode</viewMapping>
+				<font>Helvetica</font>
+				<font-size>10pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Year</description>
+				<RequiresFormatting>yes</RequiresFormatting>
+				<top>313px</top>
+				<left>185px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/benCode</viewMapping>
+				<font>Helvetica</font>
+				<font-size>10pt</font-size>
+				<defaultValue/>
+			</control>
+			<control>
+				<position>absolute</position>
+				<type>text</type>
+				<description>Year</description>
+				<RequiresFormatting>yes</RequiresFormatting>
+				<top>313px</top>
+				<left>280px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/taxIdNum</viewMapping>
+				<font>Helvetica</font>
+				<font-size>10pt</font-size>
+				<defaultValue/>
+			</control>
+			
+			<!-- Transactions TABLE -->
+			<control>
+				<position>absolute</position>
+				<type>table</type>
+				<description>Date</description>
+				<top>348px</top>
+				<left>4px</left>
+				<height/>
+				<width/>
+				<viewMapping>//TaxFormDtls/TaxFund</viewMapping>
+				<tableFor>transactions</tableFor>
+				<columnWidths>
+					<col name="releveNumber" width="0.62in" header-text-align="center" data-text-align="center" font="Helvetica-Bold" font-size="8.2px" requiresTranslation="Y"/>
+					<col name="prevReleveNumber" width=".62in" header-text-align="center" data-text-align="right" font="Helvetica-Bold" font-size="8px" requiresTranslation="Y"/>
+					<col name="facsimileNumber" width="0.62in" header-text-align="center" data-text-align="center" font="Helvetica-Bold" font-size="8px" requiresTranslation="Y"/>
+					<col name="foreignCurrency" width="0.62in" header-text-align="center" data-text-align="center" font="Helvetica-Bold" font-size="8px"/>
+					<col name="strMMDD" width="0.34in" header-text-align="center" data-text-align="left" font="Helvetica-Bold" font-size="8px"/>
+					<col name="securityCode" width=".6in" header-text-align="center" data-text-align="center" font-size="8px" font="Helvetica-Bold" boxNumber="15"/>
+					<col name="quantityOfSeq" width=".95in" header-text-align="center" data-text-align="right" font="Helvetica-Bold" font-size="8px"/>
+					<col name="fundName" width="2.1in" header-text-align="center" data-text-align="left" font-size="8px" font="Helvetica-Bold" boxNumber="17" />
+					<col name="costOfBookValue" width=".95in" header-text-align="center" data-text-align="right" font="Helvetica-Bold" font-size="8px"/>
+					<col name="proceedsOfDisposition" width=".95in" header-text-align="center" data-text-align="right" font="Helvetica-Bold" font-size="8px"/>
+				</columnWidths>				
+				<lastRowFontWeight>bold</lastRowFontWeight>
+				<font>Helvetica</font>
+				<font-size>8pt</font-size>
+				<lastRowFont>Helvetica</lastRowFont>
+				<totalRowFont>Helvetica</totalRowFont>
+				<defaultValue/>
+			</control>
+		</section>
+	</page>
+	<page>
+		<pagename>TaxForms</pagename>
+		<section-name>xsl-region-body</section-name>
+		<section>
+			<control>
+				<position>absolute</position>
+				<type>image</type>
+				<description>Background Image</description>
+				<top/>
+				<left/>
+				<content-height>11in</content-height>
+				<content-width>8.5in</content-width>
+				<!-- height>1063px</height>
+				<width>2550px</width -->
+				<viewMapping/>
+				<dir>images</dir>
+				<imageKey>backgroundImageLegal</imageKey>
+				<defaultValue>.hum</defaultValue>
+			</control>
+		</section>
+	</page>	
+</SmartPDF>

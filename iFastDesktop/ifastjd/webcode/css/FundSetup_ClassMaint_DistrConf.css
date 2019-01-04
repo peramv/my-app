@@ -1,0 +1,89 @@
+#DistrConfContentsDiv
+{
+	padding-top:25px;	
+	width:100%;
+	height:350px;
+	border:0px dashed red;	
+}
+
+.RowContentsDiv
+{
+	width:525px;
+	height:100%;
+	text-align:left;
+}
+
+.DefaultInvestLbl
+{
+	width:150px;
+}
+
+.CashDefaultInvestSpan
+{
+	width:100px;
+}
+
+.ReinvestDefaultInvestSpan
+{
+	width:125px;
+}
+
+.OverrideOptLbl
+{
+	width:150px;
+}
+
+.CashOverrideOptSpan
+{
+	width:100px;
+}
+
+.RedirectOverrideOptSpan
+{
+	width:125px;
+}
+
+.ReinvestOverrideOptSpan
+{
+	width:125px;
+}
+
+
+.SectionItemSpan
+{
+	width:120px;
+}
+
+.ItemLbl
+{
+	padding-left:3px;
+}
+
+
+#IncomeDistrDiv
+{
+	position:relative;
+	left:30px;		
+	width:825px;
+	height:160px;
+}
+
+#InvestDistrFieldSetDiv
+{
+	height:100px;
+	padding-top:10px;
+}
+
+#CapitalGainDiv
+{	
+	position:relative;
+	left:30px;	
+	width:825px;
+	height:160px;
+}
+
+#CapitalGainFieldSetDiv
+{
+	height:100px;
+	padding-top:10px;
+}

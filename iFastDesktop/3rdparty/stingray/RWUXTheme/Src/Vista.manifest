@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<assembly xmlns='urn:schemas-microsoft-com:asm.v1' manifestVersion='1.0'>
+	<!-- Vista security requirements -->
+	<trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
+		<security>
+  		<requestedPrivileges>
+			<!-- UAC Manifest Options
+             If you want to change the Windows User Account Control level replace the 
+             requestedExecutionLevel node with one of the following .
+        <requestedExecutionLevel  level="requireAdministrator" />
+        <requestedExecutionLevel  level="requireAdministrator" />
+        <requestedExecutionLevel  level="highestAvailable" />
+        -->
+    		<requestedExecutionLevel  level="asInvoker" uiAccess="false"/>
+			</requestedPrivileges>
+		</security>
+	</trustInfo>
+</assembly>

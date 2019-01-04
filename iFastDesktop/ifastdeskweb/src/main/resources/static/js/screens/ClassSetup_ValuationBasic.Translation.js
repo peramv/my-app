@@ -1,0 +1,57 @@
+/*********************************************************************************************
+ * @file	ClassSetup_ValuationBasic.Translation.js
+ * @author	Cherdsak Sangkasen
+ * @desc	Translation JS file for Valuation Detail screen.
+ *********************************************************************************************/
+
+DesktopWeb.ScreenTranslation = {	
+	'enUS': {
+		ValuationDate: "Valuation Date"
+		,InvalidaDate: "Invalid Date"
+		,CrystalisationDate: "PF Crystalisation Date:" 
+		,DistributionDate: "Distribution Date:"
+		,Gav: "GAV:"
+		,DivAdjGav: "Dividend Adjusted GAV:"
+		,DistRate: "Distribution Rate:"
+		,Nav: "NAV:"
+		,PfPerShare: "Performance Fee/Share:"
+		,ClsHWM: "Class HWM:"
+		,ClsHWMDate: "Class HWM Date:"
+		,NumDays: "Number of Days since HWM Reset:"
+		,EffHurdle: "Effective Hurdle:"
+		,ClsAdjHWM: "Class Adjusted HWM:"
+		,CalcBasis: "Calculation Basis:"
+		,LossCarrFwOptn: "Loss Carry Forward Option:"
+		,DivTreatOptn: "Dividend Treatment Options:"
+		,CalcPrec: "Calculation Precision:"
+		,PfPrec: "Performance Fee Precision:"
+		,Status: "Status:"
+		,CancelValn: "Cancel Valuation"
+		,UserDefHWM: "User Defined HWM"
+		,CancelCrys: "Cancel PF Crystalisation"
+		,HurdleDetl: "Hurdle Details"
+		,FixIndex: "Fix/Index"
+		,FixRateHurdle: "Fix Rate/Hurdle"
+		,Benchmark: "Banchmark/Adjustment"
+		,Weighting: "Weighting"
+		,Period: "Period"
+		,DayBasis: "DayBasis"
+		,CrystalisationDetl: "PF Crystalisation Details"
+		,NewClsHWM: "New Class HWM:"
+		,ValEqCr: "Value of Equalisation Credits:"
+		,ValEqRed: "Value of Equalisation Redemptions:"
+		,TotEqPurTxn: "Total # of EQ Purchases txn Created:"
+		,TotEqRedTxn: "Total # of EQ Redemptions txn Created:"
+		,TotPfAmt: "Total Performance Fee Amount:"
+		,SetNewHWM: "Set New Class HWM"
+		,NewHWM: "New Class HWM"
+		,Ok: "OK"
+		,Cancel: "Cancel"	
+		,Load: "Loading ..."
+		,Search: "Searching ..."
+		,Validate: "Validating ..."
+		,Update: "Updating ..."	
+		,DoExportConfirm: "Please confirm to export to PDF"
+		,ValuationDetails: "Valuation Details"
+	}
+}

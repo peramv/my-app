@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT iFastBpsConfig (AppName, AppDesc, AppReg, PlainConsole, Logging, Host, SocketPortal, SonicMQPortal*)>
+<!-- . -->
+<!-- General BPS properties -->
+<!ELEMENT AppName (#PCDATA)>
+<!ELEMENT AppDesc (#PCDATA)>
+<!ELEMENT AppReg (#PCDATA)>
+<!ELEMENT PlainConsole (#PCDATA)>
+<!-- . -->
+<!-- Logging configuration -->
+<!ELEMENT Logging (LogsDir, LoggingOn, Level, Catagory, TransTraceOn, TransStatsOn)>
+<!ELEMENT LogsDir (#PCDATA)>
+<!ELEMENT LoggingOn (#PCDATA)>
+<!ELEMENT Level (#PCDATA)>
+<!ELEMENT Catagory (#PCDATA)>
+<!ELEMENT TransTraceOn (#PCDATA)>
+<!ELEMENT TransStatsOn (#PCDATA)>
+<!-- . -->
+<!-- Host configuration -->
+<!ELEMENT Host (HostName, HostAddress, HostPort, AdminUser, AdminPassword, Timeout, MinConnections, MaxConnections)>
+<!ELEMENT HostName (#PCDATA)>
+<!ELEMENT HostAddress (#PCDATA)>
+<!ELEMENT HostPort (#PCDATA)>
+<!ELEMENT AdminPassword (#PCDATA)>
+<!ELEMENT AdminUser (#PCDATA)>
+<!ELEMENT Timeout (#PCDATA)>
+<!ELEMENT MinConnections (#PCDATA)>
+<!ELEMENT MaxConnections (#PCDATA)>
+<!-- . -->
+<!-- General portal properties -->
+<!ELEMENT PortalName (#PCDATA)>
+<!ELEMENT ThreadPoolSize (#PCDATA)>
+<!ELEMENT JobQueueSize (#PCDATA)>
+<!-- . -->
+<!-- Socket portal properties -->
+<!ELEMENT SocketPortal (PortalName, ThreadPoolSize, JobQueueSize, ListenPort)>
+<!ELEMENT ListenPort (#PCDATA)>
+<!-- . -->
+<!-- SonicMQ portal properties -->
+<!ELEMENT SonicMQPortal (PortalName, ThreadPoolSize, SMQBroker, SMQUser, SMQPassword, InboundQueue, OutboundQueue, ErrorQueue, CriticalErrorHandling, SMQRouting+)>
+<!ELEMENT SMQBroker (#PCDATA)>
+<!ELEMENT SMQUser (#PCDATA)>
+<!ELEMENT SMQPassword (#PCDATA)>
+<!ELEMENT InboundQueue (#PCDATA)>
+<!ELEMENT OutboundQueue (#PCDATA)>
+<!ELEMENT ErrorQueue (#PCDATA)>
+<!ELEMENT CriticalErrorHandling (#PCDATA)>
+<!-- . -->
+<!-- SonicMQ portal routing properties -->
+<!ELEMENT SMQRouting (InActivityType, OutActivityType, OutMessageType, ReplyToQueue, (LookupActivityType, LookupMessageType, LookupReplyToQueue)?)>
+<!ELEMENT InActivityType (#PCDATA)>
+<!ELEMENT OutActivityType (#PCDATA)>
+<!ELEMENT OutMessageType (#PCDATA)>
+<!ELEMENT ReplyToQueue (#PCDATA)>
+<!ELEMENT LookupActivityType (#PCDATA)>
+<!ELEMENT LookupMessageType (#PCDATA)>
+<!ELEMENT LookupReplyToQueue (#PCDATA)>

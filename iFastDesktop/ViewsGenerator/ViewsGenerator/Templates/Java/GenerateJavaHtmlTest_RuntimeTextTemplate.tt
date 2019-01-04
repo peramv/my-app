@@ -1,0 +1,42 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<HTML>
+<HEAD>
+        <TITLE><#= ViewName #> Request </TITLE>
+</HEAD>
+<BODY>
+<H1><#= ViewDescription #></h1>
+<h2><#= ViewName #></h2>
+<hr>
+<h2>Input Fields:</h2>
+<form Name=InputForm ACTION=jsp/<#= ViewName #>.jsp>
+<TABLE>
+<#   CreateFilteredTransactionsItemList();
+	 for (int i = 0;  i < filteredTransactionItemList.Count(); i++)
+	 { #>
+  <TR>
+    <TD><#= filteredTransactionItemList[i].TransactionVariableName #>: [<#= GetFieldType(filteredTransactionItemList[i].TransactionVariableName) #>]</TD><TD><input type=text name=<#= filteredTransactionItemList[i].TransactionVariableName #>><input type=checkbox name=<#= filteredTransactionItemList[i].TransactionVariableName #>_UnKnown value=Yes>UnKnown</TD> 
+  </TR>
+<#   } #>
+  <TR></TR>
+  <TR></TR>
+  <TR>
+    <TD><input type=radio name=Receive_Type value=Receive_Default>Receive Default</TD>
+  </TR>
+  <TR>
+    <TD><input type=radio name=Receive_Type value=Receive_Override>Receive Override <input type=text name=OverrideRepeats size=5 value=10 ></TD>
+  </TR>
+  <TR>
+    <TD><input type=radio name=Receive_Type value=Receive_All checked>Receive All</TD>
+  </TR>
+  <TR></TR>
+  <TR></TR>
+</TABLE>
+<input type=submit value="Receive" >
+<input type=reset>
+</FORM>
+</BODY>
+</HTML>

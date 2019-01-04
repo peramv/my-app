@@ -1,0 +1,1437 @@
+
+#ifndef SOM_AWDWorkStation_xh
+#define SOM_AWDWorkStation_xh
+
+class AWDWorkStation;
+
+#define AWDWorkStation_MajorVersion 0
+#define AWDWorkStation_MinorVersion 0
+
+/*
+ * Passthru lines: File: "C.xh", "before"
+ */
+
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_SOMObject_xh
+#include <somobj.xh>
+#endif
+
+#ifndef AWDWorkStation_API
+#define AWDWorkStation_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+class SOMClass;
+class SOMObject;
+class CCriticalSection;
+typedef unsigned long AWDWorkStation_CONTAINERMODE;
+#define AWDWorkStation_CONTAINER_PROCESS 1UL
+#define AWDWorkStation_CONTAINER_LOOKUP 2UL
+#define AWDWorkStation_CONTAINER_FIND 3UL
+#define AWDWorkStation_CONTAINER_PERSONALQUEUE 4UL
+#define AWDWorkStation_CONTAINER_ALL 5UL
+typedef unsigned long AWDWorkStation_ARRANGE_MODE;
+#define AWDWorkStation_ARRANGE_UNDEFINED 1UL
+#define AWDWorkStation_BYNAME 2UL
+#define AWDWorkStation_BYTYPE 3UL
+#define AWDWorkStation_BYSIZE 4UL
+#define AWDWorkStation_BYDATE 5UL
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_CONTAINERMODE
+    #ifdef CONTAINERMODE
+        #undef CONTAINERMODE
+        #define SOMTGD_CONTAINERMODE 1
+    #else
+        #define CONTAINERMODE AWDWorkStation_CONTAINERMODE
+    #endif /* CONTAINERMODE */
+#endif /* SOMTGD_CONTAINERMODE */
+#ifndef SOMTGD_ARRANGE_MODE
+    #ifdef ARRANGE_MODE
+        #undef ARRANGE_MODE
+        #define SOMTGD_ARRANGE_MODE 1
+    #else
+        #define ARRANGE_MODE AWDWorkStation_ARRANGE_MODE
+    #endif /* ARRANGE_MODE */
+#endif /* SOMTGD_ARRANGE_MODE */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the AWDWorkStation Class */
+SOMEXTERN
+#if (defined(SOM_Module_AWDWKSTA_Source) || defined(AWDWorkStation_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDWorkStation))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK AWDWorkStationNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the AWDWorkStation class object, and the methods it introduces. */
+SOMEXTERN struct AWDWorkStationClassDataStructure {
+	SOMClass *classObject;
+	somMToken binPath;
+	somMToken filesPath;
+	somMToken confirmBreakRelationship;
+	somMToken confirmCreateRelationship;
+	somMToken dataPath;
+	somMToken getAwdProfileFlag;
+	somMToken getAwdProfileString;
+	somMToken getSystemProfileFlag;
+	somMToken getSystemProfileString;
+	somMToken installPath;
+	somMToken isAutoFlag;
+	somMToken isTraceOn;
+	somMToken localDateTime;
+	somMToken persistentPath;
+	somMToken notifyOnAddComments;
+	somMToken notifyOnPassFail;
+	somMToken profilePath;
+	somMToken resetWindowProfiles;
+	somMToken setAddCommentsNotification;
+	somMToken setAutoFlag;
+	somMToken setAwdProfileFlag;
+	somMToken setAwdProfileString;
+	somMToken setBinPath;
+	somMToken setBreakRelationship;
+	somMToken setFilesPath;
+	somMToken setCreateRelationship;
+	somMToken setDataPath;
+	somMToken setInstallPath;
+	somMToken setLocalDateTime;
+	somMToken setPersistentPath;
+	somMToken setPassFail;
+	somMToken setSystemProfileFlag;
+	somMToken setSystemProfileString;
+	somMToken setTrace;
+	somMToken setWorkStationID;
+	somMToken systemOption;
+	somMToken workStationID;
+	somMToken logFile;
+	somMToken deleteDataFiles;
+	somMToken deleteFiles;
+	somMToken writeToLogFile;
+	somMToken getCsdPath;
+	somMToken useCsdLookupWildCards;
+	somMToken getConnectionClass;
+	somMToken processWorkImmediately;
+	somMToken animatedSystemIcon;
+	somMToken displayBubbleHelp;
+	somMToken logoffConfirmation;
+	somMToken awdDefaultFont;
+	somMToken awdDefaultFontSize;
+	somMToken setProcessWorkImmediately;
+	somMToken setAnimatedSystemIcon;
+	somMToken setDisplayBubbleHelp;
+	somMToken setLogoffConfirmation;
+	somMToken setAWDDefaultFont;
+	somMToken setAWDDefaultFontSize;
+	somMToken autoCreateObjects;
+	somMToken setAutoCreateObjects;
+	somMToken setSystemProfileBinary;
+	somMToken getSystemProfileBinary;
+	somMToken displayFlyoverText;
+	somMToken setDisplayFlyoverText;
+	somMToken useAllWorkStatus;
+	somMToken setUseAllWorkStatus;
+	somMToken arrangeFolderMode;
+	somMToken setArrangeFolderMode;
+	somMToken serverDateTime;
+	somMToken helpPath;
+	somMToken setHelpPath;
+	somMToken deleteAWDWinDataFiles;
+}
+#if !(defined(SOM_Module_AWDWKSTA_Source) || defined(AWDWorkStation_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDWorkStation))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDWorkStationClassData;
+#define _AWDWorkStation AWDWorkStationClassData.classObject
+
+/* The API to parentMtabs for AWDWorkStation, and the instance data it introduces. */
+SOMEXTERN struct AWDWorkStationCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_AWDWKSTA_Source) || defined(AWDWorkStation_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDWorkStation))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDWorkStationCClassData;
+
+/*
+ * -- Typedefs for AWDWorkStation Method Procedures
+ */
+extern "C" {
+typedef string   SOMLINK somTP_AWDWorkStation_binPath(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_binPath *somTD_AWDWorkStation_binPath;
+typedef string   SOMLINK somTP_AWDWorkStation_filesPath(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_filesPath *somTD_AWDWorkStation_filesPath;
+typedef boolean   SOMLINK somTP_AWDWorkStation_confirmBreakRelationship(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_confirmBreakRelationship *somTD_AWDWorkStation_confirmBreakRelationship;
+typedef boolean   SOMLINK somTP_AWDWorkStation_confirmCreateRelationship(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_confirmCreateRelationship *somTD_AWDWorkStation_confirmCreateRelationship;
+typedef string   SOMLINK somTP_AWDWorkStation_dataPath(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_dataPath *somTD_AWDWorkStation_dataPath;
+typedef string   SOMLINK somTP_AWDWorkStation_helpPath(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_helpPath *somTD_AWDWorkStation_helpPath;
+typedef boolean   SOMLINK somTP_AWDWorkStation_getAwdProfileFlag(AWDWorkStation *somSelf, Environment *ev,
+		string app,
+		string key,
+		boolean defaultvalue);
+typedef somTP_AWDWorkStation_getAwdProfileFlag *somTD_AWDWorkStation_getAwdProfileFlag;
+typedef boolean   SOMLINK somTP_AWDWorkStation_getAwdProfileString(AWDWorkStation *somSelf, Environment *ev,
+		string app,
+		string key,
+		string defaultvalue,
+		string value,
+		unsigned short size);
+typedef somTP_AWDWorkStation_getAwdProfileString *somTD_AWDWorkStation_getAwdProfileString;
+typedef boolean   SOMLINK somTP_AWDWorkStation_getSystemProfileBinary(AWDWorkStation *somSelf, Environment *ev,
+		string app,
+		string key,
+		void* pvData,
+		unsigned long cbData);
+typedef somTP_AWDWorkStation_getSystemProfileBinary *somTD_AWDWorkStation_getSystemProfileBinary;
+typedef boolean   SOMLINK somTP_AWDWorkStation_getSystemProfileFlag(AWDWorkStation *somSelf, Environment *ev,
+		string app,
+		string key,
+		boolean defaultvalue);
+typedef somTP_AWDWorkStation_getSystemProfileFlag *somTD_AWDWorkStation_getSystemProfileFlag;
+typedef boolean   SOMLINK somTP_AWDWorkStation_getSystemProfileString(AWDWorkStation *somSelf, Environment *ev,
+		string app,
+		string key,
+		string defaultvalue,
+		string value,
+		unsigned short size);
+typedef somTP_AWDWorkStation_getSystemProfileString *somTD_AWDWorkStation_getSystemProfileString;
+typedef string   SOMLINK somTP_AWDWorkStation_installPath(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_installPath *somTD_AWDWorkStation_installPath;
+typedef boolean   SOMLINK somTP_AWDWorkStation_isAutoFlag(AWDWorkStation *somSelf, Environment *ev,
+		AWDWorkStation_CONTAINERMODE contmode);
+typedef somTP_AWDWorkStation_isAutoFlag *somTD_AWDWorkStation_isAutoFlag;
+typedef boolean   SOMLINK somTP_AWDWorkStation_isTraceOn(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_isTraceOn *somTD_AWDWorkStation_isTraceOn;
+typedef unsigned long   SOMLINK somTP_AWDWorkStation_localDateTime(AWDWorkStation *somSelf, Environment *ev,
+		string pszdatetime);
+typedef somTP_AWDWorkStation_localDateTime *somTD_AWDWorkStation_localDateTime;
+typedef string   SOMLINK somTP_AWDWorkStation_persistentPath(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_persistentPath *somTD_AWDWorkStation_persistentPath;
+typedef string   SOMLINK somTP_AWDWorkStation_logFile(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_logFile *somTD_AWDWorkStation_logFile;
+typedef boolean   SOMLINK somTP_AWDWorkStation_notifyOnAddComments(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_notifyOnAddComments *somTD_AWDWorkStation_notifyOnAddComments;
+typedef boolean   SOMLINK somTP_AWDWorkStation_notifyOnPassFail(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_notifyOnPassFail *somTD_AWDWorkStation_notifyOnPassFail;
+typedef string   SOMLINK somTP_AWDWorkStation_profilePath(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_profilePath *somTD_AWDWorkStation_profilePath;
+typedef boolean   SOMLINK somTP_AWDWorkStation_autoCreateObjects(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_autoCreateObjects *somTD_AWDWorkStation_autoCreateObjects;
+typedef boolean   SOMLINK somTP_AWDWorkStation_processWorkImmediately(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_processWorkImmediately *somTD_AWDWorkStation_processWorkImmediately;
+typedef boolean   SOMLINK somTP_AWDWorkStation_animatedSystemIcon(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_animatedSystemIcon *somTD_AWDWorkStation_animatedSystemIcon;
+typedef boolean   SOMLINK somTP_AWDWorkStation_displayBubbleHelp(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_displayBubbleHelp *somTD_AWDWorkStation_displayBubbleHelp;
+typedef boolean   SOMLINK somTP_AWDWorkStation_displayFlyoverText(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_displayFlyoverText *somTD_AWDWorkStation_displayFlyoverText;
+typedef boolean   SOMLINK somTP_AWDWorkStation_logoffConfirmation(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_logoffConfirmation *somTD_AWDWorkStation_logoffConfirmation;
+typedef string   SOMLINK somTP_AWDWorkStation_awdDefaultFont(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_awdDefaultFont *somTD_AWDWorkStation_awdDefaultFont;
+typedef long   SOMLINK somTP_AWDWorkStation_awdDefaultFontSize(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_awdDefaultFontSize *somTD_AWDWorkStation_awdDefaultFontSize;
+typedef boolean   SOMLINK somTP_AWDWorkStation_useAllWorkStatus(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_useAllWorkStatus *somTD_AWDWorkStation_useAllWorkStatus;
+typedef boolean   SOMLINK somTP_AWDWorkStation_resetWindowProfiles(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_resetWindowProfiles *somTD_AWDWorkStation_resetWindowProfiles;
+typedef unsigned long   SOMLINK somTP_AWDWorkStation_serverDateTime(AWDWorkStation *somSelf, Environment *ev,
+		string pszdatetime);
+typedef somTP_AWDWorkStation_serverDateTime *somTD_AWDWorkStation_serverDateTime;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setAddCommentsNotification(AWDWorkStation *somSelf, Environment *ev,
+		boolean flag);
+typedef somTP_AWDWorkStation_setAddCommentsNotification *somTD_AWDWorkStation_setAddCommentsNotification;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setAutoFlag(AWDWorkStation *somSelf, Environment *ev,
+		AWDWorkStation_CONTAINERMODE contmode,
+		boolean flag);
+typedef somTP_AWDWorkStation_setAutoFlag *somTD_AWDWorkStation_setAutoFlag;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setAwdProfileFlag(AWDWorkStation *somSelf, Environment *ev,
+		string app,
+		string key,
+		boolean flag);
+typedef somTP_AWDWorkStation_setAwdProfileFlag *somTD_AWDWorkStation_setAwdProfileFlag;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setAwdProfileString(AWDWorkStation *somSelf, Environment *ev,
+		string app,
+		string key,
+		string value);
+typedef somTP_AWDWorkStation_setAwdProfileString *somTD_AWDWorkStation_setAwdProfileString;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setBinPath(AWDWorkStation *somSelf, Environment *ev,
+		string path);
+typedef somTP_AWDWorkStation_setBinPath *somTD_AWDWorkStation_setBinPath;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setBreakRelationship(AWDWorkStation *somSelf, Environment *ev,
+		boolean flag);
+typedef somTP_AWDWorkStation_setBreakRelationship *somTD_AWDWorkStation_setBreakRelationship;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setFilesPath(AWDWorkStation *somSelf, Environment *ev,
+		string path);
+typedef somTP_AWDWorkStation_setFilesPath *somTD_AWDWorkStation_setFilesPath;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setCreateRelationship(AWDWorkStation *somSelf, Environment *ev,
+		boolean flag);
+typedef somTP_AWDWorkStation_setCreateRelationship *somTD_AWDWorkStation_setCreateRelationship;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setDataPath(AWDWorkStation *somSelf, Environment *ev,
+		string path);
+typedef somTP_AWDWorkStation_setDataPath *somTD_AWDWorkStation_setDataPath;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setHelpPath(AWDWorkStation *somSelf, Environment *ev,
+		string path);
+typedef somTP_AWDWorkStation_setHelpPath *somTD_AWDWorkStation_setHelpPath;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setInstallPath(AWDWorkStation *somSelf, Environment *ev,
+		string path);
+typedef somTP_AWDWorkStation_setInstallPath *somTD_AWDWorkStation_setInstallPath;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setLocalDateTime(AWDWorkStation *somSelf, Environment *ev,
+		string datetimestamp);
+typedef somTP_AWDWorkStation_setLocalDateTime *somTD_AWDWorkStation_setLocalDateTime;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setPersistentPath(AWDWorkStation *somSelf, Environment *ev,
+		string path);
+typedef somTP_AWDWorkStation_setPersistentPath *somTD_AWDWorkStation_setPersistentPath;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setPassFail(AWDWorkStation *somSelf, Environment *ev,
+		boolean flag);
+typedef somTP_AWDWorkStation_setPassFail *somTD_AWDWorkStation_setPassFail;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setSystemProfileBinary(AWDWorkStation *somSelf, Environment *ev,
+		string app,
+		string key,
+		void* pvData,
+		unsigned long cbData);
+typedef somTP_AWDWorkStation_setSystemProfileBinary *somTD_AWDWorkStation_setSystemProfileBinary;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setSystemProfileFlag(AWDWorkStation *somSelf, Environment *ev,
+		string app,
+		string key,
+		boolean flag);
+typedef somTP_AWDWorkStation_setSystemProfileFlag *somTD_AWDWorkStation_setSystemProfileFlag;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setSystemProfileString(AWDWorkStation *somSelf, Environment *ev,
+		string app,
+		string key,
+		string value);
+typedef somTP_AWDWorkStation_setSystemProfileString *somTD_AWDWorkStation_setSystemProfileString;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setTrace(AWDWorkStation *somSelf, Environment *ev,
+		boolean fTrace);
+typedef somTP_AWDWorkStation_setTrace *somTD_AWDWorkStation_setTrace;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setWorkStationID(AWDWorkStation *somSelf, Environment *ev,
+		string wkstaid);
+typedef somTP_AWDWorkStation_setWorkStationID *somTD_AWDWorkStation_setWorkStationID;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setAutoCreateObjects(AWDWorkStation *somSelf, Environment *ev,
+		boolean flag);
+typedef somTP_AWDWorkStation_setAutoCreateObjects *somTD_AWDWorkStation_setAutoCreateObjects;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setProcessWorkImmediately(AWDWorkStation *somSelf, Environment *ev,
+		boolean flag);
+typedef somTP_AWDWorkStation_setProcessWorkImmediately *somTD_AWDWorkStation_setProcessWorkImmediately;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setAnimatedSystemIcon(AWDWorkStation *somSelf, Environment *ev,
+		boolean flag);
+typedef somTP_AWDWorkStation_setAnimatedSystemIcon *somTD_AWDWorkStation_setAnimatedSystemIcon;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setDisplayBubbleHelp(AWDWorkStation *somSelf, Environment *ev,
+		boolean flag);
+typedef somTP_AWDWorkStation_setDisplayBubbleHelp *somTD_AWDWorkStation_setDisplayBubbleHelp;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setDisplayFlyoverText(AWDWorkStation *somSelf, Environment *ev,
+		boolean flag);
+typedef somTP_AWDWorkStation_setDisplayFlyoverText *somTD_AWDWorkStation_setDisplayFlyoverText;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setLogoffConfirmation(AWDWorkStation *somSelf, Environment *ev,
+		boolean flag);
+typedef somTP_AWDWorkStation_setLogoffConfirmation *somTD_AWDWorkStation_setLogoffConfirmation;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setAWDDefaultFont(AWDWorkStation *somSelf, Environment *ev,
+		string font);
+typedef somTP_AWDWorkStation_setAWDDefaultFont *somTD_AWDWorkStation_setAWDDefaultFont;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setAWDDefaultFontSize(AWDWorkStation *somSelf, Environment *ev,
+		long fontsize);
+typedef somTP_AWDWorkStation_setAWDDefaultFontSize *somTD_AWDWorkStation_setAWDDefaultFontSize;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setUseAllWorkStatus(AWDWorkStation *somSelf, Environment *ev,
+		boolean flag);
+typedef somTP_AWDWorkStation_setUseAllWorkStatus *somTD_AWDWorkStation_setUseAllWorkStatus;
+typedef boolean   SOMLINK somTP_AWDWorkStation_systemOption(AWDWorkStation *somSelf, Environment *ev,
+		string optionname,
+		string buffer);
+typedef somTP_AWDWorkStation_systemOption *somTD_AWDWorkStation_systemOption;
+typedef string   SOMLINK somTP_AWDWorkStation_workStationID(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_workStationID *somTD_AWDWorkStation_workStationID;
+typedef boolean   SOMLINK somTP_AWDWorkStation_deleteDataFiles(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_deleteDataFiles *somTD_AWDWorkStation_deleteDataFiles;
+typedef boolean   SOMLINK somTP_AWDWorkStation_deleteFiles(AWDWorkStation *somSelf, Environment *ev,
+		string pszPath);
+typedef somTP_AWDWorkStation_deleteFiles *somTD_AWDWorkStation_deleteFiles;
+typedef boolean   SOMLINK somTP_AWDWorkStation_writeToLogFile(AWDWorkStation *somSelf, Environment *ev,
+		string pszMsg);
+typedef somTP_AWDWorkStation_writeToLogFile *somTD_AWDWorkStation_writeToLogFile;
+typedef string   SOMLINK somTP_AWDWorkStation_getCsdPath(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_getCsdPath *somTD_AWDWorkStation_getCsdPath;
+typedef boolean   SOMLINK somTP_AWDWorkStation_useCsdLookupWildCards(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_useCsdLookupWildCards *somTD_AWDWorkStation_useCsdLookupWildCards;
+typedef boolean   SOMLINK somTP_AWDWorkStation_getConnectionClass(AWDWorkStation *somSelf, Environment *ev,
+		string value,
+		unsigned short size);
+typedef somTP_AWDWorkStation_getConnectionClass *somTD_AWDWorkStation_getConnectionClass;
+typedef AWDWorkStation_ARRANGE_MODE   SOMLINK somTP_AWDWorkStation_arrangeFolderMode(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_arrangeFolderMode *somTD_AWDWorkStation_arrangeFolderMode;
+typedef boolean   SOMLINK somTP_AWDWorkStation_setArrangeFolderMode(AWDWorkStation *somSelf, Environment *ev,
+		AWDWorkStation_ARRANGE_MODE fldArrangeMode);
+typedef somTP_AWDWorkStation_setArrangeFolderMode *somTD_AWDWorkStation_setArrangeFolderMode;
+typedef boolean   SOMLINK somTP_AWDWorkStation_deleteAWDWinDataFiles(AWDWorkStation *somSelf, Environment *ev);
+typedef somTP_AWDWorkStation_deleteAWDWinDataFiles *somTD_AWDWorkStation_deleteAWDWinDataFiles;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef void   SOMLINK somTP_AWDWorkStation_somDefaultInit(AWDWorkStation *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_AWDWorkStation_somDefaultInit *somTD_AWDWorkStation_somDefaultInit;
+typedef void   SOMLINK somTP_AWDWorkStation_somDestruct(AWDWorkStation *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_AWDWorkStation_somDestruct *somTD_AWDWorkStation_somDestruct;
+typedef void   SOMLINK somTP_AWDWorkStation_somDefaultCopyInit(AWDWorkStation *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDWorkStation_somDefaultCopyInit *somTD_AWDWorkStation_somDefaultCopyInit;
+typedef AWDWorkStation*   SOMLINK somTP_AWDWorkStation_somDefaultAssign(AWDWorkStation *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDWorkStation_somDefaultAssign *somTD_AWDWorkStation_somDefaultAssign;
+typedef void   SOMLINK somTP_AWDWorkStation_somDefaultConstCopyInit(AWDWorkStation *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDWorkStation_somDefaultConstCopyInit *somTD_AWDWorkStation_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_AWDWorkStation_somDefaultVCopyInit(AWDWorkStation *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDWorkStation_somDefaultVCopyInit *somTD_AWDWorkStation_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_AWDWorkStation_somDefaultConstVCopyInit(AWDWorkStation *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDWorkStation_somDefaultConstVCopyInit *somTD_AWDWorkStation_somDefaultConstVCopyInit;
+typedef AWDWorkStation*   SOMLINK somTP_AWDWorkStation_somDefaultConstAssign(AWDWorkStation *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDWorkStation_somDefaultConstAssign *somTD_AWDWorkStation_somDefaultConstAssign;
+typedef AWDWorkStation*   SOMLINK somTP_AWDWorkStation_somDefaultVAssign(AWDWorkStation *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDWorkStation_somDefaultVAssign *somTD_AWDWorkStation_somDefaultVAssign;
+typedef AWDWorkStation*   SOMLINK somTP_AWDWorkStation_somDefaultConstVAssign(AWDWorkStation *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDWorkStation_somDefaultConstVAssign *somTD_AWDWorkStation_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_AWDWorkStation_somInit(AWDWorkStation *somSelf);
+typedef somTP_AWDWorkStation_somInit *somTD_AWDWorkStation_somInit;
+typedef void   SOMLINK somTP_AWDWorkStation_somFree(AWDWorkStation *somSelf);
+typedef somTP_AWDWorkStation_somFree *somTD_AWDWorkStation_somFree;
+typedef void   SOMLINK somTP_AWDWorkStation_somUninit(AWDWorkStation *somSelf);
+typedef somTP_AWDWorkStation_somUninit *somTD_AWDWorkStation_somUninit;
+typedef SOMClass*   SOMLINK somTP_AWDWorkStation_somGetClass(AWDWorkStation *somSelf);
+typedef somTP_AWDWorkStation_somGetClass *somTD_AWDWorkStation_somGetClass;
+typedef string   SOMLINK somTP_AWDWorkStation_somGetClassName(AWDWorkStation *somSelf);
+typedef somTP_AWDWorkStation_somGetClassName *somTD_AWDWorkStation_somGetClassName;
+typedef long   SOMLINK somTP_AWDWorkStation_somGetSize(AWDWorkStation *somSelf);
+typedef somTP_AWDWorkStation_somGetSize *somTD_AWDWorkStation_somGetSize;
+typedef boolean   SOMLINK somTP_AWDWorkStation_somIsA(AWDWorkStation *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDWorkStation_somIsA *somTD_AWDWorkStation_somIsA;
+typedef boolean   SOMLINK somTP_AWDWorkStation_somIsInstanceOf(AWDWorkStation *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDWorkStation_somIsInstanceOf *somTD_AWDWorkStation_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_AWDWorkStation_somRespondsTo(AWDWorkStation *somSelf,
+		somId mId);
+typedef somTP_AWDWorkStation_somRespondsTo *somTD_AWDWorkStation_somRespondsTo;
+typedef boolean   SOMLINK somTP_AWDWorkStation_somDispatch(AWDWorkStation *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDWorkStation_somDispatch *somTD_AWDWorkStation_somDispatch;
+typedef boolean   SOMLINK somTP_AWDWorkStation_somClassDispatch(AWDWorkStation *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDWorkStation_somClassDispatch *somTD_AWDWorkStation_somClassDispatch;
+typedef boolean   SOMLINK somTP_AWDWorkStation_somCastObj(AWDWorkStation *somSelf,
+		SOMClass* cls);
+typedef somTP_AWDWorkStation_somCastObj *somTD_AWDWorkStation_somCastObj;
+typedef boolean   SOMLINK somTP_AWDWorkStation_somResetObj(AWDWorkStation *somSelf);
+typedef somTP_AWDWorkStation_somResetObj *somTD_AWDWorkStation_somResetObj;
+typedef SOMObject*   SOMLINK somTP_AWDWorkStation_somPrintSelf(AWDWorkStation *somSelf);
+typedef somTP_AWDWorkStation_somPrintSelf *somTD_AWDWorkStation_somPrintSelf;
+typedef void   SOMLINK somTP_AWDWorkStation_somDumpSelf(AWDWorkStation *somSelf,
+		long level);
+typedef somTP_AWDWorkStation_somDumpSelf *somTD_AWDWorkStation_somDumpSelf;
+typedef void   SOMLINK somTP_AWDWorkStation_somDumpSelfInt(AWDWorkStation *somSelf,
+		long level);
+typedef somTP_AWDWorkStation_somDumpSelfInt *somTD_AWDWorkStation_somDumpSelfInt;
+}
+
+#endif /* AWDWorkStation_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for AWDWorkStation
+ */
+class AWDWorkStation : public SOMObject
+{
+public:
+
+// AWDWorkStation::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_AWDWorkStation) AWDWorkStationNewClass(AWDWorkStation_MajorVersion,AWDWorkStation_MinorVersion);
+   return (void*)
+      SOM_Resolve(_AWDWorkStation,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_AWDWorkStation));
+}
+
+// AWDWorkStation::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+AWDWorkStation()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDWorkStationCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+AWDWorkStation(AWDWorkStation* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDWorkStationCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDWorkStation(const AWDWorkStation* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDWorkStationCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+
+/* method: binPath */
+string   binPath(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,binPath)
+	(this, ev);
+}
+
+
+/* method: filesPath */
+string   filesPath(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,filesPath)
+	(this, ev);
+}
+
+
+/* method: confirmBreakRelationship */
+boolean   confirmBreakRelationship(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,confirmBreakRelationship)
+	(this, ev);
+}
+
+
+/* method: confirmCreateRelationship */
+boolean   confirmCreateRelationship(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,confirmCreateRelationship)
+	(this, ev);
+}
+
+
+/* method: dataPath */
+string   dataPath(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,dataPath)
+	(this, ev);
+}
+
+
+/* method: helpPath */
+string   helpPath(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,helpPath)
+	(this, ev);
+}
+
+
+/* method: getAwdProfileFlag */
+boolean   getAwdProfileFlag(Environment *ev,
+		string app,
+		string key,
+		boolean defaultvalue)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,getAwdProfileFlag)
+	(this, ev,app,key,defaultvalue);
+}
+
+
+/* method: getAwdProfileString */
+boolean   getAwdProfileString(Environment *ev,
+		string app,
+		string key,
+		string defaultvalue,
+		string value,
+		unsigned short size)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,getAwdProfileString)
+	(this, ev,app,key,defaultvalue,value,size);
+}
+
+
+/* method: getSystemProfileBinary */
+boolean   getSystemProfileBinary(Environment *ev,
+		string app,
+		string key,
+		void* pvData,
+		unsigned long cbData)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,getSystemProfileBinary)
+	(this, ev,app,key,pvData,cbData);
+}
+
+
+/* method: getSystemProfileFlag */
+boolean   getSystemProfileFlag(Environment *ev,
+		string app,
+		string key,
+		boolean defaultvalue)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,getSystemProfileFlag)
+	(this, ev,app,key,defaultvalue);
+}
+
+
+/* method: getSystemProfileString */
+boolean   getSystemProfileString(Environment *ev,
+		string app,
+		string key,
+		string defaultvalue,
+		string value,
+		unsigned short size)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,getSystemProfileString)
+	(this, ev,app,key,defaultvalue,value,size);
+}
+
+
+/* method: installPath */
+string   installPath(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,installPath)
+	(this, ev);
+}
+
+
+/* method: isAutoFlag */
+boolean   isAutoFlag(Environment *ev,
+		AWDWorkStation_CONTAINERMODE contmode)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,isAutoFlag)
+	(this, ev,contmode);
+}
+
+
+/* method: isTraceOn */
+boolean   isTraceOn(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,isTraceOn)
+	(this, ev);
+}
+
+
+/* method: localDateTime */
+unsigned long   localDateTime(Environment *ev,
+		string pszdatetime)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,localDateTime)
+	(this, ev,pszdatetime);
+}
+
+
+/* method: persistentPath */
+string   persistentPath(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,persistentPath)
+	(this, ev);
+}
+
+
+/* method: logFile */
+string   logFile(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,logFile)
+	(this, ev);
+}
+
+
+/* method: notifyOnAddComments */
+boolean   notifyOnAddComments(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,notifyOnAddComments)
+	(this, ev);
+}
+
+
+/* method: notifyOnPassFail */
+boolean   notifyOnPassFail(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,notifyOnPassFail)
+	(this, ev);
+}
+
+
+/* method: profilePath */
+string   profilePath(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,profilePath)
+	(this, ev);
+}
+
+
+/* method: autoCreateObjects */
+boolean   autoCreateObjects(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,autoCreateObjects)
+	(this, ev);
+}
+
+
+/* method: processWorkImmediately */
+boolean   processWorkImmediately(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,processWorkImmediately)
+	(this, ev);
+}
+
+
+/* method: animatedSystemIcon */
+boolean   animatedSystemIcon(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,animatedSystemIcon)
+	(this, ev);
+}
+
+
+/* method: displayBubbleHelp */
+boolean   displayBubbleHelp(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,displayBubbleHelp)
+	(this, ev);
+}
+
+
+/* method: displayFlyoverText */
+boolean   displayFlyoverText(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,displayFlyoverText)
+	(this, ev);
+}
+
+
+/* method: logoffConfirmation */
+boolean   logoffConfirmation(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,logoffConfirmation)
+	(this, ev);
+}
+
+
+/* method: awdDefaultFont */
+string   awdDefaultFont(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,awdDefaultFont)
+	(this, ev);
+}
+
+
+/* method: awdDefaultFontSize */
+long   awdDefaultFontSize(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,awdDefaultFontSize)
+	(this, ev);
+}
+
+
+/* method: useAllWorkStatus */
+boolean   useAllWorkStatus(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,useAllWorkStatus)
+	(this, ev);
+}
+
+
+/* method: resetWindowProfiles */
+boolean   resetWindowProfiles(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,resetWindowProfiles)
+	(this, ev);
+}
+
+
+/* method: serverDateTime */
+unsigned long   serverDateTime(Environment *ev,
+		string pszdatetime)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,serverDateTime)
+	(this, ev,pszdatetime);
+}
+
+
+/* method: setAddCommentsNotification */
+boolean   setAddCommentsNotification(Environment *ev,
+		boolean flag)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setAddCommentsNotification)
+	(this, ev,flag);
+}
+
+
+/* method: setAutoFlag */
+boolean   setAutoFlag(Environment *ev,
+		AWDWorkStation_CONTAINERMODE contmode,
+		boolean flag)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setAutoFlag)
+	(this, ev,contmode,flag);
+}
+
+
+/* method: setAwdProfileFlag */
+boolean   setAwdProfileFlag(Environment *ev,
+		string app,
+		string key,
+		boolean flag)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setAwdProfileFlag)
+	(this, ev,app,key,flag);
+}
+
+
+/* method: setAwdProfileString */
+boolean   setAwdProfileString(Environment *ev,
+		string app,
+		string key,
+		string value)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setAwdProfileString)
+	(this, ev,app,key,value);
+}
+
+
+/* method: setBinPath */
+boolean   setBinPath(Environment *ev,
+		string path)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setBinPath)
+	(this, ev,path);
+}
+
+
+/* method: setBreakRelationship */
+boolean   setBreakRelationship(Environment *ev,
+		boolean flag)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setBreakRelationship)
+	(this, ev,flag);
+}
+
+
+/* method: setFilesPath */
+boolean   setFilesPath(Environment *ev,
+		string path)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setFilesPath)
+	(this, ev,path);
+}
+
+
+/* method: setCreateRelationship */
+boolean   setCreateRelationship(Environment *ev,
+		boolean flag)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setCreateRelationship)
+	(this, ev,flag);
+}
+
+
+/* method: setDataPath */
+boolean   setDataPath(Environment *ev,
+		string path)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setDataPath)
+	(this, ev,path);
+}
+
+
+/* method: setHelpPath */
+boolean   setHelpPath(Environment *ev,
+		string path)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setHelpPath)
+	(this, ev,path);
+}
+
+
+/* method: setInstallPath */
+boolean   setInstallPath(Environment *ev,
+		string path)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setInstallPath)
+	(this, ev,path);
+}
+
+
+/* method: setLocalDateTime */
+boolean   setLocalDateTime(Environment *ev,
+		string datetimestamp)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setLocalDateTime)
+	(this, ev,datetimestamp);
+}
+
+
+/* method: setPersistentPath */
+boolean   setPersistentPath(Environment *ev,
+		string path)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setPersistentPath)
+	(this, ev,path);
+}
+
+
+/* method: setPassFail */
+boolean   setPassFail(Environment *ev,
+		boolean flag)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setPassFail)
+	(this, ev,flag);
+}
+
+
+/* method: setSystemProfileBinary */
+boolean   setSystemProfileBinary(Environment *ev,
+		string app,
+		string key,
+		void* pvData,
+		unsigned long cbData)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setSystemProfileBinary)
+	(this, ev,app,key,pvData,cbData);
+}
+
+
+/* method: setSystemProfileFlag */
+boolean   setSystemProfileFlag(Environment *ev,
+		string app,
+		string key,
+		boolean flag)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setSystemProfileFlag)
+	(this, ev,app,key,flag);
+}
+
+
+/* method: setSystemProfileString */
+boolean   setSystemProfileString(Environment *ev,
+		string app,
+		string key,
+		string value)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setSystemProfileString)
+	(this, ev,app,key,value);
+}
+
+
+/* method: setTrace */
+boolean   setTrace(Environment *ev,
+		boolean fTrace)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setTrace)
+	(this, ev,fTrace);
+}
+
+
+/* method: setWorkStationID */
+boolean   setWorkStationID(Environment *ev,
+		string wkstaid)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setWorkStationID)
+	(this, ev,wkstaid);
+}
+
+
+/* method: setAutoCreateObjects */
+boolean   setAutoCreateObjects(Environment *ev,
+		boolean flag)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setAutoCreateObjects)
+	(this, ev,flag);
+}
+
+
+/* method: setProcessWorkImmediately */
+boolean   setProcessWorkImmediately(Environment *ev,
+		boolean flag)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setProcessWorkImmediately)
+	(this, ev,flag);
+}
+
+
+/* method: setAnimatedSystemIcon */
+boolean   setAnimatedSystemIcon(Environment *ev,
+		boolean flag)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setAnimatedSystemIcon)
+	(this, ev,flag);
+}
+
+
+/* method: setDisplayBubbleHelp */
+boolean   setDisplayBubbleHelp(Environment *ev,
+		boolean flag)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setDisplayBubbleHelp)
+	(this, ev,flag);
+}
+
+
+/* method: setDisplayFlyoverText */
+boolean   setDisplayFlyoverText(Environment *ev,
+		boolean flag)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setDisplayFlyoverText)
+	(this, ev,flag);
+}
+
+
+/* method: setLogoffConfirmation */
+boolean   setLogoffConfirmation(Environment *ev,
+		boolean flag)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setLogoffConfirmation)
+	(this, ev,flag);
+}
+
+
+/* method: setAWDDefaultFont */
+boolean   setAWDDefaultFont(Environment *ev,
+		string font)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setAWDDefaultFont)
+	(this, ev,font);
+}
+
+
+/* method: setAWDDefaultFontSize */
+boolean   setAWDDefaultFontSize(Environment *ev,
+		long fontsize)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setAWDDefaultFontSize)
+	(this, ev,fontsize);
+}
+
+
+/* method: setUseAllWorkStatus */
+boolean   setUseAllWorkStatus(Environment *ev,
+		boolean flag)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setUseAllWorkStatus)
+	(this, ev,flag);
+}
+
+
+/* method: systemOption */
+boolean   systemOption(Environment *ev,
+		string optionname,
+		string buffer)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,systemOption)
+	(this, ev,optionname,buffer);
+}
+
+
+/* method: workStationID */
+string   workStationID(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,workStationID)
+	(this, ev);
+}
+
+
+/* method: deleteDataFiles */
+boolean   deleteDataFiles(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,deleteDataFiles)
+	(this, ev);
+}
+
+
+/* method: deleteFiles */
+boolean   deleteFiles(Environment *ev,
+		string pszPath)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,deleteFiles)
+	(this, ev,pszPath);
+}
+
+
+/* method: writeToLogFile */
+boolean   writeToLogFile(Environment *ev,
+		string pszMsg)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,writeToLogFile)
+	(this, ev,pszMsg);
+}
+
+
+/* method: getCsdPath */
+string   getCsdPath(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,getCsdPath)
+	(this, ev);
+}
+
+
+/* method: useCsdLookupWildCards */
+boolean   useCsdLookupWildCards(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,useCsdLookupWildCards)
+	(this, ev);
+}
+
+
+/* method: getConnectionClass */
+boolean   getConnectionClass(Environment *ev,
+		string value,
+		unsigned short size)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,getConnectionClass)
+	(this, ev,value,size);
+}
+
+
+/* method: arrangeFolderMode */
+AWDWorkStation_ARRANGE_MODE   arrangeFolderMode(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,arrangeFolderMode)
+	(this, ev);
+}
+
+
+/* method: setArrangeFolderMode */
+boolean   setArrangeFolderMode(Environment *ev,
+		AWDWorkStation_ARRANGE_MODE fldArrangeMode)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,setArrangeFolderMode)
+	(this, ev,fldArrangeMode);
+}
+
+
+/* method: deleteAWDWinDataFiles */
+boolean   deleteAWDWinDataFiles(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDWorkStation,AWDWorkStation,deleteAWDWinDataFiles)
+	(this, ev);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDWorkStation,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDWorkStation,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDWorkStation,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+AWDWorkStation*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDWorkStation,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDWorkStation,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDWorkStation,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDWorkStation,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+AWDWorkStation*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDWorkStation,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+AWDWorkStation*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDWorkStation,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+AWDWorkStation*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDWorkStation,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,AWDWorkStation,SOMObject,somInit)
+	(this);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,AWDWorkStation,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,AWDWorkStation,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,AWDWorkStation,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,AWDWorkStation,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,AWDWorkStation,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDWorkStation,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDWorkStation,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,AWDWorkStation,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   AWDWorkStation_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDWorkStation,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDWorkStation,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   AWDWorkStation_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDWorkStation,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDWorkStation,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,AWDWorkStation,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,AWDWorkStation,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,AWDWorkStation,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,AWDWorkStation,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,AWDWorkStation,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* AWDWorkStation */
+
+
+
+#endif       /* SOM_AWDWorkStation_xh */

@@ -1,0 +1,16 @@
+# Manifest script for iFAST BPServer autobuild.
+ifastbps/
+ifastbps/bin/
+ifastbps/data/
+bin/release/boost_thread.dll=>ifastbps/bin
+bin/release/botan.dll=>ifastbps/bin
+bin/release/libsmq*.dll=>ifastbps/bin
+bin/release/bf*.dll=>ifastbps/bin
+bin/release/ifast*.dll=>ifastbps/bin
+bin/release/srv*.dll=>ifastbps/bin
+bin/release/x*.dll=>ifastbps/bin
+bin/release/vc*.dll=>ifastbps/bin
+bin/release/ifdscore.dll=>ifastbps/bin
+bin/release/*.exe=>ifastbps/bin
+data/*.cnd=>ifastbps/data
+version.txt=>.

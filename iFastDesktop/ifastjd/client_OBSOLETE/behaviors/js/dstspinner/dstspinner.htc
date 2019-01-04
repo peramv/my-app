@@ -1,0 +1,306 @@
+<!-- ---------------------------------------------------------------------
+//
+//  FILE        : dstspinner.htc
+//
+//  DESCRIPTION :
+//
+//  PROPERTIES  :
+//
+//  minimum - lowest number in spinner
+//  maximum - highest number in spinner
+//  spinnerwidth - width of spinner
+//
+//  METHODS     :
+//
+//   disable - disables or enables the control
+//   onerror - fires when error occurs
+//
+//  EVENTS      :
+//
+//  COPYRIGHT   :
+//
+//   The computer systems, procedures, data bases and programs
+//   created and maintained by DST Systems, Inc., are proprietary
+//   in nature and as such are confidential.  Any unauthorized
+//   use or disclosure of such information may result in civil
+//   liabilities.
+//
+//   Copyright© 2004 by DST Systems, Inc.
+//   All rights reserved.
+//
+//-------------------------------------------------------------------- -->
+<public:property name="minimum" value="0"/>
+<public:property name="maximum" value="0"/>
+<public:property name="spinnerwidth" value="100px"/>
+<public:attach event="oncontentready" onevent="init();"/>
+<public:event name="onerror" ID=errorID />
+<method name="disable"/>
+
+<script language="javascript">
+
+var _base;
+var _div;			//div that surrounds the text box portion
+var _buttonUp;		//div that surrounds the up img
+var _buttonDown;	//div that surrounds the down img
+var _imgUp;			//img that is the up button image
+var _imgDown;		//img that is the down button image
+
+function init()
+{
+	element.attachEvent("onpropertychange", onPropChange);
+	
+	// scan the documents stylesheets to find the url to the .HTC file
+	for(var i=0;i<element.document.styleSheets.length;i++)
+	{
+		var item=element.document.styleSheets(i);
+		for(var j=0;j<item.rules.length;j++)
+		{
+			var url=item.rules(j).style.behavior.match(/url\(.*dstspinner.htc\)/i);
+			if(url!=null)
+			{
+				_base=url[0].replace(/url\((.*)dstspinner.htc\)/i,"$1");
+				break;
+			}
+		}
+	}
+
+	element.style.margin="0";
+	element.style.padding="0";
+	element.style.border="0";
+
+	_div=element.document.createElement("DIV");
+	_div.style.border="1px solid black";
+	_div.style.backgroundColor="red";
+	_div.noWrap=true;
+	_div.tabIndex=0;
+	_div.style.position="relative";
+	_div.style.width=spinnerwidth;
+	_div.style.padding="1px";
+	_div.style.margin="1px";
+	_div.style.zIndex=1;	
+	//_div.attachEvent("onselectstart",onSelectStart);
+	element.insertAdjacentElement("afterEnd",_div);
+	_div.insertAdjacentElement("afterBegin",element);
+
+	_buttonUp=element.document.createElement("DIV");
+	_buttonUp.style.position="absolute";
+	_buttonUp.style.top="0";
+	_buttonUp.style.padding="1px";
+	_buttonUp.style.margin="0";
+	_div.insertAdjacentElement("beforeEnd",_buttonUp);
+
+	_imgUp=element.document.createElement("IMG");	
+	_imgUp.style.height="100%";
+	_imgUp.style.width="100%";
+	_imgUp.style.margin="0";
+	_imgUp.style.padding="0";
+	_imgUp.border="0";
+
+	_buttonUp.insertAdjacentElement("beforeEnd",_imgUp);
+
+	_buttonDown=element.document.createElement("DIV");
+	_buttonDown.style.position="absolute";
+	_buttonDown.style.padding="1px";
+	_buttonDown.style.margin="0";
+	_div.insertAdjacentElement("beforeEnd",_buttonDown);
+
+	_imgDown=element.document.createElement("IMG");
+	_imgDown.style.height="100%";
+	_imgDown.style.width="100%";
+	_imgDown.style.margin="0";
+	_imgDown.style.padding="0";
+	_imgDown.border="0";
+	_buttonDown.insertAdjacentElement("beforeEnd",_imgDown);
+
+	_buttonUp.style.setExpression("left",_div.uniqueID+".offsetWidth-"+(_div.clientHeight+2) );
+	_buttonUp.style.setExpression("height","("+_div.uniqueID+".clientHeight/2)+1");
+	_buttonUp.style.setExpression("width",_div.uniqueID+".clientHeight" );
+
+	_buttonDown.style.setExpression("left",_div.uniqueID+".offsetWidth-"+(_div.clientHeight+2) );
+	_buttonDown.style.setExpression("height","("+_div.uniqueID+".clientHeight/2)+1");
+	_buttonDown.style.setExpression("width",_div.uniqueID+".clientHeight" );
+
+	element.setExpression("width",_div.uniqueID+".offsetWidth-"+(_buttonUp.offsetWidth+5) );
+
+	if(null!=minimum&&null!=maximum)
+	{
+		maximum=maximum<minimum?mimimum:maximum;
+		if(null!=element.value)
+		{
+			element.value=element.value<minimum?minimum:element.value;
+		}
+	}
+
+	_buttonDown.style.top=(_div.clientHeight/2)-1;
+
+	disable(element.disabled);
+	readOnly(element.readOnly);
+}
+
+function onPropChange(e)
+{
+	var propertyName=e.propertyName;
+
+	if(propertyName.toLowerCase()=="readonly")
+	{
+		readOnly(element.readOnly);
+	}
+}
+
+function onClickUp(e)
+{
+	if(element.value>minimum)
+	{
+		element.value=parseInt(element.value)-1;
+		element.fireEvent("onchange");
+	}
+}
+
+function onClickDown(e)
+{
+	if(element.value<maximum)
+	{
+		element.value=parseInt(element.value)+1;
+		element.fireEvent("onchange");
+	}
+}
+
+function onKeyDown(e)
+{
+	if(e.keyCode==38) //up arrow
+	{
+		if(element.value>minimum)
+		{
+			element.value=parseInt(element.value)-1;
+			element.fireEvent("onchange");
+		}
+		//disable bubble up onKeyDown
+		return false;
+	}
+	else if(e.keyCode==40) //down arrow
+	{
+		if(element.value<maximum)
+		{
+			element.value=parseInt(value)+1;
+			element.fireEvent("onchange");
+		}
+		return false;
+	}
+	else if ((e.keyCode>32&&e.keyCode<47)||(e.keyCode>57&&e.keyCode<96)||e.keyCode>105)
+	{
+		return false;
+	}
+}
+
+function onSelectStart(e)
+{
+	//disable bubble up selection
+	return false;
+}
+
+function onValueChange(e)
+{
+	if(parseInt(element.value,10)<parseInt(minimum,10))
+	{
+		returnError("4030","Amount cannot be below "+minimum);
+	}
+
+	if(parseInt(element.value,10)>parseInt(maximum,10))
+	{
+		returnError("4035","Amount cannot exceed "+maximum);
+	}
+}
+
+function disable(disabled)
+{		
+	element.disabled=disabled;
+
+	if(disabled)
+	{
+		_div.style.backgroundColor="rgb(236,233,216)";
+		_div.style.border="1px solid rgb(201,199,186)";
+		_div.disabled=true;
+		element.style.backgroundColor="rgb(236,233,216)";
+		element.disabled=true;
+		_imgUp.src=_base+"dstspinner_disabled_up.gif";
+		_imgDown.src=_base+"dstspinner_disabled_down.gif";
+	}
+	else
+	{
+		if(element.readOnly)
+		{
+			readOnly(element.readOnly);
+		}
+		else
+		{
+			_div.style.backgroundColor="";
+			_div.style.border="1px solid black";
+			_div.disabled=false;
+			element.style.backgroundColor="";
+			element.style.color="";
+			element.disabled=false;
+			_imgUp.src=_base+"dstspinner_up.gif";
+			_imgDown.src=_base+"dstspinner_down.gif";
+		}
+	}
+}
+
+
+function readOnly(readOnly)
+{
+	element.readOnly=readOnly;
+	if(readOnly)
+	{
+		_div.style.backgroundColor="rgb(236,233,216)";
+		_div.style.border="1px solid rgb(201,199,186)";
+		_div.disabled=false;
+		_div.detachEvent("onkeydown",onKeyDown);
+
+		element.detachEvent("onchange",onValueChange);
+		element.detachEvent("onkeydown",onKeyDown);
+		element.style.backgroundColor="rgb(236,233,216)";
+		element.disabled=false;
+
+		_buttonUp.detachEvent("onclick",onClickUp);
+		_buttonDown.detachEvent("onclick",onClickDown);
+
+		_imgUp.src=_base+"dstspinner_disabled_up.gif";
+		_imgDown.src=_base+"dstspinner_disabled_down.gif";
+	}
+	else
+	{
+		if(element.disabled)
+		{
+			disable(element.disabled);
+		}
+		else
+		{
+			_div.style.backgroundColor="";
+			_div.style.border="1px solid black";
+			_div.disabled=false;
+			_div.attachEvent("onkeydown",onKeyDown);
+
+			element.attachEvent("onchange",onValueChange);
+			element.attachEvent("onkeydown",onKeyDown);
+			element.style.backgroundColor="";
+			element.style.color="";
+			element.disabled=false;
+				
+			_buttonUp.attachEvent("onclick",onClickUp);
+			_buttonDown.attachEvent("onclick",onClickDown);
+
+			_imgUp.src=_base+"dstspinner_up.gif";
+			_imgDown.src=_base+"dstspinner_down.gif";
+		}
+	}
+}
+
+
+function returnError(code,message)
+{
+	var oEvent=createEventObject();
+	oEvent.code=code;
+	oEvent.message=message;
+	errorID.fire(oEvent);
+}
+</script>

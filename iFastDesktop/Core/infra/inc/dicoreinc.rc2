@@ -1,0 +1,97 @@
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+#ifndef LMG_BUILD        //Library management compile
+
+#ifndef MY_BUILD_TYPE
+#define MY_BUILD_TYPE 99
+#endif
+
+#ifndef MAJ_PROD_VERSION
+#define MAJ_PROD_VERSION 99
+#endif
+
+#ifndef MIN_PROD_VERSION
+#define MIN_PROD_VERSION 99
+#endif
+
+#ifndef FIX_PROD_VERSION
+#define FIX_PROD_VERSION 99
+#endif
+
+#ifndef CPYRT_ST_YR
+#define CPYRT_ST_YR 2002
+#endif
+
+#ifndef CPYRT_END_YR
+#define CPYRT_END_YR 2002
+#endif
+
+#ifndef BA_VER
+#define BA_VER Not labeled
+#endif
+
+#endif  //#ifndef LMG_BUILD
+
+#define MAKESTRING( x ) #x
+#define EXTRACT(x) MAKESTRING(x)
+
+#define MYPRODUCTVERSION1 MAJ_PROD_VERSION,MIN_PROD_VERSION,FIX_PROD_VERSION,0
+#define MYPRODUCTVERSION EXTRACT( MYPRODUCTVERSION1 )
+
+#ifndef FILEVERSION_PART_1
+#define FILEVERSION_PART_1 MY_BUILD_TYPE
+#define FILEVERSION_PART_2 MY_BUILD_TYPE
+#define FILEVERSION_PART_3 MY_BUILD_TYPE
+#define FILEVERSION_PART_4 MY_BUILD_TYPE
+#endif
+
+#ifndef MYPRODUCTNAME
+#define MYPRODUCTNAME "DST Systems, Inc. Infrastructure Framework\0"
+#endif
+
+#define MYFILEVERSION1 FILEVERSION_PART_1,FILEVERSION_PART_2,FILEVERSION_PART_3,FILEVERSION_PART_4
+#define MYFILEVERSION EXTRACT( MYFILEVERSION1 )
+
+#define MY_BUILD_LABEL EXTRACT( BA_VER )
+
+#define MY_COPYRIGHT_STRING EXTRACT( CPYRT_ST_YR ) "-" EXTRACT( CPYRT_END_YR )
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION MYFILEVERSION1
+ PRODUCTVERSION MYPRODUCTVERSION1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "DST Systems, Inc.\0"
+            VALUE "FileDescription", "Executable\0"
+            VALUE "FileVersion", MYFILEVERSION
+            VALUE "InternalName", "Infrastructure Framework.\0"
+            VALUE "LegalCopyright", "Copyright © " MY_COPYRIGHT_STRING
+            VALUE "LegalTrademarks", "\0"
+            VALUE "ProductName", MYPRODUCTNAME
+            VALUE "ProductVersion", MYPRODUCTVERSION
+            VALUE "BuildLabel", MY_BUILD_LABEL  // the PVCS VM build label applied to the archives
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+#endif    // !_MAC
+

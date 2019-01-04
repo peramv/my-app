@@ -1,0 +1,326 @@
+#formInformation
+{	
+	font-family:tahoma; 
+	font-size:12px; 
+	padding: 6 0 0 20;	
+	overflow: hidden;
+	white-space: nowrap;	
+	text-overflow: ellipsis;
+}
+
+#formInformation .formDesc
+{
+	font-weight:bold;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;	
+}
+
+#formInformation .sourceDesc
+{
+	padding-left: 15px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;	
+}
+
+.PageSelector
+{
+	background-color:#f8f8f8 !important;	
+}
+
+.PageList
+{
+	padding-top: 8px;
+	padding-bottom: 4px;
+	text-align:center;
+}
+
+.PageList .Page
+{
+	height:110px;
+	width:80px;		
+	margin: 0 auto 10px auto;	
+	position:relative;
+}
+
+.PageList .Page .PageImage
+{
+	height: 100%;
+	width: 100%;
+	border-left:1px solid black;
+    border-top:1px solid black;
+    border-bottom:2px solid black;
+    border-right:2px solid black;
+	z-index:1;
+	cursor:pointer;
+}
+
+.PageList .Page .NumberOverlay
+{
+	font-family:tahoma; 
+	position:absolute;
+	left:0px;
+	top:8px;
+	z-index:2;
+	font-size:75px;
+	height:100%;
+	width:100%;
+	filter:alpha(opacity=30);
+	cursor:pointer;
+	font-weight:bold;
+}
+
+.PageList .Page .Disabled
+{
+	color: red;
+}
+
+#FormToolbar button
+{
+	background-image: url('../images/smf_toolbar_sprite.png');
+	width:20px;
+}
+
+#FormToolbar .disabled_button button
+{
+	background-image: url('../images/smf_toolbar_sprite_disabled.png');
+}
+
+#FormToolbar .lookupBtn
+{	
+	background-position: -3 -412;	
+}
+
+#FormToolbar .zoomInBtn
+{	
+	background-position: -3 -3;	
+}
+
+#FormToolbar .zoomOutBtn
+{	
+	background-position: -3 -27;	
+}
+
+#FormToolbar .moveBtn
+{	
+	background-position: -2 -223;	
+}
+
+#FormToolbar .stretchBtn
+{	
+	background-position: -3 -272;	
+}
+
+#FormToolbar .shrinkBtn
+{	
+	background-position: -3 -390;	
+}
+
+#FormToolbar .nudgeCCWBtn
+{	
+	background-position: -3 -126;	
+}
+
+#FormToolbar .nudgeCWBtn
+{	
+	background-position: -3 -149;	
+}
+
+#FormToolbar .rotateCWBtn
+{	
+	background-position: -3 -173;	
+}
+
+#FormToolbar .rotateCCWBtn
+{	
+	background-position: -3 -198;	
+}
+
+#FormToolbar .sectionsBtn
+{	
+	background-position: -2 -248;	
+}
+
+#FormToolbar .ordersBtn
+{	
+	background-position: -3 -248;	
+}
+
+
+
+
+#ContentViewer
+{
+	background-color: #6A737C; 
+	padding: 55 0 55 40;	
+}
+
+#ContentViewer .rightArrow
+{
+	background-image: url('../images/right-gray-arrow.png') !important;
+}
+
+#ContentViewer .leftArrow
+{
+	background-image: url('../images/left-gray-arrow.png') !important;
+}
+
+#ContentViewer .PageContainer
+{
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 2px solid black;
+	border-bottom: 2px solid black;
+	background: white;
+}
+
+#ContentViewer .x-form-focus
+{
+	border-color: blue !important;
+}
+
+
+.Bubble .x-window-tl, .Bubble .x-window-bl
+{
+	background-image: url('../images/left-corners.png') !important;
+}
+
+.Bubble .x-window-tr, .Bubble .x-window-br
+{
+	background-image: url('../images/right-corners.png') !important;
+}
+
+.Bubble .x-window-tc, .Bubble .x-window-bc
+{
+	background-image: url('../images/top-bottom.png') !important;
+	cursor: default;
+}
+
+
+.Bubble .x-tool
+{
+	background-image: url('../images/tool-sprites.gif') !important;
+}
+
+.Bubble .x-resizable-handle-east, .x-resizable-handle-west
+{
+	background-image: url('../images/e-handle.gif') !important;
+}
+
+.Bubble .x-window-mr, .Bubble .x-window-ml
+{
+	background-image: url('../images/left-right.png') !important;
+}
+
+.Bubble .x-window-body
+{
+	background-color: white !important;
+	border: 1px solid #99bbe8;	
+	background-position: -40 -200 !important;
+}
+
+.anchor_top
+{
+	position: absolute;
+	height: 15px;
+	width:25px;
+	visibility: visible; 
+	
+	top: -17;
+	left: 8;
+	background-image: url('../images/tip-anchor-sprite3.png');
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+	z-index: 20003;	
+}
+
+.anchor_bottom
+{
+	position: absolute;
+	height: 15px;
+	width:25px; 
+	visibility: visible;
+	
+	top: 90;
+	left: 8;
+	background-image: url('../images/tip-anchor-sprite4.png');
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+	z-index: 20003;	
+}
+
+.ComboboxTrigger, .x-form-date-trigger
+{
+	top:1px !important;
+}
+
+.DesktopWeb-Disabled-Field
+{
+	background-color:#D2D2D2 !important;
+}
+
+.ControlHighlight
+{
+	background-color: yellow;
+	filter: alpha(opacity=40);
+}
+
+.APIResponse li
+{
+	padding-left: 30px;
+	padding-bottom:5px;
+}
+
+.submit
+{
+	background-image: url(../images/arrow_right.png) !important;
+}
+
+.cancel
+{
+	background-image: url(../images/button_cancel.png) !important;
+}
+
+.resubmit
+{
+	background-image: url(../images/button_resubmit.png) !important;
+}
+
+.done
+{
+	background-image: url(../images/button_done.png) !important;
+}
+
+
+
+.FormPage .FormItem
+{
+	color: blue;
+}
+
+.FormItem
+{
+	text-transform: uppercase !important;
+}
+
+.Suggest
+{
+	text-transform: none !important;
+}
+
+.FormPage .x-form-empty-field
+{
+	color: #BDBDBF;
+	font-style: italic;
+	font-size: 9px;
+	text-transform: uppercase !important;
+}
+
+.DataIndex .x-grid3-cell-selected
+{
+	background: #5E81BC !important;
+	color: white !important;	
+}
+
+

@@ -1,0 +1,40 @@
+At revision 6312.
+294 File(s) copied
+perl c:\nightlyImport\addMissingFiles.pl 
+M       ifastjd\webcode\js\screens\TrailerFeeSetup.Translation.js
+M       ifastjd\webcode\js\screens\RESPDiploma.Translation.js
+M       ifastjd\webcode\js\screens\ClassSetup_EvenMain.Translation.js
+M       ifastjd\webcode\js\screens\RESPZeroRpymt.Translation.js
+M       ifastjd\webcode\js\screens\RESPGrantInfo.Translation.js
+M       ifastjd\webcode\js\screens\ReleaseFrozenAcct.Translation.js
+M       ifastjd\webcode\js\screens\DilutionCalculator.Translation.js
+M       ifastjd\webcode\js\screens\SEGAttributes.Translation.js
+M       ifastjd\webcode\js\screens\RESPNotional.Translation.js
+M       ifastbp\EntityProcessIncludes.h
+M       ifastbp\AccInfoProcess.cpp
+M       data\ifast_fields.7z.vcs_proxy
+M       data\ifast_fields.mdb
+M       data\ifast_fields.7z
+?       devlog.txt
+svn add devlog.txt
+?       log.txt
+svn add log.txt
+svn commit -m "R12.5,P9999999,FSCM,T99999,I0,0,0, Updating 12.5 Unapproved from R12.5_SIT promotion group in PVCS" 
+Sending        data\ifast_fields.7z
+Sending        data\ifast_fields.7z.vcs_proxy
+Sending        data\ifast_fields.mdb
+Adding         devlog.txt
+Sending        ifastbp\AccInfoProcess.cpp
+Sending        ifastbp\EntityProcessIncludes.h
+Sending        ifastjd\webcode\js\screens\ClassSetup_EvenMain.Translation.js
+Sending        ifastjd\webcode\js\screens\DilutionCalculator.Translation.js
+Sending        ifastjd\webcode\js\screens\RESPDiploma.Translation.js
+Sending        ifastjd\webcode\js\screens\RESPGrantInfo.Translation.js
+Sending        ifastjd\webcode\js\screens\RESPNotional.Translation.js
+Sending        ifastjd\webcode\js\screens\RESPZeroRpymt.Translation.js
+Sending        ifastjd\webcode\js\screens\ReleaseFrozenAcct.Translation.js
+Sending        ifastjd\webcode\js\screens\SEGAttributes.Translation.js
+Sending        ifastjd\webcode\js\screens\TrailerFeeSetup.Translation.js
+Adding         log.txt
+Transmitting file data ................
+Committed revision 6313.

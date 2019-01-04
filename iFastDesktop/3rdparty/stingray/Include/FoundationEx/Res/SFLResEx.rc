@@ -1,0 +1,317 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "SflResEx.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#endif
+#include "afxres.h"
+#include "SFLResEx.h" // FoundationEx Resource Include
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "SflResEx.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "#include ""SFLResEx.h"" // FoundationEx Resource Include\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""FoundationEx\\Res\\SFLResEx.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
+    "#endif\r\n"
+    "\r\n"
+    "#if !defined(_AFXDLL)\r\n"
+    "#include ""afxribbon.rc""\r\n"
+    "#endif // !_AFXDLL\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_SFLEX_MAIN          BITMAP                  "FoundationEx\\Res\\main.bmp"
+IDB_SFLEX_BUTTONS       BITMAP                  "FoundationEx\\Res\\buttons.bmp"
+IDB_SFLEX_FILESMALL     BITMAP                  "FoundationEx\\Res\\filesmall.bmp"
+IDB_SFLEX_FILELARGE     BITMAP                  "FoundationEx\\Res\\filelarge.bmp"
+IDB_SFLEX_INFO          BITMAP                  "FoundationEx\\Res\\info.bmp"
+IDR_SFLEX_MAINFRAME     BITMAP                  "FoundationEx\\Res\\toolbar1.bmp"
+IDB_SFLEX_TOOLBAR24     BITMAP                  "FoundationEx\\Res\\toolbar24.bmp"
+IDB_SFLEX_TOOLBAR8      BITMAP                  "FoundationEx\\Res\\toolbar16.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_SFLEX_THEME_MENU MENU
+BEGIN
+    POPUP "&Office"
+    BEGIN
+        MENUITEM "2000 &XP Style",              ID_SFLEX_APPSTYLE_OFFICE_XP
+        MENUITEM "2007 &Blue Style",            ID_SFLEX_APPSTYLE_OFFICE_BLUE
+        MENUITEM "2007 B&lack Style",           ID_SFLEX_APPSTYLE_OFFICE_BLACK
+        MENUITEM "2007 &Silver Style",          ID_SFLEX_APPSTYLE_OFFICE_SILVER
+        MENUITEM "2007 &Aqua Style",            ID_SFLEX_APPSTYLE_OFFICE_AQUA
+        MENUITEM "2003 &Theme Style",           ID_SFLEX_APPSTYLE_OFFICE_2003
+    END
+    POPUP "&Windows"
+    BEGIN
+        MENUITEM "&2000 Style",                 ID_SFLEX_APPSTYLE_WIN_2000
+        MENUITEM "&XP Style",                   ID_SFLEX_APPSTYLE_WIN_XP
+        MENUITEM "&7 Scenic",                   ID_SFLEX_APPSTYLE_WIN_7
+    END
+    POPUP "&Visual Studio"
+    BEGIN
+        MENUITEM "200&5 Style",                 ID_SFLEX_APPSTYLE_VS_2005
+        MENUITEM "200&8 Style",                 ID_SFLEX_APPSTYLE_VS_2008
+    END
+    MENUITEM SEPARATOR
+    POPUP "&Layout"
+    BEGIN
+        MENUITEM "&Right to Left",              ID_SFLEX_APPSTYLE_LAYOUT_RTL
+    END
+END
+
+IDR_SFLEX_MAINFRAME MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open\tCtrl+O",               ID_FILE_OPEN
+        MENUITEM "&Close",                      ID_FILE_CLOSE
+        MENUITEM SEPARATOR
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
+        MENUITEM "Save &As",                    ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "Print Set&up",                ID_FILE_PRINT_SETUP
+        MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW
+        MENUITEM "&Print\tCtrl+P",              ID_FILE_PRINT
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Full Screen",                ID_SFLEX_VIEW_FULLSCREEN
+        MENUITEM SEPARATOR
+        POPUP "&Toolbars and Docking Windows"
+        BEGIN
+            MENUITEM "<place_holder>",              ID_VIEW_TOOLBAR
+            MENUITEM SEPARATOR
+            MENUITEM "&Customize...",               ID_SFLEX_VIEW_CUSTOMIZE
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+        MENUITEM SEPARATOR
+    END
+    POPUP "&Style"
+    BEGIN
+        POPUP "&Office"
+        BEGIN
+            MENUITEM "2000 &XP Style",              ID_SFLEX_APPSTYLE_OFFICE_XP
+            MENUITEM "2007 &Blue Style",            ID_SFLEX_APPSTYLE_OFFICE_BLUE
+            MENUITEM "2007 B&lack Style",           ID_SFLEX_APPSTYLE_OFFICE_BLACK
+            MENUITEM "2007 &Silver Style",          ID_SFLEX_APPSTYLE_OFFICE_SILVER
+            MENUITEM "2007 &Aqua Style",            ID_SFLEX_APPSTYLE_OFFICE_AQUA
+            MENUITEM "2003 &Theme Style",           ID_SFLEX_APPSTYLE_OFFICE_2003
+        END
+        POPUP "&Windows"
+        BEGIN
+            MENUITEM "&2000 Style",                 ID_SFLEX_APPSTYLE_WIN_2000
+            MENUITEM "&XP Style",                   ID_SFLEX_APPSTYLE_WIN_XP
+            MENUITEM "&7 Scenic",                   ID_SFLEX_APPSTYLE_WIN_7
+        END
+        POPUP "&Visual Studio"
+        BEGIN
+            MENUITEM "200&5 Style",                 ID_SFLEX_APPSTYLE_VS_2005
+            MENUITEM "200&8 Style",                 ID_SFLEX_APPSTYLE_VS_2008
+        END
+        MENUITEM SEPARATOR
+        POPUP "&Layout"
+        BEGIN
+            MENUITEM "&Right to Left",              ID_SFLEX_APPSTYLE_LAYOUT_RTL
+        END
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About",                      ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_SFLEX_MAINFRAME TOOLBAR 16, 16
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    BUTTON      ID_SFLEX_FILE_SAVE_ALL
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    BUTTON      ID_EDIT_UNDO
+    BUTTON      ID_EDIT_REDO
+    BUTTON      ID_EDIT_FIND
+    BUTTON      ID_FILE_PRINT
+    BUTTON      ID_APP_ABOUT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Ribbon
+//
+
+IDR_SFLEX_RIBBON        RT_RIBBON_XML           "FoundationEx\\Res\\sflex_ribbon.mfcribbon-ms"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_SFLEX_RIBBON_FILE   "File"
+    IDS_SFLEX_RIBBON_NEW    "&New"
+    IDS_SFLEX_RIBBON_OPEN   "&Open..."
+    IDS_SFLEX_RIBBON_SAVE   "&Save"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SFLEX_RIBBON_SAVEAS "Save &As..."
+    IDS_SFLEX_RIBBON_PRINT  "Print"
+    IDS_SFLEX_RIBBON_PRINT_LABEL "Preview and print the document"
+    IDS_SFLEX_RIBBON_PRINT_QUICK "&Quick"
+    IDS_SFLEX_RIBBON_PRINT_PREVIEW "Print Pre&view"
+    IDS_SFLEX_RIBBON_PRINT_SETUP "Print Set&up"
+    IDS_SFLEX_RIBBON_CLOSE  "&Close"
+    IDS_SFLEX_RIBBON_RECENT_DOCS "Recent Documents"
+    IDS_SFLEX_RIBBON_EXIT   "E&xit"
+    IDS_SFLEX_RIBBON_HOME   "&Home"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SFLEX_RIBBON_CLIPBOARD "Clipboard\nd"
+    IDS_SFLEX_RIBBON_PASTE  "Paste\nv"
+    IDS_SFLEX_RIBBON_CUT    "Cut\nx"
+    IDS_SFLEX_RIBBON_COPY   "Copy\nc"
+    IDS_SFLEX_RIBBON_SELECTALL "Select All\na"
+    IDS_SFLEX_RIBBON_WINDOW "Window\nw"
+    IDS_SFLEX_RIBBON_WINDOWS "Windows\ni"
+    IDS_SFLEX_RIBBON_STYLE  "Style"
+    IDS_SFLEX_RIBBON_STYLE_TIP "Modify Visual Style"
+    IDS_SFLEX_RIBBON_STYLE_DESC "Choose one of the Office 2007 Themes"
+    IDS_SFLEX_RIBBON_STATUSBAR "Status Bar"
+    IDS_SFLEX_RIBBON_VIEW   "View"
+    IDS_SFLEX_RIBBON_CAPTIONBAR "Caption Bar"
+    IDS_SFLEX_CAPTION_BUTTON "Options..."
+    IDS_SFLEX_CAPTION_BUTTON_TIP "Important"
+    IDS_SFLEX_CAPTION_TEXT  "Here is an informational message for the user."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SFLEX_CAPTION_IMAGE_TIP "Important"
+    IDS_SFLEX_CAPTION_IMAGE_TEXT 
+                            "Here is an informational message for the user."
+END
+
+STRINGTABLE
+BEGIN
+    ID_SFLEX_APPSTYLE_OFFICE_BLUE "Office 2007 Blue Application Look"
+    ID_SFLEX_APPSTYLE_OFFICE_BLACK "Office 2007 Black Application Look"
+    ID_SFLEX_APPSTYLE_OFFICE_SILVER "Office 2007 Silver Application Look"
+    ID_SFLEX_APPSTYLE_OFFICE_AQUA "Office 2007 Aqua Application Look"
+    ID_SFLEX_APPSTYLE_OFFICE_2003 "Office 2003 Application Look"
+    ID_SFLEX_APPSTYLE_WIN_2000 "Office 2000 Application Look"
+    ID_SFLEX_APPSTYLE_WIN_XP "Windows XP Application Look"
+    ID_SFLEX_APPSTYLE_VS_2005 "Visual Studio 2005 Application Look"
+    ID_SFLEX_APPSTYLE_LAYOUT_RTL 
+                            "Change the application layout from Right to Left"
+END
+
+STRINGTABLE
+BEGIN
+    ID_SFLEX_VIEW_FULLSCREEN "View the application in Full Screen"
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "FoundationEx\Res\SFLResEx.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"     // Standard components
+#endif
+
+#if !defined(_AFXDLL)
+#include "afxribbon.rc"
+#endif // !_AFXDLL
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

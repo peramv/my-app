@@ -1,0 +1,66 @@
+/*********************************************************************************************
+ * @file	
+ * @author 	 
+ * @desc	 
+ *********************************************************************************************/
+
+div.edit-link
+{
+	position: relative;
+    left: -45px;     
+	float: right;
+	text-align: center; 
+	width: 28px; 
+	text-decoration: underline; 
+	color: #333; 
+	cursor: pointer;
+	font-weight: 100;
+}
+
+.x-grid3-col-name
+{	
+	position: relative !important;
+	left: -10px !important;					
+}
+
+.data-subheader, .data-subheader-hidden
+{
+	border-left: 6px solid #E3E3E3;
+	font-weight: bold;
+	font-style: italic;
+	padding-left: 2px;	
+}
+
+.data-subheader-hidden
+{
+	display: none
+}
+
+.data-label
+{
+	font-weight: bold;	
+}
+
+.indent
+{
+	padding-left: 15px;
+}
+
+
+.a /*add*/
+{
+	color: #038337;
+}
+
+.m /*mod*/
+{	
+	color: #0000FF;
+}
+
+.d /*del*/
+{
+	text-decoration: line-through;
+	color: #DE4844;
+}
+
+

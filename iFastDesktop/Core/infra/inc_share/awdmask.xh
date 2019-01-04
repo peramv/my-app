@@ -1,0 +1,1602 @@
+
+#ifndef SOM_AWDMask_xh
+#define SOM_AWDMask_xh
+
+class AWDMask;
+
+#define AWDMask_MajorVersion 2
+#define AWDMask_MinorVersion 3
+
+/*
+ * Passthru lines: File: "C.xh", "before"
+ */
+#include "acbl0049.xh"
+#include "structs.xh"
+#include <somobj.xh>
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_SOMObject_xh
+#include <somobj.xh>
+#endif
+
+#ifndef AWDMask_API
+#define AWDMask_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+class SOMClass;
+class SOMObject;
+class somf_MLinkable;
+class AWDConnection;
+class AWDException;
+class AWDApplication;
+#define AWDMask_SIZEOF_MASK 100 /* 75+25 */
+#define AWDMask_SIZEOF_YEAR 4 /* 4 */
+#define AWDMask_SIZEOF_MONTH 2 /* 2 */
+#define AWDMask_SIZEOF_DAY 2 /* 2 */
+#define AWDMask_SIZEOF_HOURS 2 /* 2 */
+#define AWDMask_SIZEOF_MINUTES 2 /* 2 */
+#define AWDMask_SIZEOF_SECONDS 2 /* 2 */
+#define AWDMask_SIZEOF_SUBSECONDS 6 /* 6 */
+#define AWDMask_SIZEOF_MAXDATE 50 /* 50 */
+#define AWDMask_SIZEOF_DATE 10 /* 10 */
+#define AWDMask_SIZEOF_TIME 8 /* 8 */
+#define AWDMask_SIZEOF_TIME_SUBFIELD 2 /* 2 */
+#define AWDMask_SIZEOF_STAMP 26 /* 26 */
+#define AWDMask_ALLOWABLE_CHARS_NUMERIC ".0123456789"
+#define AWDMask_ALLOWABLE_CHARS_DIGITS "0123456789"
+#define AWDMask_CURRENT_CENTURY "19"
+#define AWDMask_NEGATIVE_SIGN '-'
+#define AWDMask_MASKCHAR_DIGIT_BLANK '9'
+#define AWDMask_MASKCHAR_ZERO_SUPPRESSION 'Z'
+#define AWDMask_MASKCHAR_MONTH 'M'
+#define AWDMask_MASKCHAR_DAY 'D'
+#define AWDMask_MASKCHAR_YEAR 'Y'
+#define AWDMask_MASKCHAR_CENTURY_AS400 'C'
+#define AWDMask_MASKCHAR_HOURS 'H'
+#define AWDMask_MASKCHAR_MINUTES_AS400 'T'
+#define AWDMask_MASKCHAR_MINUTES 'm'
+#define AWDMask_MASKCHAR_SECONDS 'S'
+#define AWDMask_MASKCHAR_SUBSECONDS 's'
+#define AWDMask_MASKCHAR_NANOSECONDS_AS400 'N'
+#define AWDMask_MASKCHAR_DIGIT '#'
+#define AWDMask_MASKCHAR_ALPHA_UPPER 'A'
+#define AWDMask_MASKCHAR_ALPHA 'a'
+#define AWDMask_MASKCHAR_ALPHA_LOWER 'l'
+#define AWDMask_MASKCHAR_ANYCHAR 'X'
+#define AWDMask_MASKCHAR_ANYCHAR_UPPER '!'
+#define AWDMask_MASKCHAR_ANYCHAR_LOWER 'L'
+typedef unsigned long AWDMask_DIRECTION;
+#define AWDMask_BOTHENDS 1UL
+#define AWDMask_LEFTEND 2UL
+#define AWDMask_RIGHTEND 3UL
+typedef
+struct AWDMask_CHARCOMBO {
+char  szChar;
+boolean  Literal;
+} AWDMask_CHARCOMBO;
+typedef
+struct AWDMask_CHARCOMBO* AWDMask_PCHARCOMBO;
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_SIZEOF_MASK
+    #ifdef SIZEOF_MASK
+        #undef SIZEOF_MASK
+        #define SOMTGD_SIZEOF_MASK 1
+    #else
+        #define SIZEOF_MASK AWDMask_SIZEOF_MASK
+    #endif /* SIZEOF_MASK */
+#endif /* SOMTGD_SIZEOF_MASK */
+#ifndef SOMTGD_SIZEOF_YEAR
+    #ifdef SIZEOF_YEAR
+        #undef SIZEOF_YEAR
+        #define SOMTGD_SIZEOF_YEAR 1
+    #else
+        #define SIZEOF_YEAR AWDMask_SIZEOF_YEAR
+    #endif /* SIZEOF_YEAR */
+#endif /* SOMTGD_SIZEOF_YEAR */
+#ifndef SOMTGD_SIZEOF_MONTH
+    #ifdef SIZEOF_MONTH
+        #undef SIZEOF_MONTH
+        #define SOMTGD_SIZEOF_MONTH 1
+    #else
+        #define SIZEOF_MONTH AWDMask_SIZEOF_MONTH
+    #endif /* SIZEOF_MONTH */
+#endif /* SOMTGD_SIZEOF_MONTH */
+#ifndef SOMTGD_SIZEOF_DAY
+    #ifdef SIZEOF_DAY
+        #undef SIZEOF_DAY
+        #define SOMTGD_SIZEOF_DAY 1
+    #else
+        #define SIZEOF_DAY AWDMask_SIZEOF_DAY
+    #endif /* SIZEOF_DAY */
+#endif /* SOMTGD_SIZEOF_DAY */
+#ifndef SOMTGD_SIZEOF_HOURS
+    #ifdef SIZEOF_HOURS
+        #undef SIZEOF_HOURS
+        #define SOMTGD_SIZEOF_HOURS 1
+    #else
+        #define SIZEOF_HOURS AWDMask_SIZEOF_HOURS
+    #endif /* SIZEOF_HOURS */
+#endif /* SOMTGD_SIZEOF_HOURS */
+#ifndef SOMTGD_SIZEOF_MINUTES
+    #ifdef SIZEOF_MINUTES
+        #undef SIZEOF_MINUTES
+        #define SOMTGD_SIZEOF_MINUTES 1
+    #else
+        #define SIZEOF_MINUTES AWDMask_SIZEOF_MINUTES
+    #endif /* SIZEOF_MINUTES */
+#endif /* SOMTGD_SIZEOF_MINUTES */
+#ifndef SOMTGD_SIZEOF_SECONDS
+    #ifdef SIZEOF_SECONDS
+        #undef SIZEOF_SECONDS
+        #define SOMTGD_SIZEOF_SECONDS 1
+    #else
+        #define SIZEOF_SECONDS AWDMask_SIZEOF_SECONDS
+    #endif /* SIZEOF_SECONDS */
+#endif /* SOMTGD_SIZEOF_SECONDS */
+#ifndef SOMTGD_SIZEOF_SUBSECONDS
+    #ifdef SIZEOF_SUBSECONDS
+        #undef SIZEOF_SUBSECONDS
+        #define SOMTGD_SIZEOF_SUBSECONDS 1
+    #else
+        #define SIZEOF_SUBSECONDS AWDMask_SIZEOF_SUBSECONDS
+    #endif /* SIZEOF_SUBSECONDS */
+#endif /* SOMTGD_SIZEOF_SUBSECONDS */
+#ifndef SOMTGD_SIZEOF_MAXDATE
+    #ifdef SIZEOF_MAXDATE
+        #undef SIZEOF_MAXDATE
+        #define SOMTGD_SIZEOF_MAXDATE 1
+    #else
+        #define SIZEOF_MAXDATE AWDMask_SIZEOF_MAXDATE
+    #endif /* SIZEOF_MAXDATE */
+#endif /* SOMTGD_SIZEOF_MAXDATE */
+#ifndef SOMTGD_SIZEOF_DATE
+    #ifdef SIZEOF_DATE
+        #undef SIZEOF_DATE
+        #define SOMTGD_SIZEOF_DATE 1
+    #else
+        #define SIZEOF_DATE AWDMask_SIZEOF_DATE
+    #endif /* SIZEOF_DATE */
+#endif /* SOMTGD_SIZEOF_DATE */
+#ifndef SOMTGD_SIZEOF_TIME
+    #ifdef SIZEOF_TIME
+        #undef SIZEOF_TIME
+        #define SOMTGD_SIZEOF_TIME 1
+    #else
+        #define SIZEOF_TIME AWDMask_SIZEOF_TIME
+    #endif /* SIZEOF_TIME */
+#endif /* SOMTGD_SIZEOF_TIME */
+#ifndef SOMTGD_SIZEOF_TIME_SUBFIELD
+    #ifdef SIZEOF_TIME_SUBFIELD
+        #undef SIZEOF_TIME_SUBFIELD
+        #define SOMTGD_SIZEOF_TIME_SUBFIELD 1
+    #else
+        #define SIZEOF_TIME_SUBFIELD AWDMask_SIZEOF_TIME_SUBFIELD
+    #endif /* SIZEOF_TIME_SUBFIELD */
+#endif /* SOMTGD_SIZEOF_TIME_SUBFIELD */
+#ifndef SOMTGD_SIZEOF_STAMP
+    #ifdef SIZEOF_STAMP
+        #undef SIZEOF_STAMP
+        #define SOMTGD_SIZEOF_STAMP 1
+    #else
+        #define SIZEOF_STAMP AWDMask_SIZEOF_STAMP
+    #endif /* SIZEOF_STAMP */
+#endif /* SOMTGD_SIZEOF_STAMP */
+#ifndef SOMTGD_ALLOWABLE_CHARS_NUMERIC
+    #ifdef ALLOWABLE_CHARS_NUMERIC
+        #undef ALLOWABLE_CHARS_NUMERIC
+        #define SOMTGD_ALLOWABLE_CHARS_NUMERIC 1
+    #else
+        #define ALLOWABLE_CHARS_NUMERIC AWDMask_ALLOWABLE_CHARS_NUMERIC
+    #endif /* ALLOWABLE_CHARS_NUMERIC */
+#endif /* SOMTGD_ALLOWABLE_CHARS_NUMERIC */
+#ifndef SOMTGD_ALLOWABLE_CHARS_DIGITS
+    #ifdef ALLOWABLE_CHARS_DIGITS
+        #undef ALLOWABLE_CHARS_DIGITS
+        #define SOMTGD_ALLOWABLE_CHARS_DIGITS 1
+    #else
+        #define ALLOWABLE_CHARS_DIGITS AWDMask_ALLOWABLE_CHARS_DIGITS
+    #endif /* ALLOWABLE_CHARS_DIGITS */
+#endif /* SOMTGD_ALLOWABLE_CHARS_DIGITS */
+#ifndef SOMTGD_CURRENT_CENTURY
+    #ifdef CURRENT_CENTURY
+        #undef CURRENT_CENTURY
+        #define SOMTGD_CURRENT_CENTURY 1
+    #else
+        #define CURRENT_CENTURY AWDMask_CURRENT_CENTURY
+    #endif /* CURRENT_CENTURY */
+#endif /* SOMTGD_CURRENT_CENTURY */
+#ifndef SOMTGD_NEGATIVE_SIGN
+    #ifdef NEGATIVE_SIGN
+        #undef NEGATIVE_SIGN
+        #define SOMTGD_NEGATIVE_SIGN 1
+    #else
+        #define NEGATIVE_SIGN AWDMask_NEGATIVE_SIGN
+    #endif /* NEGATIVE_SIGN */
+#endif /* SOMTGD_NEGATIVE_SIGN */
+#ifndef SOMTGD_MASKCHAR_DIGIT_BLANK
+    #ifdef MASKCHAR_DIGIT_BLANK
+        #undef MASKCHAR_DIGIT_BLANK
+        #define SOMTGD_MASKCHAR_DIGIT_BLANK 1
+    #else
+        #define MASKCHAR_DIGIT_BLANK AWDMask_MASKCHAR_DIGIT_BLANK
+    #endif /* MASKCHAR_DIGIT_BLANK */
+#endif /* SOMTGD_MASKCHAR_DIGIT_BLANK */
+#ifndef SOMTGD_MASKCHAR_ZERO_SUPPRESSION
+    #ifdef MASKCHAR_ZERO_SUPPRESSION
+        #undef MASKCHAR_ZERO_SUPPRESSION
+        #define SOMTGD_MASKCHAR_ZERO_SUPPRESSION 1
+    #else
+        #define MASKCHAR_ZERO_SUPPRESSION AWDMask_MASKCHAR_ZERO_SUPPRESSION
+    #endif /* MASKCHAR_ZERO_SUPPRESSION */
+#endif /* SOMTGD_MASKCHAR_ZERO_SUPPRESSION */
+#ifndef SOMTGD_MASKCHAR_MONTH
+    #ifdef MASKCHAR_MONTH
+        #undef MASKCHAR_MONTH
+        #define SOMTGD_MASKCHAR_MONTH 1
+    #else
+        #define MASKCHAR_MONTH AWDMask_MASKCHAR_MONTH
+    #endif /* MASKCHAR_MONTH */
+#endif /* SOMTGD_MASKCHAR_MONTH */
+#ifndef SOMTGD_MASKCHAR_DAY
+    #ifdef MASKCHAR_DAY
+        #undef MASKCHAR_DAY
+        #define SOMTGD_MASKCHAR_DAY 1
+    #else
+        #define MASKCHAR_DAY AWDMask_MASKCHAR_DAY
+    #endif /* MASKCHAR_DAY */
+#endif /* SOMTGD_MASKCHAR_DAY */
+#ifndef SOMTGD_MASKCHAR_YEAR
+    #ifdef MASKCHAR_YEAR
+        #undef MASKCHAR_YEAR
+        #define SOMTGD_MASKCHAR_YEAR 1
+    #else
+        #define MASKCHAR_YEAR AWDMask_MASKCHAR_YEAR
+    #endif /* MASKCHAR_YEAR */
+#endif /* SOMTGD_MASKCHAR_YEAR */
+#ifndef SOMTGD_MASKCHAR_CENTURY_AS400
+    #ifdef MASKCHAR_CENTURY_AS400
+        #undef MASKCHAR_CENTURY_AS400
+        #define SOMTGD_MASKCHAR_CENTURY_AS400 1
+    #else
+        #define MASKCHAR_CENTURY_AS400 AWDMask_MASKCHAR_CENTURY_AS400
+    #endif /* MASKCHAR_CENTURY_AS400 */
+#endif /* SOMTGD_MASKCHAR_CENTURY_AS400 */
+#ifndef SOMTGD_MASKCHAR_HOURS
+    #ifdef MASKCHAR_HOURS
+        #undef MASKCHAR_HOURS
+        #define SOMTGD_MASKCHAR_HOURS 1
+    #else
+        #define MASKCHAR_HOURS AWDMask_MASKCHAR_HOURS
+    #endif /* MASKCHAR_HOURS */
+#endif /* SOMTGD_MASKCHAR_HOURS */
+#ifndef SOMTGD_MASKCHAR_MINUTES_AS400
+    #ifdef MASKCHAR_MINUTES_AS400
+        #undef MASKCHAR_MINUTES_AS400
+        #define SOMTGD_MASKCHAR_MINUTES_AS400 1
+    #else
+        #define MASKCHAR_MINUTES_AS400 AWDMask_MASKCHAR_MINUTES_AS400
+    #endif /* MASKCHAR_MINUTES_AS400 */
+#endif /* SOMTGD_MASKCHAR_MINUTES_AS400 */
+#ifndef SOMTGD_MASKCHAR_MINUTES
+    #ifdef MASKCHAR_MINUTES
+        #undef MASKCHAR_MINUTES
+        #define SOMTGD_MASKCHAR_MINUTES 1
+    #else
+        #define MASKCHAR_MINUTES AWDMask_MASKCHAR_MINUTES
+    #endif /* MASKCHAR_MINUTES */
+#endif /* SOMTGD_MASKCHAR_MINUTES */
+#ifndef SOMTGD_MASKCHAR_SECONDS
+    #ifdef MASKCHAR_SECONDS
+        #undef MASKCHAR_SECONDS
+        #define SOMTGD_MASKCHAR_SECONDS 1
+    #else
+        #define MASKCHAR_SECONDS AWDMask_MASKCHAR_SECONDS
+    #endif /* MASKCHAR_SECONDS */
+#endif /* SOMTGD_MASKCHAR_SECONDS */
+#ifndef SOMTGD_MASKCHAR_SUBSECONDS
+    #ifdef MASKCHAR_SUBSECONDS
+        #undef MASKCHAR_SUBSECONDS
+        #define SOMTGD_MASKCHAR_SUBSECONDS 1
+    #else
+        #define MASKCHAR_SUBSECONDS AWDMask_MASKCHAR_SUBSECONDS
+    #endif /* MASKCHAR_SUBSECONDS */
+#endif /* SOMTGD_MASKCHAR_SUBSECONDS */
+#ifndef SOMTGD_MASKCHAR_NANOSECONDS_AS400
+    #ifdef MASKCHAR_NANOSECONDS_AS400
+        #undef MASKCHAR_NANOSECONDS_AS400
+        #define SOMTGD_MASKCHAR_NANOSECONDS_AS400 1
+    #else
+        #define MASKCHAR_NANOSECONDS_AS400 AWDMask_MASKCHAR_NANOSECONDS_AS400
+    #endif /* MASKCHAR_NANOSECONDS_AS400 */
+#endif /* SOMTGD_MASKCHAR_NANOSECONDS_AS400 */
+#ifndef SOMTGD_MASKCHAR_DIGIT
+    #ifdef MASKCHAR_DIGIT
+        #undef MASKCHAR_DIGIT
+        #define SOMTGD_MASKCHAR_DIGIT 1
+    #else
+        #define MASKCHAR_DIGIT AWDMask_MASKCHAR_DIGIT
+    #endif /* MASKCHAR_DIGIT */
+#endif /* SOMTGD_MASKCHAR_DIGIT */
+#ifndef SOMTGD_MASKCHAR_ALPHA_UPPER
+    #ifdef MASKCHAR_ALPHA_UPPER
+        #undef MASKCHAR_ALPHA_UPPER
+        #define SOMTGD_MASKCHAR_ALPHA_UPPER 1
+    #else
+        #define MASKCHAR_ALPHA_UPPER AWDMask_MASKCHAR_ALPHA_UPPER
+    #endif /* MASKCHAR_ALPHA_UPPER */
+#endif /* SOMTGD_MASKCHAR_ALPHA_UPPER */
+#ifndef SOMTGD_MASKCHAR_ALPHA
+    #ifdef MASKCHAR_ALPHA
+        #undef MASKCHAR_ALPHA
+        #define SOMTGD_MASKCHAR_ALPHA 1
+    #else
+        #define MASKCHAR_ALPHA AWDMask_MASKCHAR_ALPHA
+    #endif /* MASKCHAR_ALPHA */
+#endif /* SOMTGD_MASKCHAR_ALPHA */
+#ifndef SOMTGD_MASKCHAR_ALPHA_LOWER
+    #ifdef MASKCHAR_ALPHA_LOWER
+        #undef MASKCHAR_ALPHA_LOWER
+        #define SOMTGD_MASKCHAR_ALPHA_LOWER 1
+    #else
+        #define MASKCHAR_ALPHA_LOWER AWDMask_MASKCHAR_ALPHA_LOWER
+    #endif /* MASKCHAR_ALPHA_LOWER */
+#endif /* SOMTGD_MASKCHAR_ALPHA_LOWER */
+#ifndef SOMTGD_MASKCHAR_ANYCHAR
+    #ifdef MASKCHAR_ANYCHAR
+        #undef MASKCHAR_ANYCHAR
+        #define SOMTGD_MASKCHAR_ANYCHAR 1
+    #else
+        #define MASKCHAR_ANYCHAR AWDMask_MASKCHAR_ANYCHAR
+    #endif /* MASKCHAR_ANYCHAR */
+#endif /* SOMTGD_MASKCHAR_ANYCHAR */
+#ifndef SOMTGD_MASKCHAR_ANYCHAR_UPPER
+    #ifdef MASKCHAR_ANYCHAR_UPPER
+        #undef MASKCHAR_ANYCHAR_UPPER
+        #define SOMTGD_MASKCHAR_ANYCHAR_UPPER 1
+    #else
+        #define MASKCHAR_ANYCHAR_UPPER AWDMask_MASKCHAR_ANYCHAR_UPPER
+    #endif /* MASKCHAR_ANYCHAR_UPPER */
+#endif /* SOMTGD_MASKCHAR_ANYCHAR_UPPER */
+#ifndef SOMTGD_MASKCHAR_ANYCHAR_LOWER
+    #ifdef MASKCHAR_ANYCHAR_LOWER
+        #undef MASKCHAR_ANYCHAR_LOWER
+        #define SOMTGD_MASKCHAR_ANYCHAR_LOWER 1
+    #else
+        #define MASKCHAR_ANYCHAR_LOWER AWDMask_MASKCHAR_ANYCHAR_LOWER
+    #endif /* MASKCHAR_ANYCHAR_LOWER */
+#endif /* SOMTGD_MASKCHAR_ANYCHAR_LOWER */
+#ifndef SOMTGD_DIRECTION
+    #ifdef DIRECTION
+        #undef DIRECTION
+        #define SOMTGD_DIRECTION 1
+    #else
+        #define DIRECTION AWDMask_DIRECTION
+    #endif /* DIRECTION */
+#endif /* SOMTGD_DIRECTION */
+#ifndef SOMTGD_CHARCOMBO
+    #ifdef CHARCOMBO
+        #undef CHARCOMBO
+        #define SOMTGD_CHARCOMBO 1
+    #else
+        #define CHARCOMBO AWDMask_CHARCOMBO
+    #endif /* CHARCOMBO */
+#endif /* SOMTGD_CHARCOMBO */
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_PCHARCOMBO
+    #ifdef PCHARCOMBO
+        #undef PCHARCOMBO
+        #define SOMTGD_PCHARCOMBO 1
+    #else
+        #define PCHARCOMBO AWDMask_PCHARCOMBO
+    #endif /* PCHARCOMBO */
+#endif /* SOMTGD_PCHARCOMBO */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the AWDMask Class */
+SOMEXTERN
+#if (defined(SOM_Module_awdmask_Source) || defined(AWDMask_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDMask))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK AWDMaskNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the AWDMask class object, and the methods it introduces. */
+SOMEXTERN struct AWDMaskClassDataStructure {
+	SOMClass *classObject;
+	somMToken addCurrencySymbol;
+	somMToken adjustCase;
+	somMToken adjustNCase;
+	somMToken asStringWithMask;
+	somMToken asStringWithoutMask;
+	somMToken blankMask;
+	somMToken decimals;
+	somMToken fetchDecimalandThousandSymbols;
+	somMToken fillCharacter;
+	somMToken fillCurrencyInfo;
+	somMToken fillEditMask;
+	somMToken format;
+	somMToken formatDateToMask;
+	somMToken formatMaskToDate;
+	somMToken formatMaskToStamp;
+	somMToken formatMaskToTime;
+	somMToken formatStampToMask;
+	somMToken formatTimeToMask;
+	somMToken initMaskObject;
+	somMToken isNLiteral;
+	somMToken length;
+	somMToken makeMask;
+	somMToken mask;
+	somMToken maskCharacter;
+	somMToken maskLength;
+	somMToken numberofLiterals;
+	somMToken padString;
+	somMToken setCurrency;
+	somMToken setDecimals;
+	somMToken setFlagApplyDisplayMask;
+	somMToken setFormat;
+	somMToken setLength;
+	somMToken setMask;
+	somMToken setNumeric;
+	somMToken trimString;
+	somMToken validCharacter;
+	somMToken validNCharacter;
+	somMToken verify;
+	somMToken verifyDate;
+	somMToken verifyStamp;
+	somMToken verifyTime;
+	somMToken withFormat;
+	somMToken withFormatandMask;
+	somMToken withLength;
+	somMToken withLengthandDecimals;
+	somMToken withMask;
+	somMToken withMaskObject;
+	somMToken currencySymbol;
+	somMToken decimalSymbol;
+	somMToken thousandsSeparator;
+	somMToken isDecimalSymbol;
+	somMToken isThousandsSymbol;
+	somMToken formatAsObjectId;
+	somMToken setFormatAsObjectId;
+}
+#if !(defined(SOM_Module_awdmask_Source) || defined(AWDMask_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDMask))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDMaskClassData;
+#define _AWDMask AWDMaskClassData.classObject
+
+/* The API to parentMtabs for AWDMask, and the instance data it introduces. */
+SOMEXTERN struct AWDMaskCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_awdmask_Source) || defined(AWDMask_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDMask))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDMaskCClassData;
+
+/*
+ * -- Typedefs for AWDMask Method Procedures
+ */
+extern "C" {
+typedef void   SOMLINK somTP_AWDMask_addCurrencySymbol(AWDMask *somSelf, Environment *ev,
+		string currencyString);
+typedef somTP_AWDMask_addCurrencySymbol *somTD_AWDMask_addCurrencySymbol;
+typedef char   SOMLINK somTP_AWDMask_adjustCase(AWDMask *somSelf, Environment *ev,
+		char cMaskChar,
+		char cInputChar);
+typedef somTP_AWDMask_adjustCase *somTD_AWDMask_adjustCase;
+typedef char   SOMLINK somTP_AWDMask_adjustNCase(AWDMask *somSelf, Environment *ev,
+		unsigned short usNthMaskChar,
+		char cInputChar);
+typedef somTP_AWDMask_adjustNCase *somTD_AWDMask_adjustNCase;
+typedef string   SOMLINK somTP_AWDMask_asStringWithMask(AWDMask *somSelf, Environment *ev,
+		string unmaskedString);
+typedef somTP_AWDMask_asStringWithMask *somTD_AWDMask_asStringWithMask;
+typedef string   SOMLINK somTP_AWDMask_asStringWithoutMask(AWDMask *somSelf, Environment *ev,
+		string maskedString);
+typedef somTP_AWDMask_asStringWithoutMask *somTD_AWDMask_asStringWithoutMask;
+typedef string   SOMLINK somTP_AWDMask_blankMask(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_blankMask *somTD_AWDMask_blankMask;
+typedef unsigned short   SOMLINK somTP_AWDMask_decimals(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_decimals *somTD_AWDMask_decimals;
+typedef void   SOMLINK somTP_AWDMask_fetchDecimalandThousandSymbols(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_fetchDecimalandThousandSymbols *somTD_AWDMask_fetchDecimalandThousandSymbols;
+typedef char   SOMLINK somTP_AWDMask_fillCharacter(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_fillCharacter *somTD_AWDMask_fillCharacter;
+typedef void   SOMLINK somTP_AWDMask_fillCurrencyInfo(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_fillCurrencyInfo *somTD_AWDMask_fillCurrencyInfo;
+typedef void   SOMLINK somTP_AWDMask_fillEditMask(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_fillEditMask *somTD_AWDMask_fillEditMask;
+typedef ACBL0049_FIELD_FORMAT   SOMLINK somTP_AWDMask_format(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_format *somTD_AWDMask_format;
+typedef string   SOMLINK somTP_AWDMask_formatAsObjectId(AWDMask *somSelf, Environment *ev,
+		string objIdString,
+		boolean bApplyMask);
+typedef somTP_AWDMask_formatAsObjectId *somTD_AWDMask_formatAsObjectId;
+typedef string   SOMLINK somTP_AWDMask_formatDateToMask(AWDMask *somSelf, Environment *ev,
+		string dateString);
+typedef somTP_AWDMask_formatDateToMask *somTD_AWDMask_formatDateToMask;
+typedef string   SOMLINK somTP_AWDMask_formatMaskToDate(AWDMask *somSelf, Environment *ev,
+		string dateString);
+typedef somTP_AWDMask_formatMaskToDate *somTD_AWDMask_formatMaskToDate;
+typedef string   SOMLINK somTP_AWDMask_formatMaskToStamp(AWDMask *somSelf, Environment *ev,
+		string stampString);
+typedef somTP_AWDMask_formatMaskToStamp *somTD_AWDMask_formatMaskToStamp;
+typedef string   SOMLINK somTP_AWDMask_formatMaskToTime(AWDMask *somSelf, Environment *ev,
+		string timeString);
+typedef somTP_AWDMask_formatMaskToTime *somTD_AWDMask_formatMaskToTime;
+typedef string   SOMLINK somTP_AWDMask_formatStampToMask(AWDMask *somSelf, Environment *ev,
+		string stampString);
+typedef somTP_AWDMask_formatStampToMask *somTD_AWDMask_formatStampToMask;
+typedef string   SOMLINK somTP_AWDMask_formatTimeToMask(AWDMask *somSelf, Environment *ev,
+		string timeString);
+typedef somTP_AWDMask_formatTimeToMask *somTD_AWDMask_formatTimeToMask;
+typedef void   SOMLINK somTP_AWDMask_initMaskObject(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_initMaskObject *somTD_AWDMask_initMaskObject;
+typedef boolean   SOMLINK somTP_AWDMask_isNLiteral(AWDMask *somSelf, Environment *ev,
+		unsigned short usNthMaskChar);
+typedef somTP_AWDMask_isNLiteral *somTD_AWDMask_isNLiteral;
+typedef unsigned short   SOMLINK somTP_AWDMask_length(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_length *somTD_AWDMask_length;
+typedef boolean   SOMLINK somTP_AWDMask_makeMask(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_makeMask *somTD_AWDMask_makeMask;
+typedef string   SOMLINK somTP_AWDMask_mask(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_mask *somTD_AWDMask_mask;
+typedef char   SOMLINK somTP_AWDMask_maskCharacter(AWDMask *somSelf, Environment *ev,
+		unsigned short usNthMaskChar);
+typedef somTP_AWDMask_maskCharacter *somTD_AWDMask_maskCharacter;
+typedef unsigned short   SOMLINK somTP_AWDMask_maskLength(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_maskLength *somTD_AWDMask_maskLength;
+typedef unsigned short   SOMLINK somTP_AWDMask_numberofLiterals(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_numberofLiterals *somTD_AWDMask_numberofLiterals;
+typedef boolean   SOMLINK somTP_AWDMask_padString(AWDMask *somSelf, Environment *ev,
+		string padString,
+		AWDMask_DIRECTION direction,
+		unsigned short usSize);
+typedef somTP_AWDMask_padString *somTD_AWDMask_padString;
+typedef void   SOMLINK somTP_AWDMask_setCurrency(AWDMask *somSelf, Environment *ev,
+		unsigned short length,
+		unsigned short decimals);
+typedef somTP_AWDMask_setCurrency *somTD_AWDMask_setCurrency;
+typedef void   SOMLINK somTP_AWDMask_setDecimals(AWDMask *somSelf, Environment *ev,
+		unsigned short decimals);
+typedef somTP_AWDMask_setDecimals *somTD_AWDMask_setDecimals;
+typedef void   SOMLINK somTP_AWDMask_setFlagApplyDisplayMask(AWDMask *somSelf, Environment *ev,
+		boolean bApplyDisplayMask);
+typedef somTP_AWDMask_setFlagApplyDisplayMask *somTD_AWDMask_setFlagApplyDisplayMask;
+typedef void   SOMLINK somTP_AWDMask_setFormat(AWDMask *somSelf, Environment *ev,
+		ACBL0049_FIELD_FORMAT format);
+typedef somTP_AWDMask_setFormat *somTD_AWDMask_setFormat;
+typedef void   SOMLINK somTP_AWDMask_setFormatAsObjectId(AWDMask *somSelf, Environment *ev,
+		boolean bUseObjectIdFormat);
+typedef somTP_AWDMask_setFormatAsObjectId *somTD_AWDMask_setFormatAsObjectId;
+typedef void   SOMLINK somTP_AWDMask_setLength(AWDMask *somSelf, Environment *ev,
+		unsigned short length);
+typedef somTP_AWDMask_setLength *somTD_AWDMask_setLength;
+typedef boolean   SOMLINK somTP_AWDMask_setMask(AWDMask *somSelf, Environment *ev,
+		string newMask);
+typedef somTP_AWDMask_setMask *somTD_AWDMask_setMask;
+typedef void   SOMLINK somTP_AWDMask_setNumeric(AWDMask *somSelf, Environment *ev,
+		unsigned short length,
+		unsigned short decimals);
+typedef somTP_AWDMask_setNumeric *somTD_AWDMask_setNumeric;
+typedef boolean   SOMLINK somTP_AWDMask_trimString(AWDMask *somSelf, Environment *ev,
+		string trimString,
+		AWDMask_DIRECTION direction);
+typedef somTP_AWDMask_trimString *somTD_AWDMask_trimString;
+typedef boolean   SOMLINK somTP_AWDMask_validCharacter(AWDMask *somSelf, Environment *ev,
+		char cMaskChar,
+		char cInputChar);
+typedef somTP_AWDMask_validCharacter *somTD_AWDMask_validCharacter;
+typedef boolean   SOMLINK somTP_AWDMask_validNCharacter(AWDMask *somSelf, Environment *ev,
+		unsigned short usNthMaskChar,
+		char cInputChar);
+typedef somTP_AWDMask_validNCharacter *somTD_AWDMask_validNCharacter;
+typedef boolean   SOMLINK somTP_AWDMask_verify(AWDMask *somSelf, Environment *ev,
+		string newString);
+typedef somTP_AWDMask_verify *somTD_AWDMask_verify;
+typedef boolean   SOMLINK somTP_AWDMask_verifyDate(AWDMask *somSelf, Environment *ev,
+		string newDate);
+typedef somTP_AWDMask_verifyDate *somTD_AWDMask_verifyDate;
+typedef boolean   SOMLINK somTP_AWDMask_verifyStamp(AWDMask *somSelf, Environment *ev,
+		string newStamp);
+typedef somTP_AWDMask_verifyStamp *somTD_AWDMask_verifyStamp;
+typedef boolean   SOMLINK somTP_AWDMask_verifyTime(AWDMask *somSelf, Environment *ev,
+		string newTime);
+typedef somTP_AWDMask_verifyTime *somTD_AWDMask_verifyTime;
+typedef void   SOMLINK somTP_AWDMask_withFormat(AWDMask *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		ACBL0049_FIELD_FORMAT format);
+typedef somTP_AWDMask_withFormat *somTD_AWDMask_withFormat;
+typedef void   SOMLINK somTP_AWDMask_withFormatandMask(AWDMask *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		ACBL0049_FIELD_FORMAT format,
+		string mask);
+typedef somTP_AWDMask_withFormatandMask *somTD_AWDMask_withFormatandMask;
+typedef void   SOMLINK somTP_AWDMask_withLength(AWDMask *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		unsigned short length);
+typedef somTP_AWDMask_withLength *somTD_AWDMask_withLength;
+typedef void   SOMLINK somTP_AWDMask_withLengthandDecimals(AWDMask *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		unsigned short length,
+		unsigned short decimals);
+typedef somTP_AWDMask_withLengthandDecimals *somTD_AWDMask_withLengthandDecimals;
+typedef void   SOMLINK somTP_AWDMask_withMask(AWDMask *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string mask);
+typedef somTP_AWDMask_withMask *somTD_AWDMask_withMask;
+typedef void   SOMLINK somTP_AWDMask_withMaskObject(AWDMask *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDMask* pMask);
+typedef somTP_AWDMask_withMaskObject *somTD_AWDMask_withMaskObject;
+typedef char*   SOMLINK somTP_AWDMask_currencySymbol(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_currencySymbol *somTD_AWDMask_currencySymbol;
+typedef char   SOMLINK somTP_AWDMask_decimalSymbol(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_decimalSymbol *somTD_AWDMask_decimalSymbol;
+typedef char   SOMLINK somTP_AWDMask_thousandsSeparator(AWDMask *somSelf, Environment *ev);
+typedef somTP_AWDMask_thousandsSeparator *somTD_AWDMask_thousandsSeparator;
+typedef boolean   SOMLINK somTP_AWDMask_isDecimalSymbol(AWDMask *somSelf, Environment *ev,
+		char cDecimalSymbol);
+typedef somTP_AWDMask_isDecimalSymbol *somTD_AWDMask_isDecimalSymbol;
+typedef boolean   SOMLINK somTP_AWDMask_isThousandsSymbol(AWDMask *somSelf, Environment *ev,
+		char cThousandsSymbol);
+typedef somTP_AWDMask_isThousandsSymbol *somTD_AWDMask_isThousandsSymbol;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef void   SOMLINK somTP_AWDMask_somDefaultInit(AWDMask *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_AWDMask_somDefaultInit *somTD_AWDMask_somDefaultInit;
+typedef void   SOMLINK somTP_AWDMask_somDestruct(AWDMask *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_AWDMask_somDestruct *somTD_AWDMask_somDestruct;
+typedef void   SOMLINK somTP_AWDMask_somDefaultCopyInit(AWDMask *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDMask_somDefaultCopyInit *somTD_AWDMask_somDefaultCopyInit;
+typedef AWDMask*   SOMLINK somTP_AWDMask_somDefaultAssign(AWDMask *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDMask_somDefaultAssign *somTD_AWDMask_somDefaultAssign;
+typedef void   SOMLINK somTP_AWDMask_somDefaultConstCopyInit(AWDMask *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDMask_somDefaultConstCopyInit *somTD_AWDMask_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_AWDMask_somDefaultVCopyInit(AWDMask *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDMask_somDefaultVCopyInit *somTD_AWDMask_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_AWDMask_somDefaultConstVCopyInit(AWDMask *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDMask_somDefaultConstVCopyInit *somTD_AWDMask_somDefaultConstVCopyInit;
+typedef AWDMask*   SOMLINK somTP_AWDMask_somDefaultConstAssign(AWDMask *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDMask_somDefaultConstAssign *somTD_AWDMask_somDefaultConstAssign;
+typedef AWDMask*   SOMLINK somTP_AWDMask_somDefaultVAssign(AWDMask *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDMask_somDefaultVAssign *somTD_AWDMask_somDefaultVAssign;
+typedef AWDMask*   SOMLINK somTP_AWDMask_somDefaultConstVAssign(AWDMask *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDMask_somDefaultConstVAssign *somTD_AWDMask_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_AWDMask_somInit(AWDMask *somSelf);
+typedef somTP_AWDMask_somInit *somTD_AWDMask_somInit;
+typedef void   SOMLINK somTP_AWDMask_somFree(AWDMask *somSelf);
+typedef somTP_AWDMask_somFree *somTD_AWDMask_somFree;
+typedef void   SOMLINK somTP_AWDMask_somUninit(AWDMask *somSelf);
+typedef somTP_AWDMask_somUninit *somTD_AWDMask_somUninit;
+typedef SOMClass*   SOMLINK somTP_AWDMask_somGetClass(AWDMask *somSelf);
+typedef somTP_AWDMask_somGetClass *somTD_AWDMask_somGetClass;
+typedef string   SOMLINK somTP_AWDMask_somGetClassName(AWDMask *somSelf);
+typedef somTP_AWDMask_somGetClassName *somTD_AWDMask_somGetClassName;
+typedef long   SOMLINK somTP_AWDMask_somGetSize(AWDMask *somSelf);
+typedef somTP_AWDMask_somGetSize *somTD_AWDMask_somGetSize;
+typedef boolean   SOMLINK somTP_AWDMask_somIsA(AWDMask *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDMask_somIsA *somTD_AWDMask_somIsA;
+typedef boolean   SOMLINK somTP_AWDMask_somIsInstanceOf(AWDMask *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDMask_somIsInstanceOf *somTD_AWDMask_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_AWDMask_somRespondsTo(AWDMask *somSelf,
+		somId mId);
+typedef somTP_AWDMask_somRespondsTo *somTD_AWDMask_somRespondsTo;
+typedef boolean   SOMLINK somTP_AWDMask_somDispatch(AWDMask *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDMask_somDispatch *somTD_AWDMask_somDispatch;
+typedef boolean   SOMLINK somTP_AWDMask_somClassDispatch(AWDMask *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDMask_somClassDispatch *somTD_AWDMask_somClassDispatch;
+typedef boolean   SOMLINK somTP_AWDMask_somCastObj(AWDMask *somSelf,
+		SOMClass* cls);
+typedef somTP_AWDMask_somCastObj *somTD_AWDMask_somCastObj;
+typedef boolean   SOMLINK somTP_AWDMask_somResetObj(AWDMask *somSelf);
+typedef somTP_AWDMask_somResetObj *somTD_AWDMask_somResetObj;
+typedef SOMObject*   SOMLINK somTP_AWDMask_somPrintSelf(AWDMask *somSelf);
+typedef somTP_AWDMask_somPrintSelf *somTD_AWDMask_somPrintSelf;
+typedef void   SOMLINK somTP_AWDMask_somDumpSelf(AWDMask *somSelf,
+		long level);
+typedef somTP_AWDMask_somDumpSelf *somTD_AWDMask_somDumpSelf;
+typedef void   SOMLINK somTP_AWDMask_somDumpSelfInt(AWDMask *somSelf,
+		long level);
+typedef somTP_AWDMask_somDumpSelfInt *somTD_AWDMask_somDumpSelfInt;
+}
+
+#endif /* AWDMask_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for AWDMask
+ */
+class AWDMask : public SOMObject
+{
+public:
+
+// AWDMask::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_AWDMask) AWDMaskNewClass(AWDMask_MajorVersion,AWDMask_MinorVersion);
+   return (void*)
+      SOM_Resolve(_AWDMask,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_AWDMask));
+}
+
+// AWDMask::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+AWDMask()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDMaskCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+AWDMask(AWDMask* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDMaskCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDMask(const AWDMask* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDMaskCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDMask(Environment *ev,ACBL0049_FIELD_FORMAT format) 
+{
+   withFormat(ev,0,format);
+}
+
+AWDMask(Environment *ev,ACBL0049_FIELD_FORMAT format,string mask) 
+{
+   withFormatandMask(ev,0,format,mask);
+}
+
+AWDMask(Environment *ev,unsigned short length) 
+{
+   withLength(ev,0,length);
+}
+
+AWDMask(Environment *ev,unsigned short length,unsigned short decimals) 
+{
+   withLengthandDecimals(ev,0,length,decimals);
+}
+
+AWDMask(Environment *ev,string mask) 
+{
+   withMask(ev,0,mask);
+}
+
+AWDMask(Environment *ev,AWDMask* pMask) 
+{
+   withMaskObject(ev,0,pMask);
+}
+
+
+/* method: addCurrencySymbol */
+void   addCurrencySymbol(Environment *ev,
+		string currencyString)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,addCurrencySymbol)
+	(this, ev,currencyString);
+}
+
+
+/* method: adjustCase */
+char   adjustCase(Environment *ev,
+		char cMaskChar,
+		char cInputChar)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,adjustCase)
+	(this, ev,cMaskChar,cInputChar);
+}
+
+
+/* method: adjustNCase */
+char   adjustNCase(Environment *ev,
+		unsigned short usNthMaskChar,
+		char cInputChar)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,adjustNCase)
+	(this, ev,usNthMaskChar,cInputChar);
+}
+
+
+/* method: asStringWithMask */
+string   asStringWithMask(Environment *ev,
+		string unmaskedString)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,asStringWithMask)
+	(this, ev,unmaskedString);
+}
+
+
+/* method: asStringWithoutMask */
+string   asStringWithoutMask(Environment *ev,
+		string maskedString)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,asStringWithoutMask)
+	(this, ev,maskedString);
+}
+
+
+/* method: blankMask */
+string   blankMask(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,blankMask)
+	(this, ev);
+}
+
+
+/* method: decimals */
+unsigned short   decimals(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,decimals)
+	(this, ev);
+}
+
+
+/* method: fetchDecimalandThousandSymbols */
+void   fetchDecimalandThousandSymbols(Environment *ev)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,fetchDecimalandThousandSymbols)
+	(this, ev);
+}
+
+
+/* method: fillCharacter */
+char   fillCharacter(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,fillCharacter)
+	(this, ev);
+}
+
+
+/* method: fillCurrencyInfo */
+void   fillCurrencyInfo(Environment *ev)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,fillCurrencyInfo)
+	(this, ev);
+}
+
+
+/* method: fillEditMask */
+void   fillEditMask(Environment *ev)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,fillEditMask)
+	(this, ev);
+}
+
+
+/* method: format */
+ACBL0049_FIELD_FORMAT   format(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,format)
+	(this, ev);
+}
+
+
+/* method: formatAsObjectId */
+string   formatAsObjectId(Environment *ev,
+		string objIdString,
+		boolean bApplyMask)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,formatAsObjectId)
+	(this, ev,objIdString,bApplyMask);
+}
+
+
+/* method: formatDateToMask */
+string   formatDateToMask(Environment *ev,
+		string dateString)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,formatDateToMask)
+	(this, ev,dateString);
+}
+
+
+/* method: formatMaskToDate */
+string   formatMaskToDate(Environment *ev,
+		string dateString)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,formatMaskToDate)
+	(this, ev,dateString);
+}
+
+
+/* method: formatMaskToStamp */
+string   formatMaskToStamp(Environment *ev,
+		string stampString)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,formatMaskToStamp)
+	(this, ev,stampString);
+}
+
+
+/* method: formatMaskToTime */
+string   formatMaskToTime(Environment *ev,
+		string timeString)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,formatMaskToTime)
+	(this, ev,timeString);
+}
+
+
+/* method: formatStampToMask */
+string   formatStampToMask(Environment *ev,
+		string stampString)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,formatStampToMask)
+	(this, ev,stampString);
+}
+
+
+/* method: formatTimeToMask */
+string   formatTimeToMask(Environment *ev,
+		string timeString)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,formatTimeToMask)
+	(this, ev,timeString);
+}
+
+
+/* method: initMaskObject */
+void   initMaskObject(Environment *ev)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,initMaskObject)
+	(this, ev);
+}
+
+
+/* method: isNLiteral */
+boolean   isNLiteral(Environment *ev,
+		unsigned short usNthMaskChar)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,isNLiteral)
+	(this, ev,usNthMaskChar);
+}
+
+
+/* method: length */
+unsigned short   length(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,length)
+	(this, ev);
+}
+
+
+/* method: makeMask */
+boolean   makeMask(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,makeMask)
+	(this, ev);
+}
+
+
+/* method: mask */
+string   mask(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,mask)
+	(this, ev);
+}
+
+
+/* method: maskCharacter */
+char   maskCharacter(Environment *ev,
+		unsigned short usNthMaskChar)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,maskCharacter)
+	(this, ev,usNthMaskChar);
+}
+
+
+/* method: maskLength */
+unsigned short   maskLength(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,maskLength)
+	(this, ev);
+}
+
+
+/* method: numberofLiterals */
+unsigned short   numberofLiterals(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,numberofLiterals)
+	(this, ev);
+}
+
+
+/* method: padString */
+boolean   padString(Environment *ev,
+		string padString,
+		AWDMask_DIRECTION direction,
+		unsigned short usSize)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,padString)
+	(this, ev,padString,direction,usSize);
+}
+
+
+/* method: setCurrency */
+void   setCurrency(Environment *ev,
+		unsigned short length,
+		unsigned short decimals)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,setCurrency)
+	(this, ev,length,decimals);
+}
+
+
+/* method: setDecimals */
+void   setDecimals(Environment *ev,
+		unsigned short decimals)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,setDecimals)
+	(this, ev,decimals);
+}
+
+
+/* method: setFlagApplyDisplayMask */
+void   setFlagApplyDisplayMask(Environment *ev,
+		boolean bApplyDisplayMask)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,setFlagApplyDisplayMask)
+	(this, ev,bApplyDisplayMask);
+}
+
+
+/* method: setFormat */
+void   setFormat(Environment *ev,
+		ACBL0049_FIELD_FORMAT format)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,setFormat)
+	(this, ev,format);
+}
+
+
+/* method: setFormatAsObjectId */
+void   setFormatAsObjectId(Environment *ev,
+		boolean bUseObjectIdFormat)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,setFormatAsObjectId)
+	(this, ev,bUseObjectIdFormat);
+}
+
+
+/* method: setLength */
+void   setLength(Environment *ev,
+		unsigned short length)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,setLength)
+	(this, ev,length);
+}
+
+
+/* method: setMask */
+boolean   setMask(Environment *ev,
+		string newMask)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,setMask)
+	(this, ev,newMask);
+}
+
+
+/* method: setNumeric */
+void   setNumeric(Environment *ev,
+		unsigned short length,
+		unsigned short decimals)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,setNumeric)
+	(this, ev,length,decimals);
+}
+
+
+/* method: trimString */
+boolean   trimString(Environment *ev,
+		string trimString,
+		AWDMask_DIRECTION direction)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,trimString)
+	(this, ev,trimString,direction);
+}
+
+
+/* method: validCharacter */
+boolean   validCharacter(Environment *ev,
+		char cMaskChar,
+		char cInputChar)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,validCharacter)
+	(this, ev,cMaskChar,cInputChar);
+}
+
+
+/* method: validNCharacter */
+boolean   validNCharacter(Environment *ev,
+		unsigned short usNthMaskChar,
+		char cInputChar)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,validNCharacter)
+	(this, ev,usNthMaskChar,cInputChar);
+}
+
+
+/* method: verify */
+boolean   verify(Environment *ev,
+		string newString)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,verify)
+	(this, ev,newString);
+}
+
+
+/* method: verifyDate */
+boolean   verifyDate(Environment *ev,
+		string newDate)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,verifyDate)
+	(this, ev,newDate);
+}
+
+
+/* method: verifyStamp */
+boolean   verifyStamp(Environment *ev,
+		string newStamp)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,verifyStamp)
+	(this, ev,newStamp);
+}
+
+
+/* method: verifyTime */
+boolean   verifyTime(Environment *ev,
+		string newTime)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,verifyTime)
+	(this, ev,newTime);
+}
+
+
+/* initializer method: withFormat */
+void   withFormat(Environment *ev,
+		somInitCtrl* ctrl,
+		ACBL0049_FIELD_FORMAT format)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,withFormat)
+	(this, ev,ctrl,format);
+}
+
+
+/* initializer method: withFormatandMask */
+void   withFormatandMask(Environment *ev,
+		somInitCtrl* ctrl,
+		ACBL0049_FIELD_FORMAT format,
+		string mask)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,withFormatandMask)
+	(this, ev,ctrl,format,mask);
+}
+
+
+/* initializer method: withLength */
+void   withLength(Environment *ev,
+		somInitCtrl* ctrl,
+		unsigned short length)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,withLength)
+	(this, ev,ctrl,length);
+}
+
+
+/* initializer method: withLengthandDecimals */
+void   withLengthandDecimals(Environment *ev,
+		somInitCtrl* ctrl,
+		unsigned short length,
+		unsigned short decimals)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,withLengthandDecimals)
+	(this, ev,ctrl,length,decimals);
+}
+
+
+/* initializer method: withMask */
+void   withMask(Environment *ev,
+		somInitCtrl* ctrl,
+		string mask)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,withMask)
+	(this, ev,ctrl,mask);
+}
+
+
+/* initializer method: withMaskObject */
+void   withMaskObject(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDMask* pMask)
+{
+   SOM_ResolveD(this,AWDMask,AWDMask,withMaskObject)
+	(this, ev,ctrl,pMask);
+}
+
+
+/* method: currencySymbol */
+char*   currencySymbol(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,currencySymbol)
+	(this, ev);
+}
+
+
+/* method: decimalSymbol */
+char   decimalSymbol(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,decimalSymbol)
+	(this, ev);
+}
+
+
+/* method: thousandsSeparator */
+char   thousandsSeparator(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,thousandsSeparator)
+	(this, ev);
+}
+
+
+/* method: isDecimalSymbol */
+boolean   isDecimalSymbol(Environment *ev,
+		char cDecimalSymbol)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,isDecimalSymbol)
+	(this, ev,cDecimalSymbol);
+}
+
+
+/* method: isThousandsSymbol */
+boolean   isThousandsSymbol(Environment *ev,
+		char cThousandsSymbol)
+{
+   return SOM_ResolveD(this,AWDMask,AWDMask,isThousandsSymbol)
+	(this, ev,cThousandsSymbol);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDMask,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDMask,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDMask,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+AWDMask*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDMask,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDMask,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDMask,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDMask,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+AWDMask*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDMask,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+AWDMask*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDMask,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+AWDMask*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDMask,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,AWDMask,SOMObject,somInit)
+	(this);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,AWDMask,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,AWDMask,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,AWDMask,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,AWDMask,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,AWDMask,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDMask,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDMask,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,AWDMask,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   AWDMask_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDMask,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDMask,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   AWDMask_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDMask,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDMask,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,AWDMask,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,AWDMask,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,AWDMask,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,AWDMask,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,AWDMask,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* AWDMask */
+
+
+
+#endif       /* SOM_AWDMask_xh */

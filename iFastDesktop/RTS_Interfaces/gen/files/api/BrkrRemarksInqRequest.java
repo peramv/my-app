@@ -1,0 +1,195 @@
+// **** GENERATED FILE, PLEASE DO NOT MODIFY ******
+package com.ifds.iFast.api;
+
+import java.util.Date;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import com.ifds.rts.*;
+
+/**
+ * Broker Remarks Inquiry request.
+ * For additional view information see <A HREF="../../../../viewspecs/BrkrRemarksInq.doc">BrkrRemarksInq.doc</A>.
+ * 
+ * @author RTS Generated
+ */
+public class BrkrRemarksInqRequest extends IFastRequest implements Serializable
+{
+
+   /**
+    * Session Id member variable.
+    */
+   private String _SessionID = "";
+            
+   /**
+    * User Id member variable.
+    */
+   private String _User_Id = "";
+            
+   /**
+    * Language Code member variable.
+    */
+   private String _LanguageCode = "";
+            
+   /**
+    * Company Id member variable.
+    */
+   private String _CompanyId = "";
+            
+            
+            
+            
+            
+   /**
+    * Agency Code member variable.
+    */
+   private String _AgencyCode = "";
+            
+   /**
+    * Branch Code member variable.
+    */
+   private String _BranchCode = "";
+            
+   /**
+    * Agent Code member variable.
+    */
+   private String _AgentCode = "";
+            
+   /**
+    * As Of Date member variable.
+    */
+   private Date _AsOfDate = null;
+            
+
+   /**
+    * Constructs the BrkrRemarksInqRequest object.
+    * 
+    */
+   BrkrRemarksInqRequest()
+   {
+      super ( 315 );
+   }
+
+   /**
+    * Constructs the BrkrRemarksInqRequest object with the given host encoding.
+    * 
+    * @param hostEncoding
+    *               character encoding for sending/receiving host data
+    */
+   BrkrRemarksInqRequest( String hostEncoding )
+   {
+      super ( 315, hostEncoding );
+   }
+
+   /**
+    * Sets the Session Id field for the request.
+    * 
+    * @param value  Value that the Session Id will be set to.
+    */
+   public final void setSessionID( String value )
+   {
+      assertUnsent();
+      _SessionID = value;
+   }
+	
+   /**
+    * Sets the User Id field for the request.
+    * 
+    * @param value  Value that the User Id will be set to.
+    */
+   public final void setUser_Id( String value )
+   {
+      assertUnsent();
+      _User_Id = value;
+   }
+	
+   /**
+    * Sets the Language Code field for the request.
+    * 
+    * @param value  Value that the Language Code will be set to.
+    */
+   public final void setLanguageCode( String value )
+   {
+      assertUnsent();
+      _LanguageCode = value;
+   }
+	
+   /**
+    * Sets the Company Id field for the request.
+    * 
+    * @param value  Value that the Company Id will be set to.
+    */
+   public final void setCompanyId( String value )
+   {
+      assertUnsent();
+      _CompanyId = value;
+   }
+	
+   /**
+    * Sets the Agency Code field for the request.
+    * 
+    * @param value  Value that the Agency Code will be set to.
+    */
+   public final void setAgencyCode( String value )
+   {
+      assertUnsent();
+      _AgencyCode = value;
+   }
+	
+   /**
+    * Sets the Branch Code field for the request.
+    * 
+    * @param value  Value that the Branch Code will be set to.
+    */
+   public final void setBranchCode( String value )
+   {
+      assertUnsent();
+      _BranchCode = value;
+   }
+	
+   /**
+    * Sets the Agent Code field for the request.
+    * 
+    * @param value  Value that the Agent Code will be set to.
+    */
+   public final void setAgentCode( String value )
+   {
+      assertUnsent();
+      _AgentCode = value;
+   }
+	
+   /**
+    * Sets the As Of Date field for the request.
+    * 
+    * @param value  Value that the As Of Date will be set to.
+    */
+   public final void setAsOfDate( Date value )
+   {
+      assertUnsent();
+      _AsOfDate = value;
+   }
+	
+   /**
+    * Implements the abstract base method to encode
+    * the host formatted request.
+    * 
+    * @param transaction
+    *               Host formatted request object.
+    */
+   protected final void encodeFields( RTSRequestEncodeBuffer requestBuffer ) throws UnsupportedEncodingException
+   {
+      requestBuffer.appendField( _SessionID );
+      requestBuffer.appendField( _User_Id );
+      encodeLanguageCodeField( _LanguageCode, requestBuffer );
+      requestBuffer.appendField( _CompanyId );
+      encodeTrackField( requestBuffer );
+      encodeActivityField( requestBuffer );
+      encodeOverrideRepeatsField( requestBuffer );
+      encodeNextKeyField( requestBuffer );
+      requestBuffer.appendField( _AgencyCode );
+      requestBuffer.appendField( _BranchCode );
+      requestBuffer.appendField( _AgentCode );
+      requestBuffer.appendField( _AsOfDate );
+   }
+
+}
+

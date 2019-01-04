@@ -1,0 +1,712 @@
+
+#ifndef SOM_AWDString_xh
+#define SOM_AWDString_xh
+
+class AWDString;
+
+#define AWDString_MajorVersion 2
+#define AWDString_MinorVersion 3
+
+/*
+ * Passthru lines: File: "C.xh", "before"
+ */
+#ifndef XString           
+#define XString void      
+#endif                    
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_AWDCommon_xh
+#include <common.xh>
+#endif
+
+#ifndef AWDString_API
+#define AWDString_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+class SOMClass;
+class SOMObject;
+class AWDPersist;
+class AWDBase;
+class iostream;
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the AWDString Class */
+SOMEXTERN
+#if (defined(SOM_Module_awdstrng_Source) || defined(AWDString_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDString))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK AWDStringNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the AWDString class object, and the methods it introduces. */
+SOMEXTERN struct AWDStringClassDataStructure {
+	SOMClass *classObject;
+	somMToken asStringObj;
+	somMToken asCString;
+	somMToken setValue;
+	somMToken toLower;
+	somMToken toUpper;
+	somMToken withBufferandSize;
+	somMToken withCString;
+	somMToken withLong;
+	somMToken length;
+}
+#if !(defined(SOM_Module_awdstrng_Source) || defined(AWDString_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDString))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDStringClassData;
+#define _AWDString AWDStringClassData.classObject
+
+/* The API to parentMtabs for AWDString, and the instance data it introduces. */
+SOMEXTERN struct AWDStringCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_awdstrng_Source) || defined(AWDString_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDString))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDStringCClassData;
+
+/*
+ * -- Typedefs for AWDString Method Procedures
+ */
+extern "C" {
+typedef char*   SOMLINK somTP_AWDString_asCString(AWDString *somSelf, Environment *ev);
+typedef somTP_AWDString_asCString *somTD_AWDString_asCString;
+typedef unsigned long   SOMLINK somTP_AWDString_length(AWDString *somSelf, Environment *ev);
+typedef somTP_AWDString_length *somTD_AWDString_length;
+typedef AWDString*   SOMLINK somTP_AWDString_setValue(AWDString *somSelf, Environment *ev,
+		char* psz);
+typedef somTP_AWDString_setValue *somTD_AWDString_setValue;
+typedef long   SOMLINK somTP_AWDString_toLower(AWDString *somSelf, Environment *ev);
+typedef somTP_AWDString_toLower *somTD_AWDString_toLower;
+typedef long   SOMLINK somTP_AWDString_toUpper(AWDString *somSelf, Environment *ev);
+typedef somTP_AWDString_toUpper *somTD_AWDString_toUpper;
+typedef XString*   SOMLINK somTP_AWDString_asStringObj(AWDString *somSelf, Environment *ev);
+typedef somTP_AWDString_asStringObj *somTD_AWDString_asStringObj;
+typedef void   SOMLINK somTP_AWDString_withBufferandSize(AWDString *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		char* c,
+		short count);
+typedef somTP_AWDString_withBufferandSize *somTD_AWDString_withBufferandSize;
+typedef void   SOMLINK somTP_AWDString_withCString(AWDString *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		char* strg);
+typedef somTP_AWDString_withCString *somTD_AWDString_withCString;
+typedef void   SOMLINK somTP_AWDString_withLong(AWDString *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		long value);
+typedef somTP_AWDString_withLong *somTD_AWDString_withLong;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef void   SOMLINK somTP_AWDString_store(AWDString *somSelf, Environment *ev,
+		AWDPersist* pPersist);
+typedef somTP_AWDString_store *somTD_AWDString_store;
+typedef void   SOMLINK somTP_AWDString_restore(AWDString *somSelf, Environment *ev,
+		AWDPersist* pPersist);
+typedef somTP_AWDString_restore *somTD_AWDString_restore;
+typedef void   SOMLINK somTP_AWDString_somDefaultInit(AWDString *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_AWDString_somDefaultInit *somTD_AWDString_somDefaultInit;
+typedef void   SOMLINK somTP_AWDString_somDestruct(AWDString *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_AWDString_somDestruct *somTD_AWDString_somDestruct;
+typedef somf_MLinkable*   SOMLINK somTP_AWDString_somfMLinkableInit(AWDString *somSelf, Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p);
+typedef somTP_AWDString_somfMLinkableInit *somTD_AWDString_somfMLinkableInit;
+typedef somf_MLinkable*   SOMLINK somTP_AWDString_somfGetNext(AWDString *somSelf, Environment *ev);
+typedef somTP_AWDString_somfGetNext *somTD_AWDString_somfGetNext;
+typedef void   SOMLINK somTP_AWDString_somfSetNext(AWDString *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_AWDString_somfSetNext *somTD_AWDString_somfSetNext;
+typedef somf_MLinkable*   SOMLINK somTP_AWDString_somfGetPrevious(AWDString *somSelf, Environment *ev);
+typedef somTP_AWDString_somfGetPrevious *somTD_AWDString_somfGetPrevious;
+typedef void   SOMLINK somTP_AWDString_somfSetPrevious(AWDString *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_AWDString_somfSetPrevious *somTD_AWDString_somfSetPrevious;
+typedef void   SOMLINK somTP_AWDString_somInit(AWDString *somSelf);
+typedef somTP_AWDString_somInit *somTD_AWDString_somInit;
+typedef void   SOMLINK somTP_AWDString_somDefaultCopyInit(AWDString *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDString_somDefaultCopyInit *somTD_AWDString_somDefaultCopyInit;
+typedef AWDString*   SOMLINK somTP_AWDString_somDefaultAssign(AWDString *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDString_somDefaultAssign *somTD_AWDString_somDefaultAssign;
+typedef void   SOMLINK somTP_AWDString_somDefaultConstCopyInit(AWDString *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDString_somDefaultConstCopyInit *somTD_AWDString_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_AWDString_somDefaultVCopyInit(AWDString *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDString_somDefaultVCopyInit *somTD_AWDString_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_AWDString_somDefaultConstVCopyInit(AWDString *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDString_somDefaultConstVCopyInit *somTD_AWDString_somDefaultConstVCopyInit;
+typedef AWDString*   SOMLINK somTP_AWDString_somDefaultConstAssign(AWDString *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDString_somDefaultConstAssign *somTD_AWDString_somDefaultConstAssign;
+typedef AWDString*   SOMLINK somTP_AWDString_somDefaultVAssign(AWDString *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDString_somDefaultVAssign *somTD_AWDString_somDefaultVAssign;
+typedef AWDString*   SOMLINK somTP_AWDString_somDefaultConstVAssign(AWDString *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDString_somDefaultConstVAssign *somTD_AWDString_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_AWDString_somFree(AWDString *somSelf);
+typedef somTP_AWDString_somFree *somTD_AWDString_somFree;
+typedef void   SOMLINK somTP_AWDString_somUninit(AWDString *somSelf);
+typedef somTP_AWDString_somUninit *somTD_AWDString_somUninit;
+typedef SOMClass*   SOMLINK somTP_AWDString_somGetClass(AWDString *somSelf);
+typedef somTP_AWDString_somGetClass *somTD_AWDString_somGetClass;
+typedef string   SOMLINK somTP_AWDString_somGetClassName(AWDString *somSelf);
+typedef somTP_AWDString_somGetClassName *somTD_AWDString_somGetClassName;
+typedef long   SOMLINK somTP_AWDString_somGetSize(AWDString *somSelf);
+typedef somTP_AWDString_somGetSize *somTD_AWDString_somGetSize;
+typedef boolean   SOMLINK somTP_AWDString_somIsA(AWDString *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDString_somIsA *somTD_AWDString_somIsA;
+typedef boolean   SOMLINK somTP_AWDString_somIsInstanceOf(AWDString *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDString_somIsInstanceOf *somTD_AWDString_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_AWDString_somRespondsTo(AWDString *somSelf,
+		somId mId);
+typedef somTP_AWDString_somRespondsTo *somTD_AWDString_somRespondsTo;
+typedef boolean   SOMLINK somTP_AWDString_somDispatch(AWDString *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDString_somDispatch *somTD_AWDString_somDispatch;
+typedef boolean   SOMLINK somTP_AWDString_somClassDispatch(AWDString *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDString_somClassDispatch *somTD_AWDString_somClassDispatch;
+typedef boolean   SOMLINK somTP_AWDString_somCastObj(AWDString *somSelf,
+		SOMClass* cls);
+typedef somTP_AWDString_somCastObj *somTD_AWDString_somCastObj;
+typedef boolean   SOMLINK somTP_AWDString_somResetObj(AWDString *somSelf);
+typedef somTP_AWDString_somResetObj *somTD_AWDString_somResetObj;
+typedef SOMObject*   SOMLINK somTP_AWDString_somPrintSelf(AWDString *somSelf);
+typedef somTP_AWDString_somPrintSelf *somTD_AWDString_somPrintSelf;
+typedef void   SOMLINK somTP_AWDString_somDumpSelf(AWDString *somSelf,
+		long level);
+typedef somTP_AWDString_somDumpSelf *somTD_AWDString_somDumpSelf;
+typedef void   SOMLINK somTP_AWDString_somDumpSelfInt(AWDString *somSelf,
+		long level);
+typedef somTP_AWDString_somDumpSelfInt *somTD_AWDString_somDumpSelfInt;
+}
+
+#endif /* AWDString_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for AWDString
+ */
+class AWDString : public AWDCommon
+{
+public:
+
+// AWDString::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_AWDString) AWDStringNewClass(AWDString_MajorVersion,AWDString_MinorVersion);
+   return (void*)
+      SOM_Resolve(_AWDString,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_AWDString));
+}
+
+// AWDString::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+AWDString()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDStringCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+AWDString(AWDString* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDStringCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDString(const AWDString* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDStringCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDString(Environment *ev,char* c,short count) 
+{
+   withBufferandSize(ev,0,c,count);
+}
+
+AWDString(Environment *ev,char* strg) 
+{
+   withCString(ev,0,strg);
+}
+
+AWDString(Environment *ev,long value) 
+{
+   withLong(ev,0,value);
+}
+
+
+/* method: asCString */
+char*   asCString(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDString,AWDString,asCString)
+	(this, ev);
+}
+
+
+/* method: length */
+unsigned long   length(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDString,AWDString,length)
+	(this, ev);
+}
+
+
+/* method: setValue */
+AWDString*   setValue(Environment *ev,
+		char* psz)
+{
+   return SOM_ResolveD(this,AWDString,AWDString,setValue)
+	(this, ev,psz);
+}
+
+
+/* method: toLower */
+long   toLower(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDString,AWDString,toLower)
+	(this, ev);
+}
+
+
+/* method: toUpper */
+long   toUpper(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDString,AWDString,toUpper)
+	(this, ev);
+}
+
+
+/* method: asStringObj */
+XString*   asStringObj(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDString,AWDString,asStringObj)
+	(this, ev);
+}
+
+
+/* initializer method: withBufferandSize */
+void   withBufferandSize(Environment *ev,
+		somInitCtrl* ctrl,
+		char* c,
+		short count)
+{
+   SOM_ResolveD(this,AWDString,AWDString,withBufferandSize)
+	(this, ev,ctrl,c,count);
+}
+
+
+/* initializer method: withCString */
+void   withCString(Environment *ev,
+		somInitCtrl* ctrl,
+		char* strg)
+{
+   SOM_ResolveD(this,AWDString,AWDString,withCString)
+	(this, ev,ctrl,strg);
+}
+
+
+/* initializer method: withLong */
+void   withLong(Environment *ev,
+		somInitCtrl* ctrl,
+		long value)
+{
+   SOM_ResolveD(this,AWDString,AWDString,withLong)
+	(this, ev,ctrl,value);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* method: store */
+void   store(Environment *ev,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDString,AWDCommon,store)
+	(this, ev,pPersist);
+}
+
+
+/* method: restore */
+void   restore(Environment *ev,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDString,AWDCommon,restore)
+	(this, ev,pPersist);
+}
+
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDString,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDString,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* method: somfMLinkableInit */
+somf_MLinkable*   somfMLinkableInit(Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p)
+{
+   return SOM_ResolveD(this,AWDString,somf_MLinkable,somfMLinkableInit)
+	(this, ev,n,p);
+}
+
+
+/* method: somfGetNext */
+somf_MLinkable*   somfGetNext(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDString,somf_MLinkable,somfGetNext)
+	(this, ev);
+}
+
+
+/* method: somfSetNext */
+void   somfSetNext(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,AWDString,somf_MLinkable,somfSetNext)
+	(this, ev,aLink);
+}
+
+
+/* method: somfGetPrevious */
+somf_MLinkable*   somfGetPrevious(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDString,somf_MLinkable,somfGetPrevious)
+	(this, ev);
+}
+
+
+/* method: somfSetPrevious */
+void   somfSetPrevious(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,AWDString,somf_MLinkable,somfSetPrevious)
+	(this, ev,aLink);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,AWDString,SOMObject,somInit)
+	(this);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDString,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+AWDString*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDString,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDString,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDString,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDString,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+AWDString*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDString,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+AWDString*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDString,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+AWDString*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDString,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,AWDString,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,AWDString,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,AWDString,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,AWDString,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,AWDString,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDString,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDString,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,AWDString,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   AWDString_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDString,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDString,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   AWDString_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDString,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDString,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,AWDString,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,AWDString,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,AWDString,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,AWDString,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,AWDString,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* AWDString */
+
+
+
+#endif       /* SOM_AWDString_xh */

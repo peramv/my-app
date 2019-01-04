@@ -1,0 +1,804 @@
+
+#ifndef SOM_AWDUser_xh
+#define SOM_AWDUser_xh
+
+class AWDUser;
+
+#define AWDUser_MajorVersion 0
+#define AWDUser_MinorVersion 0
+
+/*
+ * Passthru lines: File: "C.xh", "before"
+ */
+#include "acbl0003.xh"
+#include "exceptn.xh"
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_SOMObject_xh
+#include <somobj.xh>
+#endif
+
+#ifndef AWDUser_API
+#define AWDUser_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+class SOMClass;
+class SOMObject;
+class somf_MLinkable;
+class AWDConnection;
+class AWDException;
+class AWDApplication;
+class ACBL0030;
+class ACBL0035;
+class ACBL0049;
+class ACBL0057;
+typedef unsigned long AWDUser_USERSTATUS;
+#define AWDUser_STATUS_AVAILABLE 1UL
+#define AWDUser_STATUS_UNAVAILABLE 2UL
+#define AWDUser_STATUS_DISABLED 3UL
+#define AWDUser_STATUS_VACATION 4UL
+#define AWDUser_STATUS_SICK 5UL
+#define AWDUser_STATUS_LOGGEDON 6UL
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_USERSTATUS
+    #ifdef USERSTATUS
+        #undef USERSTATUS
+        #define SOMTGD_USERSTATUS 1
+    #else
+        #define USERSTATUS AWDUser_USERSTATUS
+    #endif /* USERSTATUS */
+#endif /* SOMTGD_USERSTATUS */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the AWDUser Class */
+SOMEXTERN
+#if (defined(SOM_Module_awduser_Source) || defined(AWDUser_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDUser))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK AWDUserNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the AWDUser class object, and the methods it introduces. */
+SOMEXTERN struct AWDUserClassDataStructure {
+	SOMClass *classObject;
+	somMToken logon;
+	somMToken logoff;
+	somMToken country;
+	somMToken id;
+	somMToken isLoggedOn;
+	somMToken defaultWorkSelect;
+	somMToken businessArea;
+	somMToken classify;
+	somMToken faxNumber;
+	somMToken faxDepartment;
+	somMToken faxListId;
+	somMToken firstName;
+	somMToken group;
+	somMToken lastName;
+	somMToken personalQueue;
+	somMToken phoneNumber;
+	somMToken securityLevel;
+	somMToken status;
+	somMToken setMessageCallback;
+	somMToken securityInfo;
+	somMToken releaseAwdException;
+	somMToken getAwdException;
+	somMToken setAwdException;
+	somMToken retrieveServiceDotDat;
+}
+#if !(defined(SOM_Module_awduser_Source) || defined(AWDUser_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDUser))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDUserClassData;
+#define _AWDUser AWDUserClassData.classObject
+
+/* The API to parentMtabs for AWDUser, and the instance data it introduces. */
+SOMEXTERN struct AWDUserCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_awduser_Source) || defined(AWDUser_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDUser))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDUserCClassData;
+
+/*
+ * -- Typedefs for AWDUser Method Procedures
+ */
+extern "C" {
+typedef string   SOMLINK somTP_AWDUser_businessArea(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_businessArea *somTD_AWDUser_businessArea;
+typedef string   SOMLINK somTP_AWDUser_classify(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_classify *somTD_AWDUser_classify;
+typedef unsigned long   SOMLINK somTP_AWDUser_country(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_country *somTD_AWDUser_country;
+typedef string   SOMLINK somTP_AWDUser_id(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_id *somTD_AWDUser_id;
+typedef string   SOMLINK somTP_AWDUser_faxNumber(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_faxNumber *somTD_AWDUser_faxNumber;
+typedef string   SOMLINK somTP_AWDUser_faxDepartment(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_faxDepartment *somTD_AWDUser_faxDepartment;
+typedef string   SOMLINK somTP_AWDUser_faxListId(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_faxListId *somTD_AWDUser_faxListId;
+typedef string   SOMLINK somTP_AWDUser_firstName(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_firstName *somTD_AWDUser_firstName;
+typedef AWDException*   SOMLINK somTP_AWDUser_getAwdException(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_getAwdException *somTD_AWDUser_getAwdException;
+typedef string   SOMLINK somTP_AWDUser_group(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_group *somTD_AWDUser_group;
+typedef boolean   SOMLINK somTP_AWDUser_logon(AWDUser *somSelf, Environment *ev,
+		string pszUserId,
+		string pszPassword,
+		string pszNewPassword);
+typedef somTP_AWDUser_logon *somTD_AWDUser_logon;
+typedef boolean   SOMLINK somTP_AWDUser_isLoggedOn(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_isLoggedOn *somTD_AWDUser_isLoggedOn;
+typedef string   SOMLINK somTP_AWDUser_lastName(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_lastName *somTD_AWDUser_lastName;
+typedef boolean   SOMLINK somTP_AWDUser_logoff(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_logoff *somTD_AWDUser_logoff;
+typedef boolean   SOMLINK somTP_AWDUser_personalQueue(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_personalQueue *somTD_AWDUser_personalQueue;
+typedef string   SOMLINK somTP_AWDUser_phoneNumber(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_phoneNumber *somTD_AWDUser_phoneNumber;
+typedef void   SOMLINK somTP_AWDUser_releaseAwdException(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_releaseAwdException *somTD_AWDUser_releaseAwdException;
+typedef boolean   SOMLINK somTP_AWDUser_retrieveServiceDotDat(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_retrieveServiceDotDat *somTD_AWDUser_retrieveServiceDotDat;
+typedef unsigned long   SOMLINK somTP_AWDUser_securityLevel(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_securityLevel *somTD_AWDUser_securityLevel;
+typedef char   SOMLINK somTP_AWDUser_status(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_status *somTD_AWDUser_status;
+typedef ACBL0003_WORKSELECT   SOMLINK somTP_AWDUser_defaultWorkSelect(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_defaultWorkSelect *somTD_AWDUser_defaultWorkSelect;
+typedef void   SOMLINK somTP_AWDUser_setAwdException(AWDUser *somSelf, Environment *ev,
+		AWDException_EXCEPTION_TYPE eType,
+		string pszFile,
+		unsigned long linenumber,
+		string pszMsg,
+		unsigned short rc);
+typedef somTP_AWDUser_setAwdException *somTD_AWDUser_setAwdException;
+typedef void   SOMLINK somTP_AWDUser_setMessageCallback(AWDUser *somSelf, Environment *ev,
+		void* pfn);
+typedef somTP_AWDUser_setMessageCallback *somTD_AWDUser_setMessageCallback;
+typedef ACBL0030*   SOMLINK somTP_AWDUser_securityInfo(AWDUser *somSelf, Environment *ev);
+typedef somTP_AWDUser_securityInfo *somTD_AWDUser_securityInfo;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef void   SOMLINK somTP_AWDUser_somDefaultInit(AWDUser *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_AWDUser_somDefaultInit *somTD_AWDUser_somDefaultInit;
+typedef void   SOMLINK somTP_AWDUser_somDestruct(AWDUser *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_AWDUser_somDestruct *somTD_AWDUser_somDestruct;
+typedef void   SOMLINK somTP_AWDUser_somDefaultCopyInit(AWDUser *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDUser_somDefaultCopyInit *somTD_AWDUser_somDefaultCopyInit;
+typedef AWDUser*   SOMLINK somTP_AWDUser_somDefaultAssign(AWDUser *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDUser_somDefaultAssign *somTD_AWDUser_somDefaultAssign;
+typedef void   SOMLINK somTP_AWDUser_somDefaultConstCopyInit(AWDUser *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDUser_somDefaultConstCopyInit *somTD_AWDUser_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_AWDUser_somDefaultVCopyInit(AWDUser *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDUser_somDefaultVCopyInit *somTD_AWDUser_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_AWDUser_somDefaultConstVCopyInit(AWDUser *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDUser_somDefaultConstVCopyInit *somTD_AWDUser_somDefaultConstVCopyInit;
+typedef AWDUser*   SOMLINK somTP_AWDUser_somDefaultConstAssign(AWDUser *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDUser_somDefaultConstAssign *somTD_AWDUser_somDefaultConstAssign;
+typedef AWDUser*   SOMLINK somTP_AWDUser_somDefaultVAssign(AWDUser *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDUser_somDefaultVAssign *somTD_AWDUser_somDefaultVAssign;
+typedef AWDUser*   SOMLINK somTP_AWDUser_somDefaultConstVAssign(AWDUser *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDUser_somDefaultConstVAssign *somTD_AWDUser_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_AWDUser_somInit(AWDUser *somSelf);
+typedef somTP_AWDUser_somInit *somTD_AWDUser_somInit;
+typedef void   SOMLINK somTP_AWDUser_somFree(AWDUser *somSelf);
+typedef somTP_AWDUser_somFree *somTD_AWDUser_somFree;
+typedef void   SOMLINK somTP_AWDUser_somUninit(AWDUser *somSelf);
+typedef somTP_AWDUser_somUninit *somTD_AWDUser_somUninit;
+typedef SOMClass*   SOMLINK somTP_AWDUser_somGetClass(AWDUser *somSelf);
+typedef somTP_AWDUser_somGetClass *somTD_AWDUser_somGetClass;
+typedef string   SOMLINK somTP_AWDUser_somGetClassName(AWDUser *somSelf);
+typedef somTP_AWDUser_somGetClassName *somTD_AWDUser_somGetClassName;
+typedef long   SOMLINK somTP_AWDUser_somGetSize(AWDUser *somSelf);
+typedef somTP_AWDUser_somGetSize *somTD_AWDUser_somGetSize;
+typedef boolean   SOMLINK somTP_AWDUser_somIsA(AWDUser *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDUser_somIsA *somTD_AWDUser_somIsA;
+typedef boolean   SOMLINK somTP_AWDUser_somIsInstanceOf(AWDUser *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDUser_somIsInstanceOf *somTD_AWDUser_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_AWDUser_somRespondsTo(AWDUser *somSelf,
+		somId mId);
+typedef somTP_AWDUser_somRespondsTo *somTD_AWDUser_somRespondsTo;
+typedef boolean   SOMLINK somTP_AWDUser_somDispatch(AWDUser *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDUser_somDispatch *somTD_AWDUser_somDispatch;
+typedef boolean   SOMLINK somTP_AWDUser_somClassDispatch(AWDUser *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDUser_somClassDispatch *somTD_AWDUser_somClassDispatch;
+typedef boolean   SOMLINK somTP_AWDUser_somCastObj(AWDUser *somSelf,
+		SOMClass* cls);
+typedef somTP_AWDUser_somCastObj *somTD_AWDUser_somCastObj;
+typedef boolean   SOMLINK somTP_AWDUser_somResetObj(AWDUser *somSelf);
+typedef somTP_AWDUser_somResetObj *somTD_AWDUser_somResetObj;
+typedef SOMObject*   SOMLINK somTP_AWDUser_somPrintSelf(AWDUser *somSelf);
+typedef somTP_AWDUser_somPrintSelf *somTD_AWDUser_somPrintSelf;
+typedef void   SOMLINK somTP_AWDUser_somDumpSelf(AWDUser *somSelf,
+		long level);
+typedef somTP_AWDUser_somDumpSelf *somTD_AWDUser_somDumpSelf;
+typedef void   SOMLINK somTP_AWDUser_somDumpSelfInt(AWDUser *somSelf,
+		long level);
+typedef somTP_AWDUser_somDumpSelfInt *somTD_AWDUser_somDumpSelfInt;
+}
+
+#endif /* AWDUser_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for AWDUser
+ */
+class AWDUser : public SOMObject
+{
+public:
+
+// AWDUser::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_AWDUser) AWDUserNewClass(AWDUser_MajorVersion,AWDUser_MinorVersion);
+   return (void*)
+      SOM_Resolve(_AWDUser,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_AWDUser));
+}
+
+// AWDUser::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+AWDUser()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDUserCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+AWDUser(AWDUser* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDUserCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDUser(const AWDUser* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDUserCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+
+/* method: businessArea */
+string   businessArea(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,businessArea)
+	(this, ev);
+}
+
+
+/* method: classify */
+string   classify(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,classify)
+	(this, ev);
+}
+
+
+/* method: country */
+unsigned long   country(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,country)
+	(this, ev);
+}
+
+
+/* method: id */
+string   id(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,id)
+	(this, ev);
+}
+
+
+/* method: faxNumber */
+string   faxNumber(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,faxNumber)
+	(this, ev);
+}
+
+
+/* method: faxDepartment */
+string   faxDepartment(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,faxDepartment)
+	(this, ev);
+}
+
+
+/* method: faxListId */
+string   faxListId(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,faxListId)
+	(this, ev);
+}
+
+
+/* method: firstName */
+string   firstName(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,firstName)
+	(this, ev);
+}
+
+
+/* method: getAwdException */
+AWDException*   getAwdException(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,getAwdException)
+	(this, ev);
+}
+
+
+/* method: group */
+string   group(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,group)
+	(this, ev);
+}
+
+
+/* method: logon */
+boolean   logon(Environment *ev,
+		string pszUserId,
+		string pszPassword,
+		string pszNewPassword)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,logon)
+	(this, ev,pszUserId,pszPassword,pszNewPassword);
+}
+
+
+/* method: isLoggedOn */
+boolean   isLoggedOn(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,isLoggedOn)
+	(this, ev);
+}
+
+
+/* method: lastName */
+string   lastName(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,lastName)
+	(this, ev);
+}
+
+
+/* method: logoff */
+boolean   logoff(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,logoff)
+	(this, ev);
+}
+
+
+/* method: personalQueue */
+boolean   personalQueue(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,personalQueue)
+	(this, ev);
+}
+
+
+/* method: phoneNumber */
+string   phoneNumber(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,phoneNumber)
+	(this, ev);
+}
+
+
+/* method: releaseAwdException */
+void   releaseAwdException(Environment *ev)
+{
+   SOM_ResolveD(this,AWDUser,AWDUser,releaseAwdException)
+	(this, ev);
+}
+
+
+/* method: retrieveServiceDotDat */
+boolean   retrieveServiceDotDat(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,retrieveServiceDotDat)
+	(this, ev);
+}
+
+
+/* method: securityLevel */
+unsigned long   securityLevel(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,securityLevel)
+	(this, ev);
+}
+
+
+/* method: status */
+char   status(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,status)
+	(this, ev);
+}
+
+
+/* method: defaultWorkSelect */
+ACBL0003_WORKSELECT   defaultWorkSelect(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,defaultWorkSelect)
+	(this, ev);
+}
+
+
+/* method: setAwdException */
+void   setAwdException(Environment *ev,
+		AWDException_EXCEPTION_TYPE eType,
+		string pszFile,
+		unsigned long linenumber,
+		string pszMsg,
+		unsigned short rc)
+{
+   SOM_ResolveD(this,AWDUser,AWDUser,setAwdException)
+	(this, ev,eType,pszFile,linenumber,pszMsg,rc);
+}
+
+
+/* method: setMessageCallback */
+void   setMessageCallback(Environment *ev,
+		void* pfn)
+{
+   SOM_ResolveD(this,AWDUser,AWDUser,setMessageCallback)
+	(this, ev,pfn);
+}
+
+
+/* method: securityInfo */
+ACBL0030*   securityInfo(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDUser,AWDUser,securityInfo)
+	(this, ev);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDUser,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDUser,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDUser,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+AWDUser*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDUser,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDUser,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDUser,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDUser,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+AWDUser*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDUser,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+AWDUser*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDUser,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+AWDUser*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDUser,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,AWDUser,SOMObject,somInit)
+	(this);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,AWDUser,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,AWDUser,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,AWDUser,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,AWDUser,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,AWDUser,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDUser,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDUser,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,AWDUser,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   AWDUser_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDUser,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDUser,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   AWDUser_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDUser,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDUser,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,AWDUser,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,AWDUser,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,AWDUser,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,AWDUser,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,AWDUser,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* AWDUser */
+
+
+
+#endif       /* SOM_AWDUser_xh */

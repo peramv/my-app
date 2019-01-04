@@ -1,0 +1,10 @@
+bin\release\*smq*.dll
+bin\relSym\*smq*.dll
+bin\releaseSh\*smq*.dll
+bin\debug\*smq*.dll
+bin\release\msvc*70.dll
+bin\relSym\msvc*70.dll
+bin\releaseSh\msvc*70.dll
+bin\debug\msvc*70.dll
+3rdparty\sonic\*
+

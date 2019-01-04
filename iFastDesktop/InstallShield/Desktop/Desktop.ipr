@@ -1,0 +1,53 @@
+[Language]
+LanguageSupport0=0009
+LanguageSupport1=0011
+
+[OperatingSystem]
+OSSupport=0000000000010000
+
+[Data]
+CurrentMedia=iFAST Desktop
+set_mifserial=
+ProductName=DST Graphical Front End
+CurrentComponentDef=Default.cdf
+set_dlldebug=No
+AppExe=D:\NewBase\bin\win32\mfdstc_d.exe
+DevEnvironment=Microsoft Visual C++
+set_mif=Yes
+set_testmode=No
+Instructions=Instructions.txt
+EmailAddresss=
+SummaryText=
+Department=
+Type=Finance Application
+Author=
+HomeURL=
+InstallRoot=D:\is5\iFast\Desktop
+set_level=Level 3
+InstallationGUID=9dd598d6-346b-11d3-b93e-00c04f572654
+Version=1.00.000
+set_miffile=Status.mif
+set_args=
+set_maxerr=50
+Notes=Notes.txt
+CurrentFileGroupDef=Default.fdf
+set_dllcmdline=
+set_warnaserr=No
+Copyright=
+set_preproc=
+Category=
+CurrentPlatform=
+set_compileb4build=No
+set_crc=Yes
+set_maxwarn=50
+Description=Description.txt
+CompanyName=DST Canada
+CurrentLanguage=English
+
+[MediaInfo]
+mediadata0=iFAST Desktop/Media\iFAST Desktop
+
+[General]
+Type=INSTALLMAIN
+Version=1.10.000
+

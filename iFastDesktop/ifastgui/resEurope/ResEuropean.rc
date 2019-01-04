@@ -1,0 +1,1456 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "..\resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_WHEREUSED, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 335
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 186
+    END
+
+    IDD_CONTRACT_INFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 335
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 239
+    END
+
+    IDD_GUARANTEE_INFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 5
+        RIGHTMARGIN, 327
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 241
+    END
+
+    IDD_RRIF_LIF_LRIF, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 341
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 378
+    END
+
+    IDD_ENTITY_MAINT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 335
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 379
+        HORZGUIDE, 365
+    END
+
+    IDD_TAXRATES, DIALOG
+    BEGIN
+        RIGHTMARGIN, 340
+    END
+
+    IDD_ADDRESSBOOK, DIALOG
+    BEGIN
+        LEFTMARGIN, 2
+        VERTGUIDE, 7
+        VERTGUIDE, 13
+        VERTGUIDE, 329
+        TOPMARGIN, 3
+        BOTTOMMARGIN, 248
+        HORZGUIDE, 232
+    END
+
+    IDD_MINMAX_INFO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 335
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 241
+    END
+
+    IDD_RESP_BEN_REL, DIALOG
+    BEGIN
+        RIGHTMARGIN, 342
+        BOTTOMMARGIN, 271
+    END
+
+    IDD_CONTRACT_INFO_1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 336
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 267
+    END
+
+    IDD_GUARANTEE_INFO_1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 335
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 368
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_WHEREUSED DIALOG DISCARDABLE  0, 0, 342, 193
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Where Used"
+FONT 10, "MS Sans Serif"
+BEGIN
+    LTEXT           "Entity Name",IDC_STATIC,7,13,49,8
+    CONTROL         "List1",IDC_LV_WHEREUSED,"SysListView32",LVS_REPORT | 
+                    LVS_OWNERDRAWFIXED | WS_BORDER | WS_TABSTOP,7,30,328,128
+    PUSHBUTTON      "OK",IDOK,239,168,45,14,WS_DISABLED
+    DEFPUSHBUTTON   "&Close",IDCANCEL,290,168,45,14
+    LTEXT           "",IDC_TXT_ENTITYNAME,53,14,111,9
+END
+
+IDD_ACCINFO DIALOG DISCARDABLE  0, 0, 342, 254
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Account Information"
+FONT 10, "MS Sans Serif"
+BEGIN
+    LTEXT           "Account number:",IDC_STATIC,9,6,51,8
+    EDITTEXT        IDC_EDT_ACC_NUM,80,4,81,12,ES_AUTOHSCROLL
+    LTEXT           "Static",IDC_TXT_ACC_NUM,80,6,81,12
+    LTEXT           "Beneficial owner:",IDC_STATIC,9,19,52,8
+    LTEXT           "",IDC_TXT_BENEFICIAL_OWNER,80,19,108,8
+    LTEXT           "Group nbr:",IDC_STATIC_GROUP_NBR,195,6,35,8
+    COMBOBOX        IDC_CMB_GROUP_NBR,240,4,94,42,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "",IDC_TXT_GROUP_NBR,240,6,81,8
+    LTEXT           "Group name:",IDC_STATIC_GROUP_NAME,195,19,47,8
+    LTEXT           "",IDC_TXT_GROUP_NAME,240,19,92,8,NOT WS_GROUP
+    GROUPBOX        "",IDC_STATIC,8,26,326,91
+    LTEXT           "&Broker:",IDC_STATIC,15,37,23,8
+    EDITTEXT        IDC_EDT_BROKER,80,35,43,12,ES_AUTOHSCROLL
+    LTEXT           "Static",IDC_TXT_BROKER_NAME,134,37,181,8
+    LTEXT           "Bran&ch:",IDC_STATIC,15,53,24,8
+    EDITTEXT        IDC_EDT_BRANCH,80,51,43,12,ES_AUTOHSCROLL
+    LTEXT           "Static",IDC_TXT_BRANCH_ADDRESS,134,53,181,8
+    LTEXT           "&Sales rep:",IDC_STATIC,15,69,32,8
+    EDITTEXT        IDC_EDT_SALES_REP,80,67,43,12,ES_AUTOHSCROLL
+    LTEXT           "Static",IDC_TXT_SALES_REP_NAME,134,69,90,8
+    LTEXT           "Static",IDC_TXT_SALES_REP_ALT_NAME,235,69,90,8
+    LTEXT           "Other reference nbr:",IDC_STATIC,15,85,60,8
+    EDITTEXT        IDC_EDT_OTH_REF_NBR,80,83,81,12,ES_AUTOHSCROLL
+    LTEXT           "Alternate account nbr:",IDC_STATIC,173,85,65,8
+    EDITTEXT        IDC_EDT_ALT_ACC_NUM,245,83,81,12,ES_AUTOHSCROLL
+    LTEXT           "Intermediary code:",IDC_STATIC,15,101,57,8
+    COMBOBOX        IDC_INTERMEDIARY_CODE,80,99,81,43,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Intermediary acct nbr:",IDC_STATIC,173,101,65,8
+    EDITTEXT        IDC_INTERMEDIARY_ACCT_NBR,245,99,81,12,ES_AUTOHSCROLL
+    GROUPBOX        "",IDC_STATIC,8,115,326,86
+    LTEXT           "&Taxation type:",IDC_STATIC,15,126,43,8
+    COMBOBOX        IDC_CMB_TAX_TYPE,80,124,81,43,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Account type:",IDC_STATIC,15,141,41,8
+    COMBOBOX        IDC_CMB_ACC_TYPE,80,139,81,49,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Recipient type:",IDC_STATIC,15,156,46,8
+    COMBOBOX        IDC_CMB_REC_TYPE,80,154,81,50,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Status:",IDC_STATIC,15,171,21,8
+    COMBOBOX        IDC_CMB_STATUS,80,169,81,43,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "RRSP fees:",IDC_STATIC,15,186,36,8
+    COMBOBOX        IDC_CMB_RRSPFees,108,186,81,43,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Pension Jurisdiction:",IDC_STATIC,173,126,62,8
+    COMBOBOX        IDC_CMB_PENS_JUR,245,124,81,43,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Social Code:",IDC_STATIC,173,142,61,8
+    COMBOBOX        IDC_CMB_SOCIAL_CODE,245,140,81,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "In trust for:",IDC_STATIC,173,157,30,8
+    COMBOBOX        IDC_CMB_IN_TRUST_FOR,206,156,36,48,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Escrow:",IDC_STATIC,254,157,25,8
+    COMBOBOX        IDC_CMB_ESCROW,283,154,43,47,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Currency:",IDC_STATIC,173,171,29,8
+    COMBOBOX        IDC_CMB_CURRENCY,245,169,81,42,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Registration complete:",IDC_STATIC,173,186,68,8
+    COMBOBOX        IDC_CMB_REGISTRATION_COMPLETE,245,185,33,55,
+                    CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Registration date:",IDC_STATIC,15,207,54,8
+    CONTROL         "DateTimePicker1",IDC_DTP_REG_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,80,205,81,12
+    LTEXT           "Effective date:",IDC_STATIC,173,207,43,8
+    CONTROL         "DateTimePicker1",IDC_DTP_EFF_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,245,205,81,12
+    DEFPUSHBUTTON   "&OK",IDOK,89,223,37,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDCANCEL,129,223,37,14
+    PUSHBUTTON      "&Reset",IDC_BTN_RESET,169,223,37,14
+    PUSHBUTTON      "&Entity",IDC_BTN_ENTITY2,209,223,37,14
+    PUSHBUTTON      "&Historical",IDC_BTN_HISTORICAL,249,223,37,14,WS_GROUP
+    PUSHBUTTON      "Adm&in/Dates",IDC_BTN_ADM_DATES,290,223,44,14,WS_GROUP
+END
+
+IDD_DETAILS DIALOGEX 5, 58, 342, 382
+STYLE WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Details: Account Nbr"
+FONT 10, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "List1",IDC_LV_ACCOUNTS,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_OWNERDRAWFIXED | 
+                    WS_BORDER | WS_TABSTOP,7,6,328,38
+    CONTROL         "List10",IDC_LV_ENTITIES,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_OWNERDRAWFIXED | 
+                    WS_BORDER | WS_TABSTOP,7,50,157,38
+    CONTROL         "List1",IDC_LV_KANJI_ADDR,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | LVS_NOCOLUMNHEADER | 
+                    WS_BORDER | WS_TABSTOP,172,50,162,38
+    CONTROL         "List1",IDC_LV_ENTITIES_IDS,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | LVS_NOCOLUMNHEADER | 
+                    WS_BORDER | WS_TABSTOP,7,94,157,19
+    LTEXT           "Dealer number/branch:",IDC_STATIC,7,118,70,8
+    RTEXT           "",IDC_TXT_DEALER_NUM,81,118,81,8
+    LTEXT           "Dealer name:",IDC_STATIC,7,131,42,8
+    RTEXT           "",IDC_TXT_DEALER_NAME,56,131,106,8
+    LTEXT           "Representative number:",IDC_STATIC,7,144,73,8
+    RTEXT           "",IDC_TXT_REP_NUMBER,87,144,75,8,0,WS_EX_RIGHT
+    LTEXT           "Representative name:",IDC_STATIC,7,157,67,8
+    RTEXT           "",IDC_TXT_REP_NAME,79,157,83,8,0,WS_EX_RIGHT
+    LTEXT           "Alternate account number:",IDC_STATIC,172,92,78,8
+    RTEXT           "",IDC_TXT_INTERMEDIARYCODE,243,118,90,8
+    LTEXT           "Intermediary account number:",IDC_STATIC,172,105,89,8
+    RTEXT           "",IDC_TXT_INTERMEDIARY_ACCNUM,267,105,66,8
+    LTEXT           "Intermediary code:",IDC_STATIC,172,118,57,8
+    RTEXT           "",IDC_TXT_ALT_ACC_NUMBER,254,92,79,8,0,WS_EX_RIGHT
+    LTEXT           "Registration date:",IDC_STATIC,172,144,54,8
+    RTEXT           "",IDC_TXT_REGIST_DATE,254,144,79,8,0,WS_EX_RIGHT
+    LTEXT           "Effective date:",IDC_STATIC,172,157,43,8
+    RTEXT           "",IDC_TXT_EFFECTIVE_DATE,254,157,79,8,0,WS_EX_RIGHT
+    CONTROL         "List4",IDC_LV_FUNDS,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,7,171,328,46
+    LTEXT           "Ca&utions",IDC_STATIC,7,219,35,8
+    LISTBOX         IDC_LB_CAUTIONS,7,231,102,60,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Options",IDC_STATIC,120,219,31,8
+    LISTBOX         IDC_LB_OPTIONS,120,231,102,60,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Attri&butes",IDC_STATIC,233,219,41,8
+    LISTBOX         IDC_LB_ATTRIB,233,232,102,60,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "All funds",IDC_ALL_FUNDS,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,297,41,8
+    LTEXT           "Fund:",IDC_STATIC,54,297,18,8
+    LTEXT           "",IDC_CURRENT_FUND,77,297,66,8
+    CONTROL         "Transaction &history",IDC_RB_TRANS_HISTORY,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,145,297,66,8
+    CONTROL         "&Pending trades",IDC_RB_PENDING_TRADES,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,218,297,76,8
+    CONTROL         "List9",IDC_LV_HISTORY_TRADES,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_GROUP | WS_TABSTOP,7,309,328,38,WS_EX_RIGHT
+    PUSHBUTTON      "&Add Caution/Option",IDC_BTN_ADD,229,354,67,14,WS_GROUP
+    PUSHBUTTON      "Close",IDCANCEL,298,354,37,14,WS_GROUP
+    PUSHBUTTON      "Add &New Acct",IDC_BTN_NEW_ACCOUNT,177,354,50,14
+    PUSHBUTTON      "A&WD History",IDC_BTN_AWD,121,354,54,14
+END
+
+IDD_FUNDINFO DIALOG DISCARDABLE  3, 1, 342, 291
+STYLE WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Fund Information Unit Value"
+FONT 10, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Historical",-1,6,7,328,60,WS_GROUP
+    LTEXT           "&Date:",-1,15,25,17,8
+    CONTROL         "DateTimePicker1",IDC_DTP_HIST_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,33,22,70,12
+    LTEXT           "&Fund:",-1,116,25,18,8
+    COMBOBOX        IDC_CMB_FUND_DATE,136,23,92,69,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "S&how multiple dates",IDC_CB_MULTI_DATES,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,239,25,88,8
+    DEFPUSHBUTTON   "&Search",IDC_BTN_SEARCH,291,45,37,14
+    CONTROL         "List1",IDC_LV_FUNDS,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,6,72,328,120
+    PUSHBUTTON      "&More",IDC_BTN_MORE,291,196,37,14
+    LTEXT           "Fund long name:",-1,7,218,66,8,NOT WS_GROUP
+    LTEXT           "",IDC_TXT_FND_LNG_NAME,83,218,212,8,NOT WS_GROUP
+    LTEXT           "Fund inception date:",-1,7,230,66,8,NOT WS_GROUP
+    LTEXT           "",IDC_TXT_INCEP_DATE,83,230,54,8,NOT WS_GROUP
+    LTEXT           "CUSIP:",-1,142,230,24,8,NOT WS_GROUP
+    LTEXT           "",IDC_TXT_CUSIP,174,230,32,8,NOT WS_GROUP
+    LTEXT           "Dividend Record date:",-1,7,242,74,8,NOT WS_GROUP
+    LTEXT           "",IDC_TXT_RECORD_DATE,83,242,43,8,NOT WS_GROUP
+    PUSHBUTTON      "&Unit Val Detail",IDC_BTN_UNIT_VAL,127,263,52,14
+    PUSHBUTTON      "Adm&in/Dates",IDC_BTN_ADMIN_DATES,183,263,45,14
+    PUSHBUTTON      "M&gmt Details",IDC_BTN_MGMT_DETAILS,232,263,45,14
+    PUSHBUTTON      "Close",IDCANCEL,281,263,45,14
+END
+
+IDD_BANKINS DIALOG DISCARDABLE  3, 1, 342, 245
+STYLE WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Bank Instructions: Account Nbr"
+FONT 10, "MS Sans Serif"
+BEGIN
+    LTEXT           "Type:",IDC_STATIC,7,7,29,8
+    COMBOBOX        IDC_BANK_INSTR_TYPE,38,6,101,64,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&N",IDC_STATIC,161,7,8,8,NOT WS_VISIBLE
+    CONTROL         "List3",IDC_LV_BANK_INST,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_GROUP | WS_TABSTOP,7,24,332,38
+    PUSHBUTTON      "&Add",IDC_BTN_ADD,259,66,37,14,WS_GROUP
+    PUSHBUTTON      "&Delete",IDC_BTN_DEL,300,66,37,14,WS_GROUP
+    GROUPBOX        "&Bank Location",IDC_STATIC,7,80,163,72
+    LTEXT           "Institution nbr:",IDC_STATIC,13,92,49,8
+    EDITTEXT        IDC_ED_INST_CODE,68,90,92,12,ES_AUTOHSCROLL
+    LTEXT           "Name:",IDC_STATIC,13,112,49,8
+    EDITTEXT        IDC_TXT_BANK_NAME,68,110,92,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Transit nbr:",IDC_STATIC,13,132,49,8
+    EDITTEXT        IDC_ED_TRANSIT_NBR,68,130,92,12,ES_AUTOHSCROLL
+    GROUPBOX        "Ban&k Account",IDC_STATIC,173,80,166,72
+    LTEXT           "Number:",IDC_STATIC,179,92,38,8
+    EDITTEXT        IDC_EDT_ACC_NBR,223,90,109,12,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "Names:",IDC_STATIC,179,107,38,8
+    EDITTEXT        IDC_EDT_ACC_NAMES,223,105,109,12,ES_AUTOHSCROLL
+    LTEXT           "Type:",IDC_STATIC,179,122,38,8
+    COMBOBOX        IDC_CMB_ACC_TYPE,223,120,109,46,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Currency:",IDC_STATIC,179,137,38,8
+    COMBOBOX        IDC_CMB_ACC_CURRENCY,223,135,109,45,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "",IDC_STATIC,7,151,332,59
+    LTEXT           "&Use:",IDC_TXT_USE,13,164,46,10
+    COMBOBOX        IDC_CMB_USE,61,162,91,37,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_GROUP | WS_TABSTOP
+    LTEXT           "E&ffective:",IDC_TXT_EFFECTIVE,155,164,37,8
+    CONTROL         "DateTimePicker1",IDC_DTP_EFF_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,195,162,49,12
+    LTEXT           "Sto&p:",IDC_TXT_STOP,248,164,36,8
+    CONTROL         "DateTimePicker1",IDC_DTP_STOP_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,288,162,49,12
+    LTEXT           "Pay reason:",IDC_TXT_PAY_REASON,13,180,46,8
+    EDITTEXT        IDC_EDT_PAY_REASON,61,178,260,27,ES_MULTILINE | 
+                    ES_AUTOHSCROLL | ES_WANTRETURN
+    DEFPUSHBUTTON   "&OK",IDOK,83,215,37,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDCANCEL,126,216,37,14,WS_GROUP
+    PUSHBUTTON      "&Reset",IDC_BTN_RESET,167,216,37,14,WS_GROUP
+    PUSHBUTTON      "S&ystematic",IDC_BTN_SYSTEMATIC,207,216,42,14,WS_GROUP
+    PUSHBUTTON      "Distri&bution",IDC_BTN_DISTRIBUTION,253,216,38,14,
+                    WS_GROUP
+    PUSHBUTTON      "Adm&in/Dates",IDC_BTN_ADM_DATES,295,216,44,14,WS_GROUP
+    EDITTEXT        IDC_ED_USE,61,162,91,12,ES_AUTOHSCROLL | ES_READONLY
+END
+
+IDD_CONTRACT_INFO DIALOG DISCARDABLE  3, 1, 342, 246
+STYLE WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Contract Information: Account Nbr"
+FONT 10, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Contract &Policy/Information",IDC_STATIC,7,4,328,93
+    LTEXT           "Account group:",IDC_STATIC,21,16,46,12
+    LTEXT           "",IDC_TXT_ACCT_GROUP,79,16,89,12
+    LTEXT           "Issue date:",IDC_STATIC,174,16,85,12
+    LTEXT           "",IDC_TXT_ISSUE_DATE,271,16,57,12
+    LTEXT           "Contract type:",IDC_STATIC,21,32,46,12
+    LTEXT           "",IDC_TXT_CONTRACT_TYPE,80,32,70,12
+    LTEXT           "Last reset:",IDC_STATIC,174,32,85,12
+    LTEXT           "",IDC_TXT_LAST_RESET,271,32,57,12
+    LTEXT           "Policy number:",IDC_STATIC,21,48,46,12
+    LTEXT           "",IDC_TXT_POLICY_NUMBER,80,48,70,12
+    LTEXT           "Legal contract maturity date:",IDC_STATIC,174,48,85,12
+    LTEXT           "",IDC_TXT_MATURITY_DATE,271,48,57,12
+    LTEXT           "Age based on:",IDC_STATIC,22,64,46,12
+    LTEXT           "",IDC_TXT_AGE_BASEDON,79,64,70,12
+    LTEXT           "Bail-out maturity date:",IDC_STATIC,174,64,85,12
+    LTEXT           "",IDC_TXT_BAILOUT_DATE,271,64,57,12
+    LTEXT           "Anniversary date:",IDC_STATIC_ANNIV_DATE,22,80,55,12
+    LTEXT           "",IDC_TXT_ANNIV_DATE,79,80,70,12
+    CONTROL         "List2",IDC_LV_CONTRACT,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,8,104,328,33
+    LTEXT           "E&ffective date:",IDC_STATIC,8,144,46,12,NOT WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_DTP_EFF_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_GROUP | WS_TABSTOP,101,143,65,12
+    LTEXT           "Stop &date:",IDC_STATIC,203,143,46,12,NOT WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_DTP_STOP_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_GROUP | WS_TABSTOP,271,143,65,12
+    LTEXT           "&Status:",IDC_STATIC,8,162,46,12,NOT WS_GROUP
+    COMBOBOX        IDC_CMB_STATUS,101,162,65,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    LTEXT           "&Term:",IDC_STATIC,203,162,46,12,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_TERM,271,162,65,12,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "Pro&v of registration:",IDC_STATIC,8,180,85,12,NOT 
+                    WS_GROUP
+    COMBOBOX        IDC_CMB_PROV_REG,101,180,65,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    LTEXT           "&Maturity date type:",IDC_STATIC,203,180,58,12,NOT 
+                    WS_GROUP
+    COMBOBOX        IDC_CMB_DATE_TYPE,271,180,65,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    LTEXT           "&User-defined maturity date:",IDC_STATIC,8,198,85,12,
+                    NOT WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_DTP_MATURITY_DATE,
+                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_GROUP | 
+                    WS_TABSTOP,101,198,65,12
+    DEFPUSHBUTTON   "&OK",IDOK,83,216,38,14
+    PUSHBUTTON      "Cancel",IDCANCEL,125,216,38,14
+    PUSHBUTTON      "Add Co&py",IDC_BTN_ADD_COPY,167,216,37,14
+    PUSHBUTTON      "&Entity",IDC_BTN_ENTITY,208,216,37,14
+    PUSHBUTTON      "&Guarantee",IDC_BTN_GUARANTEE,250,216,37,14
+    PUSHBUTTON      "Adm&in/Dates",IDC_BTN_ADM_DATES,292,216,44,14
+END
+
+IDD_GUARANTEE_INFO DIALOG DISCARDABLE  0, 0, 334, 248
+STYLE WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Guarantee Information: Account Nbr"
+FONT 10, "MS Sans Serif"
+BEGIN
+    CONTROL         "List2",IDC_LV_GUARANTEE,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,6,6,322,42
+    LTEXT           " Guaranteed account total:",IDC_STATIC_GUARACC_TOTAL,10,
+                    60,80,10
+    LTEXT           " ",IDC_STATIC_GUARAMTATMATUR,98,60,72,10,NOT WS_GROUP | 
+                    WS_TABSTOP
+    PUSHBUTTON      "&More",IDC_BTN_MORE,294,58,34,14
+    GROUPBOX        " &Guarantee Reduction Detail",IDC_STATIC_GUARACC_DETAIL,
+                    6,80,322,132,WS_GROUP
+    LTEXT           "  Trans type:",IDC_STATIC_TRANS_TYPE,8,94,40,10
+    LTEXT           " ",IDC_STATIC_TRANS_TYPE_DESC,48,94,84,10,NOT WS_GROUP | 
+                    WS_TABSTOP
+    LTEXT           "  Trade date:",IDC_STATIC_TRADE_DATE,132,94,40,10
+    LTEXT           " ",IDC_STATIC_TRADE_DATE_VALUE,172,94,54,10,NOT 
+                    WS_GROUP | WS_TABSTOP
+    LTEXT           "  Maturity date:",IDC_STATIC_MATURITY_DATE,226,94,46,10
+    LTEXT           " ",IDC_STATIC_MATUR_DATE_VALUE,272,94,54,10,NOT 
+                    WS_GROUP | WS_TABSTOP
+    CTEXT           "",IDC_STATIC_ELSE,5,80,322,134,SS_CENTERIMAGE | 
+                    WS_BORDER | NOT WS_GROUP
+    CONTROL         "Custom2",IDC_GD_GUARRESETLIST,"GXWND",WS_BORDER | 
+                    WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,8,108,318,103
+    CONTROL         "Custom3",IDC_GD_GUARREDDETAIL,"GXWND",WS_BORDER | 
+                    WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,8,110,318,101
+    PUSHBUTTON      "&Seg Options",IDC_BTN_SEG_OPTIONS,172,220,40,14
+    PUSHBUTTON      "&Entity",IDC_BTN_ENTITY,216,220,34,14
+    PUSHBUTTON      "C&ontract",IDC_BTN_CONTRACT,254,220,34,14
+    DEFPUSHBUTTON   "Close",IDCANCEL,292,220,34,14
+END
+
+IDD_RRIF_LIF_LRIF DIALOG DISCARDABLE  0, 0, 348, 392
+STYLE WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "RRIF/LIF/LRIF Information"
+FONT 10, "MS Sans Serif"
+BEGIN
+    CONTROL         "List1",IDC_LV_RRIF,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,7,7,334,49
+    PUSHBUTTON      "Add Co&py",IDC_BTN_ADD_COPY,181,60,37,14
+    PUSHBUTTON      "&Add",IDC_BTN_ADD,222,60,37,14
+    PUSHBUTTON      "&Delete",IDC_BTN_DELETE,263,60,37,14
+    PUSHBUTTON      "&More",IDC_BTN_MORE,304,60,37,14
+    LTEXT           "E&ffective date:",IDC_STATIC,7,78,43,8
+    CONTROL         "DateTimePicker1",IDC_DTP_EFF_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,59,76,47,12
+    EDITTEXT        IDC_EDT_EFF_DATE,59,76,47,12,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE
+    LTEXT           "Market value:",IDC_STATIC,114,78,41,8
+    LTEXT           "Static",IDC_TXT_NOW_PLAN_VALUE,172,78,40,8
+    LTEXT           "Payout:",IDC_STATIC,222,78,24,8
+    LTEXT           "Static",IDC_TXT_PAY_TERM,301,78,40,8
+    LTEXT           "&Stop date:",IDC_STATIC,7,93,32,8
+    CONTROL         "DateTimePicker1",IDC_DTP_STOP_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,59,91,47,12
+    EDITTEXT        IDC_EDT_STOP_DATE,59,91,47,12,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE
+    LTEXT           "PYE value:",IDC_STATIC,114,93,34,8
+    LTEXT           "Static",IDC_TXT_PYE_PLAN_VALUE,172,93,40,8
+    LTEXT           "Factor years:",IDC_STATIC,222,93,40,8
+    LTEXT           "Static",IDC_TXT_FACTOR,301,93,40,8
+    LTEXT           "Q&ualified:",IDC_STATIC,7,108,29,8
+    COMBOBOX        IDC_CMB_QUALIFIED,59,106,47,30,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Calc. Mand/Year:",IDC_STATIC,114,108,53,8
+    LTEXT           "Static",IDC_TXT_CALC_MAND_YR,172,108,40,8
+    LTEXT           "Calc. Max/Year:",IDC_STATIC,222,108,48,8
+    LTEXT           "Static",IDC_TXT_CALC_MAX_YR,301,108,40,8
+    LTEXT           "S&pouse birth:",IDC_STATIC,7,123,40,8
+    CONTROL         "DateTimePicker1",IDC_DTP_SPOUSE_BIRTH,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,59,121,47,12
+    EDITTEXT        IDC_EDT_SPOUSE_BIRTH,59,121,47,12,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE
+    LTEXT           "Batch/Trace:",IDC_STATIC,114,123,40,8
+    LTEXT           "Trace &Number:",IDC_STATIC,222,123,46,8
+    EDITTEXT        IDC_EDT_BATCH_TRACE,301,121,40,12,ES_AUTOHSCROLL
+    LTEXT           "S&ource of funds:",IDC_STATIC,7,138,49,8
+    COMBOBOX        IDC_CMB_SRC_OF_FUND,59,136,47,30,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Min &withdraw age:",IDC_TXT_MIN_WITH_AGE,114,138,54,8
+    EDITTEXT        IDC_EDT_MIN_WITH_AGE,172,136,28,12,ES_AUTOHSCROLL
+    LTEXT           "Pension jurisdiction:",IDC_TXT_PENSION_JURIS,222,138,60,
+                    8
+    EDITTEXT        IDC_EDT_PENSION_JURIS,301,136,40,12,ES_AUTOHSCROLL
+    GROUPBOX        "RRIF Pa&yment",IDC_GRP_PAYMENT,7,151,334,207
+    LTEXT           "Pa&y option:",IDC_STATIC,12,162,35,8
+    COMBOBOX        IDC_CMB_PAY_OPTION,77,161,48,30,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Index rate:",IDC_STATIC,130,162,32,8
+    EDITTEXT        IDC_EDT_INDEX_RATE,189,161,40,12,ES_AUTOHSCROLL
+    LTEXT           "W/H Tax on min:",IDC_STATIC,234,162,50,8
+    COMBOBOX        IDC_CMB_TAX_ON_MIN,288,161,48,30,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Gross/Net pretax:",IDC_STATIC,12,177,53,8
+    COMBOBOX        IDC_CMB_GROSS_OR_NET,77,176,48,30,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Gross payment:",IDC_STATIC,130,177,48,8
+    EDITTEXT        IDC_EDT_AMOUNT,189,176,40,12,ES_AUTOHSCROLL
+    LTEXT           "Net of taxes:",IDC_STATIC,234,177,38,8
+    EDITTEXT        IDC_EDT_NET_AMT,288,176,48,12,ES_AUTOHSCROLL
+    LTEXT           "Override annual amt:",IDC_STATIC,12,192,63,8
+    COMBOBOX        IDC_CMB_OVERRIDE_AMT_YR,77,191,48,30,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Mand. annual amt:",IDC_STATIC,130,192,55,8
+    EDITTEXT        IDC_EDT_MAND_AMT_YR,189,191,40,12,ES_AUTOHSCROLL
+    LTEXT           "Max:",IDC_TXT_MAX_AMT_YR,234,192,15,8
+    EDITTEXT        IDC_EDT_MAX_AMT_YR,288,191,48,12,ES_AUTOHSCROLL
+    LTEXT           "Suppress fed. tax:",IDC_STATIC,12,207,54,8
+    COMBOBOX        IDC_CMB_SUPP_FED_TAX,77,206,48,30,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Amount:",IDC_STATIC,130,207,25,8
+    EDITTEXT        IDC_EDT_FED_RATE,189,206,40,12,ES_AUTOHSCROLL
+    LTEXT           "Type:",IDC_STATIC,234,207,19,8
+    COMBOBOX        IDC_CMB_FED_RATE_PUD,288,206,48,30,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Suppress prov. tax:",IDC_STATIC,12,222,58,8
+    COMBOBOX        IDC_CMB_SUPP_PROV_TAX,77,221,48,30,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Amount:",IDC_STATIC,130,222,25,8
+    EDITTEXT        IDC_EDT_PROV_RATE,189,221,40,12,ES_AUTOHSCROLL
+    LTEXT           "Type:",IDC_STATIC,234,222,19,8
+    COMBOBOX        IDC_CMB_PROV_RATE_PUD,288,221,48,30,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "&Destination",IDC_STATIC,11,236,144,116
+    LTEXT           "Pay Type:",IDC_STATIC,16,248,32,8
+    COMBOBOX        IDC_CMB_PAY_TYPE,77,246,48,30,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Address Code:",IDC_TXT_ADDR_CODE,16,263,46,8
+    EDITTEXT        IDC_EDT_ADDR_CODE,77,261,48,12
+    EDITTEXT        IDC_EDT_ADDRESS,16,278,134,42,ES_MULTILINE | 
+                    ES_AUTOHSCROLL | ES_WANTRETURN
+    LTEXT           "Bank name:",IDC_TXT_INST_NAME,16,269,37,8
+    EDITTEXT        IDC_TXT_INST_NAME_VAL,67,269,83,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_VISIBLE | NOT WS_BORDER | NOT 
+                    WS_TABSTOP
+    PUSHBUTTON      "Add&ress",IDC_BTN_ADDRESS,112,329,37,14
+    LTEXT           "Institution code:",IDC_TXT_INST_CODE,16,281,47,8
+    EDITTEXT        IDC_TXT_INST_CODE_VAL,67,281,83,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_VISIBLE | NOT WS_BORDER | NOT 
+                    WS_TABSTOP
+    LTEXT           "Transit number:",IDC_TXT_TRANSIT_NO,16,293,47,8
+    EDITTEXT        IDC_TXT_TRANSIT_NO_VAL,67,293,83,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_VISIBLE | NOT WS_BORDER | NOT 
+                    WS_TABSTOP
+    LTEXT           "Acct number:",IDC_TXT_BANK_ACCT_NUM,16,305,40,8
+    EDITTEXT        IDC_TXT_BANK_ACCT_NUM_VAL,67,305,83,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_VISIBLE | NOT WS_BORDER | NOT 
+                    WS_TABSTOP
+    PUSHBUTTON      "&Bank",IDC_BTN_BANK,112,329,37,14
+    GROUPBOX        "Sc&hedule",IDC_STATIC,158,236,179,64
+    LTEXT           "Frequency:",IDC_STATIC,164,247,34,8
+    COMBOBOX        IDC_CMB_FREQUENCY,228,244,61,30,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Monthly Indicator:",IDC_STATIC,164,270,53,8
+    LTEXT           "JFMAMJJASOND",IDC_LBL_UP_MONTHLY,229,258,55,8
+    EDITTEXT        IDC_EDT_MONTHLY,228,268,62,12,ES_AUTOHSCROLL
+    LTEXT           "EOM:",IDC_STATIC,164,286,20,8
+    COMBOBOX        IDC_CMB_END_OF_MONTH,191,283,28,30,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Last process:",IDC_STATIC,228,286,41,8
+    LTEXT           "Static",IDC_TXT_LAST_PROCESS_DATE,276,286,53,8
+    GROUPBOX        "A&llocation",IDC_STATIC,158,301,179,51
+    CONTROL         "List2",IDC_LV_RRIF_ALLOC,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,162,312,130,35
+    PUSHBUTTON      "Alloca&tion",IDC_BTN_ALLOCATION,296,333,37,14
+    DEFPUSHBUTTON   "&Ok",IDOK,97,364,37,14
+    DEFPUSHBUTTON   "Cancel",IDCANCEL,137,364,37,14
+    DEFPUSHBUTTON   "C&alculate",IDC_BTN_CALCULATE,177,364,37,14
+    DEFPUSHBUTTON   "&Reset",IDC_RESET,217,364,37,14
+    PUSHBUTTON      "Min/Ma&x",IDC_BTN_MIN_MAX,257,364,37,14
+    PUSHBUTTON      "Adm&in/Dates",IDC_BTN_ADM_DATES,297,364,44,14,WS_GROUP
+    EDITTEXT        IDC_TXT_BATCH_NAME,172,123,44,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_BORDER | WS_GROUP | NOT WS_TABSTOP
+END
+
+IDD_ENTITY_MAINT DIALOG DISCARDABLE  0, 0, 342, 382
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Entity Maintenance: Account Nbr"
+FONT 10, "MS Sans Serif"
+BEGIN
+    CONTROL         "List1",IDC_LV_ENTITIES,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,7,6,328,29
+    PUSHBUTTON      "&Add",IDC_BTN_ADD,159,39,37,14
+    PUSHBUTTON      "&Delete",IDC_BTN_DELETE,199,39,37,14
+    PUSHBUTTON      "Co&py AcctEnt",IDC_BTN_COPYENTITY,239,39,45,14
+    PUSHBUTTON      "&Where used",IDC_BTN_WHERE_USED,287,39,45,14
+    GROUPBOX        "Iden&tification",IDC_FRAME_IDENTIFICATION,7,53,328,77
+    CONTROL         "List1",IDC_LV_ENTITY_IDS,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,10,63,322,29
+    PUSHBUTTON      "Add",IDC_BTN_ADD_ID,254,95,37,14
+    PUSHBUTTON      "Delete",IDC_BTN_DELETE_ID,295,95,37,14
+    LTEXT           "Type:",IDC_STATIC,12,115,26,8
+    COMBOBOX        IDC_CMB_ID_TYPE,41,113,95,48,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Value:",IDC_STATIC,141,115,25,8
+    EDITTEXT        IDC_EDT_ID_VALUE,169,113,90,12,ES_AUTOHSCROLL
+    LTEXT           "Date:",IDC_STATIC,263,115,17,8
+    CONTROL         "DateTimePicker1",IDC_DTP_ID_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,283,113,49,12
+    GROUPBOX        "&Names",IDC_STATIC,7,134,328,63
+    LTEXT           "First:",IDC_STATIC,13,147,35,9,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_FIRST_NAME,53,145,107,12,ES_AUTOHSCROLL
+    LTEXT           "Last:",IDC_STATIC,175,147,24,9,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_LAST_NAME,214,145,107,12,ES_AUTOHSCROLL
+    LTEXT           "Salutation:",IDC_STATIC,13,164,35,9,NOT WS_GROUP
+    COMBOBOX        IDC_CMB_SALUTATION,53,162,107,48,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Gender:  ",IDC_STATIC,175,164,27,9,NOT WS_GROUP
+    COMBOBOX        IDC_CMB_GENDER,214,162,37,35,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Birthdate:",IDC_STATIC,13,181,35,9,NOT WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_DTP_BIRTH_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,53,179,53,12
+    LTEXT           "Age:",IDC_STATIC,175,181,27,9
+    LTEXT           "",IDC_TXT_AGE,214,181,84,9
+    GROUPBOX        "&Contact Numbers",IDC_STATIC,7,200,328,57
+    LTEXT           "Home Telephone:",IDC_STATIC,13,213,64,8,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_HOME_TEL,79,209,59,12,ES_AUTOHSCROLL
+    LTEXT           "Business Phone:",IDC_STATIC,144,213,59,8,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_BUSINESS_TEL,205,209,59,12,ES_AUTOHSCROLL
+    LTEXT           "Ext:",IDC_STATIC,271,212,23,8,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_BUSINESS_EXT,299,209,30,12,ES_AUTOHSCROLL
+    LTEXT           "Home FAX:",IDC_STATIC,13,228,64,8,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_HOME_FAX,79,225,59,12,ES_AUTOHSCROLL
+    LTEXT           "Business FAX:",IDC_STATIC,144,228,59,8,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_BUSINESS_FAX,205,225,59,12,ES_AUTOHSCROLL
+    LTEXT           "E-mail:",IDC_STATIC,13,243,64,8,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_EMAIL,79,240,59,12,ES_AUTOHSCROLL
+    LTEXT           "Telex:",IDC_STATIC,144,243,59,8,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_TELEX,205,240,59,12,ES_AUTOHSCROLL
+    LTEXT           "Entity type:",IDC_TXT_ENTITY_TYPE,8,265,49,8,NOT 
+                    WS_GROUP
+    COMBOBOX        IDC_CMB_ENTITY_TYPE,60,262,80,52,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Authorized to trade:",IDC_TXT_AUTHORIZED_TO_TRADE,145,
+                    265,65,8,NOT WS_GROUP
+    COMBOBOX        IDC_CMB_AUTHORIZED_TO_TRADE,213,262,29,36,
+                    CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Language:",IDC_STATIC,247,265,36,8,NOT WS_GROUP
+    COMBOBOX        IDC_CMB_LANGUAGE,287,262,48,45,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Effective date:",IDC_STATIC,8,285,49,8,NOT WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_DTP_EFFECTIVE_DATE,
+                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,60,283,
+                    58,12
+    LTEXT           "Death date:",IDC_STATIC,129,285,41,8,NOT WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_DTP_DEATH_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,173,283,58,12
+    LTEXT           "Death notif:",IDC_STATIC,236,285,38,8,NOT WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_DTP_DEATHNOTIFDATE,
+                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,277,282,
+                    58,12
+    GROUPBOX        "Beneficiary",IDC_FRM_BENEFICIARY,7,296,328,53,
+                    WS_DISABLED
+    LTEXT           "Relationship to owner:",IDC_TXT_RELATIONSHIP_TO_OWNER,
+                    12,308,72,8,WS_DISABLED | NOT WS_GROUP
+    COMBOBOX        IDC_CMB_RELATION,87,308,106,53,CBS_DROPDOWNLIST | 
+                    WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Irrevocable:",IDC_TXT_IRREVOCABLE,204,308,48,8,
+                    WS_DISABLED | NOT WS_GROUP
+    COMBOBOX        IDC_CMB_IRREVOCABLE,261,308,45,36,CBS_DROPDOWNLIST | 
+                    WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "% of benefit:",IDC_TXT_PERCENT_OF_BENEFIT,12,322,58,8,
+                    WS_DISABLED | NOT WS_GROUP
+    EDITTEXT        IDC_EDT_PRC_BENEFIT,87,322,106,12,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    LTEXT           "Available %:",IDC_TXT_AVAILABLE_PERCENT,204,322,48,8,
+                    WS_DISABLED | NOT WS_GROUP
+    LTEXT           "",IDC_TXT_AVAILABLE,261,322,45,8,WS_DISABLED
+    COMBOBOX        IDC_CMB_DISPOSITION,101,308,177,38,CBS_DROPDOWNLIST | 
+                    CBS_SORT | NOT WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CMB_JOINT_TYPE,101,322,177,41,CBS_DROPDOWNLIST | 
+                    CBS_SORT | NOT WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Tax Jurisdiction:",IDC_TXT_TAX_JURISDICTION,12,336,56,8
+    COMBOBOX        IDC_CMB_TAX_JURISDICTION,87,336,106,37,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Fund:",IDC_TXT_FUND,12,308,47,8
+    LTEXT           "Tax jurisdiction:",IDC_TXT_TAX_JURISD,196,308,48,8
+    COMBOBOX        IDC_CMB_RESP_TAX_JURISD,257,308,75,38,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Letter Date:",IDC_TXT_LETTER_DATE,12,322,48,8
+    LTEXT           "12/12/1999",IDC_EDT_LETTER_DATE,87,322,33,8
+    LTEXT           "Printed:",IDC_TXT_PRINTED,196,322,26,8
+    LTEXT           "YES",IDC_EDT_PRINTED,257,322,20,8
+    LTEXT           "Reason:",IDC_TXT_REASON,12,336,54,8
+    COMBOBOX        IDC_CMB_REASON,87,336,119,43,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Ben Relation",IDC_BTN_BEN_RELATION,283,329,44,14
+    EDITTEXT        IDC_EDT_FUND_NUMBER,72,308,29,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDT_FUND_CODE,103,308,54,12,ES_AUTOHSCROLL
+    LTEXT           "Class:",IDC_TXT_CLASS_CODE,164,308,28,8
+    EDITTEXT        IDC_EDT_CLASS_CODE,209,308,59,12,ES_AUTOHSCROLL
+    LTEXT           "Amount assig:",IDC_TXT_AMOUNT_ASSIGN,12,322,61,8
+    EDITTEXT        IDC_EDT_AMOUNT_ASSIGN,72,322,85,12,ES_AUTOHSCROLL
+    LTEXT           "Units/Dollars:",IDC_TXT_AMOUNT_TYPE,164,322,44,9
+    COMBOBOX        IDC_CMB_AMOUNT_TYPE,209,322,59,40,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Reason:",IDC_TXT__ESC_REASON,12,336,56,8
+    COMBOBOX        IDC_CMB_ESC_REASON,72,336,85,53,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Effective date:",IDC_TXT_ESC_EFFECTIVE,164,336,42,8,NOT 
+                    WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_DTP_ESC_EFFECTIVE,
+                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,209,336,
+                    42,12
+    LTEXT           "Stop Date:",IDC_TXT_ESC_STOP,259,338,33,8,NOT WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_DTP_ESC_STOP,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,293,336,42,12
+    DEFPUSHBUTTON   "&OK",IDOK,127,351,37,14
+    PUSHBUTTON      "Cancel",IDCANCEL,168,351,37,14
+    PUSHBUTTON      "&Reset",IDC_BTN_RESET,209,351,37,14
+    PUSHBUTTON      "&Search",IDC_BTN_SEARCH,250,351,37,14,WS_DISABLED
+    PUSHBUTTON      "Entity &History",IDC_BTN_ENTITY_HISTORY,291,351,44,14
+END
+
+IDD_TAXRATES DIALOG DISCARDABLE  5, 10, 344, 273
+STYLE WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_CAPTION | WS_SYSMENU
+CAPTION "Tax Rate Information"
+FONT 10, "MS Sans Serif"
+BEGIN
+    CONTROL         "List3",IDC_LV_TAXRATES,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_GROUP | WS_TABSTOP,8,1,332,69
+    LTEXT           "Effective date:",IDC_STATIC,11,98,96,11,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_EFFECTIVEDATE,126,98,60,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Tax jurisdiction:",IDC_STATIC,198,98,65,11,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_TAXJURISDICTION,272,98,60,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Lower bounds greater than:",IDC_STATIC,11,118,96,11,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_EDT_LOWERBOUND,126,117,60,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Country:",IDC_STATIC,198,117,49,11,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_COUNTRY,272,117,60,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Upper bounds lesser than or equal to:",IDC_STATIC,11,
+                    138,114,11,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_UPPERBOUND,126,136,60,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Federal/Non-Resident income div:",IDC_STATIC,11,156,104,
+                    11,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_FEDINCRATE,126,155,41,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Federal/Non-Resident withdrawal:",IDC_STATIC,189,155,
+                    102,11,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_FEDREDRATE,298,155,35,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Provincial income dividend:",IDC_STATIC,11,173,96,11,
+                    NOT WS_GROUP
+    EDITTEXT        IDC_EDT_PROVINCRATE,126,174,41,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Provincial withdrawal:",IDC_STATIC,189,174,79,11,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_EDT_PROVREDRATE,298,173,35,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    GROUPBOX        "&Non-Resident Pension Rates",IDC_STATIC,7,193,333,51
+    LTEXT           "Periodic pension pymts:",IDC_STATIC,10,206,96,11,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_EDT_PERPENRATE,126,204,41,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Lump sum pension pymts:",IDC_STATIC,190,206,79,11,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_EDT_LUMPPENRATE,278,203,60,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Periodic amount threshold:",IDC_STATIC,10,225,87,11,NOT 
+                    WS_GROUP
+    COMBOBOX        IDC_CMB_PAMTTHREASHOLD,119,225,219,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Process Date:",IDC_STATIC,5,248,47,11,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_PROCESSDATE,54,248,41,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    DEFPUSHBUTTON   "&Change",IDC_BTN_CHANGE,212,248,37,14
+    PUSHBUTTON      "Adm&in/Dates",IDC_BTN_ADM_DATES,253,248,41,14
+    PUSHBUTTON      "Close",IDCANCEL,299,248,41,14
+    PUSHBUTTON      "&More",IDC_BTN_MORE,292,78,41,14
+END
+
+IDD_RESPINFO DIALOG DISCARDABLE  3, 1, 343, 252
+STYLE WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "RESP Account Information: Account Number"
+FONT 10, "MS Sans Serif"
+BEGIN
+    LTEXT           "Termination date for contrib:",IDC_STATIC,10,5,85,11,
+                    NOT WS_GROUP
+    EDITTEXT        IDC_EDT_CONTRTERMINATEDATE,105,5,66,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "Termination date of plan:",IDC_STATIC,187,5,79,11,NOT 
+                    WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_CMB_PLANTERMINATEDATE,
+                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_TABSTOP,272,5,66,
+                    12
+    LTEXT           "To date contributions:",IDC_STATIC,10,24,77,11,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_EDT_TODATECONTR,105,24,65,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Plan number:",IDC_STATIC,187,24,55,11,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_PLANNUM,272,24,66,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Grant Repayable:",IDC_STATIC,10,43,75,11,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_GRANTREPAYABLE,105,43,65,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "CESG eligible:",IDC_STATIC,187,43,58,11,NOT WS_GROUP
+    COMBOBOX        IDC_CMB_CESGELIGIBLE,272,42,66,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "To date earnings redemption:",IDC_STATIC,10,63,90,11,
+                    NOT WS_GROUP
+    EDITTEXT        IDC_EDT_TDREDEARNING,105,62,65,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Grandfathered:",IDC_STATIC,187,62,55,11,NOT WS_GROUP
+    COMBOBOX        IDC_CMB_GFATHERED,272,60,66,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Current Earnings:",IDC_STATIC,10,83,66,11,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_CURREARNING,105,81,65,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "RESP status:",IDC_STATIC,187,81,58,11,NOT WS_GROUP
+    COMBOBOX        IDC_CMB_RESPSTATUS,272,79,66,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Beneficiary Information",IDC_STATIC,6,94,332,66
+    CONTROL         "List3",IDC_LV_RESPINFO_BENEFICIARY,"SysListView32",
+                    LVS_REPORT | LVS_SINGLESEL | LVS_OWNERDRAWFIXED | 
+                    WS_BORDER | WS_GROUP | WS_TABSTOP,13,107,317,42
+    GROUPBOX        "Account Beneficiary Total",IDC_STATIC,7,167,331,52
+    CONTROL         "List3",IDC_LV_RESPINFO_TOTAL,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_AUTOARRANGE | WS_BORDER | WS_GROUP | 
+                    WS_TABSTOP,95,181,235,30
+    DEFPUSHBUTTON   "&Change",IDC_BTN_CHANGE,186,224,47,14
+    PUSHBUTTON      "RESP &Trans",IDC_BTN_RESPTRANS,239,224,48,14
+    PUSHBUTTON      "Close",IDCANCEL,293,224,45,14
+    LTEXT           "",IDC_STATIC,14,181,81,10,SS_SUNKEN | WS_BORDER | NOT 
+                    WS_GROUP
+    LTEXT           "Reduction Totals:",IDC_STATIC,14,191,81,10,SS_SUNKEN | 
+                    WS_BORDER | NOT WS_GROUP
+    LTEXT           "Account Totals:",IDC_STATIC,14,201,81,10,SS_SUNKEN | 
+                    WS_BORDER | NOT WS_GROUP
+END
+
+IDD_RESPTRANSACTIONS DIALOG DISCARDABLE  0, 0, 343, 320
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "RESP Transactions History: Account Nbr"
+FONT 10, "MS Sans Serif"
+BEGIN
+    CONTROL         "List1",IDC_LV_RESP_TRANSACTIONS,"SysListView32",
+                    LVS_REPORT | LVS_SINGLESEL | LVS_OWNERDRAWFIXED | 
+                    WS_BORDER | WS_GROUP,8,18,326,60
+    CONTROL         "&History",IDC_RB_RESP_HISTORY,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,25,3,47,13
+    CONTROL         "&Pending",IDC_RB_RESP_PENDING,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,73,3,53,13
+    PUSHBUTTON      "&More",IDC_BTN_MORE,293,84,41,14
+    GROUPBOX        "&Transaction History",IDC_STATIC,8,100,326,183
+    LTEXT           "HRDC trans Id:",IDC_STATIC,20,113,48,10,NOT WS_GROUP
+    EDITTEXT        IDC_EDIT_HRDCTRANSID,93,113,63,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Settled date:",IDC_STATIC,178,114,48,10,NOT WS_GROUP
+    EDITTEXT        IDC_EDIT_SETTLEDATE,259,114,63,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | WS_GROUP
+    LTEXT           "AC amount:",IDC_STATIC,20,132,48,10,NOT WS_GROUP
+    EDITTEXT        IDC_EDIT_ACAMT,93,132,63,12,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "Termination date:",IDC_STATIC,178,133,57,10,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_EDIT_TERMINATEDATE,259,133,63,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | WS_GROUP
+    LTEXT           "Grant amount:",IDC_STATIC,20,151,48,10,NOT WS_GROUP
+    EDITTEXT        IDC_EDIT_GRANTAMOUNT,93,151,63,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "TDcontributions:",IDC_STATIC,178,152,48,10,NOT WS_GROUP
+    EDITTEXT        IDC_EDIT_LIFECONTR,259,152,63,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | WS_GROUP
+    LTEXT           "Grant Repayable:",IDC_STATIC,20,169,54,10,NOT WS_GROUP
+    EDITTEXT        IDC_EDIT_GRANTREPAYABLE,93,169,63,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "YTD contributions:",IDC_STATIC,178,170,58,10,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_EDIT_YTDCONTR,259,170,63,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | WS_GROUP
+    LTEXT           "Grant trans Id:",IDC_STATIC,20,188,48,10,NOT WS_GROUP
+    EDITTEXT        1422,93,188,63,12,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "TD redem contributions:",IDC_STATIC,178,189,75,10,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_EDIT_REDLIFECONTR,259,189,63,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | WS_GROUP
+    LTEXT           "UC amount:",IDC_STATIC,20,206,48,10,NOT WS_GROUP
+    EDITTEXT        IDC_EDIT_UCAMT,93,206,63,12,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "UC reason:",IDC_STATIC,178,207,48,10,NOT WS_GROUP
+    EDITTEXT        IDC_EDIT_UCREASON,259,207,63,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | WS_GROUP
+    LTEXT           "Old contract Id:",IDC_STATIC,20,225,48,10,NOT WS_GROUP
+    EDITTEXT        IDC_EDIT_OLDCONTRACTID,93,225,63,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Old plan template:",IDC_STATIC,178,226,68,10,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_EDIT_OLDPLANID,259,226,63,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | WS_GROUP
+    LTEXT           "RESP letter:",IDC_STATIC,20,244,48,10,NOT WS_GROUP
+    COMBOBOX        IDC_CMB_RESPLETTER,93,244,63,32,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    LTEXT           "Reported HRDC:",IDC_STATIC,178,245,69,10,NOT WS_GROUP
+    EDITTEXT        IDC_EDIT_HRDCREPORTED,259,245,63,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | WS_GROUP
+    LTEXT           "Trans status:",IDC_STATIC,178,264,48,10,NOT WS_GROUP
+    EDITTEXT        IDC_EDIT_RESPTRANSSTAT,259,264,29,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | WS_GROUP
+    DEFPUSHBUTTON   "&Change",IDC_BTN_CHANGE,190,292,39,14
+    PUSHBUTTON      "&Transactions",IDC_BTN_RESP_TRANSACTIONS,236,292,53,14
+    PUSHBUTTON      "Close",IDCANCEL,295,292,39,14
+END
+
+IDD_ADDRESSBOOK DIALOGEX 3, 1, 342, 249
+STYLE WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Address/Mailing Assignments: Shareholder nbr"
+FONT 10, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "&Shareholder",IDC_RB_SHAREHOLDER,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,8,4,53,10
+    CONTROL         "Entity",IDC_RB_ENTITY,"Button",BS_AUTORADIOBUTTON,67,4,
+                    54,10
+    COMBOBOX        IDC_CMB_ENTITY,124,3,79,50,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Role:",IDC_STATIC_ROLE,211,5,32,8
+    LTEXT           "",IDC_TXT_ROLE,246,5,90,8
+    CONTROL         "List2",IDC_LV_ADDRESSES,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,8,19,328,40
+    PUSHBUTTON      "&Add",IDC_BTN_ADD,257,63,37,14
+    PUSHBUTTON      "&Delete",IDC_BTN_DELETE,298,63,37,14
+    PUSHBUTTON      "&Change",IDC_BTN_CHANGE,298,63,37,14,NOT WS_VISIBLE
+    LTEXT           "Code:",IDC_STATIC__SHAREHOLDER_CODE,7,82,35,8,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_EDT_SHAREHOLDER_ADDCODE,44,80,13,12
+    EDITTEXT        IDC_SHAREHOLDER_CODEDESC,61,80,96,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_TABSTOP
+    LTEXT           "Salutation:",IDC_STATIC_SALUTATION,7,97,35,8,NOT 
+                    WS_GROUP
+    COMBOBOX        IDC_CMB_SALUTATION,44,96,113,42,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_CMB_CODE,44,80,113,47,CBS_DROPDOWNLIST | NOT 
+                    WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Name:",IDC_STATIC_SHAREHOLDER_NAME,7,113,35,8,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_EDT_NAME,44,112,113,12,ES_AUTOHSCROLL
+    LTEXT           "Addtl reg:",IDC_STATIC_SHAREHOLDER_ADDTL,7,129,30,8
+    EDITTEXT        IDC_SHAREHOLDER_REG,44,128,113,12,ES_AUTOHSCROLL
+    LTEXT           "Effective:",IDC_STATIC_EFFECTIVE,7,146,35,8,NOT 
+                    WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_DTP_EFF_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,44,144,44,12
+    LTEXT           "Stop:",IDC_STATIC_STOP,90,146,16,8,NOT WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_DTP_STOP_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,114,144,44,12
+    LTEXT           "Addr&ess:",IDC_STATIC_SHAREHOLDER_ADDRESS,165,82,39,8,
+                    NOT WS_GROUP
+    EDITTEXT        IDC_SHAREHOLDER_ADDRESS,207,80,129,37,ES_MULTILINE | 
+                    ES_WANTRETURN | WS_VSCROLL
+    LTEXT           "Postal/&Zip:",IDC_STATIC_SHR_POST,165,124,32,10
+    EDITTEXT        IDC_EDT_POST_CODE,207,122,37,12,ES_AUTOHSCROLL
+    LTEXT           "Confirm:",IDC_STATIC_CONFIRM,264,124,30,9
+    COMBOBOX        IDC_CMB_CONFIRM,299,122,37,29,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Country:",IDC_STATIC_SHR_COUNTRY,165,145,39,8
+    COMBOBOX        IDC_CMB_SHR_COUNTRY,207,144,129,44,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Address:",IDC_STATIC_ENTITY_ADDRESS,7,98,35,8,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_ENTITY_ADDRESS,44,98,113,36,ES_MULTILINE | 
+                    WS_VSCROLL
+    LTEXT           "City:",IDC_STATIC_CITY,7,145,35,8
+    COMBOBOX        IDC_CMB_CITY,44,143,113,42,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Address ID:",IDC_STATIC_ADDRESS_ID,165,81,39,8,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_EDT_ENTITY_ADDRESS_ID,207,80,40,12,ES_READONLY
+    LTEXT           "Hold mail:",IDC_STATIC_ENTITY_HOLD_MAIL,250,81,38,8,NOT 
+                    WS_GROUP
+    COMBOBOX        IDC_CMB_ENTITY_HOLD_MAIL,290,80,46,33,CBS_DROPDOWNLIST | 
+                    WS_DISABLED | WS_TABSTOP
+    LTEXT           "Postal/&Zip:",IDC_STATIC_ENTITY_POST,165,102,39,8,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_EDT_ENTITY_POST,207,101,129,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "Country:",IDC_STATIC_ENTITY_COUNTRY,165,123,39,8,NOT 
+                    WS_GROUP
+    COMBOBOX        IDC_CMB_ENTITY_COUNTRY,207,122,129,47,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP,WS_EX_RIGHT
+    LTEXT           "Province:",IDC_STATIC_ENTITY_PROVINCE,165,145,39,8,NOT 
+                    WS_GROUP
+    COMBOBOX        IDC_CMB_PROVINCE,207,144,129,44,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Mailing Assignments",IDC_STATIC_MAIL,7,161,329,57
+    LTEXT           "Dis&play code:",IDC_STATIC_CODE,12,170,53,8,NOT 
+                    WS_GROUP
+    COMBOBOX        IDC_CMB_DISP_CODE,72,168,99,44,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Custom1",IDC_LV_MAIL_ASSIGN,"GXWND",WS_BORDER | 
+                    WS_VSCROLL | WS_HSCROLL,7,183,326,31
+    DEFPUSHBUTTON   "&OK",IDOK,167,222,37,14
+    PUSHBUTTON      "Cancel",IDCANCEL,208,222,37,14
+    PUSHBUTTON      "&Reset",IDC_BTN_RESET,249,222,37,14
+    PUSHBUTTON      "Adm&in/Dates",IDC_BTN_ADM_DATES,290,222,46,14
+END
+
+IDD_MINMAX_INFO DIALOG DISCARDABLE  3, 1, 342, 248
+STYLE WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Minimum/Maximum Information: Account nbr"
+FONT 10, "MS Sans Serif"
+BEGIN
+    LTEXT           "RRIF min/max as at:",IDC_LBL_RRIF,10,12,64,12
+    CONTROL         "DateTimePicker1",IDC_DTP_ASOFDATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,78,12,55,12
+    PUSHBUTTON      "&Search",IDC_BTN_SEARCH,296,26,37,14
+    GROUPBOX        "&RRIF Account Min/Max Information",IDC_LBL_ACCOUNTINTO,
+                    8,43,326,80
+    LTEXT           "Other withdrawals/transfers out:",IDC_LBL_OTHER,10,145,
+                    99,12,NOT WS_GROUP
+    LTEXT           "",IDC_TXT_OTHAMTWITH,114,145,57,12,NOT WS_GROUP
+    LTEXT           "Maximum amount:",IDC_LBL_MAXAMT,194,145,62,12
+    LTEXT           "",IDC_TXT_MAXAMT,263,145,57,12,NOT WS_GROUP
+    LTEXT           "Minimum amount:",IDC_LBL_MINAMT,10,165,99,12,NOT 
+                    WS_GROUP
+    LTEXT           "",IDC_TXT_MINAMT,114,165,57,12,NOT WS_GROUP
+    LTEXT           "Remaining amount:",IDC_LBL_MAXAMTREMAIN,193,165,62,12
+    LTEXT           "",IDC_TXT_MAXAMTREMAIN,263,165,57,12,NOT WS_GROUP
+    LTEXT           "Short fall:",IDC_LBL_MINAMTSHORT,10,185,99,12,NOT 
+                    WS_GROUP
+    LTEXT           "",IDC_TXT_MINAMTSHORT,114,185,57,12,NOT WS_GROUP
+    DEFPUSHBUTTON   "Close",IDCANCEL,296,212,37,14
+    CONTROL         "Custom1",IDC_GD_MINMAXLIST,"GXWND",WS_BORDER | 
+                    WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,16,58,313,55
+END
+
+IDD_TRADES DIALOG DISCARDABLE  5, 58, 342, 382
+STYLE WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Trading"
+FONT 10, "MS Sans Serif"
+BEGIN
+    LTEXT           "Transaction :",IDC_STATIC,7,9,41,8,NOT WS_GROUP
+    COMBOBOX        IDC_CMB_TRANSACTION,51,7,61,48,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Pay Type :",IDC_TXT_PAY_TYPE,118,9,33,8,NOT WS_GROUP
+    COMBOBOX        IDC_CMB_PAY_TYPE,156,7,63,48,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "From Account :",IDC_TXT_FROM_ACCOUNT,224,11,45,8,NOT 
+                    WS_VISIBLE
+    LTEXT           "Account :",IDC_TXT_ACCOUNT,241,11,28,8
+    EDITTEXT        IDC_EDT_ACCT_NUM,272,7,62,12,ES_AUTOHSCROLL
+    LTEXT           "Fund :",IDC_TXT_FUND,7,24,21,8,NOT WS_GROUP
+    LTEXT           "From Fund :",IDC_TXT_FROM_FUND,7,24,36,8,NOT WS_VISIBLE | 
+                    NOT WS_GROUP
+    EDITTEXT        IDC_EDT_FUND_NUMBER,45,23,20,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDT_FUND,66,23,39,12,ES_AUTOHSCROLL
+    LTEXT           "Class :",IDC_STATIC,108,25,21,8,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_CLASS,130,23,36,12,ES_AUTOHSCROLL
+    LTEXT           "Type :",IDC_STATIC,166,25,20,8
+    COMBOBOX        IDC_CMB_TYPE,186,23,57,48,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Amount :",IDC_STATIC,243,25,27,8
+    EDITTEXT        IDC_EDT_AMOUNT,272,23,62,12,ES_AUTOHSCROLL
+    GROUPBOX        "&From EFT Instructions",IDC_FRAME_BANK,7,36,162,117
+    GROUPBOX        "&From",IDC_FRAME_FROM,7,36,162,117,NOT WS_VISIBLE
+    EDITTEXT        IDC_EDT_FROM_ADDRESS,13,55,150,27,ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_READONLY
+    LTEXT           "Address:",IDC_TXT_TO_ADDRESS_LABEL,181,48,42,12
+    EDITTEXT        IDC_EDT_TO_ADDRESS_CODE,230,48,25,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDT_TO_ADDRESS,178,68,150,47,ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDT_FROM_ACCT,13,55,150,27,ES_MULTILINE | 
+                    ES_READONLY | ES_WANTRETURN | NOT WS_VISIBLE | 
+                    WS_VSCROLL | WS_GROUP | NOT WS_TABSTOP
+    LTEXT           "Shareholder :",IDC_TXT_FROM_SHAREHOLDER_LABEL,13,89,41,
+                    8,NOT WS_VISIBLE
+    EDITTEXT        IDC_EDT_FROM_SHAREHOLDER,107,87,55,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_VISIBLE | NOT WS_TABSTOP
+    LTEXT           "Alt/Broker Account :",IDC_TXT_FROM_ALT_BROKER_LABEL,13,
+                    105,59,8,NOT WS_VISIBLE
+    EDITTEXT        IDC_EDT_FROM_BROKER_ACCT,107,103,55,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_VISIBLE | NOT WS_TABSTOP
+    LTEXT           "Settled fund units :",
+                    IDC_TXT_FROM_SETTLED_FND_UNITS_LABEL,13,117,54,8,NOT 
+                    WS_VISIBLE
+    RTEXT           "",IDC_TXT_FROM_SETLED_FUND_UNITS,104,117,58,8,NOT 
+                    WS_VISIBLE
+    LTEXT           "Settled Fund Market Value :",
+                    IDC_TXT_FROM_ACCT_MARKET_VALUE_LABEL,13,127,83,8,NOT 
+                    WS_VISIBLE
+    RTEXT           "",IDC_TXT_FROM_MARKET_VALUE,104,127,58,8,NOT WS_VISIBLE
+    LTEXT           "Cautions (2) :",IDC_TXT_FROM_CAUTIONS_LABEL,13,139,39,8,
+                    NOT WS_VISIBLE
+    COMBOBOX        IDC_CMB_FROM_CAUTIONS,56,138,106,48,CBS_DROPDOWNLIST | 
+                    NOT WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "List1",IDC_LV_BANKS,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,13,46,150,29
+    LTEXT           "Name(s) on Account",IDC_TXT_BANK_NAMES_ON_ACCT,13,77,67,
+                    8,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_FROM_NAMES,13,87,150,20,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_TABSTOP
+    LTEXT           "Institution code :",IDC_TXT_INSTIT_CODE_LABEL,13,110,48,
+                    8,NOT WS_GROUP
+    LTEXT           "",IDC_TXT_INSTIT_CODE,69,110,48,8,NOT WS_GROUP
+    LTEXT           "Transit nbr :",IDC_TXT_TRANSIT_NBR_LABEL,13,120,48,8,
+                    NOT WS_GROUP
+    LTEXT           "",IDC_TXT_TRANSIT_NBR,69,120,48,8,NOT WS_GROUP
+    LTEXT           "Use :",IDC_TXT_USE_LABEL,13,130,46,8,NOT WS_GROUP
+    LTEXT           "",IDC_TXT_USE,69,130,46,8,NOT WS_GROUP
+    PUSHBUTTON      "&Bank",IDC_BTN_BANK,126,134,37,14
+    GROUPBOX        "&To Account",IDC_FRAME_TO_ACCT,173,36,162,117
+    GROUPBOX        "&To ",IDC_FRAME_TO,173,36,162,117,NOT WS_VISIBLE
+    EDITTEXT        IDC_EDT_TO_ACCT,179,55,150,27,ES_MULTILINE | ES_READONLY | 
+                    ES_WANTRETURN | WS_VSCROLL | WS_GROUP | NOT WS_TABSTOP
+    LTEXT           "Account :",IDC_TXT_TO_ACCT_LABEL,180,89,28,8,NOT 
+                    WS_VISIBLE
+    EDITTEXT        IDC_EDT_TO_ACCT_NUM,255,87,72,12,ES_AUTOHSCROLL
+    LTEXT           "Fund :",IDC_TXT_TO_FUND_LABEL,180,106,33,8,NOT 
+                    WS_VISIBLE | NOT WS_GROUP
+    EDITTEXT        IDC_EDT_TO_FUND_NUMBER,235,104,19,12,ES_AUTOHSCROLL | 
+                    NOT WS_VISIBLE
+    EDITTEXT        IDC_EDT_TO_FUND,255,104,74,12,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE
+    LTEXT           "Class :",IDC_TXT_TO_CLASS_LABEL,180,122,33,8,NOT 
+                    WS_VISIBLE | NOT WS_GROUP
+    LTEXT           "Shareholder :",IDC_TXT_TO_SHAREHOLDER_LABEL,180,89,41,8
+    EDITTEXT        IDC_EDT_TO_SHAREHOLDER,274,87,55,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_TABSTOP
+    LTEXT           "Alt/Broker Account :",IDC_TXT_TO_ALT_BROKER_LABEL,180,
+                    105,59,8
+    EDITTEXT        IDC_EDT_TO_BROKER_ACCT,274,103,55,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_TABSTOP
+    LTEXT           "Settled fund units :",
+                    IDC_TXT_TO_SETTLED_FND_UNITS_LABEL,180,117,54,8
+    RTEXT           "",IDC_TXT_TO_SETLED_FUND_UNITS,271,117,58,8
+    EDITTEXT        IDC_EDT_TO_CLASS,291,120,38,12,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE
+    LTEXT           "Account market value :",
+                    IDC_TXT_TO_ACCT_MARKET_VALUE_LABEL,180,127,68,8
+    RTEXT           "",IDC_TXT_TO_MARKET_VALUE,271,127,58,8
+    LTEXT           "Cautions (2) :",IDC_TXT_TO_CAUTIONS_LABEL,180,139,39,8
+    COMBOBOX        IDC_CMB_TO_CAUTIONS,223,138,106,48,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Re&p Info",IDC_STATIC,7,153,162,66
+    LTEXT           "Broker :",IDC_STATIC,14,164,25,8,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_BROKER_CODE,52,163,33,12,ES_AUTOHSCROLL
+    LTEXT           "",IDC_TXT_BROKER_NAME,91,165,75,8,NOT WS_GROUP
+    LTEXT           "Branch :",IDC_STATIC,14,180,25,8,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_BRANCH_CODE,52,179,33,12,ES_AUTOHSCROLL
+    LTEXT           "",IDC_TXT_BRANCH_NAME,91,181,75,8,NOT WS_GROUP
+    LTEXT           "Sales Rep :",IDC_STATIC,14,197,35,8,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_SALES_REP_CODE,52,196,33,12,ES_AUTOHSCROLL
+    LTEXT           "",IDC_TXT_SALES_REP_KANJI_NAME,91,192,76,8,NOT WS_GROUP
+    LTEXT           "",IDC_TXT_SALES_REP_KANA_NAME,91,197,74,8,NOT WS_GROUP
+    GROUPBOX        "A&llocation",IDC_STATIC,7,217,162,62
+    CONTROL         "List1",IDC_LV_ALLOCATIONS,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,14,227,150,29
+    PUSHBUTTON      "Allocatio&n",IDC_BTN_ALLOCATION,127,260,37,14
+    LTEXT           "&e",IDC_STATIC,173,143,8,8,NOT WS_VISIBLE
+    CONTROL         "2",IDC_ATTRIBUTES_GRID,"GXWND",WS_BORDER | WS_VSCROLL | 
+                    WS_HSCROLL | WS_TABSTOP,173,157,162,122
+    LTEXT           "&u",IDC_STATIC,10,270,8,8,NOT WS_VISIBLE
+    CONTROL         "List1",IDC_LV_TRADES,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,7,285,328,46
+    PUSHBUTTON      "&Add",IDC_BTN_ADD,257,336,37,14
+    PUSHBUTTON      "&Delete",IDC_BTN_DELETE,298,336,37,14
+    DEFPUSHBUTTON   "&OK",IDOK,83,354,37,14
+    PUSHBUTTON      "Cancel",IDCANCEL,124,354,37,14
+    PUSHBUTTON      "&Reset",IDC_BTN_RESET,165,354,37,14
+    PUSHBUTTON      "Other Trade&s",IDC_BTN_OTHER_TRADES,206,354,47,14
+    PUSHBUTTON      "&History",IDC_BTN_HISTORY,257,354,37,14
+    PUSHBUTTON      "Bat&ch",IDC_BTN_BATCH,298,354,37,14
+    LTEXT           "Purchase total:",IDC_STATIC_PURCHASE_TOTAL,7,337,46,8
+    EDITTEXT        IDC_EDT_PURCHASE_TOTAL,65,336,44,12,ES_RIGHT | 
+                    ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "Split Comm",IDC_BTN_SPLIT_COM,81,260,43,14
+END
+
+IDD_RESP_BEN_REL DIALOG DISCARDABLE  3, 1, 343, 274
+STYLE WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "RESP Beneficiary Relationship Join"
+FONT 10, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "Cancel",IDCANCEL,258,246,37,14,WS_GROUP
+    PUSHBUTTON      "&Reset",IDC_BTN_RESET,299,246,37,14,WS_GROUP
+    COMBOBOX        IDC_CMB_RESP_BEN,95,6,129,64,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "&Select from list to join to Beneficiary",IDC_STATIC,7,
+                    29,329,123,WS_TABSTOP
+    CONTROL         "List3",IDC_LV_TO_JOIN_BEN,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_GROUP | WS_TABSTOP,12,43,319,86
+    PUSHBUTTON      "&Join",IDC_BTN_JOIN,294,133,37,14,WS_GROUP
+    GROUPBOX        "&Entities joined to Beneficiary",IDC_STATIC,7,157,329,
+                    83,WS_TABSTOP
+    CONTROL         "List3",IDC_LV_JOINED_TO_BEN,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_GROUP | WS_TABSTOP,12,171,319,47
+    PUSHBUTTON      "Remo&ve",IDC_BTN_REMOVE,294,222,37,14,WS_GROUP
+    DEFPUSHBUTTON   "&OK",IDOK,217,246,37,14,WS_GROUP
+    LTEXT           "RESP account beneficiary:",IDC_STATIC,7,7,89,8
+END
+
+IDD_CONTRACT_INFO_1 DIALOG DISCARDABLE  3, 1, 342, 274
+STYLE WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Contract Information: Account Nbr"
+FONT 10, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Contract Information",IDC_STATIC,7,4,329,87
+    LTEXT           "Account group:",IDC_STATIC,13,142,49,15
+    LTEXT           "Issue date:",IDC_STATIC,171,20,79,11
+    LTEXT           "",IDC_TXT_ISSUE_DATE,261,20,64,11
+    LTEXT           "Contract type:",IDC_STATIC,13,159,47,15
+    LTEXT           "Last reset:",IDC_STATIC,171,39,63,13
+    LTEXT           "",IDC_TXT_LAST_RESET,261,39,64,12
+    LTEXT           "Policy number:",IDC_STATIC,14,39,50,13
+    LTEXT           "",IDC_TXT_TYPEID,80,20,63,10
+    LTEXT           "Legal contract maturity date:",IDC_STATIC,171,58,84,12
+    LTEXT           "",IDC_TXT_MATURITY_DATE,261,58,63,11
+    LTEXT           "Age based on:",IDC_STATIC,14,58,51,12
+    LTEXT           "",IDC_TXT_AGE_BASEDON,79,58,56,11
+    LTEXT           "Bail-out maturity date:",IDC_STATIC,171,75,71,11
+    LTEXT           "",IDC_TXT_BAILOUT_DATE,261,75,64,10
+    LTEXT           "Anniversary date:",IDC_STATIC_ANNIV_DATE,13,75,55,11
+    LTEXT           "",IDC_TXT_ANNIV_DATE,73,75,53,10
+    CONTROL         "List2",IDC_LV_CONTRACT,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,7,95,329,40
+    LTEXT           "E&ffective date:",IDC_STATIC,13,197,50,15,NOT WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_DTP_EFF_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_GROUP | WS_TABSTOP,78,197,71,13
+    LTEXT           "Stop &date:",IDC_STATIC,171,159,61,15,NOT WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_DTP_STOP_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_GROUP | WS_TABSTOP,261,159,68,13
+    LTEXT           "&Status:",IDC_STATIC,13,178,45,15,NOT WS_GROUP
+    COMBOBOX        IDC_CMB_STATUS,78,178,71,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    LTEXT           "&Term:",IDC_STATIC,171,178,61,15,NOT WS_GROUP
+    EDITTEXT        IDC_EDT_TERM,261,178,67,13,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "Pro&v of registration:",IDC_STATIC,13,218,59,15,NOT 
+                    WS_GROUP
+    COMBOBOX        IDC_CMB_PROV_REG,78,218,72,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    LTEXT           "&Maturity date type:",IDC_STATIC,171,197,77,15,NOT 
+                    WS_GROUP
+    COMBOBOX        IDC_CMB_DATE_TYPE,261,197,69,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    LTEXT           "&User-defined maturity date:",IDC_STATIC,171,142,81,15,
+                    NOT WS_GROUP
+    CONTROL         "DateTimePicker1",IDC_DTP_MATURITY_DATE,
+                    "SysDateTimePick32",DTS_RIGHTALIGN | WS_GROUP | 
+                    WS_TABSTOP,261,142,68,13
+    DEFPUSHBUTTON   "&OK",IDOK,13,241,35,17
+    PUSHBUTTON      "Cancel",IDCANCEL,50,241,33,17
+    PUSHBUTTON      "Add Co&py",IDC_BTN_ADD_COPY,127,241,38,17
+    PUSHBUTTON      "&Entity",IDC_BTN_ENTITY,207,241,35,17
+    PUSHBUTTON      "&Guarantee",IDC_BTN_GUARANTEE,244,241,38,17
+    PUSHBUTTON      "Adm&in/Dates",IDC_BTN_ADM_DATES,284,241,46,17
+    LTEXT           "Type ID:",IDC_STATIC,15,20,49,11
+    LTEXT           "",IDC_TXT_POLICY_NUMBER,79,39,59,11
+    COMBOBOX        IDC_CMB_ACCTGROUP,78,142,70,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_GROUP | WS_TABSTOP
+    DEFPUSHBUTTON   "&Delete",IDDEL,168,241,36,17
+    DEFPUSHBUTTON   "&Add",IDADD,87,241,37,17
+    COMBOBOX        IDC_CMB_CONTRACT_TYPE,78,159,70,30,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_GROUP | WS_TABSTOP
+END
+
+IDD_GUARANTEE_INFO_1 DIALOG DISCARDABLE  0, 0, 342, 375
+STYLE WS_CAPTION | WS_SYSMENU
+CAPTION "Guarantee Information: Account Nbr"
+FONT 10, "MS Sans Serif"
+BEGIN
+    CONTROL         "List2",IDC_LV_ACCTGUARANTEE,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,7,36,328,52
+    LTEXT           " Total Account Guarantee:",IDC_STATIC_GUARACC_TOTAL,15,
+                    14,84,12
+    LTEXT           " ",IDC_STATIC_CONTRACTGUAR_TOTAL,123,194,96,12,NOT 
+                    WS_GROUP | WS_TABSTOP
+    PUSHBUTTON      "&More",IDC_BTN_MORE,283,190,45,17
+    GROUPBOX        " Guarantee Details",IDC_STATIC_GUARACC_DETAIL,7,94,327,
+                    234,WS_GROUP
+    CTEXT           "",IDC_STATIC_ELSE,14,216,315,108,SS_CENTERIMAGE | 
+                    WS_BORDER | NOT WS_GROUP
+    CONTROL         "Custom2",IDC_GD_GUARRESETLIST,"GXWND",WS_BORDER | 
+                    WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,15,251,313,73
+    CONTROL         "Custom3",IDC_GD_GUARREDDETAIL,"GXWND",WS_BORDER | 
+                    WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,15,253,313,71
+    PUSHBUTTON      "&Seg Options",IDC_BTN_SEG_OPTIONS,106,341,48,17
+    PUSHBUTTON      "&Entity",IDC_BTN_ENTITY,159,341,45,17
+    PUSHBUTTON      "C&ontract",IDC_BTN_CONTRACT,212,341,45,17
+    DEFPUSHBUTTON   "Close",IDCANCEL,264,341,45,17
+    CONTROL         "List2",IDC_LV_GUARANTEE,"SysListView32",LVS_REPORT | 
+                    LVS_SINGLESEL | LVS_OWNERDRAWFIXED | WS_BORDER | 
+                    WS_TABSTOP,13,133,317,52
+    CONTROL         "All Transactions",IDC_ALLTRANSACTIONS,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,15,110,64,10
+    CONTROL         "By Contract",IDC_BYCONTRACT,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,127,110,50,10
+    CONTROL         "By Policy Year / Term",IDC_BYPOL_YEAR_TERM,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,222,110,81,10
+    LTEXT           " ",IDC_STATIC_GUARAMTATMATUR,109,14,96,12,NOT WS_GROUP | 
+                    WS_TABSTOP
+    LTEXT           " Contract Guarantee Total:",IDC_STATIC_CTRACTGUAR_TOTAL,
+                    13,194,84,12
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "..\\resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\ResCanada.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "ResCanada DLL\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "ResCanada\0"
+            VALUE "LegalCopyright", "Copyright (C) 1999\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "ResCanada.DLL\0"
+            VALUE "ProductName", "ResCanada Dynamic Link Library\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\ResEuropean.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

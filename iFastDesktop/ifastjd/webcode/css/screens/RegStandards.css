@@ -1,0 +1,63 @@
+/*            	,'<div class="DetailsSectionDiv">'
+					,'<span style="left:0px;"> Investor Type:</span>'
+	                ,'<span style="left:200px;">{investorTypeDesc}</span>'
+	                ,'<span style="left:420px;">Invest on behalf of 3rd party:</span>'
+	                ,'<span style="left:620px;">{investFor3rdParty}</span>'	
+	            ,'</div>'
+				,'<div class="DetailsSectionDiv">'
+					,'<span style="left:0px;">Effective Date:</span>'
+	                ,'<span style="left:200px;">{effDate}</span>'
+	                ,'<span style="left:420px;">Stop Date:</span>'
+	                ,'<span style="left:620px;">{stopDate}</span>'	
+	            ,'</div>'
+				,'<div class="DetailsSectionDiv">'
+					,'<span style="left:0px;">Province:</span>'
+	                ,'<span style="left:200px;">{provinceDesc}</span>'
+	                ,'<span style="left:420px;">Tax Type(s):</span>'
+	                ,'<span style="left:620px;"></span>'	
+	            ,'</div>'
+            ,'</div>'*/
+.DesktopWeb-Grid-Selected-Row
+{	
+	background: #d0d0d0!important;
+	color: black;
+	border-style: solid !important;	
+}
+.DesktopWeb-Grid-Selected-Row .x-grid3-cell, .DesktopWeb-Grid-Selected-Row .x-grid3-body-cell 
+{
+	color: black !important;
+}
+.DetailsSectionDiv
+{
+	width: 600px;	
+	height:160px;
+					        		
+	background-color:#d0d0d0;				
+	margin-left:30px;
+	text-align:center;
+
+}
+
+.DetailsSectionDiv td
+{
+	padding: 2px;
+}
+
+.x-DocListDiv 
+{
+	width: 500px;
+	height: 100px;
+	border: 1px solid gray !important;
+	background-color: white;
+	overflow: scroll;	
+	scrollbar-face-color:rgb(204,204,204);	
+}
+.x-DocListDiv  thead
+{
+	background-color: #c0c0c0;
+	color: black;
+	text-align: left;
+	font: bold;
+	font-size: 12px;
+	height: 20px;
+}

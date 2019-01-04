@@ -1,0 +1,56 @@
+tr.fixedHeader
+{
+    position:relative;
+    top:expression(this.offsetParent.scrollTop);
+    border:1px solid black;
+    color:black;
+    height:20px
+}
+
+th.grid
+{                
+        font-weight:normal;
+        color: black;
+        font-family:tahoma;
+        font-size:12px;
+        border-top:1px solid black;
+        border-bottom:1px solid black;
+        border-left:1px solid black;
+        background:#ECE9D8;
+}
+
+th.grid_end
+{                
+        color:black;
+        font-weight:normal;        
+        font-family:tahoma;
+        font-size:12px;
+        border:1px solid black;
+        background:#CCCCCC;        
+}
+
+td.grid
+{
+    color:black;
+    font-family:tahoma;
+    font-size:12px;
+    border-bottom:1px solid #D3D3D3;
+    border-left:1px solid #D3D3D3; 
+    background-color: white;   
+}
+
+tr.grid
+{
+    color:black;
+    background-color:white;
+    height:20px;
+}
+
+td.grid_end
+{
+    font-family:arial, "lucida console", sans-serif;
+    font-size:12px;
+    border-bottom:1px solid #D3D3D3;
+    border-left:1px solid #D3D3D3;
+    border-right:1px solid #D3D3D3;    
+}

@@ -1,0 +1,1314 @@
+
+#ifndef SOM_AWDCommon_xh
+#define SOM_AWDCommon_xh
+
+class AWDCommon;
+
+#define AWDCommon_MajorVersion 2
+#define AWDCommon_MinorVersion 3
+
+/*
+ * Passthru lines: File: "C.xh", "before"
+ */
+#include <persist.h>
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_somf_MLinkable_xh
+#include <mlink.xh>
+#endif
+
+#ifndef AWDCommon_API
+#define AWDCommon_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+class SOMClass;
+class SOMObject;
+class AWDPersist;
+class AWDBase;
+class iostream;
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the AWDCommon Class */
+SOMEXTERN
+#if (defined(SOM_Module_common_Source) || defined(AWDCommon_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDCommon))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK AWDCommonNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the AWDCommon class object, and the methods it introduces. */
+SOMEXTERN struct AWDCommonClassDataStructure {
+	SOMClass *classObject;
+	somMToken store;
+	somMToken restore;
+}
+#if !(defined(SOM_Module_common_Source) || defined(AWDCommon_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDCommon))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDCommonClassData;
+#define _AWDCommon AWDCommonClassData.classObject
+
+/* The API to parentMtabs for AWDCommon, and the instance data it introduces. */
+SOMEXTERN struct AWDCommonCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_common_Source) || defined(AWDCommon_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDCommon))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDCommonCClassData;
+
+/*
+ * -- Typedefs for AWDCommon Method Procedures
+ */
+extern "C" {
+typedef void   SOMLINK somTP_AWDCommon_store(AWDCommon *somSelf, Environment *ev,
+		AWDPersist* pPersist);
+typedef somTP_AWDCommon_store *somTD_AWDCommon_store;
+typedef void   SOMLINK somTP_AWDCommon_restore(AWDCommon *somSelf, Environment *ev,
+		AWDPersist* pPersist);
+typedef somTP_AWDCommon_restore *somTD_AWDCommon_restore;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef somf_MLinkable*   SOMLINK somTP_AWDCommon_somfMLinkableInit(AWDCommon *somSelf, Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p);
+typedef somTP_AWDCommon_somfMLinkableInit *somTD_AWDCommon_somfMLinkableInit;
+typedef somf_MLinkable*   SOMLINK somTP_AWDCommon_somfGetNext(AWDCommon *somSelf, Environment *ev);
+typedef somTP_AWDCommon_somfGetNext *somTD_AWDCommon_somfGetNext;
+typedef void   SOMLINK somTP_AWDCommon_somfSetNext(AWDCommon *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_AWDCommon_somfSetNext *somTD_AWDCommon_somfSetNext;
+typedef somf_MLinkable*   SOMLINK somTP_AWDCommon_somfGetPrevious(AWDCommon *somSelf, Environment *ev);
+typedef somTP_AWDCommon_somfGetPrevious *somTD_AWDCommon_somfGetPrevious;
+typedef void   SOMLINK somTP_AWDCommon_somfSetPrevious(AWDCommon *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_AWDCommon_somfSetPrevious *somTD_AWDCommon_somfSetPrevious;
+typedef void   SOMLINK somTP_AWDCommon_somInit(AWDCommon *somSelf);
+typedef somTP_AWDCommon_somInit *somTD_AWDCommon_somInit;
+typedef void   SOMLINK somTP_AWDCommon_somDefaultInit(AWDCommon *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_AWDCommon_somDefaultInit *somTD_AWDCommon_somDefaultInit;
+typedef void   SOMLINK somTP_AWDCommon_somDestruct(AWDCommon *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_AWDCommon_somDestruct *somTD_AWDCommon_somDestruct;
+typedef void   SOMLINK somTP_AWDCommon_somDefaultCopyInit(AWDCommon *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDCommon_somDefaultCopyInit *somTD_AWDCommon_somDefaultCopyInit;
+typedef AWDCommon*   SOMLINK somTP_AWDCommon_somDefaultAssign(AWDCommon *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDCommon_somDefaultAssign *somTD_AWDCommon_somDefaultAssign;
+typedef void   SOMLINK somTP_AWDCommon_somDefaultConstCopyInit(AWDCommon *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDCommon_somDefaultConstCopyInit *somTD_AWDCommon_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_AWDCommon_somDefaultVCopyInit(AWDCommon *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDCommon_somDefaultVCopyInit *somTD_AWDCommon_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_AWDCommon_somDefaultConstVCopyInit(AWDCommon *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDCommon_somDefaultConstVCopyInit *somTD_AWDCommon_somDefaultConstVCopyInit;
+typedef AWDCommon*   SOMLINK somTP_AWDCommon_somDefaultConstAssign(AWDCommon *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDCommon_somDefaultConstAssign *somTD_AWDCommon_somDefaultConstAssign;
+typedef AWDCommon*   SOMLINK somTP_AWDCommon_somDefaultVAssign(AWDCommon *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDCommon_somDefaultVAssign *somTD_AWDCommon_somDefaultVAssign;
+typedef AWDCommon*   SOMLINK somTP_AWDCommon_somDefaultConstVAssign(AWDCommon *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDCommon_somDefaultConstVAssign *somTD_AWDCommon_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_AWDCommon_somFree(AWDCommon *somSelf);
+typedef somTP_AWDCommon_somFree *somTD_AWDCommon_somFree;
+typedef void   SOMLINK somTP_AWDCommon_somUninit(AWDCommon *somSelf);
+typedef somTP_AWDCommon_somUninit *somTD_AWDCommon_somUninit;
+typedef SOMClass*   SOMLINK somTP_AWDCommon_somGetClass(AWDCommon *somSelf);
+typedef somTP_AWDCommon_somGetClass *somTD_AWDCommon_somGetClass;
+typedef string   SOMLINK somTP_AWDCommon_somGetClassName(AWDCommon *somSelf);
+typedef somTP_AWDCommon_somGetClassName *somTD_AWDCommon_somGetClassName;
+typedef long   SOMLINK somTP_AWDCommon_somGetSize(AWDCommon *somSelf);
+typedef somTP_AWDCommon_somGetSize *somTD_AWDCommon_somGetSize;
+typedef boolean   SOMLINK somTP_AWDCommon_somIsA(AWDCommon *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDCommon_somIsA *somTD_AWDCommon_somIsA;
+typedef boolean   SOMLINK somTP_AWDCommon_somIsInstanceOf(AWDCommon *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDCommon_somIsInstanceOf *somTD_AWDCommon_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_AWDCommon_somRespondsTo(AWDCommon *somSelf,
+		somId mId);
+typedef somTP_AWDCommon_somRespondsTo *somTD_AWDCommon_somRespondsTo;
+typedef boolean   SOMLINK somTP_AWDCommon_somDispatch(AWDCommon *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDCommon_somDispatch *somTD_AWDCommon_somDispatch;
+typedef boolean   SOMLINK somTP_AWDCommon_somClassDispatch(AWDCommon *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDCommon_somClassDispatch *somTD_AWDCommon_somClassDispatch;
+typedef boolean   SOMLINK somTP_AWDCommon_somCastObj(AWDCommon *somSelf,
+		SOMClass* cls);
+typedef somTP_AWDCommon_somCastObj *somTD_AWDCommon_somCastObj;
+typedef boolean   SOMLINK somTP_AWDCommon_somResetObj(AWDCommon *somSelf);
+typedef somTP_AWDCommon_somResetObj *somTD_AWDCommon_somResetObj;
+typedef SOMObject*   SOMLINK somTP_AWDCommon_somPrintSelf(AWDCommon *somSelf);
+typedef somTP_AWDCommon_somPrintSelf *somTD_AWDCommon_somPrintSelf;
+typedef void   SOMLINK somTP_AWDCommon_somDumpSelf(AWDCommon *somSelf,
+		long level);
+typedef somTP_AWDCommon_somDumpSelf *somTD_AWDCommon_somDumpSelf;
+typedef void   SOMLINK somTP_AWDCommon_somDumpSelfInt(AWDCommon *somSelf,
+		long level);
+typedef somTP_AWDCommon_somDumpSelfInt *somTD_AWDCommon_somDumpSelfInt;
+}
+
+#endif /* AWDCommon_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for AWDCommon
+ */
+class AWDCommon : public somf_MLinkable
+{
+public:
+
+// AWDCommon::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_AWDCommon) AWDCommonNewClass(AWDCommon_MajorVersion,AWDCommon_MinorVersion);
+   return (void*)
+      SOM_Resolve(_AWDCommon,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_AWDCommon));
+}
+
+// AWDCommon::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+AWDCommon()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDCommonCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+AWDCommon(AWDCommon* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDCommonCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDCommon(const AWDCommon* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDCommonCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+
+/* method: store */
+void   store(Environment *ev,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDCommon,AWDCommon,store)
+	(this, ev,pPersist);
+}
+
+
+/* method: restore */
+void   restore(Environment *ev,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDCommon,AWDCommon,restore)
+	(this, ev,pPersist);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* method: somfMLinkableInit */
+somf_MLinkable*   somfMLinkableInit(Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p)
+{
+   return SOM_ResolveD(this,AWDCommon,somf_MLinkable,somfMLinkableInit)
+	(this, ev,n,p);
+}
+
+
+/* method: somfGetNext */
+somf_MLinkable*   somfGetNext(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDCommon,somf_MLinkable,somfGetNext)
+	(this, ev);
+}
+
+
+/* method: somfSetNext */
+void   somfSetNext(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,AWDCommon,somf_MLinkable,somfSetNext)
+	(this, ev,aLink);
+}
+
+
+/* method: somfGetPrevious */
+somf_MLinkable*   somfGetPrevious(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDCommon,somf_MLinkable,somfGetPrevious)
+	(this, ev);
+}
+
+
+/* method: somfSetPrevious */
+void   somfSetPrevious(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,AWDCommon,somf_MLinkable,somfSetPrevious)
+	(this, ev,aLink);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,AWDCommon,SOMObject,somInit)
+	(this);
+}
+
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDCommon,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDCommon,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDCommon,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+AWDCommon*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDCommon,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDCommon,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDCommon,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDCommon,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+AWDCommon*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDCommon,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+AWDCommon*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDCommon,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+AWDCommon*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDCommon,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,AWDCommon,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,AWDCommon,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,AWDCommon,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,AWDCommon,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,AWDCommon,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDCommon,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDCommon,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,AWDCommon,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   AWDCommon_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDCommon,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDCommon,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   AWDCommon_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDCommon,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDCommon,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,AWDCommon,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,AWDCommon,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,AWDCommon,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,AWDCommon,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,AWDCommon,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* AWDCommon */
+
+
+
+#endif       /* SOM_AWDCommon_xh */
+
+#ifndef SOM_AWDPersist_xh
+#define SOM_AWDPersist_xh
+
+class AWDPersist;
+
+#define AWDPersist_MajorVersion 2
+#define AWDPersist_MinorVersion 3
+
+/*
+ * Passthru lines: File: "C.xh", "before"
+ */
+#include <persist.h>
+
+/* C++ SOM defs */
+#include <somcls.xh>
+#include <somcm.xh>
+
+/* C++ parent defs */
+#ifndef SOM_AWDCommon_xh
+#include <common.xh>
+#endif
+
+#ifndef AWDPersist_API
+#define AWDPersist_API
+/*
+ * -- The Class API
+ */
+
+/*
+ * Start of user-defined types:
+ */
+typedef unsigned long AWDPersist_MODE;
+#define AWDPersist_MODE_FILE 1UL
+#define AWDPersist_MODE_MEMORY 2UL
+#define AWDPersist_MODE_DYNAMIC_MEMORY 3UL
+
+#ifndef SOM_DONT_USE_SHORT_NAMES
+#ifndef SOMTGD_MODE
+    #ifdef MODE
+        #undef MODE
+        #define SOMTGD_MODE 1
+    #else
+        #define MODE AWDPersist_MODE
+    #endif /* MODE */
+#endif /* SOMTGD_MODE */
+#endif /* SOM_DONT_USE_SHORT_NAMES */
+
+/*
+ * End of user-defined types.
+ */
+
+/* A procedure to create the AWDPersist Class */
+SOMEXTERN
+#if (defined(SOM_Module_common_Source) || defined(AWDPersist_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDPersist))
+WIN32_DLLEXPORT
+#else
+WIN32_DLLIMPORT
+#endif
+SOMClass * SOMLINK AWDPersistNewClass(
+		integer4,
+		integer4 );
+
+/* The API to the AWDPersist class object, and the methods it introduces. */
+SOMEXTERN struct AWDPersistClassDataStructure {
+	SOMClass *classObject;
+	somMToken close;
+	somMToken isFile;
+	somMToken isMemory;
+	somMToken fileName;
+	somMToken initialize;
+	somMToken setFileName;
+	somMToken stream;
+	somMToken withFileName;
+	somMToken withPtrandSize;
+	somMToken withMode;
+	somMToken storeSize;
+}
+#if !(defined(SOM_Module_common_Source) || defined(AWDPersist_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDPersist))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDPersistClassData;
+#define _AWDPersist AWDPersistClassData.classObject
+
+/* The API to parentMtabs for AWDPersist, and the instance data it introduces. */
+SOMEXTERN struct AWDPersistCClassDataStructure {
+	somMethodTabs parentMtab;
+	somDToken              instanceDataToken;
+}
+#if !(defined(SOM_Module_common_Source) || defined(AWDPersist_Class_Source) || defined (SOM_DONT_IMPORT_CLASS_AWDPersist))
+WIN32_DLLIMPORT
+#elif defined(_MSC_VER)||defined(_WIN32_DECL_PROTO)
+WIN32_DLLEXPORT
+#endif
+SOMDLINK AWDPersistCClassData;
+
+/*
+ * -- Typedefs for AWDPersist Method Procedures
+ */
+extern "C" {
+typedef long   SOMLINK somTP_AWDPersist_storeSize(AWDPersist *somSelf, Environment *ev);
+typedef somTP_AWDPersist_storeSize *somTD_AWDPersist_storeSize;
+typedef string   SOMLINK somTP_AWDPersist_fileName(AWDPersist *somSelf, Environment *ev);
+typedef somTP_AWDPersist_fileName *somTD_AWDPersist_fileName;
+typedef void   SOMLINK somTP_AWDPersist_initialize(AWDPersist *somSelf, Environment *ev);
+typedef somTP_AWDPersist_initialize *somTD_AWDPersist_initialize;
+typedef boolean   SOMLINK somTP_AWDPersist_isFile(AWDPersist *somSelf, Environment *ev);
+typedef somTP_AWDPersist_isFile *somTD_AWDPersist_isFile;
+typedef boolean   SOMLINK somTP_AWDPersist_isMemory(AWDPersist *somSelf, Environment *ev);
+typedef somTP_AWDPersist_isMemory *somTD_AWDPersist_isMemory;
+typedef void   SOMLINK somTP_AWDPersist_setFileName(AWDPersist *somSelf, Environment *ev,
+		string fileName);
+typedef somTP_AWDPersist_setFileName *somTD_AWDPersist_setFileName;
+typedef iostream*   SOMLINK somTP_AWDPersist_stream(AWDPersist *somSelf, Environment *ev);
+typedef somTP_AWDPersist_stream *somTD_AWDPersist_stream;
+typedef void   SOMLINK somTP_AWDPersist_withFileName(AWDPersist *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		string fileName);
+typedef somTP_AWDPersist_withFileName *somTD_AWDPersist_withFileName;
+typedef void   SOMLINK somTP_AWDPersist_withPtrandSize(AWDPersist *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		void* ptr,
+		unsigned long ulSize);
+typedef somTP_AWDPersist_withPtrandSize *somTD_AWDPersist_withPtrandSize;
+typedef void   SOMLINK somTP_AWDPersist_withMode(AWDPersist *somSelf, Environment *ev,
+		somInitCtrl* ctrl,
+		AWDPersist_MODE mode);
+typedef somTP_AWDPersist_withMode *somTD_AWDPersist_withMode;
+
+/*
+ * -- Typedefs for Reintroduced Wrapper Methods
+ */
+typedef void   SOMLINK somTP_AWDPersist_store(AWDPersist *somSelf, Environment *ev,
+		AWDPersist* pPersist);
+typedef somTP_AWDPersist_store *somTD_AWDPersist_store;
+typedef void   SOMLINK somTP_AWDPersist_restore(AWDPersist *somSelf, Environment *ev,
+		AWDPersist* pPersist);
+typedef somTP_AWDPersist_restore *somTD_AWDPersist_restore;
+typedef void   SOMLINK somTP_AWDPersist_somDefaultInit(AWDPersist *somSelf,
+		somInitCtrl* ctrl);
+typedef somTP_AWDPersist_somDefaultInit *somTD_AWDPersist_somDefaultInit;
+typedef void   SOMLINK somTP_AWDPersist_somDestruct(AWDPersist *somSelf,
+		octet doFree,
+		somDestructCtrl* ctrl);
+typedef somTP_AWDPersist_somDestruct *somTD_AWDPersist_somDestruct;
+typedef somf_MLinkable*   SOMLINK somTP_AWDPersist_somfMLinkableInit(AWDPersist *somSelf, Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p);
+typedef somTP_AWDPersist_somfMLinkableInit *somTD_AWDPersist_somfMLinkableInit;
+typedef somf_MLinkable*   SOMLINK somTP_AWDPersist_somfGetNext(AWDPersist *somSelf, Environment *ev);
+typedef somTP_AWDPersist_somfGetNext *somTD_AWDPersist_somfGetNext;
+typedef void   SOMLINK somTP_AWDPersist_somfSetNext(AWDPersist *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_AWDPersist_somfSetNext *somTD_AWDPersist_somfSetNext;
+typedef somf_MLinkable*   SOMLINK somTP_AWDPersist_somfGetPrevious(AWDPersist *somSelf, Environment *ev);
+typedef somTP_AWDPersist_somfGetPrevious *somTD_AWDPersist_somfGetPrevious;
+typedef void   SOMLINK somTP_AWDPersist_somfSetPrevious(AWDPersist *somSelf, Environment *ev,
+		somf_MLinkable* aLink);
+typedef somTP_AWDPersist_somfSetPrevious *somTD_AWDPersist_somfSetPrevious;
+typedef void   SOMLINK somTP_AWDPersist_somInit(AWDPersist *somSelf);
+typedef somTP_AWDPersist_somInit *somTD_AWDPersist_somInit;
+typedef void   SOMLINK somTP_AWDPersist_somDefaultCopyInit(AWDPersist *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDPersist_somDefaultCopyInit *somTD_AWDPersist_somDefaultCopyInit;
+typedef AWDPersist*   SOMLINK somTP_AWDPersist_somDefaultAssign(AWDPersist *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDPersist_somDefaultAssign *somTD_AWDPersist_somDefaultAssign;
+typedef void   SOMLINK somTP_AWDPersist_somDefaultConstCopyInit(AWDPersist *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDPersist_somDefaultConstCopyInit *somTD_AWDPersist_somDefaultConstCopyInit;
+typedef void   SOMLINK somTP_AWDPersist_somDefaultVCopyInit(AWDPersist *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDPersist_somDefaultVCopyInit *somTD_AWDPersist_somDefaultVCopyInit;
+typedef void   SOMLINK somTP_AWDPersist_somDefaultConstVCopyInit(AWDPersist *somSelf,
+		somInitCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDPersist_somDefaultConstVCopyInit *somTD_AWDPersist_somDefaultConstVCopyInit;
+typedef AWDPersist*   SOMLINK somTP_AWDPersist_somDefaultConstAssign(AWDPersist *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDPersist_somDefaultConstAssign *somTD_AWDPersist_somDefaultConstAssign;
+typedef AWDPersist*   SOMLINK somTP_AWDPersist_somDefaultVAssign(AWDPersist *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDPersist_somDefaultVAssign *somTD_AWDPersist_somDefaultVAssign;
+typedef AWDPersist*   SOMLINK somTP_AWDPersist_somDefaultConstVAssign(AWDPersist *somSelf,
+		somAssignCtrl* ctrl,
+		SOMObject* fromObj);
+typedef somTP_AWDPersist_somDefaultConstVAssign *somTD_AWDPersist_somDefaultConstVAssign;
+typedef void   SOMLINK somTP_AWDPersist_somFree(AWDPersist *somSelf);
+typedef somTP_AWDPersist_somFree *somTD_AWDPersist_somFree;
+typedef void   SOMLINK somTP_AWDPersist_somUninit(AWDPersist *somSelf);
+typedef somTP_AWDPersist_somUninit *somTD_AWDPersist_somUninit;
+typedef SOMClass*   SOMLINK somTP_AWDPersist_somGetClass(AWDPersist *somSelf);
+typedef somTP_AWDPersist_somGetClass *somTD_AWDPersist_somGetClass;
+typedef string   SOMLINK somTP_AWDPersist_somGetClassName(AWDPersist *somSelf);
+typedef somTP_AWDPersist_somGetClassName *somTD_AWDPersist_somGetClassName;
+typedef long   SOMLINK somTP_AWDPersist_somGetSize(AWDPersist *somSelf);
+typedef somTP_AWDPersist_somGetSize *somTD_AWDPersist_somGetSize;
+typedef boolean   SOMLINK somTP_AWDPersist_somIsA(AWDPersist *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDPersist_somIsA *somTD_AWDPersist_somIsA;
+typedef boolean   SOMLINK somTP_AWDPersist_somIsInstanceOf(AWDPersist *somSelf,
+		SOMClass* aClassObj);
+typedef somTP_AWDPersist_somIsInstanceOf *somTD_AWDPersist_somIsInstanceOf;
+typedef boolean   SOMLINK somTP_AWDPersist_somRespondsTo(AWDPersist *somSelf,
+		somId mId);
+typedef somTP_AWDPersist_somRespondsTo *somTD_AWDPersist_somRespondsTo;
+typedef boolean   SOMLINK somTP_AWDPersist_somDispatch(AWDPersist *somSelf,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDPersist_somDispatch *somTD_AWDPersist_somDispatch;
+typedef boolean   SOMLINK somTP_AWDPersist_somClassDispatch(AWDPersist *somSelf,
+		SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap);
+typedef somTP_AWDPersist_somClassDispatch *somTD_AWDPersist_somClassDispatch;
+typedef boolean   SOMLINK somTP_AWDPersist_somCastObj(AWDPersist *somSelf,
+		SOMClass* cls);
+typedef somTP_AWDPersist_somCastObj *somTD_AWDPersist_somCastObj;
+typedef boolean   SOMLINK somTP_AWDPersist_somResetObj(AWDPersist *somSelf);
+typedef somTP_AWDPersist_somResetObj *somTD_AWDPersist_somResetObj;
+typedef SOMObject*   SOMLINK somTP_AWDPersist_somPrintSelf(AWDPersist *somSelf);
+typedef somTP_AWDPersist_somPrintSelf *somTD_AWDPersist_somPrintSelf;
+typedef void   SOMLINK somTP_AWDPersist_somDumpSelf(AWDPersist *somSelf,
+		long level);
+typedef somTP_AWDPersist_somDumpSelf *somTD_AWDPersist_somDumpSelf;
+typedef void   SOMLINK somTP_AWDPersist_somDumpSelfInt(AWDPersist *somSelf,
+		long level);
+typedef somTP_AWDPersist_somDumpSelfInt *somTD_AWDPersist_somDumpSelfInt;
+}
+
+#endif /* AWDPersist_API */
+
+
+/*
+ * -- This emitter believes that method thunks are unavailable,
+ * -- so somResolve will be called.
+ */
+#undef somresolve_
+#define somresolve_(obj,mToken) (somResolve(obj,mToken))
+
+/*
+ * -- The C++ Wrapper Class for AWDPersist
+ */
+class AWDPersist : public AWDCommon
+{
+public:
+
+// AWDPersist::new creates the class object if necessary, and then uses somNewNoInit
+// to allocate memory and create the object. Initialization is in ctors.
+void *operator new(size_t)
+{
+   if (!_AWDPersist) AWDPersistNewClass(AWDPersist_MajorVersion,AWDPersist_MinorVersion);
+   return (void*)
+      SOM_Resolve(_AWDPersist,SOMClass,somNewNoInit)
+         ((SOMClass *)((void*)_AWDPersist));
+}
+
+// AWDPersist::delete uses somDestruct.
+void operator delete(void * obj)
+{
+   if (obj && *(void**)obj) {
+      SOM_Resolve(obj,SOMObject,somDestruct)
+         ((SOMObject*)obj, 1, 0);
+   }
+}
+
+AWDPersist()
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDPersistCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultInit(0);
+}
+
+AWDPersist(AWDPersist* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDPersistCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDPersist(const AWDPersist* fromObj)
+{
+   if (*(void**)this != 
+       ((somParentMtabStructPtr)
+        (AWDPersistCClassData.parentMtab))->mtab)
+      return;
+   ((SOMObject*)((void*)this))->somDefaultConstCopyInit(0,((SOMObject*)((void*)fromObj)));
+}
+
+AWDPersist(Environment *ev,string fileName) 
+{
+   withFileName(ev,0,fileName);
+}
+
+AWDPersist(Environment *ev,void* ptr,unsigned long ulSize) 
+{
+   withPtrandSize(ev,0,ptr,ulSize);
+}
+
+AWDPersist(Environment *ev,AWDPersist_MODE mode) 
+{
+   withMode(ev,0,mode);
+}
+
+
+/* method: storeSize */
+long   storeSize(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDPersist,AWDPersist,storeSize)
+	(this, ev);
+}
+
+
+/* method: fileName */
+string   fileName(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDPersist,AWDPersist,fileName)
+	(this, ev);
+}
+
+
+/* method: initialize */
+void   initialize(Environment *ev)
+{
+   SOM_ResolveD(this,AWDPersist,AWDPersist,initialize)
+	(this, ev);
+}
+
+
+/* method: isFile */
+boolean   isFile(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDPersist,AWDPersist,isFile)
+	(this, ev);
+}
+
+
+/* method: isMemory */
+boolean   isMemory(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDPersist,AWDPersist,isMemory)
+	(this, ev);
+}
+
+
+/* method: setFileName */
+void   setFileName(Environment *ev,
+		string fileName)
+{
+   SOM_ResolveD(this,AWDPersist,AWDPersist,setFileName)
+	(this, ev,fileName);
+}
+
+
+/* method: stream */
+iostream*   stream(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDPersist,AWDPersist,stream)
+	(this, ev);
+}
+
+
+/* initializer method: withFileName */
+void   withFileName(Environment *ev,
+		somInitCtrl* ctrl,
+		string fileName)
+{
+   SOM_ResolveD(this,AWDPersist,AWDPersist,withFileName)
+	(this, ev,ctrl,fileName);
+}
+
+
+/* initializer method: withPtrandSize */
+void   withPtrandSize(Environment *ev,
+		somInitCtrl* ctrl,
+		void* ptr,
+		unsigned long ulSize)
+{
+   SOM_ResolveD(this,AWDPersist,AWDPersist,withPtrandSize)
+	(this, ev,ctrl,ptr,ulSize);
+}
+
+
+/* initializer method: withMode */
+void   withMode(Environment *ev,
+		somInitCtrl* ctrl,
+		AWDPersist_MODE mode)
+{
+   SOM_ResolveD(this,AWDPersist,AWDPersist,withMode)
+	(this, ev,ctrl,mode);
+}
+
+
+/*
+ * Reintroduce inherited methods
+ */
+
+/* method: store */
+void   store(Environment *ev,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDPersist,AWDCommon,store)
+	(this, ev,pPersist);
+}
+
+
+/* method: restore */
+void   restore(Environment *ev,
+		AWDPersist* pPersist)
+{
+   SOM_ResolveD(this,AWDPersist,AWDCommon,restore)
+	(this, ev,pPersist);
+}
+
+
+/* initializer method: somDefaultInit */
+void   somDefaultInit(somInitCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDPersist,SOMObject,somDefaultInit)
+	(this,ctrl);
+}
+
+
+/* method: somDestruct */
+void   somDestruct(octet doFree,
+		somDestructCtrl* ctrl)
+{
+   SOM_ResolveD(this,AWDPersist,SOMObject,somDestruct)
+	(this,doFree,ctrl);
+}
+
+
+/* method: somfMLinkableInit */
+somf_MLinkable*   somfMLinkableInit(Environment *ev,
+		somf_MLinkable* n,
+		somf_MLinkable* p)
+{
+   return SOM_ResolveD(this,AWDPersist,somf_MLinkable,somfMLinkableInit)
+	(this, ev,n,p);
+}
+
+
+/* method: somfGetNext */
+somf_MLinkable*   somfGetNext(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDPersist,somf_MLinkable,somfGetNext)
+	(this, ev);
+}
+
+
+/* method: somfSetNext */
+void   somfSetNext(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,AWDPersist,somf_MLinkable,somfSetNext)
+	(this, ev,aLink);
+}
+
+
+/* method: somfGetPrevious */
+somf_MLinkable*   somfGetPrevious(Environment *ev)
+{
+   return SOM_ResolveD(this,AWDPersist,somf_MLinkable,somfGetPrevious)
+	(this, ev);
+}
+
+
+/* method: somfSetPrevious */
+void   somfSetPrevious(Environment *ev,
+		somf_MLinkable* aLink)
+{
+   SOM_ResolveD(this,AWDPersist,somf_MLinkable,somfSetPrevious)
+	(this, ev,aLink);
+}
+
+
+/* method: somInit */
+void   somInit()
+{
+   SOM_ResolveD(this,AWDPersist,SOMObject,somInit)
+	(this);
+}
+
+
+/* initializer method: somDefaultCopyInit */
+void   somDefaultCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDPersist,SOMObject,somDefaultCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultAssign */
+AWDPersist*  somDefaultAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDPersist,SOMObject,somDefaultAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstCopyInit */
+void   somDefaultConstCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDPersist,SOMObject,somDefaultConstCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultVCopyInit */
+void   somDefaultVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDPersist,SOMObject,somDefaultVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* initializer method: somDefaultConstVCopyInit */
+void   somDefaultConstVCopyInit(somInitCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   SOM_ResolveD(this,AWDPersist,SOMObject,somDefaultConstVCopyInit)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstAssign */
+AWDPersist*  somDefaultConstAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDPersist,SOMObject,somDefaultConstAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultVAssign */
+AWDPersist*  somDefaultVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDPersist,SOMObject,somDefaultVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somDefaultConstVAssign */
+AWDPersist*  somDefaultConstVAssign(somAssignCtrl* ctrl,
+		SOMObject* fromObj)
+{
+   return SOM_ResolveD(this,AWDPersist,SOMObject,somDefaultConstVAssign)
+	(this,ctrl,fromObj);
+}
+
+
+/* method: somFree */
+void   somFree()
+{
+   SOM_ResolveD(this,AWDPersist,SOMObject,somFree)
+	(this);
+}
+
+
+/* method: somUninit */
+void   somUninit()
+{
+   SOM_ResolveD(this,AWDPersist,SOMObject,somUninit)
+	(this);
+}
+
+
+/* method: somGetClass */
+SOMClass*   somGetClass()
+{
+   return SOM_ResolveD(this,AWDPersist,SOMObject,somGetClass)
+	(this);
+}
+
+
+/* method: somGetClassName */
+string   somGetClassName()
+{
+   return SOM_ResolveD(this,AWDPersist,SOMObject,somGetClassName)
+	(this);
+}
+
+
+/* method: somGetSize */
+long   somGetSize()
+{
+   return SOM_ResolveD(this,AWDPersist,SOMObject,somGetSize)
+	(this);
+}
+
+
+/* method: somIsA */
+boolean   somIsA(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDPersist,SOMObject,somIsA)
+	(this,aClassObj);
+}
+
+
+/* method: somIsInstanceOf */
+boolean   somIsInstanceOf(SOMClass* aClassObj)
+{
+   return SOM_ResolveD(this,AWDPersist,SOMObject,somIsInstanceOf)
+	(this,aClassObj);
+}
+
+
+/* method: somRespondsTo */
+boolean   somRespondsTo(somId mId)
+{
+   return SOM_ResolveD(this,AWDPersist,SOMObject,somRespondsTo)
+	(this,mId);
+}
+
+
+/* va_list method: somDispatch */
+/* the va_list invocation form */
+boolean   AWDPersist_somDispatch(somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDPersist,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somDispatch(somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDPersist,SOMObject,somDispatch)
+	(this,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* va_list method: somClassDispatch */
+/* the va_list invocation form */
+boolean   AWDPersist_somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		va_list ap)
+{
+return SOM_ResolveD(this,AWDPersist,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+}
+
+/* the varargs invocation form */
+boolean   somClassDispatch(SOMClass* clsObj,
+		somToken* retValue,
+		somId methodId,
+		...)
+{
+   va_list ap;
+   va_start(ap, methodId);
+   boolean __somResult = 
+      SOM_ResolveD(this,AWDPersist,SOMObject,somClassDispatch)
+	(this,clsObj,retValue,methodId,ap);
+   va_end(ap);
+   return __somResult;
+}
+
+
+/* method: somCastObj */
+boolean   somCastObj(SOMClass* cls)
+{
+   return SOM_ResolveD(this,AWDPersist,SOMObject,somCastObj)
+	(this,cls);
+}
+
+
+/* method: somResetObj */
+boolean   somResetObj()
+{
+   return SOM_ResolveD(this,AWDPersist,SOMObject,somResetObj)
+	(this);
+}
+
+
+/* method: somPrintSelf */
+SOMObject*   somPrintSelf()
+{
+   return SOM_ResolveD(this,AWDPersist,SOMObject,somPrintSelf)
+	(this);
+}
+
+
+/* method: somDumpSelf */
+void   somDumpSelf(long level)
+{
+   SOM_ResolveD(this,AWDPersist,SOMObject,somDumpSelf)
+	(this,level);
+}
+
+
+/* method: somDumpSelfInt */
+void   somDumpSelfInt(long level)
+{
+   SOM_ResolveD(this,AWDPersist,SOMObject,somDumpSelfInt)
+	(this,level);
+}
+
+
+
+};   /* AWDPersist */
+
+
+
+#endif       /* SOM_AWDPersist_xh */

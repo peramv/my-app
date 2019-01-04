@@ -1,0 +1,73 @@
+
+
+#FundIdentifiersSectionDiv
+{
+	padding-top:15px;
+	text-align:center;
+	height:160px;	
+	border:1px solid gray;
+	position:relative;	
+}
+
+#FundIdentifiers_TableDiv
+{
+	position:relative;
+	top:0px;
+	left:0px;
+	height:100px;
+	width:770px;
+	overflow-y:scroll;	
+}
+
+#FundIdentifersSectionActionButtonsDiv
+{
+	padding-top:5px;
+	padding-right:50px;
+	text-align:right;
+}
+
+#ShareGroupsSectionDiv
+{
+	padding-top:15px;
+	text-align:center;
+	height:160px;	
+	border:1px solid gray;
+	position:relative;	
+}
+
+#ShareGroups_TableDiv
+{
+	position:relative;
+	top:0px;
+	left:0px;
+	height:100px;
+	width:770px;
+	overflow-y:scroll;	
+}
+
+#ShareGroupsSectionActionButtonsDiv
+{
+	padding-top:5px;
+	padding-right:50px;
+	text-align:right;
+}
+
+#ShareGroupsSectionActionButtonsDiv
+{
+	padding-top:5px;
+	padding-right:50px;
+	text-align:right;
+}
+
+// keep this here, even though table isn't displayed
+#SubCategories_TableDiv
+{
+	position:relative;
+	top:0px;
+	left:0px;
+	height:100px;
+	width:770px;
+	overflow-y:scroll;	
+}
+
+

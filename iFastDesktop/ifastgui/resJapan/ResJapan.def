@@ -1,0 +1,7 @@
+; ResJapan.def : Declares the module parameters for the DLL.
+
+LIBRARY      "ResJapan"
+; DESCRIPTION  'ResJapan Windows Dynamic Link Library'
+
+EXPORTS
+    ; Explicit exports can go here
