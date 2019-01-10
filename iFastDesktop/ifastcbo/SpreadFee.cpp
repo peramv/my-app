@@ -109,27 +109,21 @@ bool SpreadFee::isContextApplicable (const BFDataGroupId &idDataGroup)
 
 	   getContext().getField (ifds::TransType, transType, idDataGroup, false);
 	   getField (ifds::TransFeeCode, feeCode, idDataGroup, false);
-	   if(feeCode == FEES::REDEMPTION_SPREAD_FEE)
-	   {
+
 	   return (( DSTCommonFunctions::codeInList (transType, TRADETYPE::PURCHASE_LIKE) &&
 			                                       feeCode == FEES::PURCHASE_SPREAD_FEE ) ||
 			     ( ( transType == TRADETYPE::REDEMPTION ||
 			         transType == TRADETYPE::INSPECIES_REDEMPTION ||
-			         transType == TRADETYPE::INSP_NON_PRO_RATA_REDEMPTION ))) &&
-			       isApplicableForFund (idDataGroup) &&
-			        hasFeeParams (idDataGroup); //use the fee model code
-	   }
-	   else if(feeCode == FEES::REDEMPTION_LIQUIDITY_FEE)
-	   {
-		   return ( ( transType == TRADETYPE::REDEMPTION ||
+			         transType == TRADETYPE::INSP_NON_PRO_RATA_REDEMPTION ||   
+			         transType == TRADETYPE::HYBRID_REDEMPTION ) && feeCode == FEES::REDEMPTION_SPREAD_FEE ) ||
+				 ( ( transType == TRADETYPE::REDEMPTION ||
 			         transType == TRADETYPE::INSPECIES_REDEMPTION ||
 			         transType == TRADETYPE::INSP_NON_PRO_RATA_REDEMPTION ||   
 			         transType == TRADETYPE::HYBRID_REDEMPTION ||
 					 transType == TRADETYPE::EXCHANGE ||
-					 transType == TRADETYPE::ROLLOVER_EXCHANGE)) &&
+					 transType == TRADETYPE::ROLLOVER_EXCHANGE) && feeCode == FEES::REDEMPTION_LIQUIDITY_FEE)) &&
 			       isApplicableForFund (idDataGroup) &&
 			        hasFeeParams (idDataGroup); //use the fee model code
-	   }
    }
    return false;
 }
