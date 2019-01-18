@@ -25,7 +25,11 @@
  *              Users should be able to accept a warning message or cancel.
  *
  *	24 Feb 2016 Watchara Th. P0241773 DFT0056976 T82328
- *		  	- Fixed screens don't response when user's profile has too many slots attached. 
+ *		  	- Fixed screens don't response when user's profile has too many slots attached.
+ *
+ *  17 Jan 2019 Alka CHG0056983
+ *              - Invoice Instruction appearing blank when Fee Aggregation and Holding Company mismatch in case
+ *              - And, after modifying existing record, if user try to add a new one, Invoice ID does not get set to null.  
  */
  
 DesktopWeb.ScreenController = function(){	
@@ -1169,6 +1173,8 @@ DesktopWeb.ScreenController = function(){
 			{
 				case _self.ADD:
 				{
+					_resources.fields['invInstr'].selectedRecord = null;
+					
 					if (_vars["AccountNum"] != _self.BLANK && _vars["FromScreen"] != _MENU)
 					{
 						_self.setSuggestValue(_accountSearchView , _vars["AccountNum"], null, holdingComp, "accountNum");
@@ -1609,8 +1615,8 @@ DesktopWeb.ScreenController = function(){
 				{
 					if (_resources.fields['holdComp'].selectedRecord != null)
 					{
-						if (_resources.fields['feeModelAddExistCode'].selectedRecord.get('holdingEntityCode') != 
-							_resources.fields['holdComp'].selectedRecord.get('holdingCompanyCode'))
+						if (_resources.fields['feeModelAddExistCode'].selectedRecord.get('holdingEntityCode').toLowerCase() != 
+							_resources.fields['holdComp'].selectedRecord.get('holdingCompanyCode').toLowerCase())
 						{
 							_resources.fields['invInstr'].setValue(_self.BLANK);
 							_resources.fields['rptGrp'].setValue(_self.BLANK);
@@ -1638,8 +1644,8 @@ DesktopWeb.ScreenController = function(){
 				{
 					if (_resources.fields['holdComp'].selectedRecord != null)
 					{
-						if (_resources.fields['feeModelCode'].selectedRecord.get('holdingEntityCode') != 
-							_resources.fields['holdComp'].selectedRecord.get('holdingCompanyCode'))
+						if (_resources.fields['feeModelCode'].selectedRecord.get('holdingEntityCode').toLowerCase() != 
+							_resources.fields['holdComp'].selectedRecord.get('holdingCompanyCode').toLowerCase())
 						{
 							_resources.fields['invInstr'].setValue(_self.BLANK);
 							_resources.fields['rptGrp'].setValue(_self.BLANK);
