@@ -31,6 +31,9 @@
  *
  *  21 Mar 2018 Simona Pop P0275389 
  *  				- New TerminationDetail field - financial.
+ *   
+ *  17 Jan 2019 Alka CHG0057330 
+ *  				- Added 'userAction' to capture grid action as 'runMode' is shared with status column on grid. 
  */
  
 DesktopWeb.ScreenResources = function(ctrlr)
@@ -119,7 +122,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 					{
 						record: 'TerminationDetail'
 						,fields: ['transType', 'transDate', 'hrdcIDDisp', 'hrdcTransId', 'dateSent', 'amt', 'reported', 'normalRvrse', 'cesg', 'clb', 'pGrant', 'runMode'
-							, 'sages', 'bctesg', 'eventDetlUUID', 'financial']
+							, 'sages', 'bctesg', 'eventDetlUUID', 'financial', 'userAction']
 						,listeners: {
 							load: function(store, records)
 							{
