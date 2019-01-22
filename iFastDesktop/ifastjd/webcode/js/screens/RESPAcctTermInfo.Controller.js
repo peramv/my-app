@@ -36,6 +36,9 @@
  *
  *  21 Mar 2018 Simona Pop P0275389 
  *  				- Updates to termination adjustment transactions buttons logic.
+ *
+ *  17 Jan 2019 Alka CHG0057330 
+ *  				- Added 'userAction' to capture grid action as 'runMode' is shared with status column on grid. 
  */
  
 DesktopWeb.ScreenController = function(){	
@@ -153,7 +156,8 @@ DesktopWeb.ScreenController = function(){
 	
 	function updateTermEntryLayout(popup)
 	{
-		_selectedEntry.set('runMode', popup.action);			
+		_selectedEntry.set('userAction', popup.action);	
+		_selectedEntry.set('runMode', popup.action);	
 		_selectedEntry.set('transDate', popup.getField('transDateFld').getDisplayDateString());
 		_selectedEntry.set('amt', popup.getField('amtFld').getValue());
 		_resources.grids['termDetlGrid'].getStore().commitChanges();
@@ -313,7 +317,7 @@ DesktopWeb.ScreenController = function(){
 		
 		function getModifiedRecords(record)
 		{
-			return record.get('runMode') != '';
+			return record.get('userAction') != '';		
 		}
 	}
 
