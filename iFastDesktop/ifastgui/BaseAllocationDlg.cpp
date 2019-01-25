@@ -34,6 +34,7 @@
 #include <ifastdataimpl\dse_dstc0068_vw.hpp>
 #include <ifastbp\FundClassProcessIncludes.h>
 #include "ifastbp\allocationsprocessincludes.h"
+#include <ifastcbo\dstcommonfunction.hpp>
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -210,7 +211,13 @@ void BaseAllocationDlg::addControls()
 		ifds::AccountNum,CTRLFLAG_NOT_UPDATABLE );
 
    dynamic_cast<DSTEdit *>(GetControl(IDC_EDT_AMT_FROM))->SetAllowedChars(I_("0123456789."));
-   dynamic_cast<DSTEdit *>(GetControl(IDC_EDT_PERCENT_FROM))->SetAllowedChars(I_("0123456789."));
+	DString dstrPercentageMask = DSTCommonFunctions::getMask( ifds::Percentage );
+	int iDecimalPointPos = dstrPercentageMask.find( I_( "." ) );
+	DSTEdit *edtPercentDet = dynamic_cast< DSTEdit * >( GetDlgItem( IDC_EDT_PERCENT_FROM ) );
+	edtPercentDet->SetMaxCharNum( dstrPercentageMask.length() );//probably redundant
+	edtPercentDet->AllowNonnegativeDecimalNumbers( iDecimalPointPos, 
+                                                  dstrPercentageMask.length() - iDecimalPointPos - 2 );
+	edtPercentDet->SetAllowedChars(I_("0123456789."));
 
 	ConnectControlToData(IDC_CMB_AMT_TYPE,true );
  	ConnectControlToData(IDC_TXT_AMT,true );
