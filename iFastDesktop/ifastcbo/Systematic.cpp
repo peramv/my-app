@@ -6703,11 +6703,7 @@ SEVERITY Systematic::doApplyRelatedChanges(const BFFieldId& idField, const BFDat
 		{
 			setFieldNoValidate( ifds::GrossOrNet, YES, idDataGroup, false, false, true );
 			setFieldReadOnly (ifds::GrossOrNet, idDataGroup, true);
-		}
-		else
-		{
-			setFieldReadOnly (ifds::GrossOrNet, idDataGroup, false);
-		}
+		}	
 	}
 
    //P0186486_FN15_The Source of Funds
