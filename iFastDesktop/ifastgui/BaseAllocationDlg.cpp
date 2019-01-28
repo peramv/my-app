@@ -210,7 +210,7 @@ void BaseAllocationDlg::addControls()
 	AddControl(CTRL_STATIC,IDC_TXT_ACCT_FROM,IFASTBP_PROC::MFACOUNT,
 		ifds::AccountNum,CTRLFLAG_NOT_UPDATABLE );
 
-   dynamic_cast<DSTEdit *>(GetControl(IDC_EDT_AMT_FROM))->SetAllowedChars(I_("0123456789."));
+    dynamic_cast<DSTEdit *>(GetControl(IDC_EDT_AMT_FROM))->SetAllowedChars(I_("0123456789."));
 	DString dstrPercentageMask = DSTCommonFunctions::getMask( ifds::Percentage );
 	int iDecimalPointPos = dstrPercentageMask.find( I_( "." ) );
 	DSTEdit *edtPercentDet = dynamic_cast< DSTEdit * >( GetDlgItem( IDC_EDT_PERCENT_FROM ) );
