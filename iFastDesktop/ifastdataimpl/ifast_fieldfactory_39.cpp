@@ -101,6 +101,8 @@ namespace ifds
    extern const BFTextFieldId LiqRedFeeExist;
    extern const BFDecimalFieldId RefundNAV;
    extern const BFNumericFieldId SrchEntityId;
+   extern const BFTextFieldId DistrAcctTypeDetl;
+   extern const BFTextFieldId MatchingKey;
    extern const BFDataFieldProperties s_FldProp_DfltConfDetlKeyValue;
    extern const BFDataFieldProperties s_FldProp_DfltConfDetlDefValue;
    extern const BFDataFieldProperties s_FldProp_PriceCode6;
@@ -193,6 +195,8 @@ namespace ifds
    extern const BFDataFieldProperties s_FldProp_LiqRedFeeExist;
    extern const BFDataFieldProperties s_FldProp_RefundNAV;
    extern const BFDataFieldProperties s_FldProp_SrchEntityId;
+   extern const BFDataFieldProperties s_FldProp_DistrAcctTypeDetl;
+   extern const BFDataFieldProperties s_FldProp_MatchingKey;
    BFDataField* createField_39( const BFFieldId id )
    {
       BFDataField* pField = NULL;
@@ -290,10 +294,13 @@ namespace ifds
          case 40007918: pField = new BFTextField_1( LiqRedFeeExist, &s_FldProp_LiqRedFeeExist ); break; 
          case 40007921: pField = new BFDecimalField( RefundNAV, &s_FldProp_RefundNAV ); break;
          case 40007928: pField = new BFNumericField( SrchEntityId, &s_FldProp_SrchEntityId ); break; 
-     }
+         case 40007930: pField = new BFTextField<80>( DistrAcctTypeDetl, &s_FldProp_DistrAcctTypeDetl ); break;
+         case 40007932: pField = new BFTextField<12>( MatchingKey, &s_FldProp_MatchingKey ); break;
+	  }
       return pField;
    }
 }
+
 
 
 

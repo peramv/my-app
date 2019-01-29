@@ -302,9 +302,10 @@ dsi_DSTC0115_REQ::dsi_DSTC0115_REQ()
 , CurrYrTaxRedAmt_( ifds::CurrYrTaxRedAmt, &ifds::s_FldProp_CurrYrTaxRedAmt )
 , GateOverrideIndicator_( ifds::GateOverrideIndicator, &ifds::s_FldProp_GateOverrideIndicator )
 , RDSPPaymtDate_( ifds::RDSPPaymtDate, &ifds::s_FldProp_RDSPPaymtDate )
+, MatchingKey_( ifds::MatchingKey, &ifds::s_FldProp_MatchingKey )
 , RepeatCount_( ifds::RepeatCount, &ifds::s_FldProp_RepeatCount )
 {
-    cFields_ = 288;
+    cFields_ = 289;
     memset( &aFlds_[0], 0x00, sizeof( aFlds_ ) );
 }
 
@@ -602,6 +603,7 @@ BFDataImpl* dsi_DSTC0115_REQ::clone()
     p->CurrYrTaxRedAmt_ = CurrYrTaxRedAmt_;
     p->GateOverrideIndicator_ = GateOverrideIndicator_;
     p->RDSPPaymtDate_ = RDSPPaymtDate_;
+    p->MatchingKey_ = MatchingKey_;
     p->RepeatCount_ = RepeatCount_;
     return(p);
 }
@@ -896,6 +898,7 @@ BFDataField* dsi_DSTC0115_REQ::getElement( const BFFieldId& id )
         case 40007912: return ( &CurrYrTaxRedAmt_ ); break; // CurrYrTaxRedAmt
         case 40007896: return ( &GateOverrideIndicator_ ); break; // GateOverrideIndicator
         case 40007917: return ( &RDSPPaymtDate_ ); break; // RDSPPaymtDate
+        case 40007932: return ( &MatchingKey_ ); break; // MatchingKey
         case 40000120: return ( &RepeatCount_ ); break; // RepeatCount
     }
     return( NULL );
@@ -908,7 +911,7 @@ const BFDataField* dsi_DSTC0115_REQ::getElement( const BFFieldId& id ) const
 
 BFDataField* dsi_DSTC0115_REQ::getElementByIndex( unsigned int iField )
 {
-    if ( iField >=0 && iField < 288 )
+    if ( iField >=0 && iField < 289 )
     {
         BFDataField* pField = aFlds_[iField];
         if( NULL == pField )
@@ -1203,6 +1206,7 @@ BFDataField* dsi_DSTC0115_REQ::getElementByIndex( unsigned int iField )
                 case 285: aFlds_[285] = &GateOverrideIndicator_; break;
                 case 286: aFlds_[286] = &RDSPPaymtDate_; break;
                 case 287: aFlds_[287] = &RepeatCount_; break;
+                case 288: aFlds_[288] = &RepeatCount_; break;
             }
             pField = aFlds_[iField];
             if( NULL == pField ) return( NULL );
@@ -1224,7 +1228,7 @@ unsigned long dsi_DSTC0115_REQ::getLargestDefinedField( void ) const
 
 unsigned long dsi_DSTC0115_REQ::getDefinedByteLength( void ) const
 {
-    return( 10062 * sizeof( I_CHAR ) );
+    return( 10083 * sizeof( I_CHAR ) );
 }
 
 bool dsi_DSTC0115_REQ::exists( const BFFieldId& id ) const
@@ -1523,6 +1527,7 @@ bool dsi_DSTC0115_REQ::fieldExists( const BFFieldId& id )
         case 40007912: return ( true );
         case 40007896: return ( true );
         case 40007917: return ( true );
+        case 40007932: return ( true );
         case 40000120: return ( true );
     }
     return false;

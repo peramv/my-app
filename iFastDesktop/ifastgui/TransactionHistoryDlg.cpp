@@ -3673,6 +3673,9 @@ void TransactionHistoryDlg::PopulateTransDetails()
       // Transfer Class
       DisplayItem(IFASTBP_PROC::TRANS_LIST,ifds::TfrClass,TXT_TRANS_TFRCLASS);
 
+  	  DisplayItem( IFASTBP_PROC::TRANS_LIST, ifds::DilutionLinkNum, TXT_DILUTION_LINK_NUM);
+	  DisplayItem( IFASTBP_PROC::TRANS_LIST, ifds::FSRVLinkNum, TXT_FSRV_LINK_NUM);
+
       // Transfer Fund Number
       DString dstrFundNumber, dstrFund, dstrClass;
       DSTCWorkSession *dstWorkSession = dynamic_cast<DSTCWorkSession *>( getParent()->getBFWorkSession() );
@@ -4673,10 +4676,8 @@ void TransactionHistoryDlg::PopulatePendingDetails()
       m_TransDetail.SetItemData(index,ifds::OrderType.getId());
       tmp.LoadString( (str == Y) ? TXT_PENDING_WIRE : TXT_PENDING_DIRECT );
       m_TransDetail.SetItemText(index,1,tmp);
-      if( str == Y )
-      {
-         DisplayItem(IFASTBP_PROC::PENDING_LIST,ifds::WireOrdNum     ,TXT_PENDING_WIREORDNUM     );
-      }
+	  // P0274979-626 : Show Wire Order Num for  Pending Trade (Switch & Transfer)
+	  DisplayItem(IFASTBP_PROC::PENDING_LIST,ifds::WireOrdNum     ,TXT_PENDING_WIREORDNUM     );
 
       DisplayCodeDesc(IFASTBP_PROC::PENDING_LIST,ifds::Accountable,ifds::Accountable,TXT_PENDING_ACCOUNTABLE );
       DisplayItem( IFASTBP_PROC::PENDING_LIST, ifds::BackDatedReason, TXT_BACK_DATED_REASON );
@@ -6573,18 +6574,27 @@ void TransactionHistoryDlg::OnBtnTrxnDilution()
        POSITION pos = m_lvReportView.GetFirstSelectedItemPosition();
        if( pos != NULL )
        {
-          DString dstrTransId, dstrTransNum, dstrTradeDate, dstrSettleDate;
+          DString dstrTransId, dstrTransNum, dstrTradeDate, dstrSettleDate, dstrTransType;
           getParent()->getField( this, IFASTBP_PROC::TRANS_LIST, ifds::TransId,    dstrTransId );
 		  getParent()->getField( this, IFASTBP_PROC::TRANS_LIST, ifds::TransNum,    dstrTransNum, false );
           getParent()->getField( this, IFASTBP_PROC::TRANS_LIST, ifds::TradeDate,  dstrTradeDate, false );
           getParent()->getField( this, IFASTBP_PROC::TRANS_LIST, ifds::SettleDate, dstrSettleDate, false );
           dstrTransId.strip();
 
+		  if( m_bIsPending )
+		  {
+			 getParent()->getField( this, IFASTBP_PROC::PENDING_LIST, ifds::TransType, dstrTransType, false );
+		  }
+		  else {
+			 getParent()->getField( this, IFASTBP_PROC::TRANS_LIST, ifds::TransType, dstrTransType, false );
+		  }
+
           setParameter( pTRANSID, dstrTransId );
 		  setParameter( pTRANSNUM, dstrTransNum );
           setParameter( FROMSCR, TRANSACTION );
           setParameter( I_( "TransTradeDate" ),  dstrTradeDate );
           setParameter( I_( "TransSettleDate" ), dstrSettleDate );
+		  setParameter(pTRANSTYPE,  dstrTransType.stripAll().upperCase() );
 
           DString dstrAllowDilution;
           getParent()->getField( this, IFASTBP_PROC::TRANS_LIST, ifds::AllowModifyDilution, dstrAllowDilution, false );

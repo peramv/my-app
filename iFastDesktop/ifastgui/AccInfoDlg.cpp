@@ -127,6 +127,7 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId PortfolioCode;
    extern CLASS_IMPORT const BFTextFieldId PortfolioPlanCode;
    extern CLASS_IMPORT const BFDateFieldId TaxableTrustDate;
+   extern CLASS_IMPORT const BFTextFieldId DistrAcctTypeDetl;
 }
 
 namespace UAF
@@ -282,6 +283,14 @@ void AccInfoDlg::OnPostInitDialog()
       AddControl( CTRL_COMBO, IDC_CMB_MKT_MAILING, IFASTBP_PROC::MFACCOUNT_CBO, 
                   ifds::MarketMail, CTRLFLAG_INITCOMBO_BY_SUB_LIST );       
    }
+
+   if (strMarket == MARKET_IDS::CANADA) 
+   {
+
+     AddControl( CTRL_COMBO, IDC_CMB_DISTRIB_ACCTTD, IFASTBP_PROC::MFACCOUNT_CBO, ifds::DistrAcctTypeDetl, CTRLFLAG_INITCOMBO_BY_SUB_LIST );
+     GetDlgItem(IDC_STC_DISTRIB_ACCTTD)->ShowWindow(SW_SHOW); 
+
+	}
 
    AddControl( CTRL_STATIC, IDC_TXT_BROKER_NAME, IFASTBP_PROC::MFACCOUNT_CBO, ifds::BrokerName );      
 

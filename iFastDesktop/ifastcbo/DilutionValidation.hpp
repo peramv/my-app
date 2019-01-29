@@ -44,7 +44,8 @@ public:
   SEVERITY init(const DString &dstrAccountNum,
                 const DString &dstrFundCode,
                 const DString &dstrClassCode,
-                const DString &strDilutionLinkNum);
+                const DString &strDilutionLinkNum,
+				const DString &strMatchingKey = NULL_STRING);
   
   SEVERITY addConditions(DString &dstrDilutionNSM);
 

@@ -304,6 +304,7 @@ namespace ifds
     extern const BFDecimalFieldId CurrYrTaxRedAmt;
     extern const BFTextFieldId GateOverrideIndicator;
     extern const BFDateFieldId RDSPPaymtDate;
+    extern const BFTextFieldId MatchingKey;
     extern const BFNumericFieldId RepeatCount;
 
     //Property Externs
@@ -594,6 +595,7 @@ namespace ifds
     extern const BFDataFieldProperties s_FldProp_CurrYrTaxRedAmt;
     extern const BFDataFieldProperties s_FldProp_GateOverrideIndicator;
     extern const BFDataFieldProperties s_FldProp_RDSPPaymtDate;
+    extern const BFDataFieldProperties s_FldProp_MatchingKey;
     extern const BFDataFieldProperties s_FldProp_RepeatCount;
 }
 
@@ -908,5 +910,6 @@ private:
     BFDecimalField CurrYrTaxRedAmt_;
     BFTextField_60 GateOverrideIndicator_;
     BFDateField RDSPPaymtDate_;
+    BFTextField<12> MatchingKey_;
     BFNumericField RepeatCount_;
 };

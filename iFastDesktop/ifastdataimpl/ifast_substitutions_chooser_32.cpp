@@ -830,4 +830,10 @@ namespace ifds
       return( SubSet_002_1031_005_000_000); // defined in ifast_substitutions_32.cpp
    }
 
+      // Chooser function for Substitution set AccountTypeDetailsSet.
+   extern const BFSubstitutionSet SubSet_002_1034_001_003_000;
+   const BFSubstitutionSet& chooser_ss_002_1034( const ClientLocale& locale )
+   {
+      return( SubSet_002_1034_001_003_000); // defined in ifast_substitutions_32.cpp
+   }
 } // end namespace ifds

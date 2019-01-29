@@ -45,8 +45,9 @@ dsi_DSTC0167_REQ::dsi_DSTC0167_REQ()
 , RDSPValidation_( ifds::RDSPValidation, &ifds::s_FldProp_RDSPValidation )
 , GRRepayReason_( ifds::GRRepayReason, &ifds::s_FldProp_GRRepayReason )
 , RDSPPaymtDate_( ifds::RDSPPaymtDate, &ifds::s_FldProp_RDSPPaymtDate )
+, MatchingKey_( ifds::MatchingKey, &ifds::s_FldProp_MatchingKey )
 {
-    cFields_ = 30;
+    cFields_ = 31;
     memset( &aFlds_[0], 0x00, sizeof( aFlds_ ) );
 }
 
@@ -87,6 +88,7 @@ BFDataImpl* dsi_DSTC0167_REQ::clone()
     p->RDSPValidation_ = RDSPValidation_;
     p->GRRepayReason_ = GRRepayReason_;
     p->RDSPPaymtDate_ = RDSPPaymtDate_;
+    p->MatchingKey_ = MatchingKey_;
     return(p);
 }
 
@@ -123,6 +125,7 @@ BFDataField* dsi_DSTC0167_REQ::getElement( const BFFieldId& id )
         case 40007887: return ( &RDSPValidation_ ); break; // RDSPValidation
         case 40006143: return ( &GRRepayReason_ ); break; // GRRepayReason
         case 40007917: return ( &RDSPPaymtDate_ ); break; // RDSPPaymtDate
+        case 40007932: return ( &MatchingKey_ ); break; // MatchingKey
     }
     return( NULL );
 }
@@ -134,7 +137,7 @@ const BFDataField* dsi_DSTC0167_REQ::getElement( const BFFieldId& id ) const
 
 BFDataField* dsi_DSTC0167_REQ::getElementByIndex( unsigned int iField )
 {
-    if ( iField >=0 && iField < 30 )
+    if ( iField >=0 && iField < 31 )
     {
         BFDataField* pField = aFlds_[iField];
         if( NULL == pField )
@@ -171,6 +174,7 @@ BFDataField* dsi_DSTC0167_REQ::getElementByIndex( unsigned int iField )
                 case 27: aFlds_[27] = &RDSPValidation_; break;
                 case 28: aFlds_[28] = &GRRepayReason_; break;
                 case 29: aFlds_[29] = &RDSPPaymtDate_; break;
+                case 30: aFlds_[30] = &MatchingKey_; break;
             }
             pField = aFlds_[iField];
             if( NULL == pField ) return( NULL );
@@ -192,7 +196,7 @@ unsigned long dsi_DSTC0167_REQ::getLargestDefinedField( void ) const
 
 unsigned long dsi_DSTC0167_REQ::getDefinedByteLength( void ) const
 {
-    return( 1474 * sizeof( I_CHAR ) );
+    return( 1494 * sizeof( I_CHAR ) );
 }
 
 bool dsi_DSTC0167_REQ::exists( const BFFieldId& id ) const
@@ -234,6 +238,7 @@ bool dsi_DSTC0167_REQ::fieldExists( const BFFieldId& id )
         case 40007887: return ( true );
         case 40006143: return ( true );
         case 40007917: return ( true );
+        case 40007932: return ( true );
     }
     return false;
 }

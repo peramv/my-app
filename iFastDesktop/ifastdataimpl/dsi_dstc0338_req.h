@@ -51,6 +51,7 @@ namespace ifds
     extern const BFTextFieldId EventReceiptTime;
     extern const BFTextFieldId SettleNetwork;
     extern const BFTextFieldId DilutionLinkNum;
+    extern const BFTextFieldId MatchingKey;
     extern const BFNumericFieldId RepeatCount;
 
     //Property Externs
@@ -88,6 +89,7 @@ namespace ifds
     extern const BFDataFieldProperties s_FldProp_EventReceiptTime;
     extern const BFDataFieldProperties s_FldProp_SettleNetwork;
     extern const BFDataFieldProperties s_FldProp_DilutionLinkNum;
+    extern const BFDataFieldProperties s_FldProp_MatchingKey;
     extern const BFDataFieldProperties s_FldProp_RepeatCount;
 }
 
@@ -113,7 +115,7 @@ public:
     static bool fieldExists( const BFFieldId& id );
 
 private:
-    BFDataField* aFlds_[35];
+    BFDataField* aFlds_[36];
     // Field Declarations
     BFTextField_60 SessionId_;
     BFTextField_60 User_Id_;
@@ -149,5 +151,6 @@ private:
     BFTextField<8> EventReceiptTime_;
     BFTextField<50> SettleNetwork_;
     BFTextField<20> DilutionLinkNum_;
+    BFTextField<12> MatchingKey_;
     BFNumericField RepeatCount_;
 };

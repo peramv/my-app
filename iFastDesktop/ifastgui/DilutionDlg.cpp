@@ -40,6 +40,11 @@
 #include <bfproc\abstractprocess.hpp>
 #include <assert.h>
 
+#include <ifastcbo\dstcommonfunction.hpp>
+#include <ifastbp\transhistoryprocessincludes.h>
+#include <ifastcbo\broker.hpp>
+#include <ifastcbo\brokerlist.hpp>
+
 extern CLASS_IMPORT const I_CHAR* CMD_GUI_DILUTION;
 extern CLASS_IMPORT const I_CHAR* CMD_BPROC_BROKER;
 
@@ -58,6 +63,10 @@ namespace
    const I_CHAR * const LV_Dilution    = I_( "Dilution List" );
    const I_CHAR * const BROKER_CODE    = I_( "BrokerCode" );
    const I_CHAR * const YES       = I_( "Y" );
+   const I_CHAR * const TRANSHIST_EXCHANGE_LIKE   = I_("EI,EO,TI,TO,TR,XR,AFTR,TRT,TRE");
+   const I_CHAR * const TRANSHIST_EXCHANGE_LIKE_2 = I_("TI04,TI08,TO04,TO08");
+   const I_CHAR * const TRANSHIST_LIKE_4NSM = I_("TI,TO,TR,TI04,TI08,TO04,TO08");
+
 }
 
 namespace PARAMETER
@@ -96,6 +105,8 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId IsDilutionNSMEligible;
    extern CLASS_IMPORT const BFTextFieldId IsNetworkSettleEligible;
    extern CLASS_IMPORT const BFTextFieldId DilutionLinkNum;
+   extern CLASS_IMPORT const BFTextFieldId TransType;
+   extern CLASS_IMPORT const BFTextFieldId MatchingKey;
 }
 
 UINT hiddenContrls[] = {
@@ -131,6 +142,8 @@ DilutionDlg::DilutionDlg(CWnd* pParent, GenericInterfaceContainer* pGIC, Generic
 
    getParameter( I_( "FromScr" ) ,  _dstrFromScreen );
    getParameter( I_("AllowModify"), _dstrAllowModify );
+   getParameter( I_("TransType"), _dstrTransType );
+
    //{{AFX_DATA_INIT(DilutionDlg)
    //}}AFX_DATA_INIT
 }
@@ -217,6 +230,16 @@ void DilutionDlg::OnPostInitDialog()
    AddControl( CTRL_EDIT, IDC_EDT_IFAST_LINKID,			 IFASTBP_PROC::DILUTION_LIST, ifds::DilutionLinkNum, CTRLFLAG_DEFAULT, IDC_LV_DILUTION_ALLOC);
    dynamic_cast<DSTEdit *> (GetControl (IDC_EDT_IFAST_LINKID))->SetAllowedChars (I_ ("0123456789"));
    dynamic_cast<DSTEdit *> (GetControl (IDC_EDT_IFAST_LINKID))->SetMaxCharNum(_dilutionNumMaxLength);
+
+   AddControl( CTRL_EDIT, IDC_EDT_IFAST_MATCHINGKEY,	 IFASTBP_PROC::DILUTION_LIST, ifds::MatchingKey, CTRLFLAG_DEFAULT, IDC_LV_DILUTION_ALLOC);
+   dynamic_cast<DSTEdit *> (GetControl (IDC_EDT_IFAST_MATCHINGKEY))->SetAllowedChars (I_ ("0123456789"));
+
+   DString strMarket = DSTCommonFunctions::getMarket();
+   if( strMarket != MARKET_IDS::CANADA)
+   {
+		   GetDlgItem(IDC_TXT_IFAST_MATCHINGKEY)->ShowWindow(SW_HIDE);
+		   GetDlgItem(IDC_EDT_IFAST_MATCHINGKEY)->ShowWindow(SW_HIDE);
+   }
 
    if ( _dstrFromScreen == I_( "Transaction" ) )
    {
@@ -312,7 +335,11 @@ void DilutionDlg::DisplayCaption()
 //******************************************************************************
 void DilutionDlg::ControlUpdated(UINT controlID, const DString &strValue )
 {
-   if( controlID == IDC_CMB_BILLING_TYPE )
+   DString dstrTransType;
+   dstrTransType = _dstrTransType;   // this approach works for both IFASTBP_PROC::TRANS_LIST and IFASTBP_PROC::PENDING_LIST
+   dstrTransType.stripAll().upperCase();
+
+	if( controlID == IDC_CMB_BILLING_TYPE )
    {
 	   bool bBroker = false;
 	   bool bInter = false;
@@ -364,7 +391,32 @@ void DilutionDlg::ControlUpdated(UINT controlID, const DString &strValue )
    {
 	   DString dstrIsDilutionNSMEligible;
 	   getParent()->getField(this, IFASTBP_PROC::DILUTION_LIST, ifds::IsDilutionNSMEligible, dstrIsDilutionNSMEligible, false);
-	   const int show = dstrIsDilutionNSMEligible == I_("Y") ? SW_SHOW: SW_HIDE;
+
+   	   bool bshowNSM_onTransfer = false;
+	   DString dstrShowDilution;
+       DSTCWorkSession *dstWorkSession = dynamic_cast<DSTCWorkSession *>(getParent()->getBFWorkSession());
+       dstWorkSession->getOption (ifds::ShowDilution, dstrShowDilution, getParent()->getDataGroupId(), false);
+
+	   if (controlID == IDC_EDT_BILLING_ENTITY && dstrIsDilutionNSMEligible != I_("Y") && dstrShowDilution == I_("Y") &&
+		   (DSTCommonFunctions::codeInList(dstrTransType, TRANSHIST_LIKE_4NSM)))
+	   {
+		    DString dstrBillingToEntityType;
+			getParent()->getField(this, IFASTBP_PROC::DILUTION_LIST, ifds::BillingToEntityType, dstrBillingToEntityType, false);
+
+			if (dstrBillingToEntityType == I_("BROK") && strValue != NULL_STRING) {
+
+				BrokerList *pBrokerList = NULL;
+				if( dstWorkSession->getBrokerList(pBrokerList, getParent()->getDataGroupId()) <= WARNING &&	pBrokerList != NULL )
+				{
+					// check if Broker is in pBrokerList
+					Broker *pBroker = NULL;
+					if (pBrokerList->getBroker(strValue, pBroker) <= WARNING && pBroker != NULL)
+						bshowNSM_onTransfer = true;
+				}
+			}
+	   } 
+
+	   const int show = (dstrIsDilutionNSMEligible == I_("Y") || bshowNSM_onTransfer) ? SW_SHOW: SW_HIDE;  
 	   
 	   GetDlgItem(IDC_CMB_DILUTION_NSM)->ShowWindow(show);
 	   GetDlgItem(IDC_TXT_DILUTION_NSM)->ShowWindow(show);
@@ -374,6 +426,18 @@ void DilutionDlg::ControlUpdated(UINT controlID, const DString &strValue )
 	   const int showLinkID = dstrIsDilutionNSMEligible == I_("Y") && dstrDilutionNSM == I_("02") ? SW_SHOW: SW_HIDE;
 	   GetDlgItem(IDC_EDT_IFAST_LINKID)->ShowWindow(showLinkID);
 	   GetDlgItem(IDC_TXT_IFAST_LINKID)->ShowWindow(showLinkID);
+
+   	   DString strMarket = DSTCommonFunctions::getMarket();
+	   if( strMarket == MARKET_IDS::CANADA)
+	   {
+		   GetDlgItem(IDC_TXT_IFAST_MATCHINGKEY)->ShowWindow(showLinkID);
+		   GetDlgItem(IDC_EDT_IFAST_MATCHINGKEY)->ShowWindow(showLinkID);
+	   }
+	   else 
+	   {
+		   GetDlgItem(IDC_TXT_IFAST_MATCHINGKEY)->ShowWindow(SW_HIDE);
+		   GetDlgItem(IDC_EDT_IFAST_MATCHINGKEY)->ShowWindow(SW_HIDE);
+	   }
    }
    if( controlID = IDC_CMB_SETTLE_NETWORK || controlID == IDC_CMB_DILUTION_NSM)
    {
@@ -382,10 +446,23 @@ void DilutionDlg::ControlUpdated(UINT controlID, const DString &strValue )
 	   getParent()->getField(this, IFASTBP_PROC::DILUTION_LIST, ifds::SettleNetwork, dstrSettleNetwork, false);
 	   getParent()->getField(this, IFASTBP_PROC::DILUTION_LIST, ifds::DilutionNSM, dstrDilutionNSM, false);
 
-	   const int show = dstrSettleNetwork == I_("FSRV") || dstrDilutionNSM == I_("02") ? SW_SHOW:SW_HIDE;
+	   DString dstrTransType;
+	   dstrTransType = _dstrTransType;   // this approach works for both IFASTBP_PROC::TRANS_LIST and IFASTBP_PROC::PENDING_LIST
+       dstrTransType.stripAll().upperCase();
+
+	   const int show = dstrSettleNetwork == I_("FSRV") || dstrDilutionNSM == I_("02") 
+		   || (DSTCommonFunctions::codeInList(dstrTransType, TRANSHIST_EXCHANGE_LIKE) ||
+               DSTCommonFunctions::codeInList( dstrTransType, TRANSHIST_EXCHANGE_LIKE_2)) ? SW_SHOW:SW_HIDE;
 	   
 	   GetDlgItem(IDC_EDT_IFAST_LINKID)->ShowWindow(show);
 	   GetDlgItem(IDC_TXT_IFAST_LINKID)->ShowWindow(show);
+
+   	   DString strMarket = DSTCommonFunctions::getMarket();
+	   if( strMarket == MARKET_IDS::CANADA)
+	   {
+		   GetDlgItem(IDC_TXT_IFAST_MATCHINGKEY)->ShowWindow(show);
+		   GetDlgItem(IDC_EDT_IFAST_MATCHINGKEY)->ShowWindow(show);
+	   }
    }
 }
 
@@ -559,10 +636,36 @@ bool DilutionDlg::ShowHideDilutiontNSMField(bool bSystemFlagToShow)
    getParent()->getField(this, IFASTBP_PROC::DILUTION_LIST, ifds::ShowDilution, strShowDilution, false); 
    strShowDilution.strip().upperCase();
 
+   DString dstrTransType;
+   dstrTransType = _dstrTransType;   
+   dstrTransType.stripAll().upperCase();
+
    // system flag will be higher than record level flag
    if(bSystemFlagToShow)
    {
       bResult = strShowDilution != I_("Y");
+
+	  if (bResult && bSystemFlagToShow && DSTCommonFunctions::codeInList(dstrTransType, TRANSHIST_LIKE_4NSM)) 
+	  {  // on Transfer don't hide DilutionN$M box
+
+				DString dstrBillingToEntityType, dstrBillingToEntity;
+				getParent()->getField(this, IFASTBP_PROC::DILUTION_LIST, ifds::BillingToEntityType, dstrBillingToEntityType, false);
+				getParent()->getField(this, IFASTBP_PROC::DILUTION_LIST, ifds::BillingToEntity, dstrBillingToEntity, false);
+
+				DSTCWorkSession *dstWorkSession = dynamic_cast<DSTCWorkSession *>(getParent()->getBFWorkSession());
+
+				if (dstrBillingToEntityType == I_("BROK") && dstrBillingToEntity.stripAll() != NULL_STRING) {
+
+					BrokerList *pBrokerList = NULL;
+					if( dstWorkSession->getBrokerList(pBrokerList, getParent()->getDataGroupId()) <= WARNING &&	pBrokerList != NULL )
+					{
+						// check if Broker is in pBrokerList
+						Broker *pBroker = NULL;
+						if (pBrokerList->getBroker(dstrBillingToEntity.stripAll(), pBroker) <= WARNING && pBroker != NULL)
+							bResult = false;
+                    }
+				}
+	  }
    }
 
    // return true to hide field and false to show field!
@@ -582,6 +685,26 @@ bool DilutionDlg::GetDataForControl(UINT controlID, DString &dstrValueOut, bool 
 				{
 					getParent()->getField(this, IFASTBP_PROC::DILUTION_LIST, ifds::DilutionLinkNum, dstrValueOut, false);
 					dstrValueOut.padLeft(_dilutionNumMaxLength, I_('0'));
+					bReturn = true;
+				}
+				break;
+			}
+		case IDC_EDT_IFAST_MATCHINGKEY:
+			{
+				if((dstrValueOut.stripAll()).length() > 0)
+				{
+					DString dstrNotF50Eligib (I_("notF50Eligible"));
+
+					getParent()->getField(this, IFASTBP_PROC::DILUTION_LIST, ifds::MatchingKey, dstrValueOut, false);
+					if (dstrValueOut == dstrNotF50Eligib.substr(0, _matchingKeyMaxLength))   // Base sent this when transaction is Not F50Eligible
+					{
+						dstrValueOut = I_("");
+						GetDlgItem( IDC_EDT_IFAST_MATCHINGKEY )->EnableWindow(false);
+						getParent()->setField(this, IFASTBP_PROC::DILUTION_LIST, ifds::MatchingKey, dstrValueOut, false);
+						GetDlgItem(IDC_EDT_IFAST_MATCHINGKEY)->SetWindowText(dstrValueOut.c_str());
+						return(false);
+					}
+					GetDlgItem( IDC_EDT_IFAST_MATCHINGKEY )->EnableWindow(true);
 					bReturn = true;
 				}
 				break;

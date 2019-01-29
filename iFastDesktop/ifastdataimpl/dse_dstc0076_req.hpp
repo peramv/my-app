@@ -110,5 +110,6 @@ namespace ifds
    extern __declspec(dllimport) const BFTextFieldId AIFMDInvestorCategory;
    extern __declspec(dllimport) const BFTextFieldId AggregationType;
     extern __declspec(dllimport) const BFTextFieldId AcctTaxModel;
+   extern __declspec(dllimport) const BFTextFieldId DistrAcctTypeDetl;
 }
 

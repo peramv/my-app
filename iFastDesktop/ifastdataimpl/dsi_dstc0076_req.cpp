@@ -121,8 +121,9 @@ dsi_DSTC0076_REQ::dsi_DSTC0076_REQ()
 , AIFMDInvestorCategory_( ifds::AIFMDInvestorCategory, &ifds::s_FldProp_AIFMDInvestorCategory )
 , AggregationType_( ifds::AggregationType, &ifds::s_FldProp_AggregationType )
 , AcctTaxModel_( ifds::AcctTaxModel, &ifds::s_FldProp_AcctTaxModel )
+, DistrAcctTypeDetl_( ifds::DistrAcctTypeDetl, &ifds::s_FldProp_DistrAcctTypeDetl )
 {
-    cFields_ = 102;
+    cFields_ = 103;
    memset( &aFlds_[0], 0x00, sizeof( aFlds_ ) );
 }
 
@@ -235,6 +236,7 @@ BFDataImpl* dsi_DSTC0076_REQ::clone()
    p->AIFMDInvestorCategory_ = AIFMDInvestorCategory_;
    p->AggregationType_ = AggregationType_;
    p->AcctTaxModel_ = AcctTaxModel_;
+   p->DistrAcctTypeDetl_ = DistrAcctTypeDetl_;
    return(p);
 }
 
@@ -343,6 +345,7 @@ BFDataField* dsi_DSTC0076_REQ::getElement( const BFFieldId& id )
       case 40007401: return ( &AIFMDInvestorCategory_ ); break; // AIFMDInvestorCategory
       case 40007493: return ( &AggregationType_ ); break; // AggregationType
       case 40007799: return ( &AcctTaxModel_ ); break; // AcctTaxModel
+      case 40007930: return ( &DistrAcctTypeDetl_ ); break; // DistrAcctTypeDetl
    }
    return( NULL );
 }
@@ -354,7 +357,7 @@ const BFDataField* dsi_DSTC0076_REQ::getElement( const BFFieldId& id ) const
 
 BFDataField* dsi_DSTC0076_REQ::getElementByIndex( unsigned int iField )
 {
-    if ( iField >=0 && iField < 102 )
+    if ( iField >=0 && iField < 103 )
    {
       BFDataField* pField = aFlds_[iField];
       if( NULL == pField )
@@ -463,6 +466,7 @@ BFDataField* dsi_DSTC0076_REQ::getElementByIndex( unsigned int iField )
             case 99: aFlds_[99] = &AIFMDInvestorCategory_; break;
             case 100: aFlds_[100] = &AggregationType_; break;
             case 101: aFlds_[101] = &AcctTaxModel_; break;
+            case 102: aFlds_[102] = &DistrAcctTypeDetl_; break;
          }
          pField = aFlds_[iField];
          if( NULL == pField ) return( NULL );
@@ -484,7 +488,7 @@ unsigned long dsi_DSTC0076_REQ::getLargestDefinedField( void ) const
 
 unsigned long dsi_DSTC0076_REQ::getDefinedByteLength( void ) const
 {
-    return( 3388 * sizeof( I_CHAR ) );
+    return( 3468 * sizeof( I_CHAR ) );
 }
 
 bool dsi_DSTC0076_REQ::exists( const BFFieldId& id ) const
@@ -598,6 +602,7 @@ bool dsi_DSTC0076_REQ::fieldExists( const BFFieldId& id )
       case 40007401: return( true );
       case 40007493: return( true );
         case 40007799: return ( true );
+      case 40007930: return ( true );
    }
    return false;
 }

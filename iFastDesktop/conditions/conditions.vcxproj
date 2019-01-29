@@ -2697,6 +2697,7 @@
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_margin_loan_cannot_coexist.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_margin_only_for_new_account.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_margin_pending_not_eligible.h" />
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_matching_key_not_found.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_matswp_effective_date.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_matswp_instuctions_is_missing.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_maturitybank_is_missing.h" />
@@ -3955,6 +3956,7 @@
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_mail_cannot_be_no_for_no_waive.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_mail_option_cannot_be_all_no.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_margin_acct_letter_req.h" />
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_matching_key_not_found.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_max_payment_exceed.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_may_need_to_add_new_grant_request_for_tax_year.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_may_need_to_stop_grant_request_for_tax_year.h" />

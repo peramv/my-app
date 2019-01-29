@@ -79,9 +79,10 @@ private:
    bool ShowHideDilutiontNSMField(bool bSystemFlagToShow);
    LRESULT OpenBrokerListDlg( WPARAM, LPARAM );
 
-   DString _dstrFromScreen,
+   DString _dstrFromScreen, _dstrTransType,
 	       _dstrAllowModify;
    static const int _dilutionNumMaxLength = 7;
+   static const int _matchingKeyMaxLength = 12;
 };
 
 //{{AFX_INSERT_LOCATION}}

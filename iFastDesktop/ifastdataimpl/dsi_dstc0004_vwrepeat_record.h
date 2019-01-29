@@ -281,6 +281,7 @@ namespace ifds
     extern const BFTextFieldId IsRegExtrAcct;
     extern const BFTextFieldId AcctTaxModel;
     extern const BFTextFieldId TermEntryExist;
+    extern const BFTextFieldId DistrAcctTypeDetl;
 
     //Property Externs
     extern const BFDataFieldProperties s_FldProp_AccountNum;
@@ -547,6 +548,7 @@ namespace ifds
     extern const BFDataFieldProperties s_FldProp_IsRegExtrAcct;
     extern const BFDataFieldProperties s_FldProp_AcctTaxModel;
     extern const BFDataFieldProperties s_FldProp_TermEntryExist;
+    extern const BFDataFieldProperties s_FldProp_DistrAcctTypeDetl;
 }
 
 
@@ -571,7 +573,7 @@ public:
     static bool fieldExists( const BFFieldId& id );
 
 private:
-    BFDataField* aFlds_[264];
+    BFDataField* aFlds_[265];
     // Field Declarations
     BFNumericField AccountNum_;
     BFTextField_60 BeneficialOwner_;
@@ -837,4 +839,5 @@ private:
     BFTextField_1 IsRegExtrAcct_;
     BFTextField_60 AcctTaxModel_;
     BFTextField_1 TermEntryExist_;
+    BFTextField<80> DistrAcctTypeDetl_;
 };

@@ -90,6 +90,7 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId rxFundCode;
    extern CLASS_IMPORT const BFTextFieldId Reversal;
    extern CLASS_IMPORT const BFTextFieldId BillingToEntityDilutionNSMXEdit;
+   extern CLASS_IMPORT const BFTextFieldId MatchingKey;
 }
 
 namespace CND
@@ -148,6 +149,7 @@ const BFCBO::CLASS_FIELD_INFO classFieldInfo[] = {
    { ifds::DilutionNSM,          BFCBO::NONE,            0 },
    { ifds::IsDilutionNSMEligible,	   BFCBO::CALCULATED_FIELD,	0 },
    { ifds::BillingToEntityDilutionNSMXEdit,	   BFCBO::IMMEDIATE_VALIDATION,	0 },
+   { ifds::MatchingKey,          BFCBO::NONE,            0 },
 
 };
 
@@ -576,7 +578,6 @@ SEVERITY DilutionAlloc::doApplyRelatedChanges( const BFFieldId &idField, const B
      if(eligible == I_("Y") && dstrSettleNetwork == FSRV)
      {
        setFieldNoValidate(ifds::DilutionNSM, I_("02"), idDataGroup, false, eligible != I_("Y"), true);
-       setFieldReadOnly(ifds::DilutionNSM, idDataGroup, dstrShowExSysDilPymtNSM == I_("N"));
      }
    }
    

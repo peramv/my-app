@@ -95,6 +95,7 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId ShowExSysDilPymtNSM;
    extern CLASS_IMPORT const BFTextFieldId ShowDilution;
    extern CLASS_IMPORT const BFTextFieldId DilutionLinkNum;
+   extern CLASS_IMPORT const BFTextFieldId MatchingKey;
 }
 
 namespace UAF
@@ -164,6 +165,7 @@ DilutionProcess::DilutionProcess( GenericInterfaceContainer* pGIC, GenericInterf
    addFieldDetails( ifds::IsNetworkSettleEligible, IFASTBP_PROC::DILUTION_LIST, SUBCLASS_PROCESS);
    addFieldDetails( ifds::IsDilutionNSMEligible, IFASTBP_PROC::DILUTION_LIST,  SUBCLASS_PROCESS);
    addFieldDetails( ifds::DilutionLinkNum,	IFASTBP_PROC::DILUTION_LIST,  SUBCLASS_PROCESS );
+   addFieldDetails( ifds::MatchingKey,	IFASTBP_PROC::DILUTION_LIST,  SUBCLASS_PROCESS );
  }
 
 //******************************************************************************
@@ -212,7 +214,8 @@ void DilutionProcess::doGetField( const GenericInterface *rpGICaller,
            idField == ifds::RefundCurrency || 
            idField == ifds::DilutionAvail ||
 		   idField == ifds::SettleNetwork ||
-		   idField == ifds::DilutionLinkNum
+		   idField == ifds::DilutionLinkNum ||
+		   idField == ifds::MatchingKey
          ))
     {
       if (_pDilutionList)
@@ -269,7 +272,8 @@ SEVERITY DilutionProcess::doGetErrors ( const GenericInterface *rpGICaller,
 				idField == ifds::RefundCurrency || 
 				idField == ifds::DilutionAvail ||
 				idField == ifds::SettleNetwork ||
-				idField == ifds::DilutionLinkNum )
+				idField == ifds::DilutionLinkNum ||
+				idField == ifds::MatchingKey)
 			{
             sevRtn = _pDilutionList->getErrors ( idField, 
                                                  idDataGroup, 
@@ -300,7 +304,8 @@ bool DilutionProcess::doRegisterObserver ( const GenericInterface *rpGICaller,
            idField == ifds::RefundCurrency || 
            idField == ifds::DilutionAvail ||
 		   idField == ifds::SettleNetwork ||
-		   idField == ifds::DilutionLinkNum )
+		   idField == ifds::DilutionLinkNum ||
+		   idField == ifds::MatchingKey)
       {
         
          if (_pDilutionList)
@@ -336,7 +341,8 @@ const BFProperties *DilutionProcess::doGetFieldAttributes ( const GenericInterfa
 			idField == ifds::RefundCurrency || 
 			idField == ifds::DilutionAvail ||
 			idField == ifds::SettleNetwork ||
-			idField == ifds::DilutionLinkNum )
+			idField == ifds::DilutionLinkNum ||
+			idField == ifds::MatchingKey)
 		{
          pBFProperties = _pDilutionList->getFieldProperties (idField, idDataGroup);
 		}
@@ -358,7 +364,13 @@ SEVERITY DilutionProcess::doInit()
 	  getParameter( pTRANSID,                         _TransId);
       getParameter( pFROMSCREEN,                      _FromScreen);
       getParameter( TRANSCANCEL::CASH_DIV_PAID_AFTER, cashDivPaidAfter );
-	  getParameter( I_("TRANSTYPE"),         _dstrTransType );
+	  getParameter( I_("TRANSTYPE"),         _dstrTransType );     // Cancellation sets it in CAPS
+	  if (_dstrTransType == NULL_STRING)      // TransactionHistoryDlg sets it differently
+		  getParameter( I_("TransType"),         _dstrTransType);
+
+	  if (_dstrTransType == NULL_STRING)      // it might come form Trade Entry screen, which has Dilution button
+		  getParameter( I_("TransType4Dilution"), _dstrTransType);
+
       _TransNum.stripAll();
 
 	  getParameter( pALLOW_MODIFY, _dstrAllowModify );
@@ -528,6 +540,7 @@ E_COMMANDRETURN DilutionProcess::doProcess()
       setParameter( pTRANSID,      _TransId );
       setParameter( pFROMSCREEN,   _FromScreen );
 	  setParameter( pALLOW_MODIFY, _dstrAllowModify );
+	  setParameter( I_("TransType"), _dstrTransType );
 
       rtn = invokeCommand( this, 
 		                   CMD_GUI_DILUTION, 
@@ -572,7 +585,8 @@ SEVERITY DilutionProcess::doSetField( const GenericInterface *rpGICaller,
 				idField == ifds::RefundCurrency || 
 				idField == ifds::DilutionAvail ||
 				idField == ifds::SettleNetwork ||
-				idField == ifds::DilutionLinkNum )
+				idField == ifds::DilutionLinkNum ||
+				idField == ifds::MatchingKey)
 			{
 				sevRtn = _pDilutionList->setField (idField, strValue, idDataGroup, bFormatted, false);
 			}

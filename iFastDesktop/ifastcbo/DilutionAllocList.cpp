@@ -106,6 +106,7 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId DilutionLinkNum;
    extern CLASS_IMPORT const BFTextFieldId FundSERVClient;
    extern CLASS_IMPORT const BFTextFieldId ShowExSysDilPymtNSM;
+   extern CLASS_IMPORT const BFTextFieldId MatchingKey;
 }
 
 //-------------------------------------------------------------------
@@ -124,6 +125,7 @@ const BFCBO::CLASS_FIELD_INFO classFieldInfo[] = {
    { ifds::SettleNetwork,        BFCBO::NONE,            0 },
    { ifds::IsNetworkSettleEligible,	   BFCBO::CALCULATED_FIELD,	0 },
    { ifds::DilutionLinkNum,		 BFCBO::IMMEDIATE_VALIDATION,   0 },
+   { ifds::MatchingKey,          BFCBO::IMMEDIATE_VALIDATION,   0 },
 };
 
 static const int NUM_FIELDS = sizeof( classFieldInfo ) / sizeof( BFCBO::CLASS_FIELD_INFO );
@@ -317,7 +319,10 @@ SEVERITY DilutionAllocList::doValidateField(const BFFieldId &idField,
                                             const BFDataGroupId &idDataGroup)
 {
   MAKEFRAMEAUTOPROMOTE2(CND::IFASTCBO_CONDITION, CLASSNAME, I_("doValidateField"));
-  if(idField == ifds::DilutionLinkNum)
+
+  DString strMarket = DSTCommonFunctions::getMarket();
+
+  if(idField == ifds::DilutionLinkNum || (strMarket == MARKET_IDS::CANADA && idField == ifds::MatchingKey))
   {
     DString dstrAccountNum, dstrFundCode, dstrClassCode;
     
@@ -376,10 +381,13 @@ SEVERITY DilutionAllocList::doValidateField(const BFFieldId &idField,
       }
     }
     
-    DString dstrSettleNetwork, dstrDilutionLinkNum, dstrDilutionNSM;
+    DString dstrSettleNetwork, dstrDilutionLinkNum, dstrDilutionNSM, dstrMatchingKey(NULL_STRING);
     getField(ifds::SettleNetwork, dstrSettleNetwork, idDataGroup, false);
     getField(ifds::DilutionLinkNum, dstrDilutionLinkNum, idDataGroup, false);
-    
+  
+    if (strMarket == MARKET_IDS::CANADA)
+		getField(ifds::MatchingKey, dstrMatchingKey, idDataGroup, false);
+
     for(BFObjIter iter(*this, idDataGroup, 0, BFObjIter::ITERTYPE::NON_DELETED);
         !iter.end();
         ++iter)
@@ -394,7 +402,14 @@ SEVERITY DilutionAllocList::doValidateField(const BFFieldId &idField,
       if(!dstrDilutionLinkNum.empty())
       {
         DilutionValidation *pDilutionValidation = new DilutionValidation(*this);
-        if(pDilutionValidation->init(dstrAccountNum, dstrFundCode, dstrClassCode, dstrDilutionLinkNum) > WARNING)
+		SEVERITY iDilutionValidation;
+
+		if (strMarket == MARKET_IDS::CANADA && idField == ifds::MatchingKey && !dstrMatchingKey.empty())
+			iDilutionValidation = pDilutionValidation->init(dstrAccountNum, dstrFundCode, dstrClassCode, dstrDilutionLinkNum, dstrMatchingKey);
+		else 
+			iDilutionValidation = pDilutionValidation->init(dstrAccountNum, dstrFundCode, dstrClassCode, dstrDilutionLinkNum) ;
+
+        if(iDilutionValidation > WARNING)
         {
           delete pDilutionValidation;
           pDilutionValidation = NULL;
@@ -1133,7 +1148,6 @@ SEVERITY DilutionAllocList::settleNetworkRelateChanges(const BFDataGroupId& idDa
       if(eligible == I_("Y") && idDataGroup != BF::HOST)
         pDilutionAlloc->setField(ifds::DilutionNSM, I_("02"), idDataGroup, false, false, true);
       
-      pDilutionAlloc->setFieldReadOnly(ifds::DilutionNSM, idDataGroup, dstrShowExSysDilPymtNSM == I_("N"));
     }
   }
   return GETCURRENTHIGHESTSEVERITY();

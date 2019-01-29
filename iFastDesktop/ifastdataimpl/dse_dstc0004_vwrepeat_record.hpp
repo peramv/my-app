@@ -273,4 +273,5 @@ namespace ifds
     extern __declspec(dllimport) const BFTextFieldId IsRegExtrAcct;
     extern __declspec(dllimport) const BFTextFieldId AcctTaxModel;
     extern __declspec(dllimport) const BFTextFieldId TermEntryExist;
+    extern __declspec(dllimport) const BFTextFieldId DistrAcctTypeDetl;
 }

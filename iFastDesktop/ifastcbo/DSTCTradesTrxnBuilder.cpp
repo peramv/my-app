@@ -887,6 +887,7 @@ SEVERITY DSTCTradesTrxnBuilder::buildTransactions( DSTCWorkSession &workSession,
          if (pDilutionAllocList)
          {
             BFObjIter iterDilution (*pDilutionAllocList, BF::HOST, false);
+			DString  dstrMatchingKey;
 
             while (!iterDilution.end())
             {
@@ -916,6 +917,8 @@ SEVERITY DSTCTradesTrxnBuilder::buildTransactions( DSTCWorkSession &workSession,
                ++count;
                ++iterDilution;
             }
+			pDilutionAllocList->getField(ifds::MatchingKey, dstrMatchingKey, BF::HOST);
+			request->setElementValue (ifds::MatchingKey, dstrMatchingKey);
          }
 
 

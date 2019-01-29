@@ -4040,6 +4040,8 @@ void TradesDlg::OnBtnInfoDetails()
                                                        IFASTBP_PROC::TRADES_LIST);
       setParameter (I_("FromScr"), I_("TradeEntry") );
       setParameter (MFCAN_IP_PARAM::LIST_KEY, tradeKey);
+	  setParameter (I_("TransType4Dilution"), m_tradeTransactionType);
+
       switch (getParentProcess ()->invokeProcessFromChild ( this, 
 																				CMD_BPROC_DILUTION, 
 																				PROC_SUPPORT))

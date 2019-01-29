@@ -28,6 +28,7 @@ namespace ifds
     extern const BFTextFieldId DilutionAvail;
     extern const BFTextFieldId SettleNetwork;
     extern const BFTextFieldId DilutionLinkNum;
+    extern const BFTextFieldId MatchingKey;
     extern const BFNumericFieldId RepeatCount;
 
     //Property Externs
@@ -42,6 +43,7 @@ namespace ifds
     extern const BFDataFieldProperties s_FldProp_DilutionAvail;
     extern const BFDataFieldProperties s_FldProp_SettleNetwork;
     extern const BFDataFieldProperties s_FldProp_DilutionLinkNum;
+    extern const BFDataFieldProperties s_FldProp_MatchingKey;
     extern const BFDataFieldProperties s_FldProp_RepeatCount;
 }
 
@@ -67,7 +69,7 @@ public:
     static bool fieldExists( const BFFieldId& id );
 
 private:
-    BFDataField* aFlds_[12];
+    BFDataField* aFlds_[13];
     // Field Declarations
     BFTextField_1 MoreAvailable_;
     BFTextField<100> NextKey_;
@@ -80,5 +82,6 @@ private:
     BFTextField_60 DilutionAvail_;
     BFTextField<50> SettleNetwork_;
     BFTextField<20> DilutionLinkNum_;
+    BFTextField<12> MatchingKey_;
     BFNumericField RepeatCount_;
 };

@@ -124,6 +124,7 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId PortfolioName;
    extern CLASS_IMPORT const BFDateFieldId TaxableTrustDate;
    extern CLASS_IMPORT const BFDateFieldId ExemptPeriod;
+   extern CLASS_IMPORT const BFTextFieldId DistrAcctTypeDetl;
 }
 
 extern CLASS_IMPORT BF_OBJ_TYPE OBJ_TYPE_MFACCOUNT;
@@ -194,6 +195,7 @@ _pCondition(NULL)
    addFieldDetails( ifds::PensionLegCode, IFASTBP_PROC::MFACCOUNT_CBO  );
    addFieldDetails( ifds::RegistrationInfo, IFASTBP_PROC::MFACCOUNT_CBO  );
    addFieldDetails( ifds::TaxTypeScheduleApplicable, IFASTBP_PROC::MFACCOUNT_CBO );
+   addFieldDetails( ifds::DistrAcctTypeDetl, IFASTBP_PROC::MFACCOUNT_CBO );
 
    //this is put here so the GUI can be notified that it should ask for rep
    addFieldDetails( ifds::ShouldAskForRep, IFASTBP_PROC::MFACCOUNT_CBO  );

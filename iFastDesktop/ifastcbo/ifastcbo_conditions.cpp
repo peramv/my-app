@@ -5223,6 +5223,9 @@ namespace CND
   extern CLASS_EXPORT const long ERR_FUND_SUBJECT_TO_LIQUIDITY_FEE_MEASURE = 1702800;
   extern CLASS_EXPORT const long WARN_FUND_SUBJECT_TO_LIQUIDITY_FEE_MEASURE = 1702801;
 
+  extern CLASS_EXPORT const long ERR_MATCHING_KEY_NOT_FOUND = 1702806;
+  extern CLASS_EXPORT const long WARN_MATCHING_KEY_NOT_FOUND = 1702807;
+
     // Defined in dicbocore module, but used here as well
   extern CLASS_EXPORT const long ERR_INVALID_TIME = 800027;
 

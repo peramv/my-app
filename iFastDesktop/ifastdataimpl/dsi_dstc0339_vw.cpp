@@ -26,9 +26,10 @@ dsi_DSTC0339_VW::dsi_DSTC0339_VW()
 , DilutionAvail_( ifds::DilutionAvail, &ifds::s_FldProp_DilutionAvail )
 , SettleNetwork_( ifds::SettleNetwork, &ifds::s_FldProp_SettleNetwork )
 , DilutionLinkNum_( ifds::DilutionLinkNum, &ifds::s_FldProp_DilutionLinkNum )
+, MatchingKey_( ifds::MatchingKey, &ifds::s_FldProp_MatchingKey )
 , RepeatCount_( ifds::RepeatCount, &ifds::s_FldProp_RepeatCount )
 {
-    cFields_ = 12;
+    cFields_ = 13;
     memset( &aFlds_[0], 0x00, sizeof( aFlds_ ) );
 }
 
@@ -50,6 +51,7 @@ BFDataImpl* dsi_DSTC0339_VW::clone()
     p->DilutionAvail_ = DilutionAvail_;
     p->SettleNetwork_ = SettleNetwork_;
     p->DilutionLinkNum_ = DilutionLinkNum_;
+    p->MatchingKey_ = MatchingKey_;
     p->RepeatCount_ = RepeatCount_;
     return(p);
 }
@@ -68,6 +70,7 @@ BFDataField* dsi_DSTC0339_VW::getElement( const BFFieldId& id )
         case 40006892: return ( &DilutionAvail_ ); break; // DilutionAvail
         case 40007321: return ( &SettleNetwork_ ); break; // SettleNetwork
         case 40007850: return ( &DilutionLinkNum_ ); break; // DilutionLinkNum
+        case 40007932: return ( &MatchingKey_ ); break; // MatchingKey
         case 40000120: return ( &RepeatCount_ ); break; // RepeatCount
     }
     return( NULL );
@@ -80,7 +83,7 @@ const BFDataField* dsi_DSTC0339_VW::getElement( const BFFieldId& id ) const
 
 BFDataField* dsi_DSTC0339_VW::getElementByIndex( unsigned int iField )
 {
-    if ( iField >=0 && iField < 12 )
+    if ( iField >=0 && iField < 13 )
     {
         BFDataField* pField = aFlds_[iField];
         if( NULL == pField )
@@ -98,7 +101,8 @@ BFDataField* dsi_DSTC0339_VW::getElementByIndex( unsigned int iField )
                 case 8: aFlds_[8] = &DilutionAvail_; break;
                 case 9: aFlds_[9] = &SettleNetwork_; break;
                 case 10: aFlds_[10] = &DilutionLinkNum_; break;
-                case 11: aFlds_[11] = &RepeatCount_; break;
+                case 11: aFlds_[11] = &MatchingKey_; break;
+                case 12: aFlds_[12] = &RepeatCount_; break;
             }
             pField = aFlds_[iField];
             if( NULL == pField ) return( NULL );
@@ -120,7 +124,7 @@ unsigned long dsi_DSTC0339_VW::getLargestDefinedField( void ) const
 
 unsigned long dsi_DSTC0339_VW::getDefinedByteLength( void ) const
 {
-    return( 486 * sizeof( I_CHAR ) );
+    return( 506 * sizeof( I_CHAR ) );
 }
 
 bool dsi_DSTC0339_VW::exists( const BFFieldId& id ) const
@@ -143,6 +147,7 @@ bool dsi_DSTC0339_VW::fieldExists( const BFFieldId& id )
         case 40006892: return ( true );
         case 40007321: return ( true );
         case 40007850: return ( true );
+        case 40007932: return ( true );
         case 40000120: return ( true );
     }
     return false;

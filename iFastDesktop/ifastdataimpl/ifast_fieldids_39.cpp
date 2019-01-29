@@ -100,4 +100,6 @@ namespace ifds
    extern CLASS_EXPORT const BFTextFieldId LiqRedFeeExist( 40007918 , I_("LiqRedFeeExist") );
    extern CLASS_EXPORT const BFDecimalFieldId RefundNAV( 40007921 , I_("RefundNAV") );
    extern CLASS_EXPORT const BFNumericFieldId SrchEntityId( 40007928 , I_("SrchEntityId") );
+   extern CLASS_EXPORT const BFTextFieldId DistrAcctTypeDetl( 40007930 , I_("DistrAcctTypeDetl") );
+   extern CLASS_EXPORT const BFTextFieldId MatchingKey( 40007932 , I_("MatchingKey") );
 }

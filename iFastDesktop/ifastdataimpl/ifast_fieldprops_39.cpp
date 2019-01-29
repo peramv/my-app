@@ -96,6 +96,8 @@ namespace ifds
    extern const BFTextFieldId LiqRedFeeExist;
    extern const BFDecimalFieldId RefundNAV;
    extern const BFNumericFieldId SrchEntityId;
+   extern const BFTextFieldId DistrAcctTypeDetl;
+   extern const BFTextFieldId MatchingKey;
    extern const BFDecimalFieldId AMSAllocDelta;
    extern const BFDecimalFieldId TaxCrdAmt;
    extern const BFDecimalFieldId AttrbAmt;
@@ -3527,6 +3529,69 @@ namespace ifds
       ,NULL // default value (integer)
       ,NULL // default value (double)
       ,s_FldProp_SrchEntityId_FLF // label
+      ,NULL // field name is deprecated
+      ,false // allow Nulls
+      ,None // justification
+      ,NULL // no substitution set
+      );
+
+   //------------------------------------------------------------------            
+   // Field s_FldProp_DistrAcctTypeDetl (7930)            
+   //------------------------------------------------------------------            
+   const DString& s_FldProp_DistrAcctTypeDetl_s_DVF( const ClientLocale& locale )            
+   {            
+      static const DString dstrDefValue_7930_1( I_("") );            
+      return( dstrDefValue_7930_1 );            
+   }
+   const DString& s_FldProp_DistrAcctTypeDetl_FLF( const ClientLocale& locale )            
+   {            
+      static const DString dstrFldLabel_7930_1( I_("DistrAcctTypeDetl") );            
+      return( dstrFldLabel_7930_1 );            
+   }            
+   PBF_SSC subset_super_chooser_2_7930( const ClientLocale& locale )
+   {
+      return chooser_ss_002_1034; 
+   }
+   extern CLASS_EXPORT const BFDataFieldProperties s_FldProp_DistrAcctTypeDetl(
+       BFDataFieldProperties::Type::text // field is text
+      ,DistrAcctTypeDetl // fieldId
+      ,80 // length
+      ,0 // minimum length
+      ,0 // decimals
+      ,mask_chooser_1_1 // mask chooser function
+      ,s_FldProp_DistrAcctTypeDetl_s_DVF // default value (string)
+      ,NULL // default value (integer)
+      ,NULL // default value (double)
+      ,s_FldProp_DistrAcctTypeDetl_FLF // label
+      ,NULL // field name is deprecated
+      ,false // allow Nulls
+      ,None // justification
+      ,subset_super_chooser_2_7930 // substitution set super chooser
+      );
+   //------------------------------------------------------------------            
+   // Field s_FldProp_MatchingKey (7932)            
+   //------------------------------------------------------------------            
+   const DString& s_FldProp_MatchingKey_s_DVF( const ClientLocale& locale )            
+   {            
+      static const DString dstrDefValue_7932_1( I_("") );            
+      return( dstrDefValue_7932_1 );            
+   }
+   const DString& s_FldProp_MatchingKey_FLF( const ClientLocale& locale )            
+   {            
+      static const DString dstrFldLabel_7932_1( I_("MatchingKey") );            
+      return( dstrFldLabel_7932_1 );            
+   }            
+   extern CLASS_EXPORT const BFDataFieldProperties s_FldProp_MatchingKey(
+       BFDataFieldProperties::Type::text // field is text
+      ,MatchingKey // fieldId
+      ,12 // length
+      ,0 // minimum length
+      ,0 // decimals
+      ,NULL // mask chooser function
+      ,s_FldProp_MatchingKey_s_DVF // default value (string)
+      ,NULL // default value (integer)
+      ,NULL // default value (double)
+      ,s_FldProp_MatchingKey_FLF // label
       ,NULL // field name is deprecated
       ,false // allow Nulls
       ,None // justification

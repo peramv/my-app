@@ -114,11 +114,14 @@ SEVERITY DSTCTransHistDilutionAllocListTrxnBuilder::buildTransactions( DSTCWorkS
 
 			pDataReq->setElementValue( ifds::TransId, dstrTransId );
 		   
-			DString dstrSettleNetwork, dstrDilutionLinkNum;
+			DString dstrSettleNetwork, dstrDilutionLinkNum, dstrMatchingKey;
 			pList->getField(ifds::SettleNetwork, dstrSettleNetwork, BF::HOST);
 			pList->getField(ifds::DilutionLinkNum, dstrDilutionLinkNum, BF::HOST);
 			pDataReq->setElementValue( ifds::SettleNetwork, dstrSettleNetwork );
 			pDataReq->setElementValue( ifds::DilutionLinkNum, dstrDilutionLinkNum );
+
+			pList->getField(ifds::MatchingKey, dstrMatchingKey, BF::HOST);
+			pDataReq->setElementValue (ifds::MatchingKey, dstrMatchingKey);
 
 			JData *jdata = new JData (DSTC_REQUEST::TRANS_HIST_DILUTION_ALLOC_UPDATE, pDataReq, pDataRes);
 

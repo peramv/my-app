@@ -6927,6 +6927,7 @@ namespace ifds
    extern const BFSubstitutionSet SubSet_002_1030_005_000_000;
    extern const BFSubstitutionSet SubSet_002_1031_001_000_000;
    extern const BFSubstitutionSet SubSet_002_1031_005_000_000;
+   extern const BFSubstitutionSet SubSet_002_1034_001_003_000;
    extern const BFSubstitutionSet SubSet_Empty;
 
 
@@ -7879,4 +7880,4 @@ namespace ifds
    const BFSubstitutionSet& chooser_ss_002_1029( const ClientLocale& locale );
    const BFSubstitutionSet& chooser_ss_002_1030( const ClientLocale& locale );
    const BFSubstitutionSet& chooser_ss_002_1031( const ClientLocale& locale );
-} // end namespace ifds
+   const BFSubstitutionSet& chooser_ss_002_1034( const ClientLocale& locale );} // end namespace ifds

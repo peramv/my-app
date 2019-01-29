@@ -162,7 +162,8 @@ private:
       m_strCurrentTabFeesPage,
       m_initialSettleDate,
       m_initialSettleInDate,
-	  m_Caller;
+	  m_Caller,
+	  m_tradeTransactionType;
    CWnd *m_pCWndF4Focus;
    bool m_bTradeListSelectionInProgress,
       m_bAllocationListSelectionInProgress,

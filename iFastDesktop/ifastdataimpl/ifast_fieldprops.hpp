@@ -5798,8 +5798,12 @@ namespace ifds
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_CurrYrTaxRedAmt;
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_CallingType;
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_VerifyFilter;
+
+
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_RDSPPaymtDate;
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_LiqRedFeeExist;
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_RefundNAV;
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_SrchEntityId;
+   extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_DistrAcctTypeDetl;
+   extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_MatchingKey;
 }

@@ -5806,4 +5806,6 @@ namespace ifds
    extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId LiqRedFeeExist;
    extern IFAST_DATAIMPL_LINKAGE const BFDecimalFieldId RefundNAV;
    extern IFAST_DATAIMPL_LINKAGE const BFNumericFieldId SrchEntityId;
+   extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId DistrAcctTypeDetl;
+   extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId MatchingKey;
 }

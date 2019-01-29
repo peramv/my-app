@@ -4393,7 +4393,6 @@ namespace ifds
    extern const BFSubstitutionSet SubSet_002_1026_005_000_000;
    const BFSubstitutionSet SubSet_002_1026_005_000_000(
     &aKeys_002_1026_005_000_000[0], &aValues_002_1026_005_000_000[0] );
-
    // Substitution set AmountTypeSettleCurrPortfolioPayoutSet.  Language: frCA
    static const I_CHAR* aKeys_002_1000_005_000_000[] = {
       I_("D"),
@@ -4683,6 +4682,27 @@ namespace ifds
    const BFSubstitutionSet SubSet_002_1031_001_000_000(
     &aKeys_002_1031_001_000_000[0], &aValues_002_1031_001_000_000[0] );
 
+   // Substitution set AccountTypeDetailsSet.  Language: enUS, Market: 3
+   static const I_CHAR* aKeys_002_1034_001_003_000[] = {
+      I_("D"),
+      I_("M"),
+      I_("F"),
+      I_(" "),
+      0x00
+   };
+
+
+   static const I_CHAR* aValues_002_1034_001_003_000[] = {
+      I_("Discount Investor"),
+      I_("Discretionary/Managed Fee-Based Account"),
+      I_("Fee-Based Account"),
+      I_("Not Applicable"),
+      0x00
+   };
+
+   extern const BFSubstitutionSet SubSet_002_1034_001_003_000;
+   const BFSubstitutionSet SubSet_002_1034_001_003_000( 
+    &aKeys_002_1034_001_003_000[0], &aValues_002_1034_001_003_000[0] );
 
    // The "empty" substitution set for use by Chooser Functions which have nothing to choose
    static const I_CHAR* aKeys_Empty[] = {0x00};

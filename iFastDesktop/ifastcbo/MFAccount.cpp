@@ -785,6 +785,7 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId AlertCode;
    extern CLASS_IMPORT const BFTextFieldId ReqAcctCustodian;
    extern CLASS_IMPORT const BFTextFieldId AccountClosingReasonRDSP;
+   extern CLASS_IMPORT const BFTextFieldId DistrAcctTypeDetl;
 }
 
 namespace ACCOUNT_GROUPING
@@ -1056,6 +1057,7 @@ const BFCBO::CLASS_FIELD_INFO classFieldInfo[] =
 	{ ifds::AcctTaxModel,             BFCBO::NONE,                 0 },
 	{ ifds::TermEntryExist,           BFCBO::NONE,                 0 },
 	{ ifds::AccountClosingReasonRDSP, BFCBO::NONE,                 0 },
+	{ ifds::DistrAcctTypeDetl,        BFCBO::NONE,                 0 },
 };
 
 static const int NUM_FIELDS = sizeof( classFieldInfo ) / sizeof( BFCBO::CLASS_FIELD_INFO );

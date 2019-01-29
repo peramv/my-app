@@ -46,6 +46,8 @@ namespace CND
   extern const long WARN_DILUTION_LINK_ID_DOES_NOT_EXIST;
   extern const long ERR_DILUTION_LINK_ID_IS_ASSOCIATED_F50_TRADE;
   extern const long WARN_DILUTION_LINK_ID_IS_ASSOCIATED_F50_TRADE;
+  extern const long ERR_MATCHING_KEY_NOT_FOUND;
+  extern const long WARN_MATCHING_KEY_NOT_FOUND;
 }
 
 namespace
@@ -58,6 +60,7 @@ namespace
 
   const long DILUTION_LINK_ID_DOES_NOT_EXIST         = 988;
   const long DILUTION_LINK_ID_IS_ASSOCIATED_F50_TRADE = 989;
+  const long MATCHING_KEY_ERROR						  = 990;
 }
 
 //******************************************************************************
@@ -79,7 +82,8 @@ DilutionValidation::~DilutionValidation()
 SEVERITY DilutionValidation::init(const DString &dstrAccountNum, 
                                   const DString &dstrFundCode, 
                                   const DString &dstrClassCode, 
-                                  const DString &dstrDilutionLinkNum)
+                                  const DString &dstrDilutionLinkNum,
+								  const DString &dstrMatchingKey)
 {
   MAKEFRAMEAUTOPROMOTE2(CND::IFASTCBO_CONDITION, CLASSNAME, I_("init"));
 
@@ -111,6 +115,7 @@ SEVERITY DilutionValidation::init(const DString &dstrAccountNum,
   queryData.setElementValue(ifds::RDSPValidation, NO);
   queryData.setElementValue(ifds::GRRepayReason, NULL_STRING);
   queryData.setElementValue(ifds::RDSPPaymtDate, NULL_STRING);
+  queryData.setElementValue(ifds::MatchingKey, dstrMatchingKey);
 
   ReceiveData(DSTC_REQUEST::TRADE_MIN_AMT_CHECK, 
               queryData, 
@@ -147,6 +152,16 @@ SEVERITY DilutionValidation::addConditions(DString &dstrDilutionNSM)
         
         if (severityCode == EWI_ERROR)
           ADDCONDITIONFROMFILE(CND::ERR_DILUTION_LINK_ID_DOES_NOT_EXIST);
+      }
+      break;
+      case MATCHING_KEY_ERROR:
+      {
+ 
+        if(severityCode == EWI_WARNING)
+          ADDCONDITIONFROMFILE(CND::WARN_MATCHING_KEY_NOT_FOUND);
+        
+        if (severityCode == EWI_ERROR)
+          ADDCONDITIONFROMFILE(CND::ERR_MATCHING_KEY_NOT_FOUND);  
       }
       break;
       case DILUTION_LINK_ID_IS_ASSOCIATED_F50_TRADE:

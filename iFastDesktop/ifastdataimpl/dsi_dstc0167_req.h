@@ -47,6 +47,7 @@ namespace ifds
     extern const BFTextFieldId RDSPValidation;
     extern const BFTextFieldId GRRepayReason;
     extern const BFDateFieldId RDSPPaymtDate;
+    extern const BFTextFieldId MatchingKey;
 
     //Property Externs
     extern const BFDataFieldProperties s_FldProp_SessionId;
@@ -79,6 +80,7 @@ namespace ifds
     extern const BFDataFieldProperties s_FldProp_RDSPValidation;
     extern const BFDataFieldProperties s_FldProp_GRRepayReason;
     extern const BFDataFieldProperties s_FldProp_RDSPPaymtDate;
+    extern const BFDataFieldProperties s_FldProp_MatchingKey;
 }
 
 
@@ -103,7 +105,7 @@ public:
     static bool fieldExists( const BFFieldId& id );
 
 private:
-    BFDataField* aFlds_[30];
+    BFDataField* aFlds_[31];
     // Field Declarations
     BFTextField_60 SessionId_;
     BFTextField_60 User_Id_;
@@ -135,4 +137,5 @@ private:
     BFTextField_1 RDSPValidation_;
     BFTextField_60 GRRepayReason_;
     BFDateField RDSPPaymtDate_;
+    BFTextField<12> MatchingKey_;
 };

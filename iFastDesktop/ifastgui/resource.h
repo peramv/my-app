@@ -6527,14 +6527,20 @@
 #define TXT_RDSP_INTERFACE_TRANSACTIONS 62356
 #define TXT_RDSP_PAYMENT_DATE           62357
 
+#define IDC_STC_DISTRIB_ACCTTD          62358
+#define IDC_CMB_DISTRIB_ACCTTD          62359
+
+#define IDC_TXT_IFAST_MATCHINGKEY       62360 
+#define IDC_EDT_IFAST_MATCHINGKEY       62361       
+
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        62358
-#define _APS_NEXT_COMMAND_VALUE         62358
-#define _APS_NEXT_CONTROL_VALUE         62358
+#define _APS_NEXT_RESOURCE_VALUE        62362
+#define _APS_NEXT_COMMAND_VALUE         62362
+#define _APS_NEXT_CONTROL_VALUE         62362
 #define _APS_NEXT_SYMED_VALUE           111
 #endif
 #endif

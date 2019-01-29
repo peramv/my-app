@@ -279,8 +279,9 @@ dsi_DSTC0004_VWRepeat_Record::dsi_DSTC0004_VWRepeat_Record()
 , IsRegExtrAcct_( ifds::IsRegExtrAcct, &ifds::s_FldProp_IsRegExtrAcct )
 , AcctTaxModel_( ifds::AcctTaxModel, &ifds::s_FldProp_AcctTaxModel )
 , TermEntryExist_( ifds::TermEntryExist, &ifds::s_FldProp_TermEntryExist )
+, DistrAcctTypeDetl_( ifds::DistrAcctTypeDetl, &ifds::s_FldProp_DistrAcctTypeDetl )
 {
-    cFields_ = 264;
+    cFields_ = 265;
     memset( &aFlds_[0], 0x00, sizeof( aFlds_ ) );
 }
 
@@ -555,6 +556,7 @@ BFDataImpl* dsi_DSTC0004_VWRepeat_Record::clone()
     p->IsRegExtrAcct_ = IsRegExtrAcct_;
     p->AcctTaxModel_ = AcctTaxModel_;
     p->TermEntryExist_ = TermEntryExist_;
+    p->DistrAcctTypeDetl_ = DistrAcctTypeDetl_;
     return(p);
 }
 
@@ -825,6 +827,7 @@ BFDataField* dsi_DSTC0004_VWRepeat_Record::getElement( const BFFieldId& id )
         case 40007798: return ( &IsRegExtrAcct_ ); break; // IsRegExtrAcct
         case 40007799: return ( &AcctTaxModel_ ); break; // AcctTaxModel
         case 40007860: return ( &TermEntryExist_ ); break; // TermEntryExist
+        case 40007930: return ( &DistrAcctTypeDetl_ ); break; // DistrAcctTypeDetl
     }
     return( NULL );
 }
@@ -836,7 +839,7 @@ const BFDataField* dsi_DSTC0004_VWRepeat_Record::getElement( const BFFieldId& id
 
 BFDataField* dsi_DSTC0004_VWRepeat_Record::getElementByIndex( unsigned int iField )
 {
-    if ( iField >=0 && iField < 264 )
+    if ( iField >=0 && iField < 265 )
     {
         BFDataField* pField = aFlds_[iField];
         if( NULL == pField )
@@ -1107,6 +1110,7 @@ BFDataField* dsi_DSTC0004_VWRepeat_Record::getElementByIndex( unsigned int iFiel
                 case 261: aFlds_[261] = &IsRegExtrAcct_; break;
                 case 262: aFlds_[262] = &AcctTaxModel_; break;
                 case 263: aFlds_[263] = &TermEntryExist_; break;
+                case 264: aFlds_[264] = &DistrAcctTypeDetl_; break;
             }
             pField = aFlds_[iField];
             if( NULL == pField ) return( NULL );
@@ -1128,7 +1132,7 @@ unsigned long dsi_DSTC0004_VWRepeat_Record::getLargestDefinedField( void ) const
 
 unsigned long dsi_DSTC0004_VWRepeat_Record::getDefinedByteLength( void ) const
 {
-    return( 6608 * sizeof( I_CHAR ) );
+    return( 6688 * sizeof( I_CHAR ) );
 }
 
 bool dsi_DSTC0004_VWRepeat_Record::exists( const BFFieldId& id ) const
@@ -1404,6 +1408,7 @@ bool dsi_DSTC0004_VWRepeat_Record::fieldExists( const BFFieldId& id )
         case 40007798: return ( true );
         case 40007799: return ( true );
         case 40007860: return ( true );
+        case 40007930: return ( true );
     }
     return false;
 }

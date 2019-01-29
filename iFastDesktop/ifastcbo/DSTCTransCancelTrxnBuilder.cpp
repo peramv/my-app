@@ -157,11 +157,15 @@ SEVERITY DSTCTransCancelTrxnBuilder::buildTransactions( DSTCWorkSession &workSes
 
 		if( pDilutionList )
 		{
-         DString  dstrSettleNetwork, dstcDilutionLinkNum;
+         DString  dstrSettleNetwork, dstcDilutionLinkNum, dstrMatchingKey;
          pDilutionList->getField(ifds::SettleNetwork, dstrSettleNetwork, BF::HOST, false);
          pDataReq->setElementValue(ifds::SettleNetwork, dstrSettleNetwork);
 		 pDilutionList->getField(ifds::DilutionLinkNum, dstcDilutionLinkNum, BF::HOST, false);
          pDataReq->setElementValue(ifds::DilutionLinkNum, dstcDilutionLinkNum);
+
+		 pDilutionList->getField(ifds::MatchingKey, dstrMatchingKey, BF::HOST, false);
+         pDataReq->setElementValue(ifds::MatchingKey, dstrMatchingKey);
+
 			BFObjIter bfIter( *pDilutionList, BF::HOST );
 			bfIter.begin();
 			while( !bfIter.end() )

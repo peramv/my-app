@@ -49,9 +49,10 @@ dsi_DSTC0338_REQ::dsi_DSTC0338_REQ()
 , EventReceiptTime_( ifds::EventReceiptTime, &ifds::s_FldProp_EventReceiptTime )
 , SettleNetwork_( ifds::SettleNetwork, &ifds::s_FldProp_SettleNetwork )
 , DilutionLinkNum_( ifds::DilutionLinkNum, &ifds::s_FldProp_DilutionLinkNum )
+, MatchingKey_( ifds::MatchingKey, &ifds::s_FldProp_MatchingKey )
 , RepeatCount_( ifds::RepeatCount, &ifds::s_FldProp_RepeatCount )
 {
-    cFields_ = 35;
+    cFields_ = 36;
     memset( &aFlds_[0], 0x00, sizeof( aFlds_ ) );
 }
 
@@ -96,6 +97,7 @@ BFDataImpl* dsi_DSTC0338_REQ::clone()
     p->EventReceiptTime_ = EventReceiptTime_;
     p->SettleNetwork_ = SettleNetwork_;
     p->DilutionLinkNum_ = DilutionLinkNum_;
+    p->MatchingKey_ = MatchingKey_;
     p->RepeatCount_ = RepeatCount_;
     return(p);
 }
@@ -137,6 +139,7 @@ BFDataField* dsi_DSTC0338_REQ::getElement( const BFFieldId& id )
         case 40007030: return ( &EventReceiptTime_ ); break; // EventReceiptTime
         case 40007321: return ( &SettleNetwork_ ); break; // SettleNetwork
         case 40007850: return ( &DilutionLinkNum_ ); break; // DilutionLinkNum
+        case 40007932: return ( &MatchingKey_ ); break; // MatchingKey
         case 40000120: return ( &RepeatCount_ ); break; // RepeatCount
     }
     return( NULL );
@@ -149,7 +152,7 @@ const BFDataField* dsi_DSTC0338_REQ::getElement( const BFFieldId& id ) const
 
 BFDataField* dsi_DSTC0338_REQ::getElementByIndex( unsigned int iField )
 {
-    if ( iField >=0 && iField < 35 )
+    if ( iField >=0 && iField < 36 )
     {
         BFDataField* pField = aFlds_[iField];
         if( NULL == pField )
@@ -190,7 +193,8 @@ BFDataField* dsi_DSTC0338_REQ::getElementByIndex( unsigned int iField )
                 case 31: aFlds_[31] = &EventReceiptTime_; break;
                 case 32: aFlds_[32] = &SettleNetwork_; break;
                 case 33: aFlds_[33] = &DilutionLinkNum_; break;
-                case 34: aFlds_[34] = &RepeatCount_; break;
+                case 34: aFlds_[34] = &MatchingKey_; break;
+                case 35: aFlds_[35] = &RepeatCount_; break;
             }
             pField = aFlds_[iField];
             if( NULL == pField ) return( NULL );
@@ -212,7 +216,7 @@ unsigned long dsi_DSTC0338_REQ::getLargestDefinedField( void ) const
 
 unsigned long dsi_DSTC0338_REQ::getDefinedByteLength( void ) const
 {
-    return( 1222 * sizeof( I_CHAR ) );
+    return( 1242 * sizeof( I_CHAR ) );
 }
 
 bool dsi_DSTC0338_REQ::exists( const BFFieldId& id ) const
@@ -258,6 +262,7 @@ bool dsi_DSTC0338_REQ::fieldExists( const BFFieldId& id )
         case 40007030: return ( true );
         case 40007321: return ( true );
         case 40007850: return ( true );
+        case 40007932: return ( true );
         case 40000120: return ( true );
     }
     return false;

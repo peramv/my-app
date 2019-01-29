@@ -119,6 +119,7 @@ namespace ifds
    extern const BFTextFieldId AIFMDInvestorCategory;
    extern const BFTextFieldId AggregationType;
     extern const BFTextFieldId AcctTaxModel;
+   extern const BFTextFieldId DistrAcctTypeDetl;
 
    //Property Externs
    extern const BFDataFieldProperties s_FldProp_SessionId;
@@ -223,6 +224,7 @@ namespace ifds
    extern const BFDataFieldProperties s_FldProp_AIFMDInvestorCategory;
    extern const BFDataFieldProperties s_FldProp_AggregationType;
     extern const BFDataFieldProperties s_FldProp_AcctTaxModel;
+   extern const BFDataFieldProperties s_FldProp_DistrAcctTypeDetl;
 }
 
 
@@ -247,7 +249,7 @@ public:
    static bool fieldExists( const BFFieldId& id );
 
 private:
-    BFDataField* aFlds_[102];
+    BFDataField* aFlds_[103];
    // Field Declarations
    BFTextField_60 SessionId_;
    BFTextField_60 User_Id_;
@@ -351,5 +353,5 @@ private:
    BFTextField_10 AIFMDInvestorCategory_;
    BFTextField_10 AggregationType_;
     BFTextField_60 AcctTaxModel_;
-
+   BFTextField<80> DistrAcctTypeDetl_;
 };

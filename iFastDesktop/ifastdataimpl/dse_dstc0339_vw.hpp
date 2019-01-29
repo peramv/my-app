@@ -21,5 +21,6 @@ namespace ifds
     extern __declspec(dllimport) const BFTextFieldId DilutionAvail;
     extern __declspec(dllimport) const BFTextFieldId SettleNetwork;
     extern __declspec(dllimport) const BFTextFieldId DilutionLinkNum;
+    extern __declspec(dllimport) const BFTextFieldId MatchingKey;
     extern __declspec(dllimport) const BFNumericFieldId RepeatCount;
 }
