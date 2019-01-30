@@ -22,11 +22,21 @@ public class AccountRdspDto {
     private String specifiedYearStatusCode;
     private Boolean isReportToESDC;
     private String inceptionDate;
-    private String createdBy;
-
+    private String grantDate;   
+	private String createdBy;
+    
     private List<AccountElectionHistoryDto> accountElectionHistories;
+    private List<AccountElectionHistoryDto> dtcEligibilityHistories;
 
-    public long getAccountNumber() {
+    public List<AccountElectionHistoryDto> getDtcEligibilityHistories() {
+		return dtcEligibilityHistories;
+	}
+
+	public void setDtcEligibilityHistories(List<AccountElectionHistoryDto> dtcEligibilityHistories) {
+		this.dtcEligibilityHistories = dtcEligibilityHistories;
+	}
+
+	public long getAccountNumber() {
         return accountNumber;
     }
 
@@ -161,7 +171,15 @@ public class AccountRdspDto {
     public void setAccountElectionHistories(List<AccountElectionHistoryDto> accountElectionHistories) {
         this.accountElectionHistories = accountElectionHistories;
     }
+	
+    public String getGrantDate() {
+		return grantDate;
+	}
 
+	public void setGrantDate(String grantDate) {
+		this.grantDate = grantDate;
+	}
+	
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -183,13 +201,14 @@ public class AccountRdspDto {
             Objects.equals(isReportToESDC, that.isReportToESDC) &&
             Objects.equals(inceptionDate, that.inceptionDate) &&
             Objects.equals(createdBy, that.createdBy) &&
+            Objects.equals(grantDate, that.grantDate) &&
             Objects.equals(accountElectionHistories, that.accountElectionHistories);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(accountNumber, closureReasonCode, accountUuid, accountStatus, dtcStatusCode, sdspStatusCode, dtcElectionStatusCode, isTransferredAccount, isGrant, isBond, closureDate, registrationStatusCode, specifiedYearStatusCode, isReportToESDC, inceptionDate, createdBy, accountElectionHistories);
+        return Objects.hash(accountNumber, closureReasonCode, accountUuid, accountStatus, dtcStatusCode, sdspStatusCode, dtcElectionStatusCode, isTransferredAccount, isGrant, isBond, closureDate, registrationStatusCode, specifiedYearStatusCode, isReportToESDC, inceptionDate, createdBy, accountElectionHistories, grantDate);
     }
 
     @Override
@@ -211,6 +230,7 @@ public class AccountRdspDto {
             "\n, isReportToESDC=" + isReportToESDC +
             "\n, inceptionDate='" + inceptionDate + '\'' +
             "\n, createdBy='" + createdBy + '\'' +
+            "\n, grantDate='" + grantDate + '\'' +
             "\n, accountElectionHistories=" + accountElectionHistories +
         '}';
     }

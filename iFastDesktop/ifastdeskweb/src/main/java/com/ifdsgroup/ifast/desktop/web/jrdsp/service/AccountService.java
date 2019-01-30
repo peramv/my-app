@@ -47,11 +47,11 @@ public class AccountService {
 
 	
 	
-	public BaseResponse updateAccountDetails(String accountId, AccountUpdateRequest accountUpdateRequest, String ignoreErrorCode) {
+	public BaseResponse updateAccountDetails(String accountId, AccountUpdateRequest accountUpdateRequest, String userId, String ignoreErrorCode) {
 		String httpPath="/account/rdsp";
 		
 		String URL=jrdspServiceURL+httpPath+"/"+accountId;
-		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath, HttpMethod.PUT.name(), "application/json", "1.0", JRDSPUtil.generateTraceId());
+		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath, HttpMethod.PUT.name(), "application/json", "1.0", JRDSPUtil.generateTraceId(),userId);
 
 		
 		AccountRdspPutRequest accountPutRequest=new AccountRdspPutRequest();
@@ -61,6 +61,7 @@ public class AccountService {
 		accountRdspDto.setAccountNumber(Long.parseLong(accountId));
 		accountRdspDto.setBond(JRDSPUtil.stringToBoolean(accountUpdateRequest.getBondRequested()));
 		accountRdspDto.setGrant(JRDSPUtil.stringToBoolean(accountUpdateRequest.getGrantRequested()));
+		accountRdspDto.setGrantDate(accountUpdateRequest.getGrantDate());
 		accountRdspDto.setInceptionDate(accountUpdateRequest.getInceptionDate());
 		accountRdspDto.setReportToESDC(JRDSPUtil.stringToBoolean(accountUpdateRequest.getReportToESDC()));
 		accountRdspDto.setTransferredAccount(JRDSPUtil.stringToBoolean(accountUpdateRequest.getTransferredAccount()));
@@ -73,7 +74,7 @@ public class AccountService {
 		accountRdspDto.setClosureDate(accountUpdateRequest.getClosureDate());
 		accountRdspDto.setRegistrationStatusCode(accountUpdateRequest.getContractStatusRegistration());
 		accountRdspDto.setSpecifiedYearStatusCode(accountUpdateRequest.getSpecifiedYear());
-		accountRdspDto.setCreatedBy(accountUpdateRequest.getCreatedBy());
+		accountRdspDto.setCreatedBy(userId);
 
 		if (accountUpdateRequest.getElections() != null
 				&& accountUpdateRequest.getElections().getElection() != null) {
@@ -117,7 +118,7 @@ public class AccountService {
 		String httpPath="/account/rdsp";
 		String URL=jrdspServiceURL+httpPath+"/"+accountId;
 	
-		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath, HttpMethod.GET.name(), "application/json", "1.0", JRDSPUtil.generateTraceId());
+		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath, HttpMethod.GET.name(), "application/json", "1.0", JRDSPUtil.generateTraceId(),"");
 		HttpEntity httpEntity = new HttpEntity( headers);
 		
 		
@@ -173,7 +174,7 @@ public class AccountService {
 				election.setCertificationDate(electionHistory.getCertificationDate());
 				election.setElected(electionHistory.getElectionStatusCode());
 				election.setReportingStatus(electionHistory.getReportingStatusCode());
-				election.setType(JRDSPUtil.getElectionType(electionHistory.getElectionTypeCode()));
+				election.setType(electionHistory.getElectionTypeCode());
 				election.setUuid(electionHistory.getUuid());
 				election.setTransactionDate(electionHistory.getTransactionDate());
 				election.setPeriodStart(electionHistory.getPeriodStartDate());
@@ -181,6 +182,55 @@ public class AccountService {
 				election.setEffective(electionHistory.getEffectiveDate());
 				election.setStatus(electionHistory.getStatus());
                 electionList.add(election);
+			}
+			
+			//Sort Based on Transaction Date
+			
+			
+			Comparator<Election> compareEligiblities = (a, b) -> {
+				Date dateA = null;
+				Date dateB = null;
+				try {
+					dateA = JRDSPUtil.convertStringToDate(a.getTransactionDate());
+					dateB = JRDSPUtil.convertStringToDate(b.getTransactionDate());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(dateB.compareTo(dateA)==0) {
+					long idA = a.getId();
+					long idB = b.getId();
+					return (idB>idA)?1:-1;
+				}
+				return dateB.compareTo(dateA);
+			};
+			
+			electionList.sort(compareEligiblities);
+			elections.setElection(electionList);
+		}
+		accountResponse.setElections(elections);
+		
+		List<AccountElectionHistoryDto> dtcEligiblityHistoryList=account.getDtcEligibilityHistories();
+
+		List<Election> dtcEligibilityList=new ArrayList<>();
+		Elections dtcEligibilities=new Elections();
+		if(dtcEligiblityHistoryList!=null)
+		{
+			for(AccountElectionHistoryDto eligibilityHistory:dtcEligiblityHistoryList)
+			{
+				Election eligibility=new Election();
+				eligibility.setId(eligibilityHistory.getId());
+				eligibility.setCertificationDate(eligibilityHistory.getCertificationDate());
+				eligibility.setElected(eligibilityHistory.getElectionStatusCode());
+				eligibility.setReportingStatus(eligibilityHistory.getReportingStatusCode());
+				eligibility.setType(JRDSPUtil.getEligibilityType(eligibilityHistory.getElectionTypeCode(),eligibilityHistory.getElectionStatusCode()));
+				eligibility.setUuid(eligibilityHistory.getUuid());
+				eligibility.setTransactionDate(eligibilityHistory.getTransactionDate());
+				eligibility.setPeriodStart(eligibilityHistory.getPeriodStartDate());
+				eligibility.setPeriodEnd(eligibilityHistory.getPeriodEndDate());
+				eligibility.setEffective(eligibilityHistory.getEffectiveDate());
+				eligibility.setStatus(eligibilityHistory.getStatus());
+				dtcEligibilityList.add(eligibility);
 			}
 			
 			//Sort Based on Transaction Date
@@ -196,13 +246,19 @@ public class AccountService {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				if(dateB.compareTo(dateA)==0) {
+					long idA = a.getId();
+					long idB = b.getId();
+					return (idB>idA)?1:-1;
+				}
 				return dateB.compareTo(dateA);
 			};
 			
-			electionList.sort(compareElections);
-			elections.setElection(electionList);
+			dtcEligibilityList.sort(compareElections);
+			dtcEligibilities.setElection(dtcEligibilityList);
+			
 		}
-		accountResponse.setElections(elections);
+		accountResponse.setDtcEligiblities(dtcEligibilities);
 		}
 		return accountResponse;
 	}
@@ -215,7 +271,7 @@ public class AccountService {
 		String httpPath2="/account/rdsp/"+accountId+"/entity";
 		String URL=jrdspServiceURL+httpPath2;
 
-		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath1, HttpMethod.GET.name(), "application/json", "1.0", JRDSPUtil.generateTraceId());
+		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath1, HttpMethod.GET.name(), "application/json", "1.0", JRDSPUtil.generateTraceId(),"");
 
 		HttpEntity httpEntity = new HttpEntity( headers);
 		
@@ -319,7 +375,7 @@ public class AccountService {
 		String httpPath="/account/rdsp";
 		String URL=jrdspServiceURL+httpPath+"/"+accountId;
 	
-		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath, HttpMethod.GET.name(), "application/json", "1.0", JRDSPUtil.generateTraceId());
+		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath, HttpMethod.GET.name(), "application/json", "1.0", JRDSPUtil.generateTraceId(),"");
 		HttpEntity httpEntity = new HttpEntity( headers);
 		
 		

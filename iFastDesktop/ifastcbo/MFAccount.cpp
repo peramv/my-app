@@ -5672,6 +5672,7 @@ SEVERITY MFAccount::initFieldsAndSubst( const BFDataGroupId& idDataGroup )
    
    if (isRDSPAccount(idDataGroup))
    {
+	   addBlankToSubSet (ifds::AccountClosingReasonRDSP, idDataGroup, true);
 	   setFieldSubstituteValues( ifds::AccountClosingReason, idDataGroup, ifds::AccountClosingReasonRDSP );
    }
 

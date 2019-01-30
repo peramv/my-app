@@ -33,7 +33,7 @@ public class ConfigurationService {
 		String httpPath="/getConfig";
 		String URL=jrdspServiceURL+httpPath;
 	
-		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath, HttpMethod.GET.name(), "application/json", "1.0", JRDSPUtil.generateTraceId());
+		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath, HttpMethod.GET.name(), "application/json", "1.0", JRDSPUtil.generateTraceId(),"");
 		HttpEntity httpEntity = new HttpEntity( headers);
 		
 		

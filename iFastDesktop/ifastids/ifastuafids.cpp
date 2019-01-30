@@ -289,6 +289,11 @@ namespace UAF {
    DEFINE_UAF( WITHHODLDING_TAX_RATES_MAINTANENCE, I_("279"));
    DEFINE_UAF( FUND_DISTRIBUTION_SPLIT_MAINTENANCE, I_("280"));
    DEFINE_UAF( APAC_SUPREGN, I_("281"));
+   DEFINE_UAF( RDSP_TRANSFER, I_("282"));
+   DEFINE_UAF( RDSP_ACCOUNT_INFORMATION, I_("283"));
+   DEFINE_UAF( RDSP_NOTIONAL_ACTIVITY, I_("284"));
+   DEFINE_UAF( RDSP_NOTIONAL_BALANCE, I_("285"));
+   DEFINE_UAF( RDSP_INTERFACE_TRANSACTIONS, I_("286"));   
 
 //******************************************************************************
 //              Revision Control Entries

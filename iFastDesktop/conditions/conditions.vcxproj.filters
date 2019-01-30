@@ -29139,6 +29139,30 @@
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_email_phone_details_cannot_be_blank.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_rdsp_insufficient_grant_bond_balance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_rdsp_insufficient_grant_bond_balance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_rdsp_bond_return_cannot_be_greater_than_bond_purchase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_rdsp_bond_return_cannot_be_greater_than_bond_purchase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_rdsp_grant_return_cannot_be_greater_than_grant_purchase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_rdsp_grant_return_cannot_be_greater_than_grant_purchase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_rdsp_beneficiary_dofbirth_missing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_rdsp_beneficiary_dofbirth_missing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_matching_key_not_found.h">
       <Filter>Header Files</Filter>
     </ClInclude>

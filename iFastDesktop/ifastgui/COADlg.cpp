@@ -169,6 +169,9 @@ namespace UAF
    extern CLASS_IMPORT I_CHAR * const REG_PLAN_TRANSFER;
    extern CLASS_IMPORT I_CHAR * const ACCT_ROUNDING_RULE;
    extern CLASS_IMPORT I_CHAR * const ACCT_DELETION_REVIEW;
+   extern CLASS_IMPORT I_CHAR * const RDSP_ACCOUNT_INFORMATION;
+   extern CLASS_IMPORT I_CHAR * const RDSP_NOTIONAL_ACTIVITY;
+   extern CLASS_IMPORT I_CHAR * const RDSP_NOTIONAL_BALANCE;
 }
 
 namespace COADLG
@@ -1099,20 +1102,20 @@ BOOL COADlg::OnInitDialog()
 
    if (dstrTaxType == COADLG::RDSP_TAX_TYPE) 
    {	   
-	   //if (hasReadPermission( UAF::RDSP_ACCOUNT_INFORMATION ))
-	   //{
+	   if (hasReadPermission( UAF::RDSP_ACCOUNT_INFORMATION ))
+	   {
 		   addCOARow(SCR_RDSP_ACCOUNT_INFO, IDS_SCR_RDSP_ACCOUNT_INFO, COA_TYPE_OPTION, COADLG::CMD_RDSP_ACCOUNT_INFO, true,  TTL_SCREENS_ID,  GX_IDS_CTRL_CBS_DROPDOWNLIST, CHOICE_TYPE_CHANGE);
-	   //}
+	   }
 	   
-	   //if (hasReadPermission( UAF::RDSP_NOTIONAL_ACTIVITY ))
-	   //{
+	   if (hasReadPermission( UAF::RDSP_NOTIONAL_ACTIVITY ))
+	   {
 		   addCOARow(SCR_RDSP_NOTIONAL_ACTIVITY, IDS_SCR_RDSP_NOTIONAL_ACTIVITY, COA_TYPE_OPTION, COADLG::CMD_RDSP_NOTIONAL_ACTIVITY, true,  TTL_SCREENS_ID,  GX_IDS_CTRL_CBS_DROPDOWNLIST, CHOICE_TYPE_CHANGE);
-	   //} 
+	   } 
 
-	   //if (hasReadPermission( UAF::RDSP_NOTIONAL_BALANCE ))
-	   //{
+	   if (hasReadPermission( UAF::RDSP_NOTIONAL_BALANCE ))
+	   {
 		   addCOARow(SCR_RDSP_NOTIONAL_BALANCE, IDS_SCR_RDSP_NOTIONAL_BALANCE, COA_TYPE_OPTION, COADLG::CMD_RDSP_NOTIONAL_BALANCE, true,  TTL_SCREENS_ID,  GX_IDS_CTRL_CBS_DROPDOWNLIST, CHOICE_TYPE_CHANGE);
-	   //}   
+	   }   
    }
 
    m_gridWindow.SubclassDlgItem(IDC_COA_GRID, this);
@@ -3421,19 +3424,19 @@ void COADlg::retrieveValue( long cellId )
 		 case COADlg::SCR_RDSP_ACCOUNT_INFO:
 			 {	
 				 fieldValue = I_("");				
-				 rCOAElem.setEnabledAndValue( /*(hasReadPermission( UAF::RDSP_ACCOUNT_INFORMATION))*/true, fieldValue.c_str() );
+				 rCOAElem.setEnabledAndValue( (hasReadPermission( UAF::RDSP_ACCOUNT_INFORMATION)), fieldValue.c_str() );
 			 }
 			 break;
 		 case COADlg::SCR_RDSP_NOTIONAL_ACTIVITY:
 			 {	
 				 fieldValue = I_("");				
-				 rCOAElem.setEnabledAndValue( /*(hasReadPermission( UAF::RDSP_NOTIONAL_ACTIVITY))*/true, fieldValue.c_str() );
+				 rCOAElem.setEnabledAndValue( (hasReadPermission( UAF::RDSP_NOTIONAL_ACTIVITY)), fieldValue.c_str() );
 			 }
 			 break;
 		 case COADlg::SCR_RDSP_NOTIONAL_BALANCE:
 			 {	
 				 fieldValue = I_("");				
-				 rCOAElem.setEnabledAndValue( /*(hasReadPermission( UAF::RDSP_NOTIONAL_BALANCE))*/true, fieldValue.c_str() );
+				 rCOAElem.setEnabledAndValue( (hasReadPermission( UAF::RDSP_NOTIONAL_BALANCE)), fieldValue.c_str() );
 			 }
 			 break;
       case COADlg::MSC_INVESTOR_CLASSIFICATION:

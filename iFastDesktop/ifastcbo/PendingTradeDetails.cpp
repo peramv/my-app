@@ -1114,7 +1114,7 @@ SEVERITY PendingTradeDetails::setGRRepayReasonSubstList(const BFDataGroupId &idD
    {
       setFieldSubstituteValues (ifds::GRRepayReason, idDataGroup, ifds::GRRepayReasonCommon);
    }
-   else if (DSTCommonFunctions::codeInList (dstrRedCode, I_("01,DP,LP")))
+   else if (DSTCommonFunctions::codeInList (dstrRedCode, I_("BP,DP,GP,LP,TW")))
    {
 	  setFieldSubstituteValues (ifds::GRRepayReason, idDataGroup, ifds::GRRepayReasonRDSP);
    }

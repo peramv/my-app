@@ -374,6 +374,7 @@ namespace UAF
    extern CLASS_IMPORT I_CHAR * const TRANS_HIST_DILUTION_ALLOC_LIST;
    extern CLASS_IMPORT I_CHAR * const PAYMENT_SEARCH;
    extern CLASS_IMPORT I_CHAR * const MODIFY_BATCH_ID;
+   extern CLASS_IMPORT I_CHAR * const RDSP_NOTIONAL_ACTIVITY;
 }
 
 namespace BANKTYPE
@@ -4677,7 +4678,7 @@ void TransactionHistoryDlg::PopulatePendingDetails()
       tmp.LoadString( (str == Y) ? TXT_PENDING_WIRE : TXT_PENDING_DIRECT );
       m_TransDetail.SetItemText(index,1,tmp);
 	  // P0274979-626 : Show Wire Order Num for  Pending Trade (Switch & Transfer)
-	  DisplayItem(IFASTBP_PROC::PENDING_LIST,ifds::WireOrdNum     ,TXT_PENDING_WIREORDNUM     );
+         DisplayItem(IFASTBP_PROC::PENDING_LIST,ifds::WireOrdNum     ,TXT_PENDING_WIREORDNUM     );
 
       DisplayCodeDesc(IFASTBP_PROC::PENDING_LIST,ifds::Accountable,ifds::Accountable,TXT_PENDING_ACCOUNTABLE );
       DisplayItem( IFASTBP_PROC::PENDING_LIST, ifds::BackDatedReason, TXT_BACK_DATED_REASON );
@@ -7658,8 +7659,8 @@ void TransactionHistoryDlg::enableRDSPNotionalActivityButton ()
 	getParent()->getField (this, IFASTBP_PROC::MFACCOUNT_CBO, ifds::TaxType, strTaxType, false);
 	strTaxType.strip().upperCase();
 
-	//bool bPermit = getParent()->hasReadPermission (UAF::RDSP_NOTIONAL_ACTIVITY);
-	bool bShow = strTaxType == I_("RS") /*&& bPermit*/;
+	bool bPermit = getParent()->hasReadPermission (UAF::RDSP_NOTIONAL_ACTIVITY);
+	bool bShow = strTaxType == I_("RS") && bPermit;
 
 	GetDlgItem (IDC_BTN_RESP_HIST)->ShowWindow (!bShow);
 	GetDlgItem (IDC_BTN_RDSP_NOTIONAL_ACTIVITY)->ShowWindow (bShow);

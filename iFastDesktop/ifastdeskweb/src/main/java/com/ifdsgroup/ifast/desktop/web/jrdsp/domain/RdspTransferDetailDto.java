@@ -28,8 +28,17 @@ public class RdspTransferDetailDto {
     private String transferInStatusTypeCode;
     private String transactionStatusCode;
     private String cdspRegStatus;
+    private String rdspTrasactionTypeCode;
+ 
+    public String getRdspTrasactionTypeCode() {
+		return rdspTrasactionTypeCode;
+	}
 
-    public RdspTransferDetailDto() {
+	public void setRdspTrasactionTypeCode(String rdspTrasactionTypeCode) {
+		this.rdspTrasactionTypeCode = rdspTrasactionTypeCode;
+	}
+
+	public RdspTransferDetailDto() {
     }
 
     public RdspTransferDetailDto(Consumer<RdspTransferDetailDto> builder) {
@@ -252,6 +261,7 @@ public class RdspTransferDetailDto {
 		result = prime * result + ((transferInStatusTypeCode == null) ? 0 : transferInStatusTypeCode.hashCode());
 		result = prime * result + ((yearEndCdsaAmount == null) ? 0 : yearEndCdsaAmount.hashCode());
 		result = prime * result + ((yearEndContributionsAmount == null) ? 0 : yearEndContributionsAmount.hashCode());
+		result = prime * result + ((rdspTrasactionTypeCode == null) ? 0 : rdspTrasactionTypeCode.hashCode());
 		return result;
 	}
 
@@ -379,6 +389,11 @@ public class RdspTransferDetailDto {
 				return false;
 		} else if (!yearEndContributionsAmount.equals(other.yearEndContributionsAmount))
 			return false;
+		if (rdspTrasactionTypeCode == null) {
+			if (other.rdspTrasactionTypeCode != null)
+				return false;
+		} else if (!rdspTrasactionTypeCode.equals(other.rdspTrasactionTypeCode))
+			return false;
 		return true;
 	}
 
@@ -396,7 +411,8 @@ public class RdspTransferDetailDto {
 				+ ", totalPayments=" + totalPayments + ", transactionId=" + transactionId + ", accountNumber="
 				+ accountNumber + ", esdcSent=" + esdcSent + ", esdcResponse=" + esdcResponse + ", moneyOutTrade="
 				+ moneyOutTrade + ", transferInStatusTypeCode=" + transferInStatusTypeCode + ", transactionStatusCode="
-				+ transactionStatusCode + ", cdspRegStatus=" + cdspRegStatus + "]";
+				+ transactionStatusCode + ", cdspRegStatus=" + cdspRegStatus + ", rdspTrasactionTypeCode="
+				+ rdspTrasactionTypeCode + "]";
 	}
 
 

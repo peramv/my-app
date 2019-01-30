@@ -138,6 +138,31 @@ public class RecordDetails {
 	private String currentHoldersSinUsability;
 	private String contractRegistrationRetirementSavingsRolloverCompliant;
 	private String contractRegistrationEducationSavingsRolloverCompliant;
+	private String severeErrorCode;
+	private String transactionData;
+	private String correctionDate;
+	
+	
+	
+	
+	private String receivingIssuerBn;
+	private String receivingIssuerSpecimenPlanNumber;
+	private String receivingIssuerContract;
+	private String reportingIssuerBn;
+	private String reportingIssuerTransactionNumber;
+	private String reportingIssuerSpecimenPlan;
+	private String reportingIssuerContract;
+	private String reportingIssuerEventDate;
+	
+	private String rolloverAmount;
+	private String rolloverIssue;
+	private String grantPortionOfTheDapLdap;
+	private String bondPortionOfTheDapLdap;
+	private String nonTaxablePortionOfTheDapLdap;
+	private String totalDapLdapAmount;
+	private String dapLdapReversalReason;
+
+
 	
 	
 	
@@ -959,6 +984,114 @@ public class RecordDetails {
 	public void setContractRegistrationEducationSavingsRolloverCompliant(
 			String contractRegistrationEducationSavingsRolloverCompliant) {
 		this.contractRegistrationEducationSavingsRolloverCompliant = contractRegistrationEducationSavingsRolloverCompliant;
+	}
+	public String getSevereErrorCode() {
+		return severeErrorCode;
+	}
+	public void setSevereErrorCode(String severeErrorCode) {
+		this.severeErrorCode = severeErrorCode;
+	}
+	public String getTransactionData() {
+		return transactionData;
+	}
+	public void setTransactionData(String transactionData) {
+		this.transactionData = transactionData;
+	}
+	public String getCorrectionDate() {
+		return correctionDate;
+	}
+	public void setCorrectionDate(String correctionDate) {
+		this.correctionDate = correctionDate;
+	}
+	public String getReceivingIssuerBn() {
+		return receivingIssuerBn;
+	}
+	public void setReceivingIssuerBn(String receivingIssuerBn) {
+		this.receivingIssuerBn = receivingIssuerBn;
+	}
+	public String getReceivingIssuerSpecimenPlanNumber() {
+		return receivingIssuerSpecimenPlanNumber;
+	}
+	public void setReceivingIssuerSpecimenPlanNumber(String receivingIssuerSpecimenPlanNumber) {
+		this.receivingIssuerSpecimenPlanNumber = receivingIssuerSpecimenPlanNumber;
+	}
+	public String getReceivingIssuerContract() {
+		return receivingIssuerContract;
+	}
+	public void setReceivingIssuerContract(String receivingIssuerContract) {
+		this.receivingIssuerContract = receivingIssuerContract;
+	}
+	public String getReportingIssuerBn() {
+		return reportingIssuerBn;
+	}
+	public void setReportingIssuerBn(String reportingIssuerBn) {
+		this.reportingIssuerBn = reportingIssuerBn;
+	}
+	public String getReportingIssuerTransactionNumber() {
+		return reportingIssuerTransactionNumber;
+	}
+	public void setReportingIssuerTransactionNumber(String reportingIssuerTransactionNumber) {
+		this.reportingIssuerTransactionNumber = reportingIssuerTransactionNumber;
+	}
+	public String getReportingIssuerSpecimenPlan() {
+		return reportingIssuerSpecimenPlan;
+	}
+	public void setReportingIssuerSpecimenPlan(String reportingIssuerSpecimenPlan) {
+		this.reportingIssuerSpecimenPlan = reportingIssuerSpecimenPlan;
+	}
+	public String getReportingIssuerContract() {
+		return reportingIssuerContract;
+	}
+	public void setReportingIssuerContract(String reportingIssuerContract) {
+		this.reportingIssuerContract = reportingIssuerContract;
+	}
+	public String getReportingIssuerEventDate() {
+		return reportingIssuerEventDate;
+	}
+	public void setReportingIssuerEventDate(String reportingIssuerEventDate) {
+		this.reportingIssuerEventDate = reportingIssuerEventDate;
+	}
+	public String getRolloverAmount() {
+		return rolloverAmount;
+	}
+	public void setRolloverAmount(String rolloverAmount) {
+		this.rolloverAmount = rolloverAmount;
+	}
+	public String getRolloverIssue() {
+		return rolloverIssue;
+	}
+	public void setRolloverIssue(String rolloverIssue) {
+		this.rolloverIssue = rolloverIssue;
+	}
+	public String getGrantPortionOfTheDapLdap() {
+		return grantPortionOfTheDapLdap;
+	}
+	public void setGrantPortionOfTheDapLdap(String grantPortionOfTheDapLdap) {
+		this.grantPortionOfTheDapLdap = grantPortionOfTheDapLdap;
+	}
+	public String getBondPortionOfTheDapLdap() {
+		return bondPortionOfTheDapLdap;
+	}
+	public void setBondPortionOfTheDapLdap(String bondPortionOfTheDapLdap) {
+		this.bondPortionOfTheDapLdap = bondPortionOfTheDapLdap;
+	}
+	public String getNonTaxablePortionOfTheDapLdap() {
+		return nonTaxablePortionOfTheDapLdap;
+	}
+	public void setNonTaxablePortionOfTheDapLdap(String nonTaxablePortionOfTheDapLdap) {
+		this.nonTaxablePortionOfTheDapLdap = nonTaxablePortionOfTheDapLdap;
+	}
+	public String getTotalDapLdapAmount() {
+		return totalDapLdapAmount;
+	}
+	public void setTotalDapLdapAmount(String totalDapLdapAmount) {
+		this.totalDapLdapAmount = totalDapLdapAmount;
+	}
+	public String getDapLdapReversalReason() {
+		return dapLdapReversalReason;
+	}
+	public void setDapLdapReversalReason(String dapLdapReversalReason) {
+		this.dapLdapReversalReason = dapLdapReversalReason;
 	}
 	
 	

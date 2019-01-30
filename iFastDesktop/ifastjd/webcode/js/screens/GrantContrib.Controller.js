@@ -23,7 +23,7 @@ DesktopWeb.ScreenController = function(){
 	
 	var _reloadView = 'dtGrantContribReload';
 	var _nextStartRecNum = null;
-	var _requestRecNum = 25;		
+	var _requestRecNum = 25;	
 	var _taxType;
 	
 	// PRIVATE METHODS ****************************************	
@@ -84,10 +84,12 @@ DesktopWeb.ScreenController = function(){
 			IFDS.Xml.addSingleNode(requestXML, 'reasonCode', DesktopWeb._SCREEN_PARAM_MAP['ReasonCode']);
 			IFDS.Xml.addSingleNode(requestXML, 'depositType', DesktopWeb._SCREEN_PARAM_MAP['DepositType']);
 			IFDS.Xml.addSingleNode(requestXML, 'redCode', DesktopWeb._SCREEN_PARAM_MAP['RedCode']);
-			IFDS.Xml.addSingleNode(requestXML, 'grAmount', DesktopWeb._SCREEN_PARAM_MAP['GRAmount']);			
+			IFDS.Xml.addSingleNode(requestXML, 'grAmount', DesktopWeb._SCREEN_PARAM_MAP['GRAmount']);
+			IFDS.Xml.addSingleNode(requestXML, 'tradeDate', DesktopWeb._SCREEN_PARAM_MAP['TradeDate']);
 			IFDS.Xml.addSingleNode(requestXML, 'startRecNum', (more ? _nextStartRecNum : 1));
 			IFDS.Xml.addSingleNode(requestXML, 'requestRecNum', _requestRecNum);
-			
+			IFDS.Xml.addSingleNode(requestXML, 'PaymentDate', DesktopWeb._SCREEN_PARAM_MAP['PaymentDate']);
+
 			DesktopWeb.Ajax.doSmartviewAjax(_reloadView, null, requestXML, responseHandler, _translationMap['ProcMsg_Loading']);			
 			
 			function responseHandler(success, responseXML)

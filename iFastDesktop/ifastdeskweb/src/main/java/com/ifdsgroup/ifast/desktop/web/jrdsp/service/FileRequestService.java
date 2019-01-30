@@ -42,7 +42,7 @@ public class FileRequestService {
 		String URL = String.format("%s%s?accountNumber=%d&fileType=%s&recordType=%s&status=%s&start=%d&count=%d", jrdspServiceURL,
 								httpPath, account, inout, type, status, start, count);
 		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath, HttpMethod.GET.name(),
-								MediaType.APPLICATION_JSON_VALUE, "1.0", JRDSPUtil.generateTraceId());
+								MediaType.APPLICATION_JSON_VALUE, "1.0", JRDSPUtil.generateTraceId(),"");
 		
 		HttpEntity<Object> httpEntity = new HttpEntity<>(headers);	
 		ResponseEntity<TransactionsRecordsResponse> response = restTemplate.exchange(URL, HttpMethod.GET,
@@ -56,7 +56,7 @@ public class FileRequestService {
 		String httpPath = "/recordDetails";
 		String URL=jrdspServiceURL + httpPath + "/" + eventId + "/" + rowNum;
 		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath, HttpMethod.GET.name(),
-								MediaType.APPLICATION_JSON_VALUE, "1.0", JRDSPUtil.generateTraceId());
+								MediaType.APPLICATION_JSON_VALUE, "1.0", JRDSPUtil.generateTraceId(),"");
 		
 		HttpEntity httpEntity = new HttpEntity<>(headers);	
 		ResponseEntity<RecordDetailsResponse> response = restTemplate.exchange(URL, HttpMethod.GET,
@@ -92,14 +92,13 @@ public class FileRequestService {
 		   }
 		   return recordDetails;
 		}
-	public List<LinkedHashMap<String, Object>> setStatus(String status, List<FileRecord> records) {
+	public List<LinkedHashMap<String, Object>> setStatus(List<FileRecord> records) {
 		String httpPath = "/file/status";
 		String URL = String.format("%s%s", jrdspServiceURL, httpPath);
 		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath, HttpMethod.PUT.name(),
-								MediaType.APPLICATION_JSON_VALUE, "1.0", JRDSPUtil.generateTraceId());
+								MediaType.APPLICATION_JSON_VALUE, "1.0", JRDSPUtil.generateTraceId(),"");
 		
 		SetStatusRequest request = new SetStatusRequest();
-		request.setStatus(status);
 		request.setRecords(records);
 
 		HttpEntity<SetStatusRequest> httpEntity = new HttpEntity<>(request, headers);
@@ -111,7 +110,7 @@ public class FileRequestService {
 		String httpPath = "/latestRuns";
 		String URL = String.format("%s%s", jrdspServiceURL, httpPath);
 		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath, HttpMethod.GET.name(),
-								MediaType.APPLICATION_JSON_VALUE, "1.0", JRDSPUtil.generateTraceId());
+								MediaType.APPLICATION_JSON_VALUE, "1.0", JRDSPUtil.generateTraceId(),"");
 		
 		HttpEntity<SetStatusRequest> httpEntity = new HttpEntity<>(headers);
 		ResponseEntity<List> response = restTemplate.exchange(URL, HttpMethod.GET, httpEntity, List.class);

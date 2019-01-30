@@ -654,9 +654,9 @@ SEVERITY Purchase::preInitWithDefaultValues (const BFDataGroupId &idDataGroup)
    getField (ifds::AccountNum, accountNum, idDataGroup, false);
    getField (ifds::DepositType, depositType, idDataGroup, false);
 
-   bool bIsRDSPGrantOrBond = (isRDSPTradeAccount (idDataGroup, accountNum) && DSTCommonFunctions::codeInList (depositType, I_("49,66"))) ? false : true; // 49-RDSP Grant, 66-RDSP Bond  
+   bool bIsRDSPGrantOrBond = (isRDSPTradeAccount (idDataGroup, accountNum) && DSTCommonFunctions::codeInList (depositType, I_("49,66"))) ? true : false; // 49-RDSP Grant, 66-RDSP Bond  
 
-   setFieldReadOnly (ifds::RDSPPaymtDate, idDataGroup, bIsRDSPGrantOrBond);
+   setFieldReadOnly (ifds::RDSPPaymtDate, idDataGroup, !bIsRDSPGrantOrBond);
   
    return GETCURRENTHIGHESTSEVERITY ();
 }

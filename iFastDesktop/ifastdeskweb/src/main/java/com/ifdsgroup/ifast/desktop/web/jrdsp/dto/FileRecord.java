@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 public class FileRecord {
 	private long id;
 	private int row;
+	private String status;
 	private boolean success;
 	
 	public FileRecord() {
@@ -33,6 +34,12 @@ public class FileRecord {
 	}
 	public void setRow(int row) {
 		this.row = row;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
 

@@ -17,7 +17,7 @@ public class AccountDetails {
 	private String specifiedYear;
 
 	private String contractStatusRegistration;
-
+	
 	private String dtcElection;
 
 	private String sdspElection;
@@ -31,6 +31,15 @@ public class AccountDetails {
 	private String createdBy;
 	private String accountUuid;
 
+	private String grantDate;
+
+	public String getGrantDate() {
+		return grantDate;
+	}
+
+	public void setGrantDate(String grantDate) {
+		this.grantDate = grantDate;
+	}
 
 	public String getInceptionDate() {
 		return inceptionDate;

@@ -18,7 +18,7 @@ DesktopWeb.ScreenResources = function(ctrlr) {
 		}),		
         period: new DesktopWeb.Controls.ComboBox({
             fieldLabel: _translationMap["Period"],
-            width: 100,
+            width: 120,
             disabled: false,
             valueField: 'code',
             displayField: 'value',
@@ -39,7 +39,8 @@ DesktopWeb.ScreenResources = function(ctrlr) {
         asOfDate: new DesktopWeb.Controls.DateField({
             fieldLabel: _translationMap["AsOf"],
             disabled: true,
-            format: DesktopWeb.Util.parseSMVDateFormat(DesktopWeb.Util.getDateDisplayFormat()),
+            //format: DesktopWeb.Util.parseSMVDateFormat(DesktopWeb.Util.getDateDisplayFormat()),
+            format: DesktopWeb.Util.parseSMVDateFormat('dmy'),
             validator : function(value){
 				var validate=_controller.validateAsOfDate(value);
 				//_controller.enableOKButtonPopUp(validate);
@@ -53,46 +54,62 @@ DesktopWeb.ScreenResources = function(ctrlr) {
                     _controller.toggleFilterFields();
                 }
             }
-        }),                
+        }),     
 		marketValue : new DesktopWeb.Controls.Label({
 			fieldLabel : _translationMap['MarketValue'],
 			style : 'padding-left:5px;',
-			width : 100
+			width : 50
+		}),
+		income : new DesktopWeb.Controls.Label({
+			fieldLabel : _translationMap['Income'],
+			style : 'padding-left:5px;',
+			width : 50
+		}),
+		annualAmounts : new DesktopWeb.Controls.Label({
+			fieldLabel : _translationMap['AnnualAmounts'],
+			style : 'padding-left:5px;font-weight: bold',
+			width : 50,
+			id: 'Annual_Amounts'
+		}),
+		taxExemptionBalance : new DesktopWeb.Controls.Label({
+			fieldLabel : _translationMap['TaxExemptionBalance'],
+			style : 'padding-left:5px;',
+			width : 50
 		}),
 		jan1FMV : new DesktopWeb.Controls.Label({
 			fieldLabel : _translationMap['Jan1FMV'],
 			style : 'padding-left:5px;',
-			width : 100
+			width : 50
 		}),
 		aha : new DesktopWeb.Controls.Label({
 			fieldLabel : _translationMap['AHA'],
 			style : 'padding-left:5px;',
-			width : 100
+			width : 50
 		}),
 		ldapMaximum : new DesktopWeb.Controls.Label({
 			fieldLabel : _translationMap['LDAPMaximum'],
 			style : 'padding-left:5px;',
-			width : 100
+			width : 50
 		}),
 		taxableRedemptions : new DesktopWeb.Controls.Label({
 			fieldLabel : _translationMap['TaxableRedemptions'],
 			style : 'padding-left:5px;',
-			width : 100
+			width : 50
 		}), 
 		sdspMaximum :  new DesktopWeb.Controls.Label({
 			fieldLabel : _translationMap['SDSPMaximum'],
 			style : 'padding-left:5px;',
-			width : 100
+			width : 50
 		}),
 		pgap : new DesktopWeb.Controls.Label({
 			fieldLabel : _translationMap['PGAP'],
 			style : 'padding-left:5px;',
-			width : 100
+			width : 50
 		}),
 		pgapMaximum : new DesktopWeb.Controls.Label({
 			fieldLabel : _translationMap['PGAPMaximum'],
 			style : 'padding-left:5px;',
-			width : 100
+			width : 50
 		})
 	}
 	
@@ -108,15 +125,11 @@ DesktopWeb.ScreenResources = function(ctrlr) {
 					]
 				}
 			)
-		
 			,selModel: new Ext.grid.RowSelectionModel(
 				{
 					singleSelect: true
 					,listeners: {
 						rowselect: function(selModel, index, record){
-							if(selModel){
-								_controller.enableButtons(record);
-							}
 						}
 					}
 				}
@@ -128,11 +141,16 @@ DesktopWeb.ScreenResources = function(ctrlr) {
 					menuDisabled: true
 				},
 				columns:[
-		            {header: _translationMap['CatTitle'], dataIndex: 'contCategory', width: 330, renderer: _controller.addHyperLinkContrib},
-		            {header: _translationMap['Purchases'], dataIndex: 'purchases', width: 120, align: "right", renderer : _controller.numberRenderer},
-		            {header: _translationMap['Redemptions'], dataIndex: 'redemptions', width: 120, align: "right", renderer : _controller.numberRenderer},
+		            {header: _translationMap['CatTitle'], dataIndex: 'contCategory', width: 330, renderer: _controller.addCategoryTitle},
+		            {header: _translationMap['Purchases'], id:'Purchases', dataIndex: 'purchases', width: 120, align: "right", renderer : _controller.addHyperLinkContrib},
+		            {header: _translationMap['Redemptions'], id:'Redemptions', dataIndex: 'redemptions', width: 120, align: "right", renderer : _controller.addHyperLinkContrib},
 		            {header: _translationMap['ContBalance'], dataIndex: 'contBalance', width: 120, align: "right", innerCls:"grid-last-cell", renderer : _controller.numberRenderer}
-		        ]
+		        ],
+		        listeners: {
+		            hiddenchange: function(cm, colIndex, hidden) {
+		                saveConfig(colIndex, hidden);
+		            }
+		        }
 			})
 		}),
 		
@@ -143,7 +161,7 @@ DesktopWeb.ScreenResources = function(ctrlr) {
 				{
 					record: 'grantsBonds'
 					,fields: [
-						'category','received', 'paidOut', 'repayment', 'balance'
+						'category','received', 'returned', 'paidOut', 'repayment', 'balance'
 					]
 		
 				}
@@ -154,9 +172,6 @@ DesktopWeb.ScreenResources = function(ctrlr) {
 					singleSelect: true
 					,listeners: {
 						rowselect: function(selModel, index, record){
-							if(selModel){
-								_controller.enableButtons(record);
-							}
 						}
 					}
 				}
@@ -169,12 +184,12 @@ DesktopWeb.ScreenResources = function(ctrlr) {
 				}
 
 				,columns: [
-					{header: _translationMap['CatTitle'], id:'category', dataIndex: 'category',width: 250, renderer: _controller.addHyperLink},
-					{header: _translationMap['Received'], id:'received', dataIndex: 'received',width: 130, align: "right", renderer : _controller.numberRenderer},
-					{header: _translationMap['PaidOut'], id:'paidOut', dataIndex: 'paidOut',width: 130, align: "right", renderer : _controller.numberRenderer},
-					{header: _translationMap['Repayment'], id:'repayment', dataIndex: 'repayment',width: 110, align: "right", renderer : _controller.numberRenderer},
-					{header: _translationMap['Balance'], id:'balance', dataIndex: 'balance',width: 100, align: "right", renderer : _controller.numberRenderer}
-					
+					{header: _translationMap['CatTitle'], id:'Category', dataIndex: 'category',width: 250, renderer: _controller.addCategoryTitle},
+					{header: _translationMap['Received'], id:'Received', dataIndex: 'received',width: 90, align: "right", renderer : _controller.numberRendererAndHyperLink},
+					{header: _translationMap['Returned'], id:'Returned', dataIndex: 'returned',width: 90, align: "right", renderer : _controller.numberRendererAndHyperLink},
+					{header: _translationMap['PaidOut'], id:'PaidOut', dataIndex: 'paidOut',width: 90, align: "right", renderer : _controller.numberRendererAndHyperLink},
+					{header: _translationMap['Repayment'], id:'Repayments', dataIndex: 'repayment',width: 100, align: "right", renderer : _controller.numberRendererAndHyperLink},
+					{header: _translationMap['Balance'], id:'Balance', dataIndex: 'balance',width: 100, align: "right", renderer : _controller.numberRenderer}
 				]
 			})
 
@@ -317,6 +332,32 @@ DesktopWeb.ScreenResources = function(ctrlr) {
 						{
 		                    layout: 'form',
 		                    items: [
+		                    	 {
+		                        	xtype : 'fieldset',
+		    						items : [ {
+		    							layout : 'column',
+		    							items : [
+		    									{
+		    										columnWidth : 0.30,
+		    										labelWidth : 120,
+		    										layout : 'form',
+		    										items : [ _fields['marketValue'] ]
+		    									},
+		    									{
+		    										columnWidth : 0.30,
+		    										labelWidth : 120,
+		    										layout : 'form',
+		    										items : [ _fields['income']	]
+		    									},
+		    									{
+		    										columnWidth : 0.40,
+		    										labelWidth : 160,
+		    										layout : 'form',
+		    										items : [ _fields['aha'] ]
+		    									} 
+		    								]
+		    						} ]
+		                        },
 		                    	{
 		                    		xtype: 'fieldset',
 		                            title: _translationMap['ContCategory'],
@@ -341,18 +382,18 @@ DesktopWeb.ScreenResources = function(ctrlr) {
 		                                }
 		                            ]
 		                    	},
-		                        {
+		                    	{
 		                        	xtype : 'fieldset',
 		    						items : [ {
 		    							layout : 'column',
-		    							labelWidth : 220,
+		    							labelWidth : 280,
 		    							items : [
 		    									{
 		    										columnWidth : 0.50,
 		    										layout : 'form',
 		    										items : [
-		    												_fields['marketValue'],
-		    												_fields['aha'],
+		    												_fields['annualAmounts'],
+	    													_fields['taxExemptionBalance'],
 		    												_fields['taxableRedemptions'],
 		    												_fields['sdspMaximum']]
 		    												
@@ -365,7 +406,8 @@ DesktopWeb.ScreenResources = function(ctrlr) {
 		    												_fields['ldapMaximum'],
 		    												_fields['pgap'],
 		    												_fields['pgapMaximum']]
-		    									} ]
+		    									} 
+		    								]
 		    						} ]
 		                        },
 		                        {

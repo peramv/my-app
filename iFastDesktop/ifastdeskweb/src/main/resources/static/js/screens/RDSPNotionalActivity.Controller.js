@@ -18,7 +18,7 @@ DesktopWeb.ScreenController = function(){
 	var _dropDownResponse;
 	
 	
-	var depositDescList,redemptionDescList,descriptionList,transferInDescList;
+	var depositDescList,redemptionDescList,descriptionList,transferInDescList,refileSuppressList;
 
 	/** Load All Dropdown Lists **/
 	function populateDropdownList(dom){
@@ -44,6 +44,8 @@ DesktopWeb.ScreenController = function(){
 		_resources.fields['TransactionTypeField'].setValue('All');
 		_resources.fields['DescriptionField'].setValue('All');
 		
+		refileSuppressList=IFDS.Xml.getNode(dom, "//List[@listName='refilesupress']");
+		_resources.fields['refileSuppressField'].loadData(refileSuppressList);
 		
 	}
 
@@ -64,6 +66,12 @@ DesktopWeb.ScreenController = function(){
 		var params = {};
 		params['screen'] = 'RDSPNotionalBalance';
 		goToScreen('RDSPNotionalBalance', params);
+	}
+	
+	function clickHandle_RdspNotionalLotDetail(){
+		var params = {};
+		params['screen'] = 'RDSPNotionalLotInquiry';
+		goToScreen('RDSPNotionalLotInquiry', params);
 	}
 	
 	function goToScreen(screenName, params)
@@ -132,9 +140,8 @@ DesktopWeb.ScreenController = function(){
 		
 		function responseHandler(success, responseXML)
 		{
-			//console.log(success);
-			//console.log(responseXML);
-
+			var redemption = _resources.fields['TransactionTypeField'].getValue() == "PW";
+			
 			_resources.fields['ContributionAmount'].setValue(IFDS.Xml.getNodeValue(success.responseXML, '//contributionAmount'));
 			_resources.fields['GrantAmount'].setValue(IFDS.Xml.getNodeValue(success.responseXML, '//grantAmount'));
 			_resources.fields['BondAmount'].setValue(IFDS.Xml.getNodeValue(success.responseXML, '//bondAmount'));
@@ -146,17 +153,16 @@ DesktopWeb.ScreenController = function(){
 			_resources.fields['AssociatedGrantAmount'].setValue(IFDS.Xml.getNodeValue(success.responseXML, '//amount'));
 			_resources.fields['PaymentDate'].setValue(IFDS.Xml.getNodeValue(success.responseXML, '//paymentDate'));
 			_resources.fields['GrantPaymentDate'].setValue(IFDS.Xml.getNodeValue(success.responseXML, '//grantPaymentDate'));
-		
-			
+			_resources.fields['RepaymentReason'].setValue(_translationMap[IFDS.Xml.getNodeValue(success.responseXML, '//repaymentReason')]);
 			var rdspTransactionTypeCode = IFDS.Xml.getNodeValue(success.responseXML, '//rdspTransactionTypeCode');
 		    var hasAssocGrant = false;
 		    
 		    if (_resources.fields['AssociatedGrantAmount'].getValue()) {
 		    	hasAssocGrant = true;
 		    }		    
-		    
 		
 			switch(rdspTransactionTypeCode) {
+
 			case "19":
 				//enable button
 		    	_resources.buttons['rdspTransferScreenButton'].disable();
@@ -168,6 +174,7 @@ DesktopWeb.ScreenController = function(){
 		    	_resources.fields['GrantAmount'].setVisible(false);
 		    	_resources.fields['GrantPaymentDate'].setVisible(false);
 		    	_resources.fields['BondAmount'].setVisible(false);
+		    	_resources.fields['RepaymentReason'].setVisible(redemption);
 		    	_resources.fields['BondPaymentDate'].setVisible(false);
 		    	_resources.fields['RspAmount'].setVisible(false);
 		    	_resources.fields['RespAmount'].setVisible(false);
@@ -192,6 +199,7 @@ DesktopWeb.ScreenController = function(){
 		    	_resources.fields['GrantAmount'].setVisible(true);
 		    	_resources.fields['GrantPaymentDate'].setVisible(true);
 		    	_resources.fields['BondAmount'].setVisible(false);
+		    	_resources.fields['RepaymentReason'].setVisible(redemption);
 		    	_resources.fields['BondPaymentDate'].setVisible(false);
 		    	_resources.fields['RspAmount'].setVisible(false);
 		    	_resources.fields['RespAmount'].setVisible(false);
@@ -224,6 +232,7 @@ DesktopWeb.ScreenController = function(){
 		    	_resources.fields['ContributionAmount'].setVisible(true);
 		    	_resources.fields['GrantAmount'].setVisible(true);
 		    	_resources.fields['GrantPaymentDate'].setVisible(true);
+		    	_resources.fields['RepaymentReason'].setVisible(redemption);
 		    	_resources.fields['BondAmount'].setVisible(false);
 		    	_resources.fields['BondPaymentDate'].setVisible(false);
 		    	_resources.fields['RspAmount'].setVisible(false);
@@ -249,6 +258,7 @@ DesktopWeb.ScreenController = function(){
 		    	_resources.fields['GrantAmount'].setVisible(false);
 		    	_resources.fields['GrantPaymentDate'].setVisible(false);
 		    	_resources.fields['BondAmount'].setVisible(true);
+		    	_resources.fields['RepaymentReason'].setVisible(redemption);
 		    	_resources.fields['BondPaymentDate'].setVisible(true);
 		    	_resources.fields['RspAmount'].setVisible(false);
 		    	_resources.fields['RespAmount'].setVisible(false);
@@ -271,6 +281,7 @@ DesktopWeb.ScreenController = function(){
 		    	_resources.fields['GrantAmount'].setVisible(true);
 		    	_resources.fields['GrantPaymentDate'].setVisible(true);
 		    	_resources.fields['BondAmount'].setVisible(false);
+		    	_resources.fields['RepaymentReason'].setVisible(redemption);
 		    	_resources.fields['BondPaymentDate'].setVisible(false);
 		    	_resources.fields['RspAmount'].setVisible(false);
 		    	_resources.fields['RespAmount'].setVisible(false);
@@ -295,6 +306,7 @@ DesktopWeb.ScreenController = function(){
 		    	_resources.fields['GrantAmount'].setVisible(true);
 		    	_resources.fields['GrantPaymentDate'].setVisible(false);
 		    	_resources.fields['BondAmount'].setVisible(true);
+		    	_resources.fields['RepaymentReason'].setVisible(redemption);
 		    	_resources.fields['BondPaymentDate'].setVisible(false);
 		    	_resources.fields['RspAmount'].setVisible(true);
 		    	_resources.fields['RespAmount'].setVisible(false);
@@ -312,13 +324,14 @@ DesktopWeb.ScreenController = function(){
 		    	Ext.getCmp('assocGrantFieldSet').setVisible(false);
 		    	
 		    	// Money-Out Redemption (DAP/LDAP) with AHA
-		       	_resources.fields['ContributionAmount'].setVisible(true);
+		       	_resources.fields['ContributionAmount'].setVisible(false);
 		    	_resources.fields['GrantAmount'].setVisible(true);
-		    	_resources.fields['GrantPaymentDate'].setVisible(true);
+		    	_resources.fields['GrantPaymentDate'].setVisible(false);
 		    	_resources.fields['BondAmount'].setVisible(true);
+		    	_resources.fields['RepaymentReason'].setVisible(redemption);
 		    	_resources.fields['BondPaymentDate'].setVisible(false);
-		    	_resources.fields['RspAmount'].setVisible(true);
-		    	_resources.fields['RespAmount'].setVisible(true);
+		    	_resources.fields['RspAmount'].setVisible(false);
+		    	_resources.fields['RespAmount'].setVisible(false);
 		    	_resources.fields['RolloverAmount'].setVisible(false);
 		    	_resources.fields['AssociatedGrantTransactionNumber'].setVisible(false);
 		    	_resources.fields['AssociatedGrantAmount'].setVisible(false);
@@ -339,6 +352,7 @@ DesktopWeb.ScreenController = function(){
 		    	_resources.fields['GrantAmount'].setVisible(true);
 		    	_resources.fields['GrantPaymentDate'].setVisible(false);
 		    	_resources.fields['BondAmount'].setVisible(true);
+		    	_resources.fields['RepaymentReason'].setVisible(redemption);
 		    	_resources.fields['BondPaymentDate'].setVisible(false);
 		    	_resources.fields['RspAmount'].setVisible(true);
 		    	_resources.fields['RespAmount'].setVisible(true);
@@ -360,6 +374,7 @@ DesktopWeb.ScreenController = function(){
 		    	_resources.fields['GrantAmount'].setVisible(true);
 		     	_resources.fields['GrantPaymentDate'].setVisible(false);
 		    	_resources.fields['BondAmount'].setVisible(true);
+		    	_resources.fields['RepaymentReason'].setVisible(redemption);
 		    	_resources.fields['BondPaymentDate'].setVisible(false);
 		    	_resources.fields['RspAmount'].setVisible(true);
 		    	_resources.fields['RespAmount'].setVisible(true);
@@ -382,6 +397,7 @@ DesktopWeb.ScreenController = function(){
 		    	_resources.fields['GrantAmount'].setVisible(true);
 		    	_resources.fields['GrantPaymentDate'].setVisible(false);
 		    	_resources.fields['BondAmount'].setVisible(true);
+		    	_resources.fields['RepaymentReason'].setVisible(redemption);
 		    	_resources.fields['BondPaymentDate'].setVisible(false);
 		    	_resources.fields['RspAmount'].setVisible(true);
 		    	_resources.fields['RespAmount'].setVisible(true);
@@ -405,6 +421,7 @@ DesktopWeb.ScreenController = function(){
 		    	_resources.fields['GrantAmount'].setVisible(false);
 		    	_resources.fields['GrantPaymentDate'].setVisible(false);
 		    	_resources.fields['BondAmount'].setVisible(false);
+		    	_resources.fields['RepaymentReason'].setVisible(redemption);
 		    	_resources.fields['BondPaymentDate'].setVisible(false);
 		    	_resources.fields['RspAmount'].setVisible(false);
 		    	_resources.fields['RespAmount'].setVisible(true);
@@ -428,6 +445,7 @@ DesktopWeb.ScreenController = function(){
 		    	_resources.fields['GrantAmount'].setVisible(false);
 		    	_resources.fields['GrantPaymentDate'].setVisible(false);
 		    	_resources.fields['BondAmount'].setVisible(false);
+		    	_resources.fields['RepaymentReason'].setVisible(redemption);
 		    	_resources.fields['BondPaymentDate'].setVisible(false);
 		    	_resources.fields['RspAmount'].setVisible(true);
 		    	_resources.fields['RespAmount'].setVisible(false);
@@ -438,7 +456,52 @@ DesktopWeb.ScreenController = function(){
 		    
 		    	
 		        break;  
-		        
+		    case "20":
+		    	//enable button
+		    	_resources.buttons['rdspTransferScreenButton'].disable();
+		       	Ext.getCmp('notionalDetailsFieldSet').setVisible(true);
+		    	Ext.getCmp('assocGrantFieldSet').setVisible(false);
+		    
+		    	// Money-Out Redemption (Termination Withdrawl)
+		    	_resources.fields['ContributionAmount'].setVisible(true);
+		    	_resources.fields['GrantAmount'].setVisible(true);
+		     	_resources.fields['GrantPaymentDate'].setVisible(false);
+		    	_resources.fields['BondAmount'].setVisible(true);
+		    	_resources.fields['RepaymentReason'].setVisible(redemption);
+		    	_resources.fields['BondPaymentDate'].setVisible(false);
+		    	_resources.fields['RspAmount'].setVisible(true);
+		    	_resources.fields['RespAmount'].setVisible(true);
+		    	_resources.fields['RolloverAmount'].setVisible(false);
+		    	_resources.fields['AssociatedGrantTransactionNumber'].setVisible(false);
+		    	_resources.fields['AssociatedGrantAmount'].setVisible(false);
+		    	_resources.fields['PaymentDate'].setVisible(false);
+		    	
+		    	
+		   
+		        break;
+		    case "24":
+		    	//enable button
+		    	_resources.buttons['rdspTransferScreenButton'].disable();
+		       	Ext.getCmp('notionalDetailsFieldSet').setVisible(true);
+		    	Ext.getCmp('assocGrantFieldSet').setVisible(false);
+		    
+		    	// Money-Out Redemption (Termination Adjustment  Grant & Bond)
+		    	_resources.fields['ContributionAmount'].setVisible(false);
+		    	_resources.fields['GrantAmount'].setVisible(true);
+		     	_resources.fields['GrantPaymentDate'].setVisible(false);
+		    	_resources.fields['BondAmount'].setVisible(true);
+		    	_resources.fields['RepaymentReason'].setVisible(redemption);
+		    	_resources.fields['BondPaymentDate'].setVisible(false);
+		    	_resources.fields['RspAmount'].setVisible(false);
+		    	_resources.fields['RespAmount'].setVisible(false);
+		    	_resources.fields['RolloverAmount'].setVisible(false);
+		    	_resources.fields['AssociatedGrantTransactionNumber'].setVisible(false);
+		    	_resources.fields['AssociatedGrantAmount'].setVisible(false);
+		    	_resources.fields['PaymentDate'].setVisible(false);
+		    	
+		    	
+		   
+		        break;
 		    default:
 			    Ext.getCmp('notionalDetailsFieldSet').setVisible(false);
 		    	Ext.getCmp('assocGrantFieldSet').setVisible(false);
@@ -447,6 +510,7 @@ DesktopWeb.ScreenController = function(){
 	    	_resources.fields['GrantAmount'].setVisible(false);
 	    	_resources.fields['GrantPaymentDate'].setVisible(false);
 	    	_resources.fields['BondAmount'].setVisible(false);
+	    	_resources.fields['RepaymentReason'].setVisible(redemption);
 	    	_resources.fields['BondPaymentDate'].setVisible(false);
 	    	_resources.fields['RspAmount'].setVisible(false);
 	    	_resources.fields['RespAmount'].setVisible(false);
@@ -523,6 +587,7 @@ DesktopWeb.ScreenController = function(){
 			case "ED":
 				return "Purchase";
 			case "PW":
+			case "AW":	
 				return "Redemption";
 			case "TI":
 				return "Transfer-In";
@@ -607,7 +672,38 @@ DesktopWeb.ScreenController = function(){
 	}
 	
 
-	
+
+
+function updateCdspRegistraion() {
+    var contextPath="notionalActivityService";
+	var refileSupress = _resources.fields['refileSuppressField'].getValue();
+	var gridRecords=_resources.grids['RDSPTransactionHistoryDetailsGrid'].getStore();
+	gridRecords.clearFilter(false);
+    var transIds = [];
+		if (gridRecords.data.items.length > 0) {
+			for (var i = 0; i < gridRecords.data.items.length; i++) {
+				if (gridRecords.data.items[i].data.checked) {
+					if(gridRecords.data.items[i].data.ESDCTransStatus != 'SENT'){
+						transIds.push(gridRecords.data.items[i].data.transactionId);
+					} else {
+						DesktopWeb.Util.displayError('Action not allowed');
+						return;
+					}
+					
+				}
+			}
+		}
+		var routePath="updateCdspRegistraion/"+refileSupress +"/"+transIds ;
+
+		JRDSP.Util.sendRequestToDesktopWeb('notional',routePath,'','POST_Inquiry',DesktopWeb._SCREEN_PARAM_MAP,null,responseHandler);
+		function responseHandler(success, responseXML){
+			if(success){
+				DesktopWeb.Util.displayInfo('Refile/Suppress Successful');
+			} else {
+				DesktopWeb.Util.displayError('Error occured. Please try again');
+			}
+		}
+	}
 
 	// PUBLIC ITEMS *************************************
 	return {
@@ -658,6 +754,7 @@ DesktopWeb.ScreenController = function(){
 			getTransactionDetails();
 
 		}
+		,cdspUpdate: updateCdspRegistraion
 		,goToScreen:goToScreen
 		,getTransactionDetails:getTransactionDetails
 		,getNotionalDetails:getNotionalDetails
@@ -672,5 +769,6 @@ DesktopWeb.ScreenController = function(){
 		,depositDescList:depositDescList
 		,redemptionDescList:redemptionDescList
 		,transferInDescList:transferInDescList
+		,clickHandle_RdspNotionalLotDetail : clickHandle_RdspNotionalLotDetail
 	}
 };

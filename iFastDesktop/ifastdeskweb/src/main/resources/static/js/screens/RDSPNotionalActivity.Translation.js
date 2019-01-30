@@ -15,7 +15,7 @@ DesktopWeb.ScreenTranslation = {
 		To : "To",
 		Refresh : "Refresh",
 		NotionalTypeSummary : "Notional Type Summary",
-		RDSPTransactionHistoryDetails : "RDSP Transaction History Details",
+		RDSPTransactionHistoryDetails : "RDSP Transaction History",
 		TradeDate: "Trade Date",
 		TransNumber:"Trans Number",
 		NotionalAmount: "Notional Amount",
@@ -25,11 +25,13 @@ DesktopWeb.ScreenTranslation = {
 		Inventory: "Inventory",
 		Admin: "Admin",
 		More: "More",
-		NotionalDetails: "Notional Details",
+		NotionalDetails: "Transaction Details",
 		AssociatedGrantInformation: "Associated Grant Information",
 		RDSPTransfer: "RDSP Transfer", 
+		RDSPNotionalLotDetail : "RDSP Notional Lot Details",
 		NotionalBalances:"Notional Balances",
 		Close:"Close",
+		RepaymentReason : "Repayment Reason",		
 		ContributionAmount: "Regular Contribution",
 		GrantAmount: "Grant",
 		BondAmount: "Bond",
@@ -78,11 +80,25 @@ DesktopWeb.ScreenTranslation = {
 			,PWRG:			"RDSP Grant Return"
 			,PWRB:			"RDSP Bond Return"
 			,PWRT:			"Transfer Out"
+			,PW99TW:			"RDSP Termination Withdrawal"
+			,AW99DP:			"RDSP DAP Payment"	
+			,AW99LP:			"RDSP LDAP Payment"
+			,PW99RDSP_TAG:			"RDSP Termination Adj Grant"
+			,PW99RDSP_TAB:			"RDSP Termination Adj Bond"
 			,TI68:			"Internal Non-Reg Rollover"
 			,TI47:			"Internal RSP Rollover to RDSP"
-			,TI48:			"Internal RESP Rollover to RDSP"
-					
-		
+			,TI48:			"Internal RESP Rollover to RDSP",
+
+			BD:     "Beneficiary ceases to be DTC eligible",
+			BP:     "Bond payment rectification",
+			CR:     "Contract ceases to be registered",
+			CT:     "Contract Terminated",
+			DB:     "Death of beneficiary",
+			DP:     "DAP",
+			LP:     "LDAP",
+			rs  :"R/S",
+			refileSuppress:   "Refile/Suppress",
+			updateBtn:        "Update"
 	}	
 	
 	,'frCA': {
@@ -94,7 +110,7 @@ DesktopWeb.ScreenTranslation = {
 		To : "To",
 		Refresh : "Refresh",
 		NotionalTypeSummary : "Notional Type Summary",
-		RDSPTransactionHistoryDetails : "RDSP Transaction History Details",
+		RDSPTransactionHistoryDetails : "RDSP Transaction History",
 		TradeDate: "Trade Date",
 		TransNumber:"Trans Number",
 		NotionalAmount: "Notional Amount",
@@ -104,11 +120,13 @@ DesktopWeb.ScreenTranslation = {
 		Inventory: "Inventory",
 		Admin: "Admin",
 		More: "More",
-		NotionalDetails: "Notional Details",
+		NotionalDetails: "Transaction Details",
 		AssociatedGrantInformation: "Associated Grant Information",
 		RDSPTransfer: "RDSP Transfer", 
+		RDSPNotionalLotDetail : "RDSP Notional Lot Details",
 		NotionalBalances:"Notional Balances",
 		Close:"Close",
+		RepaymentReason : "Repayment Reason",		
 		ContributionAmount: "Regular Contribution",
 		GrantAmount: "Grant",
 		BondAmount: "Bond",
@@ -157,10 +175,24 @@ DesktopWeb.ScreenTranslation = {
 			,PWRG:			"RDSP Grant Return"
 			,PWRB:			"RDSP Bond Return"
 			,PWRT:			"Transfer Out"
+			,PW99TW:			"RDSP Termination Withdrawal"
+			,AW99DP:			"RDSP DAP Payment"	
+			,AW99LP:			"RDSP LDAP Payment"
+			,PW99RDSP_TAG:			"RDSP Termination Adj Grant"
+			,PW99RDSP_TAB:			"RDSP Termination Adj Bond"
 			,TI68:		"Internal Non-Reg Rollover"
 			,TI47:			"Internal RSP Rollover to RDSP"
-			,TI48:			"Internal RESP Rollover to RDSP"
+			,TI48:			"Internal RESP Rollover to RDSP",
 					
-		
+		BD:     "Beneficiary ceases to be DTC eligible",
+		BP:     "Bond payment rectification",
+		CR:     "Contract ceases to be registered",
+		CT:     "Contract Terminated",
+		DB:     "Death of beneficiary",
+		DP:     "DAP",
+		LP:     "LDAP",
+		rs  :"R/S",
+		refileSuppress:   "Refile/Suppress",
+		updateBtn:        "Update"
 	}
 }

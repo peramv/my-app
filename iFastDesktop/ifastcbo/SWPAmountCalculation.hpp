@@ -63,6 +63,8 @@ public:
   						  const DString &october,
   						  const DString &november,
   						  const DString &december,
+						  const DString &frequency,
+						  const DString &dayOfWeek,
 						  DString &strKey);
 
 public:
@@ -88,6 +90,8 @@ public:
 				  const DString &october,
 				  const DString &november,
 				  const DString &december,
+				  const DString &frequency,
+				  const DString &dayOfWeek,
 				  const DString &dstrTrack = I_("N"),
 				  const DString &dstrPageName = NULL_STRING);
 

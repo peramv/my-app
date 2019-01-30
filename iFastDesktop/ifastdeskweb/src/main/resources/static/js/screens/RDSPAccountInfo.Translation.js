@@ -10,6 +10,7 @@ DesktopWeb.ScreenTranslation = {
 		RDSPAccount : "RDSP Account"
 		,IncepDate : "Inception Date"
 		,GrantRequested : "Grant Requested"
+		,GrantDate : "Grant Request Effective Date"
 		,TransferredAccount : "Transferred Account"
 		,DTCEligibleCurr : "DTC Eligibility (current)"
 		,SpecifiedYearCurr : "Specified Year (current)",
@@ -33,7 +34,7 @@ DesktopWeb.ScreenTranslation = {
 		EntityType : "Entity Type",
 		EffectiveDate : "Effective Date",
 		RDSPAccountHolderOrPCGInformation:"RDSP Account Holder/PCG Information",
-		ElectionsAndSpecifiedYear:"Elections & SpecifiedYear",
+		EventTracking:"Event Tracking",
 		ElectionType: "Election Type",
 		Historical:"Historical",
 		Admin:"Admin",
@@ -46,9 +47,14 @@ DesktopWeb.ScreenTranslation = {
 			
 		AccountHolder:"Account Holder",
 		Beneficiary:"Beneficiary",
-		PrimaryCaregiver:"Primary Care Giver"
+		PrimaryCaregiver:"Primary Care Giver",
+		EventType:"Event Type"
+		,Revoke:"Revoke"
+		,ErrorReported:'Event is reported to ESDC.  Action not allowed.'
+		,ErrorPending:'Event is pending with ESDC. Action not allowed.'
+		,ErrorNotAllowed:'Action not allowed.'
+		,ErrorConfirmed:'Event is confirmed by ESDC. Action not allowed.'
 
-		
 		
 	}	
 	
@@ -56,6 +62,7 @@ DesktopWeb.ScreenTranslation = {
 		RDSPAccount : "RDSP Account"
 			,IncepDate : "Inception Date"
 			,GrantRequested : "Grant Requested"
+			,GrantDate : "Grant Request Effective Date"
 			,TransferredAccount : "Transferred Account"
 			,DTCEligibleCurr : "DTC Eligibility (current)"
 			,SpecifiedYearCurr : "Specified Year (current)",
@@ -79,7 +86,7 @@ DesktopWeb.ScreenTranslation = {
 			EntityType : "Entity Type",
 			EffectiveDate : "Effective Date",
 			RDSPAccountHolderOrPCGInformation:"RDSP Account Holder/PCG Information",
-			ElectionsAndSpecifiedYear:"Elections & SpecifiedYear",
+			EventTracking:"Event Tracking",
 			ElectionType: "Election Type",
 			Historical:"Historical",
 			Admin:"Admin",
@@ -91,6 +98,12 @@ DesktopWeb.ScreenTranslation = {
 				PeriodEnd: "Period End",
 			AccountHolder:"Account Holder",
 			Beneficiary:"Beneficiary",
-			PrimaryCaregiver:"Primary Care Giver"	
+			PrimaryCaregiver:"Primary Care Giver",
+			EventType:"Event Type"
+			,Revoke:"Revoke"
+			,ErrorReported:'Event is reported to ESDC.  Action not allowed.'
+			,ErrorPending:'Event is pending with ESDC. Action not allowed.'
+			,ErrorNotAllowed:'Action not allowed.'
+			,ErrorConfirmed:'Event is confirmed by ESDC. Action not allowed.'
 	}
 }

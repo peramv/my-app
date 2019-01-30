@@ -8616,7 +8616,7 @@ void CDSTCView::OnUpdateRDSPInterfaceTransactions(CCmdUI* pCmdUI)
    MAKEFRAME2( CND::IFASTGUI_CONDITION, CLASSNAME, I_("OnUpdateRDSPInterfaceTransactions") );
 
    //Needs to be changed based on permission
-   pCmdUI->Enable(true /*enableSystemMenuItem(UAF::RDSP_INTERFACE_TRANSACTIONS*/);
+   pCmdUI->Enable(enableSystemMenuItem(UAF::RDSP_INTERFACE_TRANSACTIONS));
 }
 //******************************************************************************
 //              Revision Control Entries

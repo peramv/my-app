@@ -10,6 +10,8 @@ public class AccountUpdateRequest {
 
 	private String grantRequested;
 
+	private String grantDate;
+	
 	private String bondRequested;
 
 	private String transferredAccount;
@@ -163,5 +165,13 @@ public class AccountUpdateRequest {
 
 	public void setElections(Elections elections) {
 		this.elections = elections;
+	}
+	
+	public String getGrantDate() {
+		return grantDate;
+	}
+
+	public void setGrantDate(String grantDate) {
+		this.grantDate = grantDate;
 	}
 }

@@ -12674,12 +12674,36 @@ CConditionObject* CConditionBuilder::CreateIFastIFastConditionObject(long condit
 		case 1702812: /* WARN_CASH_DATE_WILL_REMAIN_AS_ASSIGNED */
 			conditionObj = new CIFast_IFast_ifastcbo_warn_cash_date_will_remain_as_assigned();
 			break;
+		case 1702813: /* ERR_RDSP_INSUFFICIENT_GRANT_BOND_BALANCE */
+			conditionObj = new CIFast_IFast_ifastcbo_err_rdsp_insufficient_grant_bond_balance();
+			break;
+		case 1702814: /* WARN_RDSP_INSUFFICIENT_GRANT_BOND_BALANCE */
+			conditionObj = new CIFast_IFast_ifastcbo_warn_rdsp_insufficient_grant_bond_balance();
+			break;	
+		case 1702815: /* ERR_RDSP_GRANT_RETURN_CANNOT_BE_GREATER_THAN_GRANT_PURCHASE */
+			conditionObj = new CIFast_IFast_ifastcbo_err_rdsp_grant_return_cannot_be_greater_than_grant_purchase();
+			break;
+		case 1702816: /* WARN_RDSP_GRANT_RETURN_CANNOT_BE_GREATER_THAN_GRANT_PURCHASE */
+			conditionObj = new CIFast_IFast_ifastcbo_warn_rdsp_grant_return_cannot_be_greater_than_grant_purchase();
+			break;
+		case 1702817: /* ERR_RDSP_BOND_RETURN_CANNOT_BE_GREATER_THAN_BOND_PURCHASE */
+			conditionObj = new CIFast_IFast_ifastcbo_err_rdsp_bond_return_cannot_be_greater_than_bond_purchase();
+			break;
+		case 1702818: /* WARN_RDSP_BOND_RETURN_CANNOT_BE_GREATER_THAN_BOND_PURCHASE */
+			conditionObj = new CIFast_IFast_ifastcbo_warn_rdsp_bond_return_cannot_be_greater_than_bond_purchase();
+			break;		
 		case 1702822: /* ERR_ACCOUNT_HAS_UNVERIFIED_DATA */
 			conditionObj = new CIFast_IFast_ifastcbo_err_account_has_unverified_data();
 			break;
 		case 1702823: /* WARN_ACCOUNT_HAS_UNVERIFIED_DATA */
 			conditionObj = new CIFast_IFast_ifastcbo_warn_account_has_unverified_data();
-			break;		
+			break;
+		case 1702824: /* ERR_RDSP_BENEFICIARY_DOFBIRTH_MISSING */
+			conditionObj = new CIFast_IFast_ifastcbo_err_rdsp_beneficiary_dofbirth_missing();
+			break;
+		case 1702825: /* WARN_RDSP_BENEFICIARY_DOFBIRTH_MISSING */
+			conditionObj = new CIFast_IFast_ifastcbo_warn_rdsp_beneficiary_dofbirth_missing();
+			break;
 		case 1800001: /* ERR_511_RECORDS_NOT_ALLOWED */
 			conditionObj = new CIFast_IFast_ifastdbrkr_err_511_records_not_allowed();
 			break;

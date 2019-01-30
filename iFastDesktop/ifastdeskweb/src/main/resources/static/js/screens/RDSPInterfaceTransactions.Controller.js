@@ -10,6 +10,15 @@ DesktopWeb.ScreenController = function() {
 	var _translationMap = DesktopWeb.Translation.getTranslationMap();
 	var _self = null;
 	var errorMessageList = null;
+	var refusalReasonList = null;
+	var sinIssueList = null;
+	var severeErrorDescList = null;
+	var sirValidationList = null;
+	var descriptionLabels = ['refusalReasonLabel','sinIssueLabel','severeErrorCodeLabel','sexIssueLabel','surnameIssueLabel','birthDateIssueLabel','givenNameIssueLabel'];
+	var SIRValidations = ['sinIssueLabel','sexIssueLabel','surnameIssueLabel','birthDateIssueLabel','givenNameIssueLabel'];
+	var _incomingRecordTypes = null;
+	var _outgoingRecordTypes = null;
+	var _allRecordTypes = null;
 	
 	function isValidStatus(newStatus, currStatus) {
 		switch(newStatus) {
@@ -24,25 +33,34 @@ DesktopWeb.ScreenController = function() {
 	}
 	
 	function updateStatus() {
+		if(!_resources.fields['NewStatus'].getSelectedRecord()) return;
+		
 		var status = _resources.fields['NewStatus'].getSelectedRecord().data.code;	
 		var grid = _resources.grids['rdspTransGrid'];
 		var valid = true;
+		var changed = false;
 		
 		grid.store.each(function(record) {
 			record.data.error = false;
 			if (record.data.checked) {
-				if (!isValidStatus(status, record.data.status)) {
+				if (isValidStatus(status, record.data.serverStatus)) {
+					changed = true;
+					record.data.status = status;
+					record.data.checked = false;
+					record.data.changed = true;
+				}
+				else {
 					valid = false;
 					record.data.error = true;
 				}	
 			}
+			else {
+				changed |= record.data.changed;
+			}
 		});
-			
-		if (valid) {
-			_self.updatesFlag = true;
-			DesktopWeb.Util.commitScreen();
-		}
-		else {
+		
+		if (!valid) {
+
 			Ext.Msg.show({
                 title: 'Error',
                 msg: 'Invalid status change',
@@ -50,9 +68,10 @@ DesktopWeb.ScreenController = function() {
                 icon: Ext.Msg.ERROR,
                 buttons: Ext.Msg.OK
             });
-			
-			grid.getView().refresh();
 		}
+		
+		grid.getView().refresh();
+		return _self.updatesFlag = changed && valid;
 	}
 	
 	function refresh(start, count) {
@@ -73,6 +92,7 @@ DesktopWeb.ScreenController = function() {
 		DesktopWeb._SCREEN_PARAM_MAP.fileType = _resources.fields['FileType'].getSelectedRecord().data.code;
 		DesktopWeb._SCREEN_PARAM_MAP.recordType = _resources.fields['RecordType'].getSelectedRecord().data.code;
 		DesktopWeb._SCREEN_PARAM_MAP.status = _resources.fields['Status'].getSelectedRecord().data.code;
+		
 		DesktopWeb._SCREEN_PARAM_MAP.start = start;
 		DesktopWeb._SCREEN_PARAM_MAP.count = count;
 		
@@ -80,12 +100,33 @@ DesktopWeb.ScreenController = function() {
         
 		function responseHandler(success, responseXML) {
 			var grid = _resources.grids['rdspTransGrid'];
-			var records = IFDS.Xml.getNodes(success.responseXML, '/TransactionsRecordsResponse');
+			var records_count;
 			
-			grid.getStore().loadData(records, false);
-			grid.getSelectionModel().selectRow(0);
+			if(start) {
+				var store = grid.getStore();
+				var records = IFDS.Xml.getNodes(success.responseXML, '/TransactionsRecordsResponse/records');
+				records_count = records.length;
+				
+				for (var i = 0; i < records.length; i++) {
+					var record = {};
+					
+					for(var j = 0; j < records[i].childNodes.length; ++j) {
+						record[records[i].childNodes[j].nodeName] = records[i].childNodes[j].nodeTypedValue;
+						record.checked = false;
+						record.changed = false;
+					}
+					
+					store.add(new store.recordType(record));
+				}
+			}
+			else {
+				var records = IFDS.Xml.getNodes(success.responseXML, '/TransactionsRecordsResponse');
+				grid.getStore().loadData(records, false);
+				grid.getSelectionModel().selectRow(0);
+				records_count = grid.getStore().getCount();
+			}
 			
-			if (grid.getStore().getCount() < _resources.pageSize) {
+			if (records_count < _resources.pageSize) {
 				_resources.buttons['moreBtn'].disable();
 			}
 			else {
@@ -98,7 +139,7 @@ DesktopWeb.ScreenController = function() {
 		var defaultVal;
 		var combo = _resources.fields['FileType'];
 		var list = IFDS.Xml.getNode(config, "//List[@listName='FileTypes']");
-		
+
 		if (account) {
 			_resources.fields['AccountNo'].setValue(account);
 			_resources.fields['AccountNo'].setReadOnly(true);
@@ -110,17 +151,18 @@ DesktopWeb.ScreenController = function() {
 			IFDS.Xml.deleteNode(incoming);
 			defaultVal = IFDS.Xml.getNode(list, "*[1]/value").text;
 		} 
-		
+
 		combo.loadData(list);
 		combo.setValue(defaultVal);
 		
 		combo = _resources.fields['RecordType'];
 		list = IFDS.Xml.getNode(config, "//List[@listName='RecordTypes']");
 		
-		
 		defaultVal = IFDS.Xml.getNode(list, "*[1]/value").text;
 		combo.loadData(list);
 		combo.setValue(defaultVal);
+		
+		initRecordTypes(config);
 		
 		combo = _resources.fields['Status'];
 		list = IFDS.Xml.getNode(config, "//List[@listName='Statuses']");
@@ -134,13 +176,83 @@ DesktopWeb.ScreenController = function() {
 		
 		refresh(0, _resources.pageSize);
 	}
+
+	function initRecordTypes(config) {
+		var recordTypesIncoming = IFDS.Xml.getNodes(config, "//Element[@fileType='incoming']");
+		var recordTypesOutgoing = IFDS.Xml.getNodes(config, "//Element[@fileType='outgoing']");
+		var recordTypesAllIncoming = IFDS.Xml.getNodes(config, "//Element[@fileType='all']");
+		var copyOfconfig = IFDS.Xml.cloneDocument(config);
+		var recordTypesAllOutgoing = IFDS.Xml.getNodes(copyOfconfig, "//Element[@fileType='all']");
+		var recordTypes = IFDS.Xml.getNode(config, "//List[@listName='RecordTypes']");
+		var i;
+		
+		_allRecordTypes = IFDS.Xml.cloneDocument(recordTypes);
+		
+		var xmlDoc = IFDS.Xml.newDocument("List");
+		var lstIncoming = IFDS.Xml.getNode(xmlDoc, "//List");
+		IFDS.Xml.addAttribute(lstIncoming, "listName", "RecordTypes");
+		for(i = 0; i < recordTypesAllIncoming.length; i++) {
+			IFDS.Xml.appendNode(lstIncoming, recordTypesAllIncoming[i]);
+		}
+		for(i = 0; i < recordTypesIncoming.length; i++) {
+			IFDS.Xml.appendNode(lstIncoming, recordTypesIncoming[i]);
+		}
+
+		_incomingRecordTypes = lstIncoming;
+		
+		xmlDoc = IFDS.Xml.newDocument("List");
+		var lstOutgoing = IFDS.Xml.getNode(xmlDoc, "//List");
+		IFDS.Xml.addAttribute(lstOutgoing, "listName", "RecordTypes");
+		for(i = 0; i < recordTypesAllOutgoing.length; i++) {
+			IFDS.Xml.appendNode(lstOutgoing, recordTypesAllOutgoing[i]);
+		}
+		for(i = 0; i < recordTypesOutgoing.length; i++) {
+			IFDS.Xml.appendNode(lstOutgoing, recordTypesOutgoing[i]);
+		}
+		
+		_outgoingRecordTypes = lstOutgoing;
+	}
+
+	function updateRecordType(fileTypeCode) {
+		var combo = _resources.fields['RecordType'];
+		var data = null;
+		if(fileTypeCode === '01') {
+			data = _outgoingRecordTypes;
+		} else if(fileTypeCode === '02') {
+			data = _incomingRecordTypes;
+		} else {
+			data = _allRecordTypes;
+		}
+		combo.loadData(data);
+		var defaultVal = IFDS.Xml.getNode(data, "*[1]/value").text;
+		combo.setValue(defaultVal);
+	}
 	
 	function initEventLogErrors(eventLogErrors) {
 		var list = IFDS.Xml.getNode(eventLogErrors, "//List[@listName='Errors']");
 		errorMessageList = IFDS.Xml.getNode(eventLogErrors, "//List[@listName='Errors']");
 	}
 	
-
+	function initRefusalReasons(refusalReasons) {
+		var list = IFDS.Xml.getNode(refusalReasons, "//List[@listName='RefusalReasons']");
+		refusalReasonList = IFDS.Xml.getNode(refusalReasons, "//List[@listName='RefusalReasons']");
+	}
+	
+	function initSinIssues(sinIssues) {
+		var list = IFDS.Xml.getNode(sinIssues, "//List[@listName='SinIssues']");
+		sinIssueList = IFDS.Xml.getNode(sinIssues, "//List[@listName='SinIssues']");
+	}
+	
+	function initSevereErrorDescs(severeErrorDescriptions) {
+		var list = IFDS.Xml.getNode(severeErrorDescriptions, "//List[@listName='SevereErrorDescriptions']");
+		severeErrorDescList = IFDS.Xml.getNode(severeErrorDescriptions, "//List[@listName='SevereErrorDescriptions']");
+	}
+	
+	function initSirValidations(sirValidations) {
+		var list = IFDS.Xml.getNode(sirValidations, "//List[@listName='SirValidations']");
+		sirValidationList = IFDS.Xml.getNode(sirValidations, "//List[@listName='SirValidations']");
+	}
+	
 	function getIndividualEventLogDetails(eventId, rowNum) {
 		var contextPath="files";
 		var routePath="recordDetails/"+ eventId + "/" + rowNum;		
@@ -162,26 +274,10 @@ DesktopWeb.ScreenController = function() {
 		var fieldNames;
 		clearRecordDetailsGrid();
 	
-		 
 		var count = response.childNodes[1].childNodes.length;
 		var firstColumn, secondColumn;
 		
-		if(response.childNodes[1].childNodes[0].nodeName == "errorCodes") {
-			_resources.fields['errorMessagesLabel'].setText(IFDS.Xml.getNodeValue(response, '//' + response.childNodes[1].childNodes[0].nodeName));
-			var errorMessageString = IFDS.Xml.getNodeValue(response, '//' + response.childNodes[1].childNodes[0].nodeName);
-			var errorCodes = errorMessageString.split(",");
 			
-			var completeErrors = ""; 
-			for(var i=0; i<errorCodes.length; i++) {
-				var listElement = IFDS.Xml.getNode(errorMessageList, "//Element[code='" + errorCodes[i] + "']");
-				var errorDescription = listElement == null ? "Error Code: " + errorCodes[i] : IFDS.Xml.getNodeValue(listElement, 'value') ;
-				completeErrors = completeErrors + errorDescription + "<br/><br/>&#8239;";
-			}
-			var fieldName = "errorMessagesLabel";
-			_resources.fields[fieldName].destroy();
-			_resources.fields[fieldName].setText(completeErrors, false);			
-			Ext.getCmp('recordDetails-id3').add(_resources.fields['errorMessagesLabel']);
-		} else {		
 			if(count!=0) {
 				if(count%2 == 0) {
 					firstColumn = count/2;
@@ -189,23 +285,77 @@ DesktopWeb.ScreenController = function() {
 					firstColumn = (count+1)/2;
 				}
 				secondColumn = count - firstColumn;
+			Ext.getCmp('errorDetails').hide();
+			Ext.getCmp('recordDetails').hide();
 				for(var i=0; i< firstColumn; i++) {
 					var node = response.childNodes[1].childNodes[i];
-					var fieldName = node.nodeName + 'Label';
-					_resources.fields[fieldName].destroy();
-					_resources.fields[fieldName].setText(IFDS.Xml.getNodeValue(response, '//' + response.childNodes[1].childNodes[i].nodeName));
-					Ext.getCmp('recordDetails-id1').add(_resources.fields[fieldName]);
-				}
+				var compName = "recordDetails-id1";
+					
+				displayRecordDetails(response, node, compName);
+					}
 				for(var j=firstColumn; j< count; j++) {
 					var node = response.childNodes[1].childNodes[j];
-					var fieldName = node.nodeName + 'Label';
-					_resources.fields[fieldName].destroy();
-					_resources.fields[fieldName].setText(IFDS.Xml.getNodeValue(response, '//' + response.childNodes[1].childNodes[j].nodeName));
-					Ext.getCmp('recordDetails-id2').add(_resources.fields[fieldName]);
-				}
+				var compName = "recordDetails-id2";
+				displayRecordDetails(response, node, compName);										
 			}
 		}
 	    Ext.getCmp('interfaceTransactions_id').doLayout();
+	}
+	function displayRecordDetails(response, node, compName) {		
+		var recordType = IFDS.Xml.getNodeValue(response, '//' + "recordType"); 
+					var fieldName = node.nodeName + 'Label';
+		var nodeName = node.nodeName;
+		if(nodeName == "errorCodes") {
+			Ext.getCmp('errorDetails').show();
+			var errorMessageString = IFDS.Xml.getNodeValue(response, '//' + nodeName);
+			var errorCodes = errorMessageString.split(",");
+			var completeErrors = ""; 
+			for(var k=0; k<errorCodes.length; k++) {
+				var listElement = IFDS.Xml.getNode(errorMessageList, "//Element[code='" + errorCodes[k] + "']");
+				var errorDescription = listElement == null ? "Error Code: " + errorCodes[k] : IFDS.Xml.getNodeValue(listElement, 'value') ;
+				completeErrors = completeErrors + errorDescription + "<br/><br/>&#8239;";
+			}
+			var fieldName = "errorMessagesLabel";
+					_resources.fields[fieldName].destroy();
+			_resources.fields[fieldName].setText(completeErrors, false);			
+			Ext.getCmp('errorDetails-id1').add(_resources.fields[fieldName]);
+		} else {	
+			Ext.getCmp('recordDetails').show();
+			_resources.fields[fieldName].destroy();
+			_resources.fields[fieldName].setText(IFDS.Xml.getNodeValue(response, '//' + nodeName));
+					if(descriptionLabels.indexOf(fieldName) > -1) {
+						addFieldDescriptions(fieldName, recordType);
+					}
+			Ext.getCmp(compName).add(_resources.fields[fieldName]);
+		}
+	}
+	
+	function addFieldDescriptions(labelName, recordType) {
+		if(labelName == 'sinIssueLabel') {
+			var discList = sinIssueList;
+		}
+		if(recordType == "801") {
+			if(SIRValidations.indexOf(labelName) > -1) {
+				var discList = sirValidationList;
+			}
+		} 
+		if(labelName == 'sexIssueLabel') {
+			var discList = severeErrorDescList;
+		}
+		if(labelName == 'refusalReasonLabel') {
+			var discList = refusalReasonList;
+		} 
+
+		if(labelName == 'severeErrorCodeLabel') {
+			var discList = severeErrorDescList;
+		}
+
+		
+		if(_resources.fields[labelName].text != null && _resources.fields[labelName].text != "") {
+			var element = IFDS.Xml.getNode(discList, "//Element[code='" + _resources.fields[labelName].text + "']");
+			var finalValue = IFDS.Xml.getNodeValue(element, 'value') ;
+			_resources.fields[labelName].setValue(_resources.fields[labelName].text + "-" + finalValue);
+		}
 	}
 	
 	function createDocument(qualifiedName) {
@@ -224,7 +374,7 @@ DesktopWeb.ScreenController = function() {
 	function clearRecordDetailsGrid() {
 		JRDSP.Util.clearComponentDetails('recordDetails-id1');
 		JRDSP.Util.clearComponentDetails('recordDetails-id2');
-		JRDSP.Util.clearComponentDetails('recordDetails-id3');
+		JRDSP.Util.clearComponentDetails('errorDetails-id1');
 	}
 	
 	// PUBLIC ITEMS *************************************
@@ -244,26 +394,48 @@ DesktopWeb.ScreenController = function() {
 			function eventLogErrorsResponseHandler(response) {
 				initEventLogErrors(response.responseXML);
 			}
+			JRDSP.Util.sendRequestToDesktopWeb('files','getRefusalReason','','POST_Inquiry',DesktopWeb._SCREEN_PARAM_MAP,null,refusalReasonResponseHandler);
+			
+			function refusalReasonResponseHandler(response) {
+				initRefusalReasons(response.responseXML);
+			}
+			
+			JRDSP.Util.sendRequestToDesktopWeb('files','getSinIssues','','POST_Inquiry',DesktopWeb._SCREEN_PARAM_MAP,null,sinIssuesResponseHandler);
+			
+			function sinIssuesResponseHandler(response) {
+				initSinIssues(response.responseXML);
+			}
+			
+			JRDSP.Util.sendRequestToDesktopWeb('files','getSevereErrorDescriptions','','POST_Inquiry',DesktopWeb._SCREEN_PARAM_MAP,null,severeErrorDescResponseHandler);
+			
+			function severeErrorDescResponseHandler(response) {
+				initSevereErrorDescs(response.responseXML);
+			}
+			
+			JRDSP.Util.sendRequestToDesktopWeb('files','getSirValidations','','POST_Inquiry',DesktopWeb._SCREEN_PARAM_MAP,null,sirValidationResponseHandler);
+			
+			function sirValidationResponseHandler(response) {
+				initSirValidations(response.responseXML);
+			}
+			
+			
 		},
 		doUpdate: function() {
-			var status = _resources.fields['NewStatus'].getSelectedRecord().data.code;	
 			var grid = _resources.grids['rdspTransGrid'];
 			var requestXML = IFDS.Xml.newDocument('records');
 			
 			grid.store.each(function(record) {
-				if (record.data.checked) {
+				if (record.data.changed) {
 					var tran = IFDS.Xml.addSingleNode(requestXML, 'record');
 					IFDS.Xml.addSingleNode(tran, 'id', record.data.id);
 					IFDS.Xml.addSingleNode(tran, 'row', record.data.row);
+					IFDS.Xml.addSingleNode(tran, 'status', record.data.status);
 				}
 			});
 									
 			if(requestXML.firstChild.childNodes.length) {
-				var contextPath="files";
-				var routePath = 'status/' + status;
+				JRDSP.Util.sendRequestToDesktopWeb('files', 'status', '', 'POST', DesktopWeb._SCREEN_PARAM_MAP, requestXML, responseHandler);
 				
-				JRDSP.Util.sendRequestToDesktopWeb(contextPath, routePath, '', 'POST', DesktopWeb._SCREEN_PARAM_MAP, requestXML, responseHandler);
-		        
 				function responseHandler(success) {
 					var failed = [];
 					
@@ -323,6 +495,11 @@ DesktopWeb.ScreenController = function() {
 		updatesFlag: false,
 		updateStatus : updateStatus,
 		refresh: refresh,
-		getIndividualEventLogDetails : getIndividualEventLogDetails
+		getIndividualEventLogDetails : getIndividualEventLogDetails,
+		initRefusalReasons : initRefusalReasons,
+		initSinIssues : initSinIssues,
+		initSevereErrorDescs : initSevereErrorDescs,
+		initSirValidations : initSirValidations,
+		updateRecordType : updateRecordType
 	}
 };

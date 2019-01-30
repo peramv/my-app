@@ -44,7 +44,8 @@ public class TransferInService {
 		String httpPath="/transaction";
 		String URL=jrdspServiceURL + httpPath + "/" + accountId + "/" + transactionId + "/transfer";
 	
-		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath+"/transfer", HttpMethod.GET.name(), "application/json", "1.0", JRDSPUtil.generateTraceId());
+		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath+"/transfer", HttpMethod.GET.name(), "application/json", "1.0", 
+				JRDSPUtil.generateTraceId(),"");
 		HttpEntity httpEntity = new HttpEntity(headers);	
 		
 		ResponseEntity<TransferRdspResponse> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, httpEntity,TransferRdspResponse.class);
@@ -84,6 +85,7 @@ public class TransferInService {
 			transfers.setTransferInStatusTypeCode(transfersRdsp.getTransferInStatusTypeCode());	
 			transfers.setTransactionStatusCode(transfersRdsp.getTransactionStatusCode());
 			transfers.setFormEditableFlag(evaluateFormEditFlag(transfersRdsp));
+			transfers.setRdspTrasactionTypeCode(transfersRdsp.getRdspTrasactionTypeCode());
 		}
 				
 		return transfers;
@@ -101,7 +103,8 @@ public class TransferInService {
 	public Transfers updateTransferInDetails(String accountId, String transactionId, TransferUpdateRequest transferUpdateRequest, String ignoreErrorCode) {
 		String httpPath="/transaction";
 		String URL=jrdspServiceURL + httpPath + "/" + accountId + "/" + transactionId + "/transfer";
-		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath+"/transfer", HttpMethod.PUT.name(), "application/json", "1.0", JRDSPUtil.generateTraceId());
+		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath+"/transfer", HttpMethod.PUT.name(), "application/json", "1.0", 
+				JRDSPUtil.generateTraceId(),"");
 		
 		TransferRdspPutRequest transferRdspPutRequest = new TransferRdspPutRequest();	
 		RdspTransferDetailDto rdspTransferDetailDto = new RdspTransferDetailDto();

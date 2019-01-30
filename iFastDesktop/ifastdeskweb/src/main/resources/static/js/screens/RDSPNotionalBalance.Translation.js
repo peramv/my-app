@@ -13,13 +13,16 @@ DesktopWeb.ScreenTranslation = {
 		CatTitle : "Notional Category",
 		Category : "Grant & Bond",
 		Received : "Received",
+		Returned : "Returned",
 		PaidOut : "Paid Out",
 		Repayment : "Repayment",
 		Balance : "Balance",
 		MarketValue : "Market Value",
+		AnnualAmounts : "Annual Amounts ",
 		Jan1FMV : "Jan 1 FMV",
 		AHA : "Assistance Holdback (AHA)",
 		LDAPMaximum : "LDAP Maximum",
+		TaxExemptionBalance : "Tax Exemption Balance",
 		TaxableRedemptions : "Taxable Redemptions",
 		SDSPMaximum : "SDSP Maximum Taxable Portion",
 		PGAP : "PGAP",
@@ -49,7 +52,7 @@ DesktopWeb.ScreenTranslation = {
 		BondsMax : "Bonds Maximum", 
 		BondsUsed : "Bonds Used",
 		BondsRemaining : "Bonds Remaining",
-					
+		
 		Activity:"Activity",
 		BtnCancel:"Close"
 			
@@ -69,10 +72,12 @@ DesktopWeb.ScreenTranslation = {
 		CatTitle : "Notional Category",
 		Category : "Grant & Bond",
 		Received : "Received",
+		Returned : "Returned",
 		PaidOut : "Paid Out",
 		Repayment : "Repayment",
 		Balance : "Balance",
 		MarketValue : "Market Value",
+		AnnualAmounts : "Annual Amounts ",
 		Jan1FMV : "Jan 1 FMV",
 		AHA : "Assistance Holdback (AHA)",
 		LDAPMaximum : "LDAP Maximum",

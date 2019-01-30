@@ -6490,8 +6490,9 @@ LRESULT TradesDlg::OpenAssocTransIdHelper (WPARAM, LPARAM)
          entityId,
          grRepayReasonCode,
          depositType,
-         redCode;
-	
+         redCode,
+		 effectiveDate,
+		 paymentDate;	
 
       if (isOneSideTrade ())
       {
@@ -6545,13 +6546,29 @@ LRESULT TradesDlg::OpenAssocTransIdHelper (WPARAM, LPARAM)
 	        
       addIDITagValue (urlParamsIDI, I_("screen"), I_("GrantContrib")); //DesktopWeb conversion
       
-	  DString taxType, screenTitleRDSP (I_("Grant Contribution Screen: AccountNumber = "));
+	  DString taxType, screenTitleRDSP;
 	  getParent()->getField( this, ACCOUNT, ifds::TaxType, taxType, false );
 	  taxType.strip().upperCase();
 
 	  if (taxType == RDSP_TAX_TYPE)
-	  {
+	  {		  
+		  if ( redCode == I_("BP"))	// RDSP Bond Repayment
+			  screenTitleRDSP = I_("Bond Repayment Screen: AccountNumber = ");
+		  else if (redCode == I_("GP"))	// RDSP Grant Repayment
+			  screenTitleRDSP = I_("Grant Repayment Screen: AccountNumber = ");
+		  else if (redCode == I_("RB"))	// RDSP Bond Return
+			  screenTitleRDSP = I_("Bond Return Screen: AccountNumber = ");
+		  else if (redCode == I_("RG"))	// RDSP Grant Repayment
+			  screenTitleRDSP = I_("Grant Return Screen: AccountNumber = ");
+		  else // RDSP Grant
+			  screenTitleRDSP = I_("Grant Contribution Screen: AccountNumber = ");
+
 		  screenTitle = screenTitleRDSP + accountNum;
+
+		  getParent()->getField(this, IFASTBP_PROC::TRADES_LIST, ifds::EffectiveDate, effectiveDate, false);
+		  addIDITagValue (urlParamsIDI, I_("TradeDate"), effectiveDate);
+		  getParent()->getField(this, IFASTBP_PROC::TRADES_LIST, ifds::RDSPPaymtDate, paymentDate, false);
+		  addIDITagValue (urlParamsIDI, I_("PaymentDate"), paymentDate);
 	  }
 
       setParameter (I_("UrlParams"), urlParamsIDI);

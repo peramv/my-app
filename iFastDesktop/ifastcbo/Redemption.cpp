@@ -262,6 +262,7 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId Deconversion;
    extern CLASS_IMPORT const BFTextFieldId PriceTypes;
    extern CLASS_IMPORT const BFTextFieldId GateOverrideIndicator;
+   extern CLASS_IMPORT const BFTextFieldId GrossNetType;
 }
 
 namespace CND
@@ -402,6 +403,10 @@ namespace CND
    extern const long WARN_RDSP_REPAYMENT_REASON_MANDATORY;
    extern const long ERR_RDSP_PARTIAL_TRANSFER_OUT_NOT_ALLOWED;
    extern const long WARN_RDSP_PARTIAL_TRANSFER_OUT_NOT_ALLOWED;
+   extern const long ERR_RDSP_EXTERNAL_CONTRACT_MANDATORY;
+   extern const long WARN_RDSP_EXTERNAL_CONTRACT_MANDATORY;
+   extern const long ERR_RDSP_EXTERNAL_PLAN_MANDATORY;
+   extern const long WARN_RDSP_EXTERNAL_PLAN_MANDATORY;
 }
 
 namespace TRADETYPE
@@ -477,6 +482,8 @@ namespace IFASTERR
    extern CLASS_IMPORT I_CHAR * const AMT_TYPE_NOT_APPL_FOR_BACKEND_LOAD_TYPE_REDMP;
    extern CLASS_IMPORT I_CHAR * const RDSP_REPAYMENT_REASON_MANDATORY;
    extern CLASS_IMPORT I_CHAR * const RDSP_PARTIAL_TRANSFER_OUT_NOT_ALLOWED;
+   extern CLASS_IMPORT I_CHAR * const RDSP_EXTERNAL_CONTRACT_MANDATORY;
+   extern CLASS_IMPORT I_CHAR * const RDSP_EXTERNAL_PLAN_MANDATORY;
 }
 
 namespace DATE_VALIDATION
@@ -1336,6 +1343,20 @@ SEVERITY Redemption::doApplyRelatedChanges ( const BFFieldId &idField,
 			else
 				setFieldValid (ifds::GrossOrNet, idDataGroup, false);
          }
+
+		 DString accountNum, dstrRedCode;
+		 getField (ifds::AccountNum, accountNum, idDataGroup, false);
+		 getField(ifds::RedCode, dstrRedCode, idDataGroup, false);
+		 if (isRDSPTradeAccount (idDataGroup, accountNum) && DSTCommonFunctions::codeInList (dstrRedCode, I_("BP,GP,RB,RG"))) // BP-RDSP Bond Repayment, GP-RDSP Grant Repayment, RB-RDSP Bond Return, RG-RDSP Grant Return
+		 {
+			  setFieldNoValidate ( ifds::RDSPPaymtDate, _currentBusinessDate, idDataGroup, false, true, true, false);
+			  setFieldReadOnly (ifds::RDSPPaymtDate, idDataGroup, false);
+		 }
+		 else
+		 {
+			 setFieldNoValidate ( ifds::RDSPPaymtDate, NULL_STRING, idDataGroup, false, true, true, false);
+			 setFieldReadOnly (ifds::RDSPPaymtDate, idDataGroup, true);
+		 }
       }
       else if (idField == ifds::Amount)
       {
@@ -4279,7 +4300,7 @@ SEVERITY Redemption::redCodeRelatedChanges (const BFDataGroupId& idDataGroup)
    setFieldValid (ifds::OrderType, idDataGroup, false); //invalidate order type - 
    setFieldValid (ifds::TradesPayType, idDataGroup, false); //invalidate pay type - 
    setFieldValid (ifds::RESPReportHRDC, idDataGroup, false); //invalidate RESPReportHRDC -
-   setFieldValid (ifds::GRRepayReason, idDataGroup, false); //invalidate GRRepayReason -
+   setFieldValid (ifds::GRRepayReason, idDataGroup, false); //invalidate GRRepayReason - 
    respRedcodeRelatedChange(idDataGroup);
    rdspRedcodeRelatedChange(idDataGroup);
 
@@ -4734,20 +4755,28 @@ bool Redemption::isAssociationToOriginalContribAllowed (const BFDataGroupId &idD
 {
    MAKEFRAMEAUTOPROMOTE2 (CND::IFASTCBO_CONDITION, CLASSNAME, I_("isAssociationToOriginalContribAllowed"));
 
+   DString accountNum, redCode;
+
    bool bIsAssociationToOriginalContribAllowed = false;
+
+   getAccountField (ifds::AccountNum, accountNum, idDataGroup);
+   getField (ifds::RedCode, redCode, idDataGroup, false);  
 
    if (isRESPTradeAccount (idDataGroup))
    {
-      DString redCode,
-         grPayReason;
+      DString grPayReason;
 
       getField (ifds::GRRepayReason, grPayReason, idDataGroup, false);
-      getField (ifds::RedCode, redCode, idDataGroup, false);      
-
+         
       bIsAssociationToOriginalContribAllowed = 
 					(DSTCommonFunctions::codeInList (redCode, RETURN_RECODES) &&  //IN2346626_WO599061
 		        	DSTCommonFunctions::codeInList (grPayReason, I_("I01,I02")));
    }
+   else if (isRDSPTradeAccount (idDataGroup, accountNum))
+   {    
+	   bIsAssociationToOriginalContribAllowed = DSTCommonFunctions::codeInList (redCode, I_("BP,GP,RB,RG")); // BP-RDSP Bond Repayment, GP-RDSP Grant Repayment, RB-RDSP Bond Return, RG-RDSP Grant Return
+   }
+
    return bIsAssociationToOriginalContribAllowed;
 }
 
@@ -5848,7 +5877,9 @@ SEVERITY Redemption::rdspRedcodeRelatedChange(const BFDataGroupId &idDataGroup)
 	MAKEFRAMEAUTOPROMOTE2 (CND::IFASTCBO_CONDITION, CLASSNAME, I_("rdspRedcodeRelatedChange"));
 
 	DString accountNum;
-	getField (ifds::AccountNum, accountNum, idDataGroup, false);		
+	getField (ifds::AccountNum, accountNum, idDataGroup, false);
+
+	bool bIsRDSPGrantOrBond = false;
 
 	if (isRDSPTradeAccount(idDataGroup, accountNum))
 	{  
@@ -5880,9 +5911,15 @@ SEVERITY Redemption::rdspRedcodeRelatedChange(const BFDataGroupId &idDataGroup)
 
 		setFieldReadOnly(ifds::GRRepayReason, idDataGroup, bGRReadOnly);		
 
-		fullMoneyOutRelatedChanges (idDataGroup);	
+		fullMoneyOutRelatedChanges (idDataGroup);
+	
+		bIsRDSPGrantOrBond = DSTCommonFunctions::codeInList (redCode, I_("BP,GP,RB,RG")) ? true : false; // BP-RDSP Bond Repayment, GP-RDSP Grant Repayment, RB-RDSP Bond Return, RG-RDSP Grant Return 
+
+		getGrossNetType(idDataGroup);
 
 	}
+
+	setFieldReadOnly (ifds::RDSPPaymtDate, idDataGroup, !bIsRDSPGrantOrBond);
 
 	return GETCURRENTHIGHESTSEVERITY();
 }
@@ -5892,30 +5929,84 @@ SEVERITY Redemption::validateRDSPTrade (const BFDataGroupId &idDataGroup)
 {
 	MAKEFRAMEAUTOPROMOTE2 ( CND::IFASTCBO_CONDITION, CLASSNAME, I_("validateRDSPTrade"));
 
-	DString dstrAccountNum, dstrRedCode, dstrFullMoneyOutIndc;
+	DString dstrAccountNum, dstrRedCode, dstrFullMoneyOutIndc, dstrExtAccount, dstrExtSpecimenPlanNo;
 
 	getField (ifds::AccountNum, dstrAccountNum, idDataGroup, false);	
 	getField( ifds::RedCode, dstrRedCode, idDataGroup );
 	getField (ifds::FullMoneyOutIndc, dstrFullMoneyOutIndc, idDataGroup, false);
+	getField (ifds::ExtAccount, dstrExtAccount, idDataGroup, false);
+	getField (ifds::ExtSpecimenPlanNo, dstrExtSpecimenPlanNo, idDataGroup, false);
 
 	dstrRedCode.stripAll();
 	dstrFullMoneyOutIndc.stripAll();
+	dstrExtAccount.stripAll();
+	dstrExtSpecimenPlanNo.stripAll();
 
 	if (!dstrAccountNum.empty() && !isAllFundsFullMoneyOutIndc(idDataGroup))
 	{
 		Trade::validateRDSPTrade (idDataGroup, dstrAccountNum);
 
-		if (dstrRedCode == EXTERNAL_RDSP_TRANSFER_OUT && dstrFullMoneyOutIndc.empty())
+		if (dstrRedCode == EXTERNAL_RDSP_TRANSFER_OUT)
 		{
-			// 2209 - Partial transfers not permitted for RDSP accounts.
-			getErrMsg (IFASTERR::RDSP_PARTIAL_TRANSFER_OUT_NOT_ALLOWED,
-					   CND::ERR_RDSP_PARTIAL_TRANSFER_OUT_NOT_ALLOWED,
-					   CND::WARN_RDSP_PARTIAL_TRANSFER_OUT_NOT_ALLOWED,
-					   idDataGroup);
+			if (dstrFullMoneyOutIndc.empty())
+			{
+				// 2209 - Partial transfers not permitted for RDSP accounts.
+				getErrMsg (IFASTERR::RDSP_PARTIAL_TRANSFER_OUT_NOT_ALLOWED,
+						   CND::ERR_RDSP_PARTIAL_TRANSFER_OUT_NOT_ALLOWED,
+						   CND::WARN_RDSP_PARTIAL_TRANSFER_OUT_NOT_ALLOWED,
+						   idDataGroup);
+			}
+
+			if (dstrExtAccount.empty())
+			{
+				// 2140 - External RDSP Account Contract Number is mandatory.
+				getErrMsg (IFASTERR::RDSP_EXTERNAL_CONTRACT_MANDATORY,
+						   CND::ERR_RDSP_EXTERNAL_CONTRACT_MANDATORY,
+						   CND::WARN_RDSP_EXTERNAL_CONTRACT_MANDATORY,
+						   idDataGroup);
+			}
+
+			if (dstrExtSpecimenPlanNo.empty())
+			{
+				// 2141 - External RDSP Specimen Plan Number is mandatory.
+				getErrMsg (IFASTERR::RDSP_EXTERNAL_PLAN_MANDATORY,
+						   CND::ERR_RDSP_EXTERNAL_PLAN_MANDATORY,
+						   CND::WARN_RDSP_EXTERNAL_PLAN_MANDATORY,
+						   idDataGroup);
+			}		
 		}
 	}
 
 	return GETCURRENTHIGHESTSEVERITY ();
+}
+
+//******************************************************************************
+SEVERITY Redemption::getGrossNetType( const BFDataGroupId &idDataGroup )
+{
+   MAKEFRAMEAUTOPROMOTE2 ( CND::IFASTCBO_CONDITION, 
+                           CLASSNAME, 
+                           I_("getGrossNetType"));
+
+   DString dstrGrossNetType = NULL_STRING, grossNetType;
+
+   RedemptionValidation *pRedemptionValidation = NULL;
+
+   if ( getRedemptionValidation (pRedemptionValidation, idDataGroup) <= WARNING && 
+	   pRedemptionValidation)
+   {
+	   pRedemptionValidation->getField (ifds::GrossNetType, dstrGrossNetType, idDataGroup);
+   }
+
+   dstrGrossNetType.stripAll().upperCase();
+
+   if (!dstrGrossNetType.empty() && (dstrGrossNetType != I_("B"))) // G-Gross, N-Net, B-Both
+   {
+	   grossNetType = (dstrGrossNetType == N) ? N : Y;
+	   setFieldNoValidate (ifds::GrossOrNet, grossNetType, idDataGroup, false, true, true);
+	   setFieldReadOnly (ifds::GrossOrNet, idDataGroup, true);		
+   }   
+
+   return GETCURRENTHIGHESTSEVERITY ();
 }
 
 //******************************************************************************

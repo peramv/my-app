@@ -69,10 +69,10 @@ namespace ifds
 
 }
 
-//namespace UAF
-//{
-//   extern CLASS_IMPORT I_CHAR * const RDSP_TRANSFER;
-//}
+namespace UAF
+{
+	extern CLASS_IMPORT I_CHAR * const RDSP_TRANSFER;
+}
 
 
 //*****************************************************************************
@@ -118,7 +118,7 @@ void RDSPTransfersDlg::OnPostInitDialog()
 {
 	TRACE_METHOD( CLASSNAME, ONPOSTINITDIALOG );
 
-	//SetUserAccesFunctionCode (UAF::RDSP_TRANSFER);  
+	SetUserAccesFunctionCode (UAF::RDSP_TRANSFER);  
 
 	addControls ();
 

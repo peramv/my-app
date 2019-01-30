@@ -40,9 +40,9 @@ public class FilesRequestController {
 		return ResponseEntity.ok().body(response);
 	}
 	
-	@RequestMapping(value = "/status/{status}", method = RequestMethod.POST, produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
-    public ResponseEntity<SetStatusResponse> setStatus(@PathVariable String status, @RequestBody StatusUpdateRequest request) {
-		List<LinkedHashMap<String, Object>> res = filesService.setStatus(status, request.getRecord());
+	@RequestMapping(value = "/status", method = RequestMethod.POST, produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
+    public ResponseEntity<SetStatusResponse> setStatus(@RequestBody StatusUpdateRequest request) {
+		List<LinkedHashMap<String, Object>> res = filesService.setStatus(request.getRecord());
 		return ResponseEntity.ok().body(SetStatusResponse.toXML(res));
 	}
 	
@@ -61,17 +61,23 @@ public class FilesRequestController {
 				"		<Element><code>All</code><value>All</value></Element>\n" + 
 				"	</List>\n" + 
 				"	<List listName=\"RecordTypes\">\n" + 
-				"		<Element><code>All</code><value>All</value></Element>\n" + 
-				"		<Element><code>101</code><value>RT101</value></Element>\n" + 
-				"		<Element><code>102</code><value>RT102</value></Element>\n" + 
-				"		<Element><code>201</code><value>RT201</value></Element>\n" + 
-				"		<Element><code>202</code><value>RT202</value></Element>\n" + 
-				"		<Element><code>401</code><value>RT401</value></Element>\n" + 
-				"		<Element><code>501</code><value>RT501</value></Element>\n" + 
-				"		<Element><code>701</code><value>RT701</value></Element>\n" + 
-				"		<Element><code>901</code><value>RT901</value></Element>\n" + 
-				"		<Element><code>952</code><value>RT952</value></Element>\n" +
-				"	</List>\n" + 
+				"		<Element fileType=\"all\"><code>All</code><value>All</value></Element>\n" + 
+				"		<Element fileType=\"outgoing\"><code>101</code><value>RT101</value></Element>\n" + 
+				"		<Element fileType=\"outgoing\"><code>102</code><value>RT102</value></Element>\n" + 
+				"		<Element fileType=\"outgoing\"><code>201</code><value>RT201</value></Element>\n" + 
+				"		<Element fileType=\"outgoing\"><code>202</code><value>RT202</value></Element>\n" + 
+				"		<Element fileType=\"outgoing\"><code>401</code><value>RT401</value></Element>\n" + 
+				"		<Element fileType=\"outgoing\"><code>501</code><value>RT501</value></Element>\n" + 
+				"		<Element fileType=\"outgoing\"><code>701</code><value>RT701</value></Element>\n" + 
+				"		<Element fileType=\"incoming\"><code>801</code><value>RT801</value></Element>\n" + 
+				"		<Element fileType=\"incoming\"><code>851</code><value>RT851</value></Element>\n" + 
+				"		<Element fileType=\"incoming\"><code>901</code><value>RT901</value></Element>\n" + 
+				"		<Element fileType=\"incoming\"><code>921</code><value>RT921</value></Element>\n" +
+				"		<Element fileType=\"incoming\"><code>951</code><value>RT951</value></Element>\n" + 
+				"		<Element fileType=\"incoming\"><code>952</code><value>RT952</value></Element>\n" +
+				"		<Element fileType=\"incoming\"><code>953</code><value>RT953</value></Element>\n" +
+				"		<Element fileType=\"incoming\"><code>971</code><value>RT971</value></Element>\n" +
+				"	</List>\n" +
 				"	<List listName=\"Statuses\">\n" + 
 				"		<Element><code>All</code><value>All</value></Element>\n" + 
 				"		<Element><code>New</code><value>New</value></Element>\n" + 
@@ -219,10 +225,85 @@ public class FilesRequestController {
 				"		<Element><code>10392</code><value>Amount must be greater than 0</value></Element>\n" +
 				"		<Element><code>10492</code><value>Date must be on or after contract signature date</value></Element>\n" +
 				"		<Element><code>10592</code><value>Amount must be greater than or equal to zero</value></Element>\n" +
+				"		<Element><code>2244</code><value>Invalid Issuer BN</value></Element>\n" +	
+				"		<Element><code>2245</code><value>Invalid Specimen Plan Number</value></Element>\n" +	
+				"		<Element><code>2246</code><value>Invalid Account Number</value></Element>\n" +	
+				"		<Element><code>2247</code><value>Invalid Outgoing Record Type</value></Element>\n" +	
+				"		<Element><code>2248</code><value>Invalid Outgoing Sub Record Type</value></Element>\n" +	
+				"		<Element><code>2249</code><value>Invalid Transaction Origin</value></Element>\n" +
+				"		<Element><code>2250</code><value>Account Number does not exist</value></Element>\n" +
+				"		<Element><code>2251</code><value>Invalid Issuer Transaction Number</value></Element>\n" +
+				"		<Element><code>2252</code><value>Matching SIN not found</value></Element>\n" +
+				"		<Element><code>2253</code><value>Outgoing Record Not Found</value></Element>\n" +			
 				"	</List>\n" + 
 				"</eventLogErrors>";
 	}
 	
+	@RequestMapping(value = "/getRefusalReason", method = RequestMethod.POST, produces = MediaType.TEXT_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
+	public String getRefusalReason() {
+		return "<refusalReasons>\n" + 
+				"	<List listName=\"RefusalReasons\">\n" + 
+				"		<Element><code>01</code><value>Maximum Current Entitlement of grant/bond paid</value></Element>\n" +	
+				"		<Element><code>02</code><value>Lifetime Contribution Limit Exceeded</value></Element>\n" +
+				"		<Element><code>03</code><value>Lifetime Limit Exceeded</value></Element>\n" +	
+				"		<Element><code>04</code><value>Age of Beneficiary</value></Element>\n" +	
+				"		<Element><code>05</code><value>Specimen Plan not valid</value></Element>\n" +	
+				"		<Element><code>06</code><value>No grant requested</value></Element>\n" +	
+				"		<Element><code>08</code><value>SIN not usable</value></Element>\n" +	
+				"		<Element><code>10</code><value>Invalid Beneficiary SIN</value></Element>\n" +
+				"		<Element><code>19</code><value>Contract not registered</value></Element>\n" +	
+				"		<Element><code>21</code><value>Last bond payment under this application � new 18+ bond request required</value></Element>\n" +	
+				"		<Element><code>22</code><value>Bond request is not/no longer designated to attract bond for the beneficiary</value></Element>\n" +	
+				"		<Element><code>24</code><value>Contract status conditions for adjustment of payment not met</value></Element>\n" +	
+				"		<Element><code>26</code><value>Bond resubmission date is not within issuer approval dates</value></Element>\n" +	
+				"		<Element><code>29</code><value>Beneficiary is a non-resident</value></Element>\n" +	
+				"		<Element><code>30</code><value>Beneficiary DTC eligibility not confirmed</value></Element>\n" +	
+				"		<Element><code>32</code><value>Beneficiary DTC eligibility not confirmed for two or more consecutive non-election years</value></Element>\n" +	
+				"		<Element><code>33</code><value>Beneficiary DTC eligibility not confirmed for five or more consecutive years</value></Element>\n" +	
+				"		<Element><code>99</code><value>Other</value></Element>\n" +	
+				"		<Element><code>90</code><value>Contract Status not Registered</value></Element>\n" +	
+				"		<Element><code>91</code><value>Age of Beneficiary</value></Element>\n" +	
+				"		<Element><code>92</code><value>Lifetime Contribution Limit Exceeded</value></Element>\n" +	
+				"		<Element><code>93</code><value>SIN not usable</value></Element>\n" +	
+				"		<Element><code>94</code><value>Beneficiary is not a resident</value></Element>\n" +	
+				"		<Element><code>95</code><value>Beneficiary DTC eligibility not confirmed</value></Element>\n" +	
+				"		<Element><code>96</code><value>Rollover is made during an Episodic DTC Election Period</value></Element>\n" +	
+				"	</List>\n" + 
+				"</refusalReasons>";
+	}
 	
+	@RequestMapping(value = "/getSinIssues", method = RequestMethod.POST, produces = MediaType.TEXT_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
+	public String getSinIssue() {
+		return "<sinIssues>\n" + 
+				"	<List listName=\"SinIssues\">\n" + 
+				"		<Element><code>1</code><value>SIN is not usable</value></Element>\n" +	
+				"		<Element><code>2</code><value>SIN is Usable</value></Element>\n" +
+				"		<Element><code>3</code><value>Linked SIN</value></Element>\n" +	
+				"	</List>\n" + 
+				"</sinIssues>";
+	}
 	
+	@RequestMapping(value = "/getSevereErrorDescriptions", method = RequestMethod.POST, produces = MediaType.TEXT_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
+	public String getSevereErrorDescription() {
+		return "<severeErrorDescriptions>\n" + 
+				"	<List listName=\"SevereErrorDescriptions\">\n" + 
+				"		<Element><code>1</code><value>Duplicate issuer transaction number</value></Element>\n" +	
+				"		<Element><code>2</code><value>Invalid record type/transaction type</value></Element>\n" +
+				"		<Element><code>3</code><value>Issuer transaction number not provided</value></Element>\n" +	
+				"		<Element><code>4</code><value>Issuer BN is not 15 characters</value></Element>\n" +	
+				"	</List>\n" + 
+				"</severeErrorDescriptions>";
+	}
+	
+	@RequestMapping(value = "/getSirValidations", method = RequestMethod.POST, produces = MediaType.TEXT_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
+	public String getSirValidation() {
+		return "<sirValidations>\n" + 
+				"	<List listName=\"SirValidations\">\n" + 
+				"		<Element><code>0</code><value>Failed SIR Validation</value></Element>\n" +	
+				"		<Element><code>1</code><value>Passed SIR Validation</value></Element>\n" +
+				"		<Element><code>2</code><value>Exact year and month matched</value></Element>\n" +	
+				"		<Element><code>3</code><value>Exact year and day matched</value></Element>\n" +	
+				"	</List>\n" + 
+				"</sirValidations>";
+	}
 }

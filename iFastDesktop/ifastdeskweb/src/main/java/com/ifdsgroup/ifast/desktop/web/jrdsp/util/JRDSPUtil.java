@@ -14,6 +14,7 @@ import org.springframework.util.MultiValueMap;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ifdsgroup.ifast.desktop.web.jrdsp.config.JrdspConstants;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.BaseResponse;
 
 
@@ -45,6 +46,23 @@ public class JRDSPUtil {
 				return "SDSP Election";
 			if("3".equalsIgnoreCase(electionCode))
 				return "Specified Year";
+			if("4".equalsIgnoreCase(electionCode))
+				return "DTC Eligible";
+		}
+		return "";
+	}
+	public static String getEligibilityType(String eligiblityCode,String eligiblityStatus) {
+		
+		//TODO Move elections to Enum
+		if(eligiblityCode != null)
+		{
+			if("4".equalsIgnoreCase(eligiblityCode) && JrdspConstants.YES.equalsIgnoreCase(eligiblityStatus))
+				return "4";
+			if("4".equalsIgnoreCase(eligiblityCode) && JrdspConstants.NO.equalsIgnoreCase(eligiblityStatus))
+				return "5";
+			if("4".equalsIgnoreCase(eligiblityCode) && JrdspConstants.NA.equalsIgnoreCase(eligiblityStatus))
+				return "6";
+			
 		}
 		return "";
 	}
@@ -64,10 +82,11 @@ public class JRDSPUtil {
 		return null;
 	}
 
-	public static MultiValueMap<String, String> addHeaders(String httpPath,String method, String acceptType,String apiVersion,String traceId){
+	public static MultiValueMap<String, String> addHeaders(String httpPath,String method, String acceptType,String apiVersion,String traceId,String userId){
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 		if(checkNotNull(httpPath,method,acceptType,apiVersion,traceId))
 		{
+			headers.add("request_user_id", userId);
 			headers.add("HTTP_Path", httpPath);
 			headers.add("HTTP_Method", method);
 			headers.add("accept", acceptType);

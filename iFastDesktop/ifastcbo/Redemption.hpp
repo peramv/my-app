@@ -207,6 +207,7 @@ protected:
    virtual bool isExternalInstitutionTrackingEnable(const BFDataGroupId& idDataGroup);
    virtual SEVERITY validateRDSPTrade (const BFDataGroupId &idDataGroup);
    virtual bool isRDSPTransferAllowed (const BFDataGroupId &idDataGroup);
+   SEVERITY getGrossNetType( const BFDataGroupId &idDataGroup );
 
 private:
    SEVERITY validateTaxRatePUD ( const DString &dstrTax, 

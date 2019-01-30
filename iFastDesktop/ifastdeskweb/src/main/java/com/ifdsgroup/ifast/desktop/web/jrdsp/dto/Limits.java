@@ -17,6 +17,11 @@ public class Limits {
 	
 	public Limits() {}
 	
+	public Limits(String limitCategory) {
+		super();
+		limitCat = limitCategory;
+	}
+	
 	public Limits(String limitCat, BigDecimal contMax, BigDecimal contUsed, BigDecimal contRemaining,
 			BigDecimal grantsMax, BigDecimal grantsUsed, BigDecimal grantsRemaining, BigDecimal bondsMax,
 			BigDecimal bondsUsed, BigDecimal bondsRemaining) {

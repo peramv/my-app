@@ -17,6 +17,8 @@ public class AccountResponse extends BaseResponse  {
 	
 	private Elections elections;
 	
+	private Elections dtcEligiblities;
+	
 	private EntityInfo entityInfo;
 
 	public String getAccountId() {
@@ -41,6 +43,14 @@ public class AccountResponse extends BaseResponse  {
 
 	public void setElections(Elections elections) {
 		this.elections = elections;
+	}
+
+	public Elections getDtcEligiblities() {
+		return dtcEligiblities;
+	}
+
+	public void setDtcEligiblities(Elections dtcEligiblities) {
+		this.dtcEligiblities = dtcEligiblities;
 	}
 
 	public EntityInfo getEntityInfo() {

@@ -25,16 +25,32 @@ DesktopWeb.ScreenResources = function(ctrlr)
 		return "";
 	}
 	
+	function setCheckHeader(hcb, checked) {
+		hcb.className = checked ? "x-grid3-check-col-on" : "x-grid3-check-col";
+	}
+	
+	function selectAll(records, hcb) {
+		var checked = hcb.className != "x-grid3-check-col-on";
+		setCheckHeader(hcb, checked);
+		
+		for(var i = 0; i < records.length; ++i) {
+			records[i].data.checked = checked;
+		}
+	}
+	
 	var checkColumn = new Ext.grid.CheckColumn({
- 		width: 16,
-		dataIndex: 'checked'
+		width: 28,
+		sortable: false,
+		dataIndex: 'checked',
+		header:'<div class="x-grid3-check-col" id="selectAllBox">&#160;</div>',
+		fixed: true
 	});
 	// **** buttons ****
 	var _buttons = {
 	okScreenButton :new DesktopWeb.Controls.ScreenButton({
 			itemId : 'okBtnScreen',
 			text: _translationMap['OK']
-			,handler: _controller.updateStatus
+			,handler: _controller.doUpdate //DesktopWeb.Util.commitScreen
 			,disabled : true
 		}
 	)
@@ -56,15 +72,35 @@ DesktopWeb.ScreenResources = function(ctrlr)
         style: 'margin-left: 115px;margin-bottom: 4px;',
         listeners: {
             click: function () {
+            	var hcb = document.getElementById('selectAllBox');
+    			setCheckHeader(hcb, false);
             	currRecord = 0;
             	_controller.refresh(0, pageSize);
             }
         }
     }),
+    updateBtn: new DesktopWeb.Controls.ActionButton({
+		itemId: 'updateBtn'
+		,text: _translationMap['Update']
+		,handler: function() {
+			if(_controller.updateStatus()) {
+				_buttons['okScreenButton'].enable();
+			}
+			else {
+				_buttons['okScreenButton'].disable();
+			}
+			
+			var hcb = document.getElementById('selectAllBox');
+			setCheckHeader(hcb, false);
+		}
+	}),
     moreBtn: new DesktopWeb.Controls.ActionButton({
 		itemId: 'moreBtn'
 		,text: _translationMap['More']
 		,handler: function(){
+			var hcb = document.getElementById('selectAllBox');
+			setCheckHeader(hcb, false);
+			
 			currRecord += _grids['rdspTransGrid'].getStore().getCount();
 			_controller.refresh(currRecord, pageSize);
 		}
@@ -89,6 +125,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 	        		_fields.Status.setValue("All");
 	        		_fields.Status.setDisabled(record.data.code === '02');
 	        		_fields.NewStatus.setDisabled(record.data.code === '02');
+        			_controller.updateRecordType(record.data.code);
                 }
 	        }
 		}),
@@ -116,14 +153,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 			itemId: 'newStatus',
 			fieldLabel: _translationMap["NewStatus"],
 	        width: 120,
-	        valueField: 'value',
-	        listeners : {
-	        	select: function (combo, record, index) {
-	        		if (_controller.updatesFlag = _grids['rdspTransGrid'].dirty) {
-	        			_buttons['okScreenButton'].enable();
-	        		}
-                }
-	        }
+	        valueField: 'value'
 	    })
 	,
 	AccountNo : new DesktopWeb.Controls.TextField({
@@ -547,7 +577,63 @@ DesktopWeb.ScreenResources = function(ctrlr)
 		   contractRegistrationEducationSavingsRolloverCompliantLabel:new DesktopWeb.Controls.Label({
 		        fieldLabel : _translationMap['ContractRegistrationEducationSavingsRolloverCompliant']
 		     }),
-
+		   severeErrorCodeLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['SevereErrorCode']
+		     }),
+		   transactionDataLabel:new DesktopWeb.Controls.Label({
+	        fieldLabel : _translationMap['TransactionData']
+		   	}),
+		    correctionDateLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['CorrectionDate']
+		    }),
+		    
+		    receivingIssuerBnLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['ReceivingIssuerBn']
+		    }),
+		    
+		    receivingIssuerSpecimenPlanNumberLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['ReceivingIssuerSpecimenPlanNumber']
+		    }),
+		    receivingIssuerContractLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['ReceivingIssuerContract']
+		    }),
+		    reportingIssuerBnLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['ReportingIssuerBn']
+		    }),
+		    reportingIssuerTransactionNumberLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['ReportingIssuerTransactionNumber']
+		    }),
+		    reportingIssuerSpecimenPlanLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['ReportingIssuerSpecimenPlan']
+		    }),
+		    reportingIssuerContractLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['ReportingIssuerContract']
+		    }),
+		    reportingIssuerEventDateLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['ReportingIssuerEventDate']
+		    }),
+		    rolloverAmountLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['RolloverAmount']
+		    }),
+		    rolloverIssueLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['RolloverIssue']
+		    }),
+		    grantPortionOfTheDapLdapLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['GrantPortionOfTheDapLdap']
+		    }),
+		    bondPortionOfTheDapLdapLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['BondPortionOfTheDapLdap']
+		    }),
+		    nonTaxablePortionOfTheDapLdapLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['NonTaxablePortionOfTheDapLdap']
+		    }),
+		    totalDapLdapAmountLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['TotalDapLdapAmount']
+		    }),
+		    dapLdapReversalReasonLabel:new DesktopWeb.Controls.Label({
+		        fieldLabel : _translationMap['DapLdapReversalReason']
+		    }),
+		    
 		   errorMessagesLabel : new DesktopWeb.Controls.Label({
 		   	 fieldLabel : _translationMap['ErrorMessages']
 		   })
@@ -567,29 +653,21 @@ DesktopWeb.ScreenResources = function(ctrlr)
 		,sortable: true
 		,dirty: false
 		,plugins: checkColumn
+		,listeners: {
+	        'headerclick': {
+	            fn: function(grid, col, e){
+	                if(!col) {
+	                	var records = grid.store.data.items;
+	                	selectAll(records, e.target);
+	                	grid.getView().refresh();
+	                }
+	            }
+	         }
+	     }
 		,store: new Ext.data.XmlStore(
 		{
 			record: 'records'
-			,fields: [{name: 'checked', type: 'boolean'}, 'id', 'row', {name:'account', type:'int'}, 'transDate', 'esdcTransNo', 'recordType', 'transType', 'description', 'status']
-			,listeners : {
-		        update : function(records) {
-		        	var grid = _grids['rdspTransGrid'];
-		        	grid.dirty = false;
-		        	
-		        	for(var i = 0; i < records.data.length; ++i) {
-		        		grid.dirty |= records.data.items[i].data.checked;
-		        	} 
-		        	
-		        	_controller.updatesFlag = _fields['NewStatus'].getValue().length && grid.dirty;
-					
-		        	if (_controller.updatesFlag) {
-		        		_buttons['okScreenButton'].enable();
-		        	}
-		        	else {
-		        		_buttons['okScreenButton'].disable();
-		        	}
-		        }
-		    }
+			,fields: [{name: 'checked', type: 'boolean'}, 'id', 'row', {name:'account', type:'int'}, 'transDate', 'esdcTransNo', 'recordType', 'transType', 'description', 'status', 'serverStatus']			
 		})
 		,selModel: new Ext.grid.RowSelectionModel(
 			{
@@ -623,7 +701,11 @@ DesktopWeb.ScreenResources = function(ctrlr)
 				}
 				,{header: _translationMap['Status'], dataIndex: 'status', width: 50,
 					renderer: function(value, meta, record) {
-						meta.css = record.data.error ? 'err' : '';
+						meta.css =  '';
+						if(record.data.error)
+							meta.css = 'err';
+						else if(record.data.changed)
+							meta.css = 'changed';
 					    return _translationMap.statusMap[value];
 					}
 				}	
@@ -707,11 +789,18 @@ DesktopWeb.ScreenResources = function(ctrlr)
 							layout: 'column',
 							items: [
 								{
-									columnWidth: 0.90
+									columnWidth: 0.45
 									,layout: 'form'
 									,labelWidth: 200
 									,items:[_fields['NewStatus']] 
 								},
+		                        {
+									columnWidth: 0.45
+									,layout: 'form'
+		                        	,items: [
+		                        		_buttons['updateBtn']
+		                        	]
+		                        },
 		                        {
 									columnWidth: 0.10
 									,layout: 'form'
@@ -726,6 +815,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 				, {
                     xtype: 'fieldset',
                     title: _translationMap['RecordDetails'],
+                    id: 'recordDetails',
                     autoHeight:true,
                     items: [ {
 						layout : 'column',											
@@ -747,13 +837,20 @@ DesktopWeb.ScreenResources = function(ctrlr)
 				                    labelWidth: 200
 								}  
 							]
+						}]
 						},
+                {
+                    xtype: 'fieldset',
+                    id: 'errorDetails',
+                    title: _translationMap['ErrorDetails'],
+                    autoHeight:true,
+                    items: [
 						{
 							layout : 'column',											
 							items : [	
 									{
 										layout : 'form',
-										id: 'recordDetails-id3',
+										id: 'errorDetails-id1',
 										autoHeight:true,
 					                    style : 'padding-left:18px;',
 					                    labelWidth: 100

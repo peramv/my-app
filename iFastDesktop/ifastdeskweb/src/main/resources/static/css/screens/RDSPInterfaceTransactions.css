@@ -5,3 +5,4 @@ td {font-size: x-small}
 .panel .x-panel-header{color: #777}
 .x-grid3-dirty-cell {background-image: none;}
 .err {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFB8B8', endColorstr='#FFE6E6',GradientType=1 );}
+.changed {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88FF88', endColorstr='#E6FFE6',GradientType=1 );}

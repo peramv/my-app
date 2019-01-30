@@ -309,6 +309,8 @@ namespace CND
    extern const long ERR_ACCTHOLDER_DOFBIRTH_MISSING;
    extern const long ERR_RDSP_RELATIONSHIP_TO_BENEFICIARY_REQUIRED;
    extern const long WARN_RDSP_RELATIONSHIP_TO_BENEFICIARY_REQUIRED;
+   extern const long ERR_RDSP_BENEFICIARY_DOFBIRTH_MISSING;
+   extern const long WARN_RDSP_BENEFICIARY_DOFBIRTH_MISSING;
 }
 
 namespace UAF
@@ -427,6 +429,7 @@ namespace IFASTERR
    extern CLASS_IMPORT I_CHAR * const FIRSTNAME_MANDATORY; 
    extern CLASS_IMPORT I_CHAR * const RDSP_BENEFICIARY_OVER_AGE_LIMIT;
    extern CLASS_IMPORT I_CHAR * const RDSP_RELATIONSHIP_TO_BENEFICIARY_REQUIRED;
+   extern CLASS_IMPORT I_CHAR * const RDSP_BENEFICIARY_DOFBIRTH_MISSING;
 }
 
 namespace DSTC_REQUEST
@@ -3290,9 +3293,21 @@ SEVERITY AccountEntityXrefObject::validateEntityTypeDofB (const BFDataGroupId& i
 		  {
 			  validateRDSPBeneDateOfBirth (dstrDofBirth, idDataGroup);
 		  }
-		  else if( dstrEntityType == ACCOUNTHOLDER_ENTITY_TYPE)
+		  else 
 		  {
-			  ADDCONDITIONFROMFILE( CND::ERR_ACCTHOLDER_DOFBIRTH_MISSING );
+			  if( dstrEntityType == ACCOUNTHOLDER_ENTITY_TYPE)
+			  {
+				  ADDCONDITIONFROMFILE( CND::ERR_ACCTHOLDER_DOFBIRTH_MISSING );
+			  }
+
+			  if( dstrEntityType == RDSP_BENEFICIARY)
+			  {
+				  // 2266 - RDSP Beneficiary's Date of Birth is missing.
+				  getErrMsg (IFASTERR::RDSP_BENEFICIARY_DOFBIRTH_MISSING, 
+							 CND::ERR_RDSP_BENEFICIARY_DOFBIRTH_MISSING, 
+							 CND::WARN_RDSP_BENEFICIARY_DOFBIRTH_MISSING, 
+							 idDataGroup); 
+			  }
 		  }
 	  }
    }
@@ -3576,7 +3591,7 @@ void AccountEntityXrefObject::doPopulateField( const BFFieldId& idField, DString
 			pEntity)
 	   {
 		  pEntity->getField (ifds::VerifyStatDetails, strValue, BF::HOST, false);
-	   }
+}
    }
 }
 //********************************************************************************

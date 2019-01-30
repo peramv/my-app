@@ -264,11 +264,66 @@ DesktopWeb.ScreenTranslation = {
 			{
 				key: {
 					recordType: "971",
-					transType: ""
+					transType: "01"
 				},
-				text: "Transfer Extract Information"
+				text: "Transfer - Contribution Info"
+			},
+			{
+				key: {
+					recordType: "971",
+					transType: "02"
+				},
+				text: "Transfer - Bond Info"
+			},
+			{
+				key: {
+					recordType: "971",
+					transType: "03"
+				},
+				text: "Transfer - RSP Rollover Info"
+			},
+			{
+				key: {
+					recordType: "971",
+					transType: "04"
+				},
+				text: "Transfer - Grant/Bond Info"
+			},
+			{
+				key: {
+					recordType: "971",
+					transType: "05"
+				},
+				text: "Transfer - DAP Info"
+			},
+			{
+				key: {
+					recordType: "971",
+					transType: "06"
+				},
+				text: "Transfer - LDAP Info"
+			},
+			{
+				key: {
+					recordType: "971",
+					transType: "07"
+				},
+				text: "Transfer - RESP Rollover Info"
+			},
+			{
+				key: {
+					recordType: "701",
+					transType: "01"
+				},
+				text: "Monthly reporting of FMV"
+			},
+			{
+				key: {
+					recordType: "701",
+					transType: "02"
+				},
+				text: "Transfer reporting of FMV and Earnings"
 			}
-
 		],
 		
 		FileType : "File Type",
@@ -313,6 +368,7 @@ DesktopWeb.ScreenTranslation = {
 		Year : "Year",
 		Refresh: "Refresh",
 		More: "More",
+		Update: "Update",
 		ContractRegStatus : "Contract Registration Status",
 		DTCElectionCurr : "DTC Election (current)",
 		SDSPElectionCurr : "SDSP Election (current)",
@@ -481,9 +537,34 @@ DesktopWeb.ScreenTranslation = {
   		BeneficiaryPassesDtcEligibilityValidationAtContractSignatureDate:"Bene DTC eligible at Contract Signature Date",
   		BeneficiarySinIsUsableAtContractSignatureDate:"Bene SIN usable at Contract Signature Date",
   		HoldersSinIsUsableAtContractSignatureDate:"Holder SIN usable at Contract Signature Date",
-  		RemainingBalanceOnContract:"Remaining Balance on Contract ",
+		RemainingBalanceOnContract:"Remaining Balance on Contract ",
   		CurrentReasonForChangeOfContractStatus:"Current Reason for Contract Status Change",
-  		CurrentTransferStatus:"Current Transfer Status",
+		CurrentTransferStatus:"Current Transfer Status",
+		CurrentResidencyEligibilityOfBeneficiary:"Current Residency Eligibility of Beneficiary",
+		CurrentDtcEligibilityOfBeneficiary:"Current DTC eligibility of Beneficiary",
+		CurrentBeneficiarySinUsability:"Current beneficiary SIN Usability ",
+		CurrentHoldersSinUsability:"Current Holder(s) SIN Usability ",
+		ContractRegistrationRetirementSavingsRolloverCompliant:"Contract Registration - Retirement Savings Rollover Compliant",
+		ContractRegistrationEducationSavingsRolloverCompliant:"Contract Registration - Education Savings Rollover Compliant",
+		SevereErrorCode:"Severe Error Code", 
+		TransactionData:"Transaction Data", 
+		CorrectionDate:"Correction Date",
+		ErrorDetails:"Error Details",
+		ReceivingIssuerBn:"Receiving Issuer BN",
+		ReceivingIssuerSpecimenPlanNumber:"Receiving Issuer Specimen Plan Number",
+		ReceivingIssuerContract:"Receiving Issuer Contract",
+		ReportingIssuerBn:"Reporting Issue BN",
+		ReportingIssuerTransactionNumber:"Reporting Issuer Transaction Number",
+		ReportingIssuerSpecimenPlan:"Reporting Issuer Specimen Plan",
+		ReportingIssuerContract:"Reporting Issuer Contract",
+		ReportingIssuerEventDate:"Reporting Issuer Event Date",
+		RolloverAmount:"Rollover Amount",
+		RolloverIssue:"Rollover Issue",
+		GrantPortionOfTheDapLdap:"Grant Portion of the DAP/LDAP",
+		BondPortionOfTheDapLdap:"Bond Portion of the DAP/LDAP",
+		NonTaxablePortionOfTheDapLdap:"Non-Taxable Portion of the DAP/LDAP",
+		TotalDapLdapAmount:"Total DAP/LDAP Amount",
+		DapLdapReversalReason:"DAP/LDAP Reversal Reason"
   		CurrentResidencyEligibilityOfBeneficiary:"Current Residency eligibility of bene",
   		CurrentDtcEligibilityOfBeneficiary:"Current DTC eligibility of bene",
   		CurrentBeneficiarySinUsability:"Current Bene SIN usability",
@@ -491,7 +572,6 @@ DesktopWeb.ScreenTranslation = {
   		ContractRegistrationRetirementSavingsRolloverCompliant:"RSP R/O Compliant",
 		ContractRegistrationEducationSavingsRolloverCompliant:"RESP R/O Compliant"
 
-		
 			
 	}	
 	
@@ -695,6 +775,69 @@ DesktopWeb.ScreenTranslation = {
 						transType: "03"
 					},
 					text: "SDSP Election"
+				},
+				{
+					key: {
+						recordType: "971",
+						transType: "01"
+					},
+					text: "Transfer - Contribution Info"
+				},
+				{
+					key: {
+						recordType: "971",
+						transType: "02"
+					},
+					text: "Transfer - Bond Info"
+				},
+				{
+					key: {
+						recordType: "971",
+						transType: "03"
+					},
+					text: "Transfer - RSP Rollover Info"
+				},
+				{
+					key: {
+						recordType: "971",
+						transType: "04"
+					},
+					text: "Transfer - Grant/Bond Info"
+				},
+				{
+					key: {
+						recordType: "971",
+						transType: "05"
+					},
+					text: "Transfer - DAP Info"
+				},
+				{
+					key: {
+						recordType: "971",
+						transType: "06"
+					},
+					text: "Transfer - LDAP Info"
+				},
+				{
+					key: {
+						recordType: "971",
+						transType: "07"
+					},
+					text: "Transfer - RESP Rollover Info"
+				},
+				{
+					key: {
+						recordType: "701",
+						transType: "01"
+					},
+					text: "Monthly reporting of FMV"
+				},
+				{
+					key: {
+						recordType: "701",
+						transType: "02"
+					},
+					text: "Transfer reporting of FMV and Earnings"
 				}
 			],
 			
@@ -740,6 +883,7 @@ DesktopWeb.ScreenTranslation = {
 			Year : "Year",
 			Refresh: "Refresh",
 			More: "More",
+			Update: "Update",
 			ContractRegStatus : "Contract Registration Status",
 			DTCElectionCurr : "DTC Election (current)",
 			SDSPElectionCurr : "SDSP Election (current)",
@@ -903,9 +1047,34 @@ DesktopWeb.ScreenTranslation = {
 	  		BeneficiaryPassesDtcEligibilityValidationAtContractSignatureDate:"Bene DTC eligible at Contract Signature Date",
 	  		BeneficiarySinIsUsableAtContractSignatureDate:"Bene SIN usable at Contract Signature Date",
 	  		HoldersSinIsUsableAtContractSignatureDate:"Holder SIN usable at Contract Signature Date",
-	  		RemainingBalanceOnContract:"Remaining Balance on Contract ",
+			RemainingBalanceOnContract:"Remaining Balance on Contract ",
 	  		CurrentReasonForChangeOfContractStatus:"Current Reason for Contract Status Change",
-	  		CurrentTransferStatus:"Current Transfer Status",
+			CurrentTransferStatus:"Current Transfer Status",
+			CurrentResidencyEligibilityOfBeneficiary:"Current Residency Eligibility of Beneficiary",
+			CurrentDtcEligibilityOfBeneficiary:"Current DTC eligibility of Beneficiary",
+			CurrentBeneficiarySinUsability:"Current beneficiary SIN Usability ",
+			CurrentHoldersSinUsability:"Current Holder(s) SIN Usability ",
+			ContractRegistrationRetirementSavingsRolloverCompliant:"Contract Registration - Retirement Savings Rollover Compliant",
+			ContractRegistrationEducationSavingsRolloverCompliant:"Contract Registration - Education Savings Rollover Compliant",
+			SevereErrorCode:"Severe Error Code", 
+			TransactionData:"Transaction Data", 
+			CorrectionDate:"Correction Date",
+			ErrorDetails:"Error Details",
+			ReceivingIssuerBn:"Receiving Issuer BN",
+			ReceivingIssuerSpecimenPlanNumber:"Receiving Issuer Specimen Plan Number",
+			ReceivingIssuerContract:"Receiving Issuer Contract",
+			ReportingIssuerBn:"Reporting Issue BN",
+			ReportingIssuerTransactionNumber:"Reporting Issuer Transaction Number",
+			ReportingIssuerSpecimenPlan:"Reporting Issuer Specimen Plan",
+			ReportingIssuerContract:"Reporting Issuer Contract",
+			ReportingIssuerEventDate:"Reporting Issuer Event Date",
+			RolloverAmount:"Rollover Amount",
+			RolloverIssue:"Rollover Issue",
+			GrantPortionOfTheDapLdap:"Grant Portion of the DAP/LDAP",
+			BondPortionOfTheDapLdap:"Bond Portion of the DAP/LDAP",
+			NonTaxablePortionOfTheDapLdap:"Non-Taxable Portion of the DAP/LDAP",
+			TotalDapLdapAmount:"Total DAP/LDAP Amount",
+			DapLdapReversalReason:"DAP/LDAP Reversal Reason"
 	  		CurrentResidencyEligibilityOfBeneficiary:"Current Residency eligibility of bene",
 	  		CurrentDtcEligibilityOfBeneficiary:"Current DTC eligibility of bene",
 	  		CurrentBeneficiarySinUsability:"Current Bene SIN usability",

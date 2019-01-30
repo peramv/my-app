@@ -32,7 +32,15 @@ public class Transfers {
     private Boolean moneyOutTrade;
     private String transferInStatusTypeCode;
     private String transactionStatusCode;
+    private String rdspTrasactionTypeCode; 
     
+    
+	public String getRdspTrasactionTypeCode() {
+		return rdspTrasactionTypeCode;
+	}
+	public void setRdspTrasactionTypeCode(String rdspTrasactionTypeCode) {
+		this.rdspTrasactionTypeCode = rdspTrasactionTypeCode;
+	}
 	public String getAccountNumber() {
 		return accountNumber;
 	}
@@ -184,7 +192,8 @@ public class Transfers {
 				+ nonTaxablePresentDapLdap + ", taxablePriorDapLdap=" + taxablePriorDapLdap + ", taxablePresentDapLdap="
 				+ taxablePresentDapLdap + ", formEditableFlag=" + formEditableFlag + ", esdcSent=" + esdcSent
 				+ ", esdcResponse=" + esdcResponse + ", moneyOutTrade=" + moneyOutTrade + ", transferInStatusTypeCode="
-				+ transferInStatusTypeCode + ", transactionStatusCode=" + transactionStatusCode + "]";
+				+ transferInStatusTypeCode + ", transactionStatusCode=" + transactionStatusCode
+				+ ", rdspTrasactionTypeCode=" + rdspTrasactionTypeCode + "]";
 	}
   
 	

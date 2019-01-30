@@ -32,6 +32,14 @@ DesktopWeb.ScreenResources = function(ctrlr)
 					}
 				}
 			)
+			,rdspNotionalLotDetail: new DesktopWeb.Controls.ScreenButton(
+					{
+						text: _translationMap['RDSPNotionalLotDetail']
+						,handler: function(){
+							_controller.clickHandle_RdspNotionalLotDetail();
+						}
+					}
+				)
 		,notionalBalanceScreenButton :new DesktopWeb.Controls.ScreenButton(
 				{
 					itemId : 'notionalBalanceBtnScreen',
@@ -49,8 +57,23 @@ DesktopWeb.ScreenResources = function(ctrlr)
 				}
 			}
 		)
-	}
+
+	,updateBtn : new DesktopWeb.Controls.ActionButton({
+		itemId: 'updateBtn'
+			,text: _translationMap['updateBtn']
+			,handler: function(){
+				_controller.cdspUpdate();	
+			}
+		})
 	
+	}
+	var checkColumn = new Ext.grid.CheckColumn({
+		width: 28,
+		sortable: false,
+		dataIndex: 'checked',
+		header:_translationMap['rs'],
+		fixed: true
+	});
 	
 
 	// **** fields ****
@@ -156,6 +179,12 @@ DesktopWeb.ScreenResources = function(ctrlr)
 		hidden : true
 	})
 	,
+	RepaymentReason : new DesktopWeb.Controls.Label({
+		fieldLabel : _translationMap['RepaymentReason'],
+		width : 150,
+		hidden : true
+	})
+	,
 	BondPaymentDate : new DesktopWeb.Controls.Label({
 		fieldLabel : _translationMap['BondPaymentDate'],
 		width : 150,
@@ -196,6 +225,17 @@ DesktopWeb.ScreenResources = function(ctrlr)
 		fieldLabel : _translationMap['AssociatedGrantAmount'],
 		width : 150,
 		hidden : true
+	}),
+	refileSuppressLabel : new DesktopWeb.Controls.Label({
+		fieldLabel : _translationMap['refileSuppress'],
+		width : 50
+	}),
+	refileSuppressField: new DesktopWeb.Controls.SMVComboBox({
+		fieldLabel: _translationMap['refileSuppress']
+		,editable: true
+		,autoSelect: true
+		,width: 150
+		
 	})
 	};
 		var _grids = {
@@ -203,6 +243,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 		width: _layoutWidth-15
 		,autoScroll: true
 		,height: 300
+		,plugins: checkColumn
 		,store: new Ext.data.XmlStore(
 				{
 					record: 'transaction'
@@ -241,9 +282,11 @@ DesktopWeb.ScreenResources = function(ctrlr)
 			}
 
 			,columns: [
-				{width: 0, id:'transId', dataIndex: 'transactionId',hidden: true, height: 15}
-				//,
-				,{header: _translationMap['TransactionType'], id:'transactionType', dataIndex: 'iFastTransactionType',width: 30
+				checkColumn
+				,{width: 0, id:'transId', dataIndex: 'transactionId',hidden: true, height: 15
+				}
+				,
+				{header: _translationMap['TransactionType'], id:'transactionType', dataIndex: 'iFastTransactionType',width: 30
 					,renderer: function(val, metaData, record){return _controller.getTransactionTypeValue(val);}
 				}
 				,{header: _translationMap['Description'], id:'description', dataIndex: 'description', width: 30
@@ -262,14 +305,15 @@ DesktopWeb.ScreenResources = function(ctrlr)
 				,{width: 0, id:'redemptionCode', dataIndex: 'redemptionCode',hidden: true, height: 15}
 				
 			]
+
 		})
 		,buttons: [
-			new DesktopWeb.Controls.ActionButton({
+			/**new DesktopWeb.Controls.ActionButton({
 				itemId: 'inventoryBtn'
 				,text: _translationMap['Inventory']
 				,handler: function(){}
-			})
-			,new DesktopWeb.Controls.ActionButton({
+			}) **/
+			new DesktopWeb.Controls.ActionButton({
 				itemId: 'moreBtn'
 				,text: _translationMap['More']
 				,handler: function(){}
@@ -380,14 +424,29 @@ DesktopWeb.ScreenResources = function(ctrlr)
 						,title: _translationMap['RDSPTransactionHistoryDetails']
 						,items:[
 	                        {
-							layout: 'column'
-							,items: [_grids['RDSPTransactionHistoryDetailsGrid']]
+							layout: 'form'
+							,items: [_grids['RDSPTransactionHistoryDetailsGrid'],
+								{								
+									layout: 'column'
+									,items: [
+										{layout: 'form'
+											,columnWidth: 0.35
+										,items:[
+										_fields['refileSuppressField']]
+										}
+										,{
+											layout: 'form'
+												,columnWidth: 0.50
+												,items:[
+								        _buttons['updateBtn']]
+										}
+									]
+								}
+							]
 							}
-							
 						]
-						
-						},
-						{
+						}
+						,{
                             xtype: 'fieldset',
                             title: _translationMap['NotionalDetails'],
                             id: 'notionalDetailsFieldSet',
@@ -406,6 +465,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
                 								_fields['ContributionAmount']
                 								,_fields['GrantAmount']
                 								,_fields['BondAmount']
+                								,_fields['RepaymentReason']
                 								
                 								
                 							]
@@ -472,6 +532,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 			items:[
 				_buttons['rdspTransferScreenButton']
 				,_buttons['notionalBalanceScreenButton']
+				,_buttons['rdspNotionalLotDetail']
 				,_buttons['closeScreenButton']
 			]
 		}

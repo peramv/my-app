@@ -1,8 +1,10 @@
 package com.ifdsgroup.ifast.desktop.web.jrdsp.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ifdsgroup.ifast.desktop.web.jrdsp.config.JrdspConstants;
+import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.CdspRegistration;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.NotionalActivityDto;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.NotionalGetRequest;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.NotionalLotActivityBalancesResponse;
@@ -20,16 +24,21 @@ import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.RdspTransaction;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.TransactionGetRequest;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.TransactionGetResponse;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.TransactionGetResponseDto;
+import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.AccountResponse;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.ActivityDetails;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.AssociatedGrantDto;
+import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.CDSPRegistrationResponse;
+import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.LotIdDetailsDto;
+import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.LotIdDetailsResponse;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.NotionalActivityTotalsDto;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.NotionalBalanceResponse;
+import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.NotionalLotActivityDetailsDto;
+import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.NotionalLotActivityDetailsRequest;
+import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.NotionalLotActivityDetailsResponse;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.RdspTransactions;
+import com.ifdsgroup.ifast.desktop.web.jrdsp.service.AccountService;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.service.NotionalActivityService;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.service.TransactionService;
-import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.AccountResponse;
-import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.BaseResponse;
-import com.ifdsgroup.ifast.desktop.web.jrdsp.service.AccountService;
 
 @RestController
 @RequestMapping("/notional")
@@ -58,7 +67,7 @@ public class NotionalController {
 		return "<RDSPDropDownResponse><List listName=\"transactionType\">	"
 				+ "<Element>		<code>ALL</code>		<value>All</value>	</Element>"
 				+ "	<Element>		<code>ED</code>		<value>Purchases</value>	</Element>	"
-				+ "<Element>		<code>PW</code>		<value>Redemption</value>	</Element>	"
+				+ "<Element>		<code>PW,AW</code>		<value>Redemption</value>	</Element>	"
 				+ "<Element>		<code>TI</code>		<value>Transfer-In</value>	</Element>"
 				+ "</List><List listName=\"description\">	"
 				+ "<Element>		<code>All</code>		<value>All</value>	</Element>	"
@@ -81,6 +90,9 @@ public class NotionalController {
 				+ "<Element>		<code>RG</code>		<value>RDSP Grant Return</value>	</Element>"
 				+ "	<Element>		<code>RB</code>		<value>RDSP Bond Return</value>	</Element>"
 				+ "	<Element>		<code>RT</code>		<value>Transfer Out</value>	</Element>"
+				+ "	<Element>		<code>TW</code>		<value>RDSP Termination Withdrawal</value>	</Element>"
+				+ "	<Element>		<code>RDSP_TAG</code>		<value>RDSP Termination Adj - Grant</value>	</Element>"
+				+ "	<Element>		<code>RDSP_TAB</code>		<value>RDSP Termination Adj - Bond</value>	</Element>"
 				+ "</List><List listName=\"descriptionRedemption\">	"
 				+ "<Element>		<code>All</code>		<value>All</value>	</Element>	"
 				+ "<Element>		<code>RT</code>		<value>External RDSP Transfer</value>	</Element>	"
@@ -91,6 +103,9 @@ public class NotionalController {
 				+ "<Element>		<code>RG</code>		<value>RDSP Grant Return</value>	</Element>	"
 				+ "<Element>		<code>RB</code>		<value>RDSP Bond Return</value>	</Element>"
 				+ "	<Element>		<code>RT</code>		<value>Transfer Out</value>	</Element>"
+				+ "	<Element>		<code>TW</code>		<value>RDSP Termination Withdrawal</value>	</Element>"
+				+ "	<Element>		<code>RDSP_TAG</code>		<value>RDSP Termination Adj - Grant</value>	</Element>"
+				+ "	<Element>		<code>RDSP_TAB</code>		<value>RDSP Termination Adj - Bond</value>	</Element>"
 				+ "</List><List listName=\"descriptionDeposit\">	"
 				+ "<Element>		<code>All</code>		<value>All</value>	</Element>"
 				+ "	<Element>		<code>1</code>		<value>Cash Deposit</value>	</Element>"
@@ -106,6 +121,9 @@ public class NotionalController {
 				+ "<Element>		<code>47</code>		<value>Internal RSP Rollover to RDSP</value>	</Element>"
 				+ "	<Element>		<code>48</code>		<value>Internal RESP Rollover to RDSP</value>	</Element>"
 				+ "	<Element>		<code>68</code>		<value>Internal Non-Reg Rollover to RDSP</value>	</Element>"
+				+ "</List><List listName=\"refilesupress\">	"
+				+ "<Element>		<code>Re-file</code>		<value>Re-file</value>	</Element>	"
+				+ "<Element>		<code>Suppress</code>		<value>Suppress</value>	</Element>"
 				+ "</List></RDSPDropDownResponse>";
 	}
 		
@@ -141,7 +159,10 @@ public class NotionalController {
 			Iterator<TransactionGetResponseDto> it = response.getTransactions().iterator();
 			
 			 while (it.hasNext()) {
+				 
 		            transDto = it.next();
+		            if(!(JrdspConstants.RED_TERMINATION_ADJ_CONTRIB.equalsIgnoreCase(transDto.getRedemptionCode()) 
+		            		|| JrdspConstants.RED_TERMINATION_ADJ_ROLLOVER.equalsIgnoreCase(transDto.getRedemptionCode()))) {
 		            RdspTransaction trans = new RdspTransaction();
 		            RdspTransactions trns = new RdspTransactions();
 					
@@ -167,6 +188,7 @@ public class NotionalController {
 		            
 		            trns.setTransaction(trans);
 		            transactions.add(trns);
+				 }
 		    }
 			
 		}
@@ -205,6 +227,7 @@ public class NotionalController {
 			aDetails.setGrantPaymentDate(nResponse.getNotionalLotActivityBalances().getGrantPaymentDate());
 			aDetails.setRdspTransactionTypeCode(nResponse.getNotionalLotActivityBalances().getRdspTransactionTypeCode());
 			aDetails.setTotalRolloverAmount(nResponse.getNotionalLotActivityBalances().getTotalRolloverAmount());
+			aDetails.setRepaymentReason(nResponse.getNotionalLotActivityBalances().getRepaymentReason());
 	
 			AssociatedGrantDto assocGrant = new AssociatedGrantDto();
 			
@@ -227,6 +250,69 @@ public class NotionalController {
 		
 	}
 	
+	@RequestMapping(value = "/lotActivity", method = RequestMethod.POST, produces = MediaType.TEXT_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
+	public NotionalLotActivityDetailsResponse getNotionalLotDetails(@RequestParam(value = "AccountNum", required = true) String accountNumber,
+			@RequestParam(value = "NotionalCategory", required = false) String notionalCategory,
+			@RequestParam(value = "TransactionType", required = false) String transactionType,
+			@RequestParam(value = "FromDate", required = false) String fromDate,
+			@RequestParam(value = "ToDate", required = false) String toDate,
+			@RequestParam(value = "TransactionNumber", required = false) String transactionNumber,
+			@RequestParam(value = "LotId", required = false) String lotId,
+			@RequestParam(value = "start", required = true) String start, 
+			@RequestParam(value = "count", required = true) String count) {
+	 
+		NotionalLotActivityDetailsRequest request = new NotionalLotActivityDetailsRequest(accountNumber, notionalCategory,transactionType,fromDate,toDate,transactionNumber,lotId,start,count);
+		NotionalLotActivityDetailsResponse nResponse = notionalActivityService.getNotionalLotDetailsResponse(request);
+
+		return nResponse;
+	}
 	
+	// Temp method to load the default values for RDSPNotionalLotInquiry page.
+    @RequestMapping(value = "/getNotionalLotConfig", method = RequestMethod.POST, produces = MediaType.TEXT_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
+	public String getNotionalLotConfigValue() {
+		return "<RDSPDropDownResponse><List listName=\"notionalCategory\">	"
+				+ "<Element>		<code>ALL</code>		<value>All</value>	</Element>"
+				+ "	<Element>		<code>01</code>		<value>Bond</value>	</Element>	"
+				+ "<Element>		<code>02</code>		<value>Grant</value>	</Element>	"
+				+ "<Element>		<code>03</code>		<value>Contribution</value>	</Element>"
+				+ "	<Element>		<code>04</code>		<value>RSP Rollover</value>	</Element>	"
+				+ "<Element>		<code>05</code>		<value>RESP Rollover</value>	</Element>	"
+				+ "</List><List listName=\"transactionTypeAll\">	"
+				+ "<Element>		<code>All</code>		<value>All</value>	</Element>	"
+				+ "<Element>		<code>RP</code>		<value>Repayments</value>	</Element>	" 
+				+ "<Element>		<code>RT</code>		<value>Returned</value>	</Element> "
+				+ "<Element>		<code>ED</code>		<value>Purchases</value>	</Element>	"
+				+ "<Element>		<code>PW</code>		<value>Redemptions</value>	</Element>	" 
+				+ "</List><List listName=\"transactionTypeGrBd\">  " 
+				+ "<Element>		<code>All</code>		<value>All</value>	</Element>	" 
+				+ "<Element>		<code>RP</code>		<value>Repayments</value>	</Element>	" 
+				+ "<Element>		<code>RT</code>		<value>Returned</value>	</Element> "
+				+ "<Element>		<code>ED</code>		<value>Purchases</value>	</Element>	"
+				+ "<Element>		<code>PW</code>		<value>Redemptions</value>	</Element>	" 
+				+ "</List><List listName=\"transactionType\"> "
+				+ "<Element>		<code>All</code>		<value>All</value>	</Element>	"
+				+ "<Element>		<code>ED</code>		<value>Purchase</value>	</Element>	"
+				+ "<Element>		<code>PW</code>		<value>Redemption</value>	</Element>	" 
+				+ "</List></RDSPDropDownResponse>";
+	}
+    
+    @RequestMapping(value ="/getLotIdBalances/{lotId}", method = RequestMethod.POST, produces = MediaType.TEXT_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
+	public LotIdDetailsDto getLotIdBalances(@PathVariable("lotId")Integer lotId) {
+    	LotIdDetailsResponse nResponse = notionalActivityService.getLotIdBalances(lotId);
+		
+		return nResponse.getLotIdDetailsDto();
+	}
+    
+	@RequestMapping(value = "/updateCdspRegistraion/{refileSupress}/{transId}/", method = RequestMethod.POST, produces = MediaType.TEXT_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
+	public CdspRegistration updateCdspRegistraion(@PathVariable("refileSupress") String refileSupress,
+			@PathVariable("transId") String transactionId) {
+		StringTokenizer st = new StringTokenizer(transactionId, ",");
+		List<String> list = new ArrayList<String>();
+		while (st.hasMoreElements()) {
+			list.add((String) st.nextElement());
+		}
+		notionalActivityService.updateCdspRegistraion(list, refileSupress);
+		return null;
+	}
 
 }

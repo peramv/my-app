@@ -16,7 +16,14 @@ public class ActivityDetails {
 	private String bondPaymentDate;
 	private String grantPaymentDate;
 	private BigDecimal totalRolloverAmount;
+	private String repaymentReason;
 	
+	public String getRepaymentReason() {
+		return repaymentReason;
+	}
+	public void setRepaymentReason(String repaymentReason) {
+		this.repaymentReason = repaymentReason;
+	}
 	private AssociatedGrantDto associatedGrant;
 	
 	public BigDecimal getContributionAmount() {

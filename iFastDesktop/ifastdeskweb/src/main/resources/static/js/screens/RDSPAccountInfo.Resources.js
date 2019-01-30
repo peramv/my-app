@@ -24,17 +24,11 @@ DesktopWeb.ScreenResources = function(ctrlr)
 	var _startValueCertDate=null, _startValueTransDate=null;
 	var _flagCertDate=null,_flagTransDate=null;
 	
+	
+	
 	// **** buttons ****
 	var _buttons = {
-		fileScreenButton: new DesktopWeb.Controls.ScreenButton(
-				{
-					text: 'TBD'
-					,handler: function(){
-
-					}
-				}
-			)
-		,okScreenButton :new DesktopWeb.Controls.ScreenButton(
+		okScreenButton :new DesktopWeb.Controls.ScreenButton(
 				{
 					itemId : 'okBtnScreen',
 					text: _translationMap['OK']
@@ -109,43 +103,50 @@ DesktopWeb.ScreenResources = function(ctrlr)
 					}
 				}
 			}),
-		GrantRequestedLabel : new DesktopWeb.Controls.Label({
-			fieldLabel : _translationMap['GrantRequested'],
-			width : 50
-		}),
-		GrantRequested: new DesktopWeb.Controls.SMVComboBox({
-			itemId: 'grantRequested'
-			,fieldLabel: _translationMap["GrantRequested"]
-			,editable: true
-			,width: 110
-			,listeners : {
-				change : function(oldValue,newValue ){
-					if(_startValueGrant == null)
-						{
-						
-						_startValueGrant=oldValue.startValue;
-						_flagGrant=1;
-						
-						}
-					else 
-						{
-						if(_startValueGrant == newValue)
-							{
-							_flagGrant=0;
-							}
-						else
-							{
-							_flagGrant=1;
-							}
-						}
-					
-					if(_controller.updatesFlag || _controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
-						_buttons['okScreenButton'].enable();
-					else
-						_buttons['okScreenButton'].disable();
+			GrantRequestedLabel : new DesktopWeb.Controls.Label({
+				fieldLabel : _translationMap['GrantRequested'],
+				width : 50
+			}),
+			GrantRequested: new DesktopWeb.Controls.SMVComboBox({
+				itemId: 'grantRequested'
+				,fieldLabel: _translationMap["GrantRequested"]
+				,editable: true
+				,width: 110
+				,originalValue: null
+				,setOriginalValue: function(value){
+					this.setValue(value);
+					this.originalValue = value;
 				}
-			}
-		}),
+				,listeners : {
+					change : function(oldValue,newValue ){
+						if(_startValueGrant == null)
+							{
+							
+							_startValueGrant=oldValue.startValue;
+							_flagGrant=1;
+							
+							}
+						else 
+							{
+							if(_startValueGrant == newValue)
+								{
+								_flagGrant=0;
+								}
+							else
+								{
+								_flagGrant=1;
+								}
+							}
+						
+						if(_controller.updatesFlag || _controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
+							_buttons['okScreenButton'].enable();
+						else
+							_buttons['okScreenButton'].disable();
+						
+						_fields['GrantDate'].setValue(new Date());
+					}
+				}
+			}),
 		TransferredAccountLabel : new DesktopWeb.Controls.Label({
 			fieldLabel : _translationMap['TransferredAccount'],
 			width : 50
@@ -255,6 +256,45 @@ DesktopWeb.ScreenResources = function(ctrlr)
 			}
 		}
 	}),
+	
+	GrantDateLabel : new DesktopWeb.Controls.Label({
+		fieldLabel : _translationMap['GrantDate'],
+		width : 50
+	})
+	,GrantDate: new DesktopWeb.Controls.DateField({
+		itemId: 'pGrantDate'
+			,fieldLabel: _translationMap['GrantDate']
+			,width : 110
+			,allowBlank: false
+			,format: DesktopWeb.Util.parseSMVDateFormat(DesktopWeb.Util.getDateDisplayFormat())
+			,listeners : {
+				change : function(field, newValue, oldValue){
+					var originalFlag = _fields['GrantRequested'].originalValue;
+					var currentFlag = _flagGrant == null ? originalFlag : _flagGrant;
+					var today = new Date();
+					today.setHours(0,0,0,0);
+					
+					if(currentFlag) {
+						if(originalFlag) {
+							if(today.getTime() > newValue.getTime()){
+								DesktopWeb.Util.displayError("Effective Date cannot be backdated");  
+								field.setValue(oldValue);	
+							}	
+						}			
+					}
+					else {
+						if(!originalFlag) {
+							if(today.getTime() > newValue.getTime()){
+								DesktopWeb.Util.displayError("Effective Date cannot be backdated");  
+								field.setValue(oldValue);	
+							}		
+						}
+					}
+				}
+			}
+		}),
+		
+		
 	ContractRegStatus : new DesktopWeb.Controls.Label({
 		fieldLabel : _translationMap['ContractRegStatus'],
 		width : 50
@@ -303,7 +343,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 		itemId: 'pElectionTypeDropDown'
 		,fieldLabel: _translationMap["ElectionType"]
 		//,editable: false
-		,width: 150
+		,width: 160
 		,listeners:{
 			expand : 	function(){
 				
@@ -345,33 +385,9 @@ DesktopWeb.ScreenResources = function(ctrlr)
 						
 					}
 				
-				var selectedDropDownValue=_fields['ElectionTypeDropDownFilter'].getValue();
+				var selectedDropDownValue=_fields['ElectionTypeDropDown'].getValue();
 				var  rdspElectionsGridStore= _grids['rdspElectionsGrid'].getStore();
 				rdspElectionsGridStore.clearFilter(false);
-				if(rdspElectionsGridStore.data.length > 0)
-				{
-
-				var electionType=rdspElectionsGridStore.data.items[0].data.type;
-				var electionReportingStatus=rdspElectionsGridStore.data.items[0].data.reportingStatus;
-				var electionFlag=rdspElectionsGridStore.data.items[0].data.elected;
-				if(electionFlag == 'Yes')
-					{
-					this.store.removeAll();
-
-					
-					var defaultData = {
-						    code: _controller.getElectionTypeCode(electionType),
-						    value: electionType
-						};
-					
-						var r = new this.store.recordType(defaultData); // create new record
-						this.store.insert(0, r);
-					}
-				
-				rdspElectionsGridStore.filter('type', _controller.getElectionType(selectedDropDownValue));		
-				
-				}
-
 				
 			}
 	,select : function( combo, record, index ){
@@ -411,7 +427,6 @@ DesktopWeb.ScreenResources = function(ctrlr)
 				}
 			
 		});
-		
 		if(queryRecords.getCount()>0)
 			{
 		queryRecords.each(function(record){
@@ -444,8 +459,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 
 		
 	}
-				
-		
+	
 			}
 					
 
@@ -507,9 +521,9 @@ DesktopWeb.ScreenResources = function(ctrlr)
 		})
 	,ElectionTypeDropDownFilter: new DesktopWeb.Controls.SMVComboBox({
 		itemId: 'pElectionTypeDropDownFilter'
-		,fieldLabel: _translationMap["ElectionType"]
+		,fieldLabel: _translationMap["EventType"]
 		,editable: false
-		,width: 110
+		,width: 120
 		,listeners: {
 			select: function(combo, record, index){
 				
@@ -617,7 +631,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 					record: 'election'
 					,fields: [
 						'id','type', 'elected', 'certificationDate', 'transactionDate','reportingStatus', 'periodStart',
-						'periodEnd', 'uuid', 'effective', 'status','runMode'
+						'periodEnd', 'uuid', 'effective', 'status','runMode','yesElectionId','noElectionId'
 					]
 		
 				}
@@ -626,13 +640,6 @@ DesktopWeb.ScreenResources = function(ctrlr)
 		,selModel: new Ext.grid.RowSelectionModel(
 			{
 				singleSelect: true
-				,listeners: {
-					rowselect: function(selModel, index, record){
-						if(selModel){
-							_controller.enableButtons(record);
-						}
-					}
-				}
 			}
 		)
 		,viewConfig: { autoFill: true }
@@ -647,19 +654,26 @@ DesktopWeb.ScreenResources = function(ctrlr)
 				{width: 0, id:'electionId', dataIndex: 'id',hidden: true
 					
 			}
-				,{header: _translationMap['ElectionType'], id:'type', dataIndex: 'type',width: 300
-
-				}
-				,{header: _translationMap['Elected'], id:'elected', dataIndex: 'elected', width: 300
+				,{header: _translationMap['EventType'], id:'type', dataIndex: 'type',width: 300
+					,
+					renderer: function(value, meta, record){
+						return _controller.getElectionType(value);
+	                }
 				}
 				,{header: _translationMap['CertificationDate'], id:'certificationDate', dataIndex: 'certificationDate', width: 400 }
 				,{header: _translationMap['TransactionDate'], id:'transactionDate', dataIndex: 'transactionDate', width: 400
 					
 				}
-				,{header: _translationMap['ReportingStatus'], id:'reportingStatus', dataIndex: 'reportingStatus', width: 400
-				}
+/*				,{header: _translationMap['ReportingStatus'], id:'reportingStatus', dataIndex: 'reportingStatus', width: 400
+				}*/
 				,{header: _translationMap['PeriodStart'], id:'periodStart', dataIndex: 'periodStart',width: 400 }
-				,{header: _translationMap['PeriodEnd'], id:'periodEnd', dataIndex: 'periodEnd',width: 400 }
+				,{header: _translationMap['PeriodEnd'], id:'periodEnd', dataIndex: 'periodEnd',width: 400
+					,
+					renderer: function(value, meta, record){
+						record.data.periodEnd = (record.data.periodEnd)? record.data.periodEnd : '31/12/9999';
+						return record.data.periodEnd;
+	                }
+				}
 				
 			]
 		})
@@ -667,33 +681,68 @@ DesktopWeb.ScreenResources = function(ctrlr)
 			new DesktopWeb.Controls.ActionButton({
 				itemId: 'addBtn'
 				,text: _translationMap['Add']
-				,handler: function(){_controller.openActionPopup(_controller.ADD, _controller.popupList['AddElection'],_fields['DTCEligibleCurrLabel'].getValue());}
+				,handler: function(){
+					if(_controller.addBtnValidation()){
+						if(_controller.checkValidAction(_controller.ADD, _grids['rdspElectionsGrid'].getSelectedRecord())){
+							_controller.openActionPopup(_controller.ADD, _controller.popupList['AddElection'],_fields['DTCEligibleCurrLabel'].getValue());
+							}else{
+								DesktopWeb.Util.displayError(_controller.getButtonErrorMsg(_controller.ADD, _grids['rdspElectionsGrid'].getSelectedRecord()));
+							}
+					}else{
+						DesktopWeb.Util.displayError(_controller.addBtnValidationMsg());
+					}
+					
+				}
 			})
 			,new DesktopWeb.Controls.ActionButton({
 				itemId: 'modBtn'
 				,text: _translationMap['Modify']
 			,handler: function(){
-				_controller.openActionPopup(
-						_controller.MOD, _controller.popupList['AddElection']);
+				if(_controller.checkValidAction(_controller.MOD, _grids['rdspElectionsGrid'].getSelectedRecord())){
+					_controller.openActionPopup(
+							_controller.MOD, _controller.popupList['AddElection']);
+					}else{
+						DesktopWeb.Util.displayError(_controller.getButtonErrorMsg(_controller.MOD, _grids['rdspElectionsGrid'].getSelectedRecord()));
+					}
+				
+				
 				}
 			})
 			,new DesktopWeb.Controls.ActionButton({
 				itemId: 'delBtn'
 				,text: _translationMap['Delete']
 				,handler: function(){
-					_grids['rdspElectionsGrid'].enableButton('addBtn');
-					_grids['rdspElectionsGrid'].disableButton('modBtn');	
-					_grids['rdspElectionsGrid'].disableButton('delBtn');	
-					_controller.deleteSelectedElectionRecord();
-					//setting certDate and transDate flag to 0 as it is a delete
-					_flagCertDate=0;
-					_flagTransDate=0;
-					if(_controller.updatesFlag ||_controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
-						_buttons['okScreenButton'].enable();
-					else
-						_buttons['okScreenButton'].disable();
-					}
+					if(_controller.checkValidAction(_controller.DEL, _grids['rdspElectionsGrid'].getSelectedRecord())){
+						_controller.deleteSelectedElectionRecord();
+						//setting certDate and transDate flag to 0 as it is a delete
+						_flagCertDate=0;
+						_flagTransDate=0;
+						if(_controller.updatesFlag ||_controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
+							_buttons['okScreenButton'].enable();
+						else
+							_buttons['okScreenButton'].disable();
+						
+						}else{
+							DesktopWeb.Util.displayError(_controller.getButtonErrorMsg(_controller.DEL, _grids['rdspElectionsGrid'].getSelectedRecord()));
+						}
+				}	
+					
 			})
+			,new DesktopWeb.Controls.ActionButton({
+				itemId: 'revokeBtn'
+					,text: _translationMap['Revoke']
+					,handler: function(){
+						if(_controller.checkValidAction(_controller.REVOKE, _grids['rdspElectionsGrid'].getSelectedRecord())){
+							_controller.openActionPopup(
+									_controller.REVOKE, _controller.popupList['AddElection']);
+							}else{
+								DesktopWeb.Util.displayError(_controller.getButtonErrorMsg(_controller.REVOKE, _grids['rdspElectionsGrid'].getSelectedRecord()));
+							}
+						
+						
+						
+						}
+				})
 			,new DesktopWeb.Controls.ActionButton({
 				itemId: 'histBtn'
 				,text: _translationMap['Historical']
@@ -739,10 +788,10 @@ DesktopWeb.ScreenResources = function(ctrlr)
 									width: 185
 									,layout: 'form'
 									,columnWidth: 1
-									,defaults: {width:100,layout: 'form'}
+									,defaults: {width:120,layout: 'form'}
 									,items: [
 										_fields['ElectionTypeDropDown']
-										,_fields['ElectedDropDown']
+										//,_fields['ElectedDropDown']
 										,_fields['CertificationDatePicker']
 										,_fields['TransactionDatePicker']
 									]
@@ -762,7 +811,6 @@ DesktopWeb.ScreenResources = function(ctrlr)
 									{
 									var rowData=_popups['AddElection'].getData(_popups['AddElection'].action);	
 									_controller.modifyEntityGrid(rowData,_popups['AddElection'].action);
-									
 									if(_controller.updatesFlag || _controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
 										_buttons['okScreenButton'].enable();
 									else
@@ -812,6 +860,12 @@ DesktopWeb.ScreenResources = function(ctrlr)
 								this.populate(action,dtceligible);
 								break;
 							}
+							case _controller.REVOKE:
+							{
+								this.setTitle(vTitle + ' - ' + _translationMap['Revoke']);
+								this.populate(action,dtceligible);
+								break;
+							}
 							
 						}
 						
@@ -821,7 +875,10 @@ DesktopWeb.ScreenResources = function(ctrlr)
 						var data={};
 							
 							data['type']=_fields['ElectionTypeDropDown'].getValue();
-							data['elected']=_fields['ElectedDropDown'].getValue();
+							if(action == _controller.ADD){
+								data['elected']='Yes';
+							}
+							
 							data['certificationDate']=_fields['CertificationDatePicker'].getDisplayDateString();
 							data['transactionDate']=_fields['TransactionDatePicker'].getDisplayDateString();
 							data['reportingStatus'] ='No';
@@ -829,23 +886,34 @@ DesktopWeb.ScreenResources = function(ctrlr)
 							data['periodEnd'] ='';
 							data['runMode'] = action;
 							
+							if(action == _controller.ADD){
+							if(data['type']==1)
+							{
+								var lastDTCYear= _controller.getLastDTCEligibleYear();
+								if(lastDTCYear){
+									var periodStartYear=lastDTCYear+1;
+									data['periodStart'] ="01/01/"+periodStartYear;
+									//TODO : Need to get year after last dtc eligible end date
+									data['periodEnd'] ="31/12/"+(parseInt(periodStartYear)+5);
+								}
+							
+							}
+							if(data['type']==2)
+							{
+							data['periodStart'] =data['certificationDate'];
+							data['periodEnd'] ="31/12/9999";
+							}
+							
 							if(data['type']==3)
 							{
-		
 							data['periodStart'] =data['certificationDate'];
-							
-							
-							
 							if(data['elected'] == 'Yes')
 							{
 								var dateParts = data['certificationDate'].split("/");
-								
 								var year=parseInt(dateParts[2])+5;
 								var month=parseInt(dateParts[1]);
 								var date=parseInt(dateParts[0]);
-								
-								var dateObject = new Date(year, month, date); // month is 0-based
-
+								var dateObject = new Date(year, month-1, date); // month is 0-based
 							data['periodEnd'] ="31/12/"+dateObject.getFullYear();
 							}
 							else
@@ -853,7 +921,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 							data['periodEnd'] =data['transactionDate'];
 								}
 							}
-
+							}
 
 							if(action == _controller.MOD){
 								
@@ -878,6 +946,23 @@ DesktopWeb.ScreenResources = function(ctrlr)
 								_buttons['okScreenButton'].disable();
 							
 								
+							}
+							if(action == _controller.REVOKE){
+								var selectedElection = _grids['rdspElectionsGrid'].getSelectedRecord();
+								data['certificationDate'] = selectedElection.data['certificationDate'];
+								data['periodStart'] = selectedElection.data['periodStart'];
+								_startValueTransDate= selectedElection.data['transactionDate'];
+								if (_startValueTransDate != data['transactionDate']) 
+								{
+								_flagTransDate = 1;
+								}
+								else{
+									_flagTransDate = 0;
+								}
+								if(_controller.updatesFlag || _controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
+									_buttons['okScreenButton'].enable();
+								else
+									_buttons['okScreenButton'].disable();
 							}
 
 					return data;
@@ -922,8 +1007,8 @@ DesktopWeb.ScreenResources = function(ctrlr)
 							case _controller.ADD :
 								this.resetAllFields();
 								this.getField('pElectionTypeDropDown').enable();
-								this.getField('pElectedDropDown').enable();
-								this.getField('pCertificationDatePicker').disable();
+								//this.getField('pElectedDropDown').enable();
+								this.getField('pCertificationDatePicker').enable();
 								_startValueCertDate=null;
 								_startValueTransDate=null;
 								_flagCertDate=null;
@@ -936,34 +1021,24 @@ DesktopWeb.ScreenResources = function(ctrlr)
 							case _controller.MOD :
 									var selectedElection = _grids['rdspElectionsGrid'].getSelectedRecord();
 									this.getField('pElectionTypeDropDown').disable();
-									this.getField('pElectedDropDown').disable();
 									var type = selectedElection.data['type'];
-									var elected = selectedElection.data['elected'];
+									var  elected= selectedElection.data['elected'];
 									var certificationDate = selectedElection.data['certificationDate'];
 									var transactionDate = selectedElection.data['transactionDate'];
-															
-									
 									this.getField('pElectionTypeDropDown').setValue(type);
-									this.getField('pElectedDropDown').setValue(elected);
 									this.getField('pCertificationDatePicker').setValue(certificationDate);//.setRawValue(selectedFFI.get('displayValue'));
 									this.getField('pTransactionDatePicker').setValue(transactionDate);
-									
-									
-									if(elected == 'Yes')
-										{
-										this.getField('pCertificationDatePicker').enable();
-										this.getField('pTransactionDatePicker').disable();
-
-										if(_startValueCertDate == null)
-											{
-										_startValueCertDate=certificationDate;
-											}
-										}
-									
-									if(elected == 'No')
-									{
-										this.getField('pCertificationDatePicker').disable();
+									if(elected == 'No'){
+										this.getField('pCertificationDatePicker').setValue(null);
+										this.getField('pCertificationDatePicker').disable();	
+									}else{
+							
+										
+										//this.getField('pElectedDropDown').setValue(elected);
+										this.getField('pCertificationDatePicker').setValue(certificationDate);//.setRawValue(selectedFFI.get('displayValue'));
+										this.getField('pCertificationDatePicker').enable();	
 									}
+		
 									if(_startValueTransDate == null)
 									{
 									_startValueTransDate=transactionDate;
@@ -973,7 +1048,19 @@ DesktopWeb.ScreenResources = function(ctrlr)
 									this.syncShadow();
 
 								break;
+							case _controller.REVOKE :
+								var selectedElection = _grids['rdspElectionsGrid'].getSelectedRecord();
+								this.getField('pElectionTypeDropDown').disable();
+								this.getField('pCertificationDatePicker').disable();
+								//this.getField('pElectedDropDown').disable();
+								var type = selectedElection.data['type'];
+								this.getField('pElectionTypeDropDown').setValue(type);
+								this.getField('pCertificationDatePicker').setValue(null);
 								
+							if (this.rendered)
+								this.syncShadow();
+
+							break;
 								
 								
 						};
@@ -1007,7 +1094,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 					,items: [
 						{
 							layout: 'column'
-							,labelWidth: 150
+							,labelWidth: 170
 							,items: [
 								{
 									columnWidth: 0.50
@@ -1031,6 +1118,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 									,items: [
 										_fields['ReportToESDC']
 										,_fields['BondRequested']
+										,_fields['GrantDate']
 										,_fields['ContractRegStatus']
 										,_fields['DTCElectionCurr']
 										,_fields['SDSPElectionCurr']
@@ -1100,10 +1188,10 @@ DesktopWeb.ScreenResources = function(ctrlr)
 					, items: [
 						{
 						xtype: 'fieldset'
-						,title: _translationMap['ElectionsAndSpecifiedYear']
+						,title: _translationMap['EventTracking']
 						,items:[
 							{
-							layout: 'column'
+							layout: 'form'
 							,items: [
 								_fields['ElectionTypeDropDownFilter']
 								,_grids['rdspElectionsGrid']
@@ -1123,9 +1211,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 
 		,screenButtons: {
 			items:[
-				_buttons['fileScreenButton']
-				
-					,_buttons['okScreenButton']
+				_buttons['okScreenButton']
 				,_buttons['cancelScreenButton']
 			]
 		}

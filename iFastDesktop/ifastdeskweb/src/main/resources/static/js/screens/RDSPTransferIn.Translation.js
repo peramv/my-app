@@ -31,6 +31,12 @@ DesktopWeb.ScreenTranslation = {
 		,NonTaxablePortion : "Non-Taxable Portion"
 		,TaxablePortion : "Taxable Portion"	
 		,InvalidAmountFormat : "Positive 2 decimal numeric values only allowed"
+		,transferStatus : "Transfer Status"
+		,requestRecon   : "Request Recon"
+		,complete   : "Complete"
+		,incomplete   : "Incomplete"
+		,reconFail   : "Recon Failed"
+		,reconReq    : "Recon Requested"
 	}	
 	
 	,'frCA': {
@@ -58,5 +64,11 @@ DesktopWeb.ScreenTranslation = {
 			,NonTaxablePortion : "Non-Taxable Portion"
 			,TaxablePortion : "Taxable Portion"	
 			,InvalidAmountFormat : "Positive 2 decimal numeric values only allowed"	
+			,transferStatus : "Transfer Status"
+			,requestRecon   : "Request Recon"
+			,complete   : "Complete"
+			,incomplete   : "Incomplete"
+			,reconFail   : "Recon Failed"
+			,reconReq    : "Recon Requested"
 	}
 }

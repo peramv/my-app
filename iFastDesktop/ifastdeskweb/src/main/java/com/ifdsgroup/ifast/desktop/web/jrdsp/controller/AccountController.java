@@ -43,13 +43,14 @@ public class AccountController {
 
 
     @RequestMapping(value = "/update/{accountNum}", method = RequestMethod.POST, produces = MediaType.TEXT_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
-    public ResponseEntity processRequest(@PathVariable("accountNum") String accountNum,HttpServletRequest servletRequest, @RequestBody AccountUpdateRequest accountUpdateRequest,
+    public ResponseEntity processRequest(@PathVariable("accountNum") String accountNum,HttpServletRequest servletRequest,  @RequestParam("ruserId") String userId,
+    		@RequestBody AccountUpdateRequest accountUpdateRequest,
             @RequestParam(value = "ignoreErrorCode", required = false) String ignoreErrorCode) {
         /*
          * This is a call to service layer for getting the response from back
          * end based on the request payload
          */
-    	BaseResponse response = accountService.updateAccountDetails(accountNum,accountUpdateRequest,ignoreErrorCode);
+    	BaseResponse response = accountService.updateAccountDetails(accountNum,accountUpdateRequest,userId,ignoreErrorCode);
         
     	if(!(response instanceof AccountResponse))
         {
@@ -95,6 +96,42 @@ public class AccountController {
 	
 	@RequestMapping(value = "/getConfig", method = RequestMethod.POST, produces = MediaType.TEXT_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
 	public String getConfigValue() {
-		return "<RDSPDropDownResponse><List listName=\"booleanList\"><Element><code>Yes</code><value>Yes</value></Element><Element><code>No</code><value>No</value></Element></List><List listName=\"electionTypeList\"><Element><code>1</code><value>DTC Election</value></Element><Element><code>2</code><value>SDSP Election</value></Element><Element><code>3</code><value>Specified Year</value></Element></List><List listName=\"electionTypeFilterList\"><Element><code>All</code><value>All</value></Element><Element><code>1</code><value>DTC Election</value></Element><Element><code>2</code><value>SDSP Election</value></Element><Element><code>3</code><value>Specified Year</value></Element></List></RDSPDropDownResponse>";
+		return "<RDSPDropDownResponse>"
+				+ "<List listName=\"booleanList\">"
+				+ "<Element><code>Yes</code><value>Yes</value></Element>"
+				+ "<Element><code>No</code><value>No</value></Element>"
+				+ "</List>"
+				+ "<List listName=\"electionTypeList\">"
+				+ "<Element><code>1</code><value>DTC Election</value></Element>"
+				+ "<Element><code>2</code><value>SDSP Election</value></Element>"
+				+ "<Element><code>3</code><value>Specified Year</value></Element>"
+				+ "<Element><code>4</code><value>DTC Eligible</value></Element>"
+				+ "<Element><code>5</code><value>DTC Ineligible</value></Element>"
+				+ "<Element><code>6</code><value>DTC Undetermined</value></Element>"
+				+ "</List>"
+				+ "<List listName=\"electionTypeFilterList\">"
+				+ "<Element><code>All</code><value>All</value></Element>"
+				+ "<Element><code>1</code><value>DTC Election</value></Element>"
+				+ "<Element><code>2</code><value>SDSP Election</value></Element>"
+				+ "<Element><code>3</code><value>Specified Year</value></Element>"
+				+ "<Element><code>4</code><value>DTC Eligible</value></Element>"
+				+ "<Element><code>5</code><value>DTC Ineligible</value></Element>"
+				+ "<Element><code>6</code><value>DTC Undetermined</value></Element>"
+				+ "</List>"
+				+ "</RDSPDropDownResponse>";
+	}
+	
+	@RequestMapping(value = "/getContractRegistrationStatusDescription", method = RequestMethod.POST, produces = MediaType.TEXT_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
+	public String getContractRegistrationStatusDescriptoin() {
+		return "<ContractRegistrationStatusDescription>\n" + 
+				"	<List listName=\"statusDescription\">\n" + 
+				"		<Element><code>01</code><value>Pending</value></Element>\n" +	
+				"		<Element><code>02</code><value>Registration Confirmed</value></Element>\n" +
+				"		<Element><code>03</code><value>De-Registered</value></Element>\n" +	
+				"		<Element><code>04</code><value>Closed</value></Element>\n" +	
+				"		<Element><code>05</code><value>Nullified</value></Element>\n" +
+				"		<Element><code>99</code><value>Rejected</value></Element>\n" +
+				"	</List>\n" + 
+				"</ContractRegistrationStatusDescription>";
 	}
 }

@@ -1262,8 +1262,9 @@ SEVERITY Systematic::init( const BFDataGroupId& idDataGroup,
 	dstrAmountType.strip().upperCase();
 	bool bIsRDSPAccount = _pMFAccount->isRDSPAccount(idDataGroup);
 
-	if (bIsRDSPAccount && dstrTransType == SWP && DSTCommonFunctions::codeInList(dstrAmountType, I_("A,D")))
+	if (bIsRDSPAccount && dstrTransType == SWP && DSTCommonFunctions::codeInList(dstrAmountType, I_("A,D,N,O")))
 	{		
+		setFieldReadOnly (ifds::Amount, idDataGroup, true);
 		setFieldReadOnly (ifds::GrossOrNet, idDataGroup, true);
 	}
 
@@ -1350,6 +1351,7 @@ SEVERITY Systematic::calculateAmount (const DString &dstrAmountType, const BFDat
 
 	DString dstrJan, dstrFeb, dstrMar, dstrApr, dstrMay, dstrJun;
 	DString dstrJul, dstrAug, dstrSep, dstrOct, dstrNov, dstrDec;
+	DString dstrFrequency, dstrDayOfWeek;
    
 	getField(ifds::January, dstrJan, idDataGroup, false );
 	getField(ifds::February, dstrFeb, idDataGroup, false );
@@ -1363,6 +1365,8 @@ SEVERITY Systematic::calculateAmount (const DString &dstrAmountType, const BFDat
 	getField(ifds::October, dstrOct, idDataGroup, false );
 	getField(ifds::November, dstrNov, idDataGroup, false );
 	getField(ifds::December, dstrDec, idDataGroup, false );
+	getField(ifds::Frequency, dstrFrequency, idDataGroup, false );
+	getField(ifds::DayOfWeek, dstrDayOfWeek, idDataGroup, false );
    
 	dstrJan.strip().upperCase();
 	dstrFeb.strip().upperCase();
@@ -1378,6 +1382,8 @@ SEVERITY Systematic::calculateAmount (const DString &dstrAmountType, const BFDat
 	dstrDec.strip().upperCase();
 	dstrAccountNum.strip();
 	dstrEndOfMonth.strip().upperCase();
+	dstrFrequency.strip();
+	dstrDayOfWeek.strip();
 
 
 	if (!dstrAccountNum.empty())
@@ -1401,6 +1407,8 @@ SEVERITY Systematic::calculateAmount (const DString &dstrAmountType, const BFDat
   										dstrOct,
   										dstrNov,
   										dstrDec,
+										dstrFrequency,
+										dstrDayOfWeek,
 										strKey);
 		pSWPAmountCalculation = dynamic_cast<SWPAmountCalculation *> (BFCBO::getObject (strKey, idDataGroup));
 
@@ -1424,7 +1432,9 @@ SEVERITY Systematic::calculateAmount (const DString &dstrAmountType, const BFDat
   											dstrSep,
   											dstrOct,
   											dstrNov,
-  											dstrDec) <= WARNING)
+  											dstrDec,
+											dstrFrequency,
+											dstrDayOfWeek) <= WARNING)
 			{
 				setObject ( pSWPAmountCalculation,  strKey, OBJ_ACTIVITY_NONE,  idDataGroup);
 			}
@@ -4277,8 +4287,8 @@ void Systematic::ValidateTransType(const DString& dstrValue, const BFDataGroupId
 
 		 getField(ifds::AmountType, dstrAmountType, idDataGroup);
 		 dstrAmountType.strip().upperCase();
-
-		 if (!bIsRDSPAccount && dstrAmountType == I_("A") ) // LDAP Maximum
+		
+		 if (!bIsRDSPAccount && DSTCommonFunctions::codeInList(dstrAmountType, I_("A,N,O")) ) // A-LDAP Maximum, N-LDAP Amount, O-DAP Amount
 		 {
 			 ADDCONDITIONFROMFILE (CND::ERR_AMT_TYPE_NOTAPPLICABLE);
 		 }
@@ -5081,6 +5091,12 @@ void Systematic::ValidateAmountType(const DString& AmountType, const BFDataGroup
 	   return;
    }
 
+   if ( strMarket == MARKET_IDS::CANADA && dstrTransType.strip() == I_("S") && !bIsRDSPAccount && DSTCommonFunctions::codeInList(AmountType, I_("A,N,O")) )
+   {
+	   ADDCONDITIONFROMFILE( CND::ERR_AMT_TYPE_NOTAPPLICABLE );
+	   return;
+   }
+  
 /* this logic is included in  CheckAmountType.... yingbao
 
   BFObjIter iter(*_pSysAllocationList, idDataGroup, false, BFObjIter::ITERTYPE::NON_DELETED );
@@ -6699,12 +6715,12 @@ SEVERITY Systematic::doApplyRelatedChanges(const BFFieldId& idField, const BFDat
 	
 		bool bIsRDSPAccount = _pMFAccount->isRDSPAccount(idDataGroup);
 
-		if (bIsRDSPAccount && dstrTransType == SWP && DSTCommonFunctions::codeInList(dstrAmountType, I_("A,D")))
+		if (bIsRDSPAccount && dstrTransType == SWP && DSTCommonFunctions::codeInList(dstrAmountType, I_("A,D,N,O")))
 		{
 			setFieldNoValidate( ifds::GrossOrNet, YES, idDataGroup, false, false, true );
 			setFieldReadOnly (ifds::GrossOrNet, idDataGroup, true);
-		}	
-	}
+		}
+		}
 
    //P0186486_FN15_The Source of Funds
    if( idField == ifds::SrcOfFund )

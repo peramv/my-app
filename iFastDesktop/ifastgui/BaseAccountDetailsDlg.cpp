@@ -403,6 +403,11 @@ namespace UAF
    extern CLASS_IMPORT I_CHAR * const REG_PLAN_TRANSFER;
    extern CLASS_IMPORT I_CHAR * const ACCT_ROUNDING_RULE;
    extern CLASS_IMPORT I_CHAR * const ACCT_DELETION_REVIEW;
+   extern CLASS_IMPORT I_CHAR * const ACCT_DELETION_REVIEW;
+   extern CLASS_IMPORT I_CHAR * const RDSP_ACCOUNT_INFORMATION;
+   extern CLASS_IMPORT I_CHAR * const RDSP_NOTIONAL_ACTIVITY;
+   extern CLASS_IMPORT I_CHAR * const RDSP_NOTIONAL_BALANCE;
+   extern CLASS_IMPORT I_CHAR * const RDSP_INTERFACE_TRANSACTIONS;
 }
 
 namespace BANKTYPE
@@ -2476,106 +2481,106 @@ void BaseAccountDetailsDlg::OnDblclkLbAttrib()
 
 	  }
 	  else if( selectedStr == rdspAcctInfoStr )
-      {
-         SetMessageStatusBar (TXT_LOAD_RDSP_INFO);
-         //if (getParent()->hasReadPermission( UAF::RDSP_ACCOUNT_INFORMATION ))
-         //{
-            DString urlParamsIDI;
-            E_COMMANDRETURN eRtn = CMD_OK;
+	  {
+		  SetMessageStatusBar (TXT_LOAD_RDSP_INFO);
+		  if (getParent()->hasReadPermission( UAF::RDSP_ACCOUNT_INFORMATION ))
+		  {
+			  DString urlParamsIDI;
+			  E_COMMANDRETURN eRtn = CMD_OK;
 
-            setParameter( I_( "AccountNum" ), strAcctNum );
-            setParameter( I_( "from_screen" ), I_( "Account" ) );
+			  setParameter( I_( "AccountNum" ), strAcctNum );
+			  setParameter( I_( "from_screen" ), I_( "Account" ) );
 
-            addIDITagValue (urlParamsIDI, I_("AccountNum"), strAcctNum);
-            addIDITagValue (urlParamsIDI, I_("screen"), I_("RDSPAccountInfo"));
+			  addIDITagValue (urlParamsIDI, I_("AccountNum"), strAcctNum);
+			  addIDITagValue (urlParamsIDI, I_("screen"), I_("RDSPAccountInfo"));
 
-            setParameter (I_("UrlParams"), urlParamsIDI);
+			  setParameter (I_("UrlParams"), urlParamsIDI);
 
-            CString cstrRDSP;
-            cstrRDSP.LoadString(TXT_RDSP_ACCT_INFO);
-            setParameter (I_("BrowserTitle"), DString(cstrRDSP) + strAcctNum);
-            setParameter (I_("from_screen"), I_("AccountDetailsDlg"));
+			  CString cstrRDSP;
+			  cstrRDSP.LoadString(TXT_RDSP_ACCT_INFO);
+			  setParameter (I_("BrowserTitle"), DString(cstrRDSP) + strAcctNum);
+			  setParameter (I_("from_screen"), I_("AccountDetailsDlg"));
 
-            // invoke rdsp account info browser screen
-            eRtn = invokeCommand (getParent(), CMD_BPROC_RDSP_ACCOUNT_INFO, PROC_NO_TYPE, true, NULL);		 
-         //}
+			  // invoke rdsp account info browser screen
+			  eRtn = invokeCommand (getParent(), CMD_BPROC_RDSP_ACCOUNT_INFO, PROC_NO_TYPE, true, NULL);		 
+		  }
 	  }
 	  else if( selectedStr == rdspNotionalActivityStr )
-      {
-         SetMessageStatusBar (TXT_LOAD_RDSP_NOTIONAL_ACTIVITY);
-         //if (getParent()->hasReadPermission( UAF::RDSP_NOTIONAL_ACTIVITY ))
-         //{
-            DString urlParamsIDI;
-            E_COMMANDRETURN eRtn = CMD_OK;
+	  {
+		  SetMessageStatusBar (TXT_LOAD_RDSP_NOTIONAL_ACTIVITY);
+		  if (getParent()->hasReadPermission( UAF::RDSP_NOTIONAL_ACTIVITY ))
+		  {
+			  DString urlParamsIDI;
+			  E_COMMANDRETURN eRtn = CMD_OK;
 
-            setParameter( I_( "AccountNum" ), strAcctNum );
-			setParameter( I_( "TransNum" ), I_( " " ) );
-            setParameter( I_( "from_screen" ), I_( "Account" ) );
+			  setParameter( I_( "AccountNum" ), strAcctNum );
+			  setParameter( I_( "TransNum" ), I_( " " ) );
+			  setParameter( I_( "from_screen" ), I_( "Account" ) );
 
-            addIDITagValue (urlParamsIDI, I_("AccountNum"), strAcctNum);
-			addIDITagValue (urlParamsIDI, I_("TransNum"), I_(" "));
-            addIDITagValue (urlParamsIDI, I_("screen"), I_("RDSPNotionalActivity"));
+			  addIDITagValue (urlParamsIDI, I_("AccountNum"), strAcctNum);
+			  addIDITagValue (urlParamsIDI, I_("TransNum"), I_(" "));
+			  addIDITagValue (urlParamsIDI, I_("screen"), I_("RDSPNotionalActivity"));
 
-            setParameter (I_("UrlParams"), urlParamsIDI);
+			  setParameter (I_("UrlParams"), urlParamsIDI);
 
-            CString cstrRDSP;
-            cstrRDSP.LoadString(TXT_RDSP_NOTIONAL_ACTIVITY);
-            setParameter (I_("BrowserTitle"), DString(cstrRDSP) + strAcctNum);
-            setParameter (I_("from_screen"), I_("AccountDetailsDlg"));
+			  CString cstrRDSP;
+			  cstrRDSP.LoadString(TXT_RDSP_NOTIONAL_ACTIVITY);
+			  setParameter (I_("BrowserTitle"), DString(cstrRDSP) + strAcctNum);
+			  setParameter (I_("from_screen"), I_("AccountDetailsDlg"));
 
-            // invoke rdsp notional activity browser screen
-            eRtn = invokeCommand (getParent(), CMD_BPROC_RDSP_NOTIONAL_ACTIVITY, PROC_NO_TYPE, true, NULL);	
-         //}
+			  // invoke rdsp notional activity browser screen
+			  eRtn = invokeCommand (getParent(), CMD_BPROC_RDSP_NOTIONAL_ACTIVITY, PROC_NO_TYPE, true, NULL);	
+		  }
 	  }	
 	  else if( selectedStr == rdspNotionalBalStr )
-      {
-         SetMessageStatusBar (TXT_LOAD_RDSP_NOTIONAL_BAL);
-         //if (getParent()->hasReadPermission( UAF::RDSP_NOTIONAL_BALANCE ))
-         //{
-            DString urlParamsIDI;
-            E_COMMANDRETURN eRtn = CMD_OK;
+	  {
+		  SetMessageStatusBar (TXT_LOAD_RDSP_NOTIONAL_BAL);
+		  if (getParent()->hasReadPermission( UAF::RDSP_NOTIONAL_BALANCE ))
+		  {
+			  DString urlParamsIDI;
+			  E_COMMANDRETURN eRtn = CMD_OK;
 
-            setParameter( I_( "AccountNum" ), strAcctNum );
-            setParameter( I_( "from_screen" ), I_( "Account" ) );
+			  setParameter( I_( "AccountNum" ), strAcctNum );
+			  setParameter( I_( "from_screen" ), I_( "Account" ) );
 
-            addIDITagValue (urlParamsIDI, I_("AccountNum"), strAcctNum);
-            addIDITagValue (urlParamsIDI, I_("screen"), I_("RDSPNotionalBalance"));
+			  addIDITagValue (urlParamsIDI, I_("AccountNum"), strAcctNum);
+			  addIDITagValue (urlParamsIDI, I_("screen"), I_("RDSPNotionalBalance"));
 
-            setParameter (I_("UrlParams"), urlParamsIDI);
+			  setParameter (I_("UrlParams"), urlParamsIDI);
 
-            CString cstrRDSP;
-            cstrRDSP.LoadString(TXT_RDSP_NOTIONAL_BAL);
-            setParameter (I_("BrowserTitle"), DString(cstrRDSP) + strAcctNum);
-            setParameter (I_("from_screen"), I_("AccountDetailsDlg"));
+			  CString cstrRDSP;
+			  cstrRDSP.LoadString(TXT_RDSP_NOTIONAL_BAL);
+			  setParameter (I_("BrowserTitle"), DString(cstrRDSP) + strAcctNum);
+			  setParameter (I_("from_screen"), I_("AccountDetailsDlg"));
 
-            // invoke rdsp notional balance browser screen
-            eRtn = invokeCommand (getParent(), CMD_BPROC_RDSP_NOTIONAL_BALANCE, PROC_NO_TYPE, true, NULL);		 
-         //}
+			  // invoke rdsp notional balance browser screen
+			  eRtn = invokeCommand (getParent(), CMD_BPROC_RDSP_NOTIONAL_BALANCE, PROC_NO_TYPE, true, NULL);		 
+		  }
 	  }
 	  else if( selectedStr == rdspInterfaceTransStr )
 	  {
 		  SetMessageStatusBar (TXT_LOAD_RDSP_INTERFACE_TRANSACTIONS);
-		  //if (getParent()->hasReadPermission( UAF::RDSP_INTERFACE_TRANSACTIONS ))
-		  //{
-		  DString urlParamsIDI;
-		  E_COMMANDRETURN eRtn = CMD_OK;
+		  if (getParent()->hasReadPermission( UAF::RDSP_INTERFACE_TRANSACTIONS ))
+		  {
+			  DString urlParamsIDI;
+			  E_COMMANDRETURN eRtn = CMD_OK;
 
-		  setParameter( I_( "AccountNum" ), strAcctNum );
-		  setParameter( I_( "from_screen" ), I_( "Account" ) );
+			  setParameter( I_( "AccountNum" ), strAcctNum );
+			  setParameter( I_( "from_screen" ), I_( "Account" ) );
 
-		  addIDITagValue (urlParamsIDI, I_("AccountNum"), strAcctNum);
-		  addIDITagValue (urlParamsIDI, I_("screen"), I_("RDSPInterfaceTransactions"));
+			  addIDITagValue (urlParamsIDI, I_("AccountNum"), strAcctNum);
+			  addIDITagValue (urlParamsIDI, I_("screen"), I_("RDSPInterfaceTransactions"));
 
-		  setParameter (I_("UrlParams"), urlParamsIDI);
+			  setParameter (I_("UrlParams"), urlParamsIDI);
 
-		  CString cstrRDSP;
-		  cstrRDSP.LoadString(TXT_RDSP_INTERFACE_TRANSACTIONS);
-		  setParameter (I_("BrowserTitle"), DString(cstrRDSP) + strAcctNum);
-		  setParameter (I_("from_screen"), I_("AccountDetailsDlg"));
+			  CString cstrRDSP;
+			  cstrRDSP.LoadString(TXT_RDSP_INTERFACE_TRANSACTIONS);
+			  setParameter (I_("BrowserTitle"), DString(cstrRDSP) + strAcctNum);
+			  setParameter (I_("from_screen"), I_("AccountDetailsDlg"));
 
-		  // invoke rdsp notional balance browser screen
-		  eRtn = invokeCommand (getParent(), CMD_BPROC_RDSP_INTERFACE_TRANSACTIONS, PROC_NO_TYPE, true, NULL);		 
-		  //}
+			  // invoke rdsp notional balance browser screen
+			  eRtn = invokeCommand (getParent(), CMD_BPROC_RDSP_INTERFACE_TRANSACTIONS, PROC_NO_TYPE, true, NULL);		 
+		  }
 	  }
 	  else
 		  return;
@@ -5004,7 +5009,7 @@ void BaseAccountDetailsDlg::fillOptionsList()
 
    //PBSGEALV-184 - In order to support the field level Verification of Shareholder and Acct Info through Verify Static data screen, with minimal impact,
    //the condition to check if Entity VerifyConfig Category 4 and level 02 with active status needs to be removed.
-   
+
    /*bool bVerificationEnabled = false;
    dstWorkSession->isVerificationEnabled (getParent()->getDataGroupId(), 
                                           ENTITY_CATEGORY, 
@@ -5565,22 +5570,22 @@ void BaseAccountDetailsDlg::fillAttributesList()
 
    if ( dstrTaxType == I_("RS"))
    {
-	   //bPermit = getParent()->hasReadPermission( UAF::RDSP_ACCOUNT_INFORMATION ) ;
+	   bPermit = getParent()->hasReadPermission( UAF::RDSP_ACCOUNT_INFORMATION ) ;
 
 	   lbStrings.LoadString( ROW_DETAILS_ATTRIBUTES_RDSP_ACCOUNT_INFORMATION );
 	   pAttributesListBox->InsertString( i++, lbStrings );
 
-	   //bPermit = getParent()->hasReadPermission( UAF::RDSP_INTERFACE_TRANSACTIONS ) ;
+	   bPermit = getParent()->hasReadPermission( UAF::RDSP_INTERFACE_TRANSACTIONS ) ;
 
 	   lbStrings.LoadString( ROW_DETAILS_ATTRIBUTES_RDSP_INTERFACE_TRANSACTIONS );
 	   pAttributesListBox->InsertString( i++, lbStrings );
 
-	   //bPermit = getParent()->hasReadPermission( UAF::RDSP_NOTIONAL_ACTIVITY ) ;
+	   bPermit = getParent()->hasReadPermission( UAF::RDSP_NOTIONAL_ACTIVITY ) ;
 
 	   lbStrings.LoadString( ROW_DETAILS_ATTRIBUTES_RDSP_NOTIONAL_ACTIVITY );
 	   pAttributesListBox->InsertString( i++, lbStrings );
 
-	   //bPermit = getParent()->hasReadPermission( UAF::RDSP_NOTIONAL_BALANCE ) ;
+	   bPermit = getParent()->hasReadPermission( UAF::RDSP_NOTIONAL_BALANCE ) ;
 
 	   lbStrings.LoadString( ROW_DETAILS_ATTRIBUTES_RDSP_NOTIONAL_BALANCE );
 	   pAttributesListBox->InsertString( i++, lbStrings );

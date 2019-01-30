@@ -87,6 +87,8 @@ SEVERITY SWPAmountCalculation::init(const DString &accountNum,
 									const DString &october,
 									const DString &november,
 									const DString &december,
+									const DString &frequency,
+									const DString &dayOfWeek,
 									const DString &dstrTrack /*= I_("N")*/,
 									const DString &dstrPageName /*= NULL_STRING*/)
 {
@@ -117,6 +119,8 @@ SEVERITY SWPAmountCalculation::init(const DString &accountNum,
 	queryData.setElementValue( ifds::October,       october );
 	queryData.setElementValue( ifds::November,      november );
 	queryData.setElementValue( ifds::December,      december );
+	queryData.setElementValue( ifds::Frequency,     frequency );
+	queryData.setElementValue( ifds::DayOfWeek,     dayOfWeek );
 									
 	ReceiveData (DSTC_REQUEST::AMOUNT_CALCULATION, queryData,  *receivedData, DSTCRequestor (getSecurity()));
 
@@ -141,6 +145,8 @@ void SWPAmountCalculation::buildKey (const DString &accountNum,
   									 const DString &october,
   									 const DString &november,
   									 const DString &december,
+									 const DString &frequency,
+									 const DString &dayOfWeek,
 									 DString &strKey)
 {
    DString	dstrAccountNum (accountNum),
@@ -159,7 +165,9 @@ void SWPAmountCalculation::buildKey (const DString &accountNum,
 			dstrSeptember (september),
 			dstrOctober (october),
 			dstrNovember (november),
-			dstrDecember (december);
+			dstrDecember (december),
+			dstrFrequency (frequency),
+			dstrDayOfWeek (dayOfWeek);
 
    strKey = DString (I_("SWPAmountCalculation_")) + 
 			I_("AccountNum=") + dstrAccountNum + I_(";") +
@@ -178,7 +186,9 @@ void SWPAmountCalculation::buildKey (const DString &accountNum,
 			I_("Sep=") + dstrSeptember + I_(";") +
 			I_("Oct=") + dstrOctober + I_(";") +
 			I_("Nov=") + dstrNovember + I_(";") +
-			I_("Dec=") + dstrDecember + I_(";");
+			I_("Dec=") + dstrDecember + I_(";") + 
+			I_("Frequency=") + dstrFrequency + I_(";") +
+			I_("DayOfWeek=") + dstrDayOfWeek + I_(";");
 }
 
 //******************************************************************************

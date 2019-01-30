@@ -80,6 +80,7 @@ const BFCBO::CLASS_FIELD_INFO classFieldInfo[] = {
 	{ ifds::EurCurrMstr,		BFCBO::NONE, 0 },
 	{ ifds::LSIFUnitsAvail,     BFCBO::NONE, 0 },
 	{ ifds::AmtOverMin,		    BFCBO::NONE, 0 },
+	{ ifds::GrossNetType,		BFCBO::NONE, 0 },
 
 };
 

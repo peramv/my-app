@@ -12,6 +12,7 @@ public class TransRecordDto {
 	private int row;
 	
 	private boolean checked;
+	private boolean changed;
 	private long account;
 	private Date transDate;
 	private long esdcTransNo;
@@ -19,7 +20,8 @@ public class TransRecordDto {
 	private String transType;
 	private String description;
 	private String status;
-
+	private String serverStatus;
+	
 	public long getId() {
 		return id;
 	}
@@ -100,6 +102,22 @@ public class TransRecordDto {
 
 	public void setStatus(String status) {
 		this.status = status;
+		serverStatus = status;
+	}
+	
+	public String getServerStatus() {
+		return serverStatus;
+	}
+
+	public void setServerStatus(String serverStatus) {
+		this.serverStatus = serverStatus;
+	}
+	public boolean isChanged() {
+		return changed;
+	}
+	
+	public void setChanged(boolean changed) {
+		this.changed = changed;
 	}
 }
 

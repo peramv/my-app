@@ -174,14 +174,21 @@ DesktopWeb.ScreenResources = function(ctrlr) {
 		moneyOutTrade : new Ext.form.Hidden({
 			itemId:'MoneyOutTrade'			
 		}),
-		transferInStatusTypeCode : new Ext.form.Hidden({
+		/*transferInStatusTypeCode : new Ext.form.Hidden({
 			itemId:'TransferInStatusTypeCode'			
-		}),
+		}),*/
 		accountNumber : new Ext.form.Hidden({
 			itemId:'AccountNumber'			
 		}),
 		transactionId : new Ext.form.Hidden({
 			itemId:'TransactionId'			
+		}),
+		transferInStatusTypeCode : new DesktopWeb.Controls.TextField({
+			fieldLabel : _translationMap['transferStatus'],
+			style : 'padding-left:10px;',
+			disabled: true,
+			hidden : true,
+			width : 100
 		})
 	}
 	
@@ -396,7 +403,21 @@ DesktopWeb.ScreenResources = function(ctrlr) {
 													} 
 												]
 											}]
-									}]
+									},
+									{
+										height : 140,
+										items : [ {
+											
+											layout : 'form',
+											columnWidth : 0.50,
+											labelWidth : 170,
+											items : [ _fields['transferInStatusTypeCode'] ]
+											
+										}]
+								
+									}
+									
+									]
 							}]
 				}),
 		screenButtons: {

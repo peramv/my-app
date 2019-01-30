@@ -9,6 +9,7 @@ DesktopWeb.ScreenController = function(){
 	var _extCntNum='',_extSpcmNum='',_nonTaxablePrivateCntbn='',_rollovers='';
 	var _cdsGrant='',_cdsBond='',_fmv='',_allGrantBond='',_allCntbn='';
 	var _priorNonTaxable='',_priorTaxable='',_currentNonTaxable='',_currentTaxable='';
+	var _translationMap = DesktopWeb.Translation.getTranslationMap();
 
 	function mandatoryFieldCheck(value){
 		var validate="This field is mandatory";
@@ -86,10 +87,18 @@ DesktopWeb.ScreenController = function(){
 		function responseHandlerSuccess(success, responseXML)
 		{
 			setTransfersDetails(success.responseXML);
+			if((IFDS.Xml.getNodeValue(success.responseXML, '//rdspTrasactionTypeCode')) == '17' ) { // Enabled only for Transfer in
+				_resources.fields['transferInStatusTypeCode'].show();
+				}
 			if(_resources.fields['formEditableFlag'].getValue() == 'false') {
 				formPanel = Ext.getCmp('TransferInLayout');
-				_resources.fields['extRDSPContNum'].disable();
-				_resources.fields['extSpecimenPlanNum'].disable();				
+				if ( (IFDS.Xml.getNodeValue(success.responseXML, '//rdspTrasactionTypeCode')) == '23' ) { // Enabled only for Transfer out
+					_resources.fields['extRDSPContNum'].enable();
+					_resources.fields['extSpecimenPlanNum'].enable();
+				} else {
+					_resources.fields['extRDSPContNum'].disable();
+					_resources.fields['extSpecimenPlanNum'].disable();
+				}				
 				_resources.fields['nonTaxablePrivateCntbns'].disable();
 				_resources.fields['canadaDisabilitySavingsGrant'].disable();				
 				_resources.fields['taxableReportsRollovers'].disable();
@@ -135,11 +144,11 @@ DesktopWeb.ScreenController = function(){
 		_resources.fields['esdcSent'].setValue(IFDS.Xml.getNodeValue(response, '//esdcSent'));
 		_resources.fields['esdcResponse'].setValue(IFDS.Xml.getNodeValue(response, '//esdcResponse'));
 		_resources.fields['moneyOutTrade'].setValue(IFDS.Xml.getNodeValue(response, '//moneyOutTrade'));
-		_resources.fields['transferInStatusTypeCode'].setValue(IFDS.Xml.getNodeValue(response, '//transferInStatusTypeCode'));
 		_resources.fields['accountNumber'].setValue(IFDS.Xml.getNodeValue(response, '//accountNumber'));
 		_resources.fields['transactionId'].setValue(IFDS.Xml.getNodeValue(response, '//transactionId'));
 		
 		populateInitialValues();
+		setTransferStatus(response);
 		
 	}
 	
@@ -225,6 +234,21 @@ DesktopWeb.ScreenController = function(){
 	
 	function commaSeperatedAmount(amount) {
 		return Ext.util.Format.number(amount, '0,000.00');
+	}
+	function setTransferStatus(response) {
+		var statusCode = IFDS.Xml.getNodeValue(response, '//transferInStatusTypeCode');
+		var statusField = _resources.fields['transferInStatusTypeCode'];
+		if( statusCode == 'COMPLETE'){
+			statusField.setValue(_translationMap['complete']);
+		}else if(statusCode == 'INCOMPLETE'){
+			statusField.setValue(_translationMap['incomplete']);
+		}else if(statusCode == 'RECON_FAIL'){
+			statusField.setValue(_translationMap['reconFail']);
+		}else if(statusCode == 'RECON_REQ'){
+			statusField.setValue(_translationMap['reconReq']);
+		}else{
+			statusField.setValue(_translationMap['incomplete']);
+		}
 	}
 	
 	return {
