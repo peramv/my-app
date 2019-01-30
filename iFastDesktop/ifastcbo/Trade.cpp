@@ -736,7 +736,6 @@ namespace CND
    extern const long ERR_SETTLEDATE_EARLIER_THAN_TRADEDATE;
    extern const long ERR_SETTLEDATE_EARLIER_THAN_NEXT_CYCLEDATE;
    extern const long ERR_DEPOSIT_DATE_AFFECT_MIN_MAX_AMT;
-   extern const long ERR_INVALID_CASH_DATE;
    extern const long ERR_FUTURE_DEAL_DATE;
 //accountability,back dated reason
    extern const long ERR_ACCOUNTABILITY_FOR_BACKDATE_TRADE;
@@ -1089,6 +1088,12 @@ namespace CND
    extern const long ERR_FUND_SUBJECT_TO_LIQUIDITY_FEE_MEASURE;
    extern const long WARN_FUND_SUBJECT_TO_LIQUIDITY_FEE_MEASURE;
    extern const long ERR_TRADE_DATE_MUST_BE_EQUAL_OR_GREATER_THAN_PURCHASE_DATE;	
+   extern const long ERR_INVALID_CASH_DATE;
+   extern const long WARN_INVALID_CASH_DATE;
+   extern const long ERR_CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE;
+   extern const long WARN_CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE;
+   extern const long ERR_CASH_DATE_WILL_REMAIN_AS_ASSIGNED;
+   extern const long WARN_CASH_DATE_WILL_REMAIN_AS_ASSIGNED;
 }
 
 namespace IFASTERR
@@ -1210,6 +1215,9 @@ namespace IFASTERR
    //extern CLASS_IMPORT I_CHAR * const RDSP_BENEFICIARY_OVER_AGE_OF_CONTRIBUTION;
    extern CLASS_IMPORT I_CHAR * const PENDING_ALLOCATION_NOT_ALLOWED_TRADE;//INC0039323
    extern CLASS_IMPORT I_CHAR * const FUND_SUBJECT_TO_LIQUIDITY_FEE_MEASURE;
+   extern CLASS_IMPORT I_CHAR * const INVALID_CASH_DATE;
+   extern CLASS_IMPORT I_CHAR * const CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE;
+   extern CLASS_IMPORT I_CHAR * const CASH_DATE_WILL_REMAIN_AS_ASSIGNED;
 }
 
 namespace DSTC_REQUEST
@@ -1823,8 +1831,9 @@ const BFCBO::CLASS_FIELD_INFO classFieldInfo[] = {
 	{ ifds::PrevYrTaxRedAmt,				 BFCBO::NONE,				 0 },
 	{ ifds::CurrYrNonTaxRedAmt,				 BFCBO::NONE,				 0 },
 	{ ifds::CurrYrTaxRedAmt,				 BFCBO::NONE,				 0 },
-	{ ifds::GateOverrideIndicator,            BFCBO::NONE,                0 },
+	{ ifds::GateOverrideIndicator,           BFCBO::NONE,                0 },
 	{ ifds::RDSPPaymtDate,					 BFCBO::NONE,                0 },
+	{ ifds::CashDateOverriden,               BFCBO::NONE,                0 },
 };
 const FIELD_DEFAULT_RULE m_FieldDefaultRule[] = { 
 // FieldID,					Key1,				key2,			  Key3,			 Key4,			Key5,					MODE
@@ -3755,6 +3764,8 @@ void Trade::doInitWithDefaultValues (const BFDataGroupId &idDataGroup)
 	orderRoutingRelatedChanges (idDataGroup);
 	
    setFieldNoValidate ( ifds::RDSPPaymtDate, NULL_STRING, idDataGroup, false, true, true, false);   
+
+   setCashDateUpdatable (idDataGroup);
 	
 }
 
@@ -4066,8 +4077,8 @@ SEVERITY Trade::doValidateField ( const BFFieldId &idField,
    }
    else if (idField == ifds::ToFundClass)
    {
-      validateToFundClass (idDataGroup);
-	  checkLiqRedFeeExist(idDataGroup,false);
+	   validateToFundClass (idDataGroup);
+	   checkLiqRedFeeExist(idDataGroup,false);
 	   setCashDateUpdatable(idDataGroup);
    }
    else if ( idField == ifds::FromFundNumber || 
@@ -5985,8 +5996,9 @@ SEVERITY Trade::doApplyRelatedChanges ( const BFFieldId &idField,
 //If FundType is 'I' and EffectiveDate <= LastValDate and DividendType is 'S'
 //and IntFromDateType is 'C' or IntToDateType is 'C', CashDate is updatable
       setCashDateUpdatable (idDataGroup);
+	  revalidateField (ifds::CashDate, idDataGroup);
    }
-   else if (idField == ifds::SettleDate)
+   else if (idField == ifds::SettleDate || idField == ifds::CashDate)
    {
       DString dstrSettleNetwork;
 
@@ -6026,6 +6038,12 @@ SEVERITY Trade::doApplyRelatedChanges ( const BFFieldId &idField,
                                     false,
                                     false); 
             }
+			DString dstrCashDate;
+			pTrade_DateValidation->getField( ifds::CashDate, dstrCashDate, idDataGroup, false ); 
+			setFieldNoValidate ( ifds::CashDate, dstrCashDate, idDataGroup,  false, 
+                                    false, 
+                                    false,
+                                    false); 
          } 
       }
 
@@ -6034,18 +6052,7 @@ SEVERITY Trade::doApplyRelatedChanges ( const BFFieldId &idField,
 
       getField (ifds::OrderType,  orderType,  idDataGroup);   
       getField (ifds::SettleDate, settleDate, idDataGroup);
-	  
-	  if ( !setPendingTradeCashDate (idDataGroup) ) 
-	  {
-		  // Based on ADDPURC1.P/CASHDAT1.I/CASHDAT0.I, default CashDate to Settlement date only if NOT ordtype
-		  if ( orderType.upperCase() == N &&
-			  !settleDate.strip ().empty ())
-		  {
-			  setFieldNoValidate ( ifds::CashDate, settleDate, idDataGroup, false, 
-				  true, true);
-		  }
-	  }
-
+	  	 
       setTradeDateToRespDate (idDataGroup);
       setDilutionRespDateInvalid (idDataGroup);
       setFieldValid (ifds::SettleInDate, idDataGroup, false); //to trigger validation at the end
@@ -11789,6 +11796,11 @@ SEVERITY Trade::validateDate ( const DString &validationType,
    
    bool bIsSettleDateOverriden = settleDateOverriden.strip().upperCase() == Y;
    bool bIsValueDateOverriden =  valueDateOverriden.strip().upperCase() == Y;
+
+   //Do not set CashDate, if CashDate is overriden by User
+   DString cashDateOverriden;
+   getField (ifds::CashDateOverriden,cashDateOverriden, idDataGroup, false);   
+   bool bIsCashDateOverriden = cashDateOverriden.strip().upperCase() == Y; 
    
    if ( (fundCode.empty () || classCode.empty ()) &&
        !(fundCode.empty () && classCode.empty ()))
@@ -11898,7 +11910,8 @@ SEVERITY Trade::validateDate ( const DString &validationType,
                   businessDate,
 				  valuationDate,
 				  tradeInDate,
-				  valuationInDate;
+				  valuationInDate,
+				  cashDate;
 
          //read trade date
          pTrade_DateValidation->getField (ifds::TradeDate, tradeDate, idDataGroup, false); 
@@ -11916,6 +11929,8 @@ SEVERITY Trade::validateDate ( const DString &validationType,
 		 pTrade_DateValidation->getField (ifds::TradeInDate, tradeInDate, idDataGroup, false);
 		 // read ValuationIn Date
 		 pTrade_DateValidation->getField (ifds::ValuationInDt, valuationInDate, idDataGroup, false);
+		 //read CashDate Value
+		 pTrade_DateValidation->getField (ifds::CashDate, cashDate, idDataGroup, false);
          if (bIsSettleDateOverriden && validationType_ == DATE_VALIDATION::TRADE_DATE && tradeDate.empty())
          {
             return GETCURRENTHIGHESTSEVERITY ();
@@ -11983,6 +11998,14 @@ SEVERITY Trade::validateDate ( const DString &validationType,
                      }
                   }
                }
+
+			   if (!bIsCashDateOverriden && !cashDate.empty() && 
+				   !(DSTCommonFunctions::CompareDates (!tradeDate.empty() ? tradeDate : oldTradeDate, _currentBusinessDate) == DSTCommonFunctions::FIRST_EARLIER))
+			   {
+				   setFieldNoValidate ( ifds::CashDate, cashDate, idDataGroup, false, 
+										false, 
+										true); 
+			   }
             }
             else
             {
@@ -12013,7 +12036,14 @@ SEVERITY Trade::validateDate ( const DString &validationType,
                                           true); //notify
                   }
                }
-            }
+			   if (!bIsCashDateOverriden && !cashDate.empty() && 
+				   !(DSTCommonFunctions::CompareDates (!tradeDate.empty() ? tradeDate : oldTradeDate, _currentBusinessDate) == DSTCommonFunctions::FIRST_EARLIER))
+			   {
+				   setFieldNoValidate ( ifds::CashDate, cashDate, idDataGroup, false, 
+										false, 
+										true); 
+			   }
+			}
             if (validationType_ == DATE_VALIDATION::DEFAULT_TRADE_DATE)
             {
                DString oldDepositDate;
@@ -12072,6 +12102,17 @@ SEVERITY Trade::validateDate ( const DString &validationType,
                                     false, 
                                     true); //notify
             }
+			
+			DString oldTradeDate;
+            getField (ifds::EffectiveDate, oldTradeDate, idDataGroup, false);
+
+			if (!bIsCashDateOverriden && !cashDate.empty() && 
+				!(DSTCommonFunctions::CompareDates (!tradeDate.empty() ? tradeDate : oldTradeDate, _currentBusinessDate) == DSTCommonFunctions::FIRST_EARLIER))
+			{
+				setFieldNoValidate ( ifds::CashDate, cashDate, idDataGroup, false, 
+									 false, 
+									 true); 
+			}
          } 
          else if (validationType_ == DATE_VALIDATION::BUSINESS_DATE)
          {
@@ -12442,19 +12483,36 @@ SEVERITY Trade::validateCashDate ( const DString &cashDate,
                pFundMaster &&
                isCashDateUpdatable (pFundMaster, idDataGroup))
          {
-            DString nextSettleDate, 
-                    tradeDate;
+            DString nextSettleDate, tradeDate, cashDate, dstrCashDateOverriden;
 
             getField (ifds::EffectiveDate, tradeDate, idDataGroup);
-// check if transaction is backdated
+			getField (ifds::CashDate, cashDate, idDataGroup);
+			getField (ifds::CashDateOverriden, dstrCashDateOverriden, idDataGroup, false);
+
+			// check if transaction is backdated
             if ( getFundField ( fundCode, 
                                 classCode, 
                                 ifds::NextSettleDate, 
                                 nextSettleDate ) <= WARNING &&
                   !DSTCommonFunctions::IsDateBetween (tradeDate, nextSettleDate, cashDate))
-            {
-               ADDCONDITIONFROMFILE (CND::ERR_INVALID_CASH_DATE);
+            {   
+				// 2240 - Invalid cash date.
+				getErrMsg (IFASTERR::INVALID_CASH_DATE,
+						   CND::ERR_INVALID_CASH_DATE,
+						   CND::WARN_INVALID_CASH_DATE,
+						   idDataGroup);				
             }
+		
+			bool bIsCashDateOverriden = (!isNew() && (dstrCashDateOverriden.strip().upperCase() == Y)) ? true : false;
+			
+			if (!bIsCashDateOverriden && DSTCommonFunctions::CompareDates (cashDate, tradeDate) == DSTCommonFunctions::FIRST_EARLIER)
+			{				
+					// 2241 - Overridden cash date should be greater than or equal to trade date.
+					getErrMsg (IFASTERR::CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE,
+							   CND::ERR_CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE,
+							   CND::WARN_CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE,
+							   idDataGroup);				
+			}
          }
       }
    }
@@ -12646,47 +12704,66 @@ SEVERITY Trade::validateAcctableTradeDate (const BFDataGroupId &idDataGroup)
 //******************************************************************************
 void Trade::setCashDateUpdatable (const BFDataGroupId &idDataGroup)
 {
-   DString tradeDate, 
-           lastValDate;
+	DString emptyDate, tradeDate, lastValDate, fundCode, classCode, cashDateOverride;
+	bool blReadOnly = true;
 
-   bool blReadOnly = true;
+	getWorkSession().getDateInHostFormat (emptyDate, DSTCWorkSession::DATE_TYPE::DAY12319999, idDataGroup);
+	getWorkSession().getOption (ifds::OrderUserOverride, cashDateOverride, BF::HOST, false); // OrdEntryUserOverride attribute in PendingTradeCashDate function control: 01-no override, 02-override backdated trades, 03-override all	
 
-   DString fundCode, 
-           classCode;
-
-   getField (ifds::FromFund, fundCode,  idDataGroup);
-   getField (ifds::FromClass, classCode, idDataGroup);
-   if (!fundCode.strip ().empty () && !classCode.strip ().empty ())
-   {
-      getField (ifds::EffectiveDate, tradeDate, idDataGroup);
-      // Check if transaction is backdated
-      if ( getFundField ( fundCode, 
-                          classCode, 
-                          ifds::LastValDate, 
-                          lastValDate
-                        ) <= WARNING &&
-           DSTCommonFunctions::
-               CompareDates (tradeDate, lastValDate) == DSTCommonFunctions::FIRST_EARLIER
-         )
-      {
-         FundMasterList *pFundMasterList = NULL;
-         if ( getMgmtCo ().getFundMasterList (pFundMasterList) <= WARNING &&
-              pFundMasterList)
-         {
-            FundMaster *pFundMaster = NULL;
-            if ( pFundMasterList->getFundMaster (fundCode, idDataGroup, pFundMaster) &&
-                 pFundMaster)
-            {
-				blReadOnly = !isCashDateUpdatable (pFundMaster, idDataGroup);
-
-				if (blReadOnly)
+	getField (ifds::FromFund, fundCode,  idDataGroup);
+	getField (ifds::FromClass, classCode, idDataGroup);
+	if (!fundCode.strip ().empty () && !classCode.strip ().empty ())
+	{
+		getField (ifds::EffectiveDate, tradeDate, idDataGroup);
+		FundMasterList *pFundMasterList = NULL;
+		if ( getMgmtCo ().getFundMasterList (pFundMasterList) <= WARNING &&	pFundMasterList)
+		{			
+			FundMaster *pFundMaster = NULL;
+			if ( pFundMasterList->getFundMaster (fundCode, idDataGroup, pFundMaster) &&	 pFundMaster)
+			{
+				// Check if transaction is backdated, 02 - user can override Cash Date for backdated trades 
+				if ( (cashDateOverride == I_("02")) && 
+					  getFundField (fundCode, 
+								    classCode, 
+								    ifds::LastValDate, 
+								    lastValDate) <= WARNING &&
+								    DSTCommonFunctions::CompareDates (tradeDate, lastValDate) == DSTCommonFunctions::FIRST_EARLIER )
 				{
-					blReadOnly = setCashDateUpdatable(tradeDate, idDataGroup);
+					blReadOnly = !isCashDateUpdatable (pFundMaster, idDataGroup);
+					if (blReadOnly)
+					{
+						blReadOnly = setCashDateUpdatable(tradeDate, idDataGroup);
+						setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false,  true, true); 
+					}
+				}
+				else if (cashDateOverride == I_("03") ) // 03 - user can override Cash Date for all trades
+				{
+					if (isOneSideTrade(idDataGroup))
+					{
+						blReadOnly = !isCashDateUpdatable (pFundMaster, idDataGroup);
+					}
+					else
+					{
+						blReadOnly = (!isCashDateUpdatable (pFundMaster, idDataGroup) && setCashDateUpdatable(tradeDate, idDataGroup)) ? true : false;
+					}
+
+					if ( getFundField (fundCode, 
+									   classCode, 
+									   ifds::LastValDate, 
+									   lastValDate) <= WARNING &&
+									   (DSTCommonFunctions::CompareDates (tradeDate, lastValDate) == DSTCommonFunctions::FIRST_EARLIER ||
+										DSTCommonFunctions::CompareDates (tradeDate, lastValDate) == DSTCommonFunctions::EQUAL) )
+					{
+						DString dstrCashDateOverriden;
+						getField(ifds::CashDateOverriden, dstrCashDateOverriden, idDataGroup, false);
+						bool bIsCashDateOverriden = dstrCashDateOverriden.strip().upperCase() == Y;
+						if(!bIsCashDateOverriden)
+							setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false,  true, true); 
+					}								
 				}
 			}
-		 }
-	  }
-   }
+		}
+	}
 
 	setFieldReadOnly (ifds::CashDate, idDataGroup, blReadOnly);
 
@@ -12727,12 +12804,6 @@ bool Trade::isCashDateUpdatable ( FundMaster *pFundMaster,
                      I_("C") == intFromDateType || 
                      I_("C") == intToDateType;
    }  
-
-   //return blUpdateable;
-   
-   DString cashDateOverride;   
-   getWorkSession().getOption (ifds::PendingTradeCashDateOverride, cashDateOverride, BF::HOST, false); // UserOverride attribute in PendingTradeCashDate function control 
-   return ( blUpdateable && (cashDateOverride.strip().upperCase() == I_("Y")) ); 
 
    return blUpdateable;
 }
@@ -15312,7 +15383,10 @@ SEVERITY Trade::fetchTransNum ( const BFDataGroupId &idDataGroup,
          //deposit date
          setFieldNoValidate (ifds::DepositDate, _currentBusinessDate, idDataGroup, false);         
          //cash date
-         setFieldNoValidate (ifds::CashDate, _currentBusinessDate, idDataGroup, false);
+         //setFieldNoValidate (ifds::CashDate, _currentBusinessDate, idDataGroup, false);
+		 DString emptyDate;
+		 getWorkSession().getDateInHostFormat (emptyDate, DSTCWorkSession::DATE_TYPE::DAY12319999, idDataGroup);
+		 setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false);
 //read the batch name                          
          response->getElementValue (ifds::rxBatchName, batch);
          batch.strip();
@@ -21229,9 +21303,11 @@ SEVERITY Trade::reCall135ForSettleDateOnly(const BFDataGroupId &idDataGroup)
    {
       DString strSettleDate;
       DString strValueDate;
+	  DString strCashDate;
 
       pTrade_DateValidation->getField( ifds::SettleDate, strSettleDate, idDataGroup, false ); 
       pTrade_DateValidation->getField( ifds::ValueDate, strValueDate, idDataGroup, false ); 
+	  pTrade_DateValidation->getField( ifds::CashDate, strCashDate, idDataGroup, false ); 
       
       if ( !strSettleDate.empty() )
       {
@@ -26903,60 +26979,6 @@ SEVERITY Trade::addBlankToSubSet(const BFFieldId &idField ,const BFDataGroupId &
    return GETCURRENTHIGHESTSEVERITY();
 }
 
-//******************************************************************************
-bool Trade::setPendingTradeCashDate (const BFDataGroupId &idDataGroup)
-{		
-	DString cashDateAssign, cashDateTransfer, cashDateRebook;
-	bool bAsSettleDateFlg, bTransferFlg, bRebookFlg, bReadOnly = false;	
-
-	getWorkSession().getOption (ifds::PendingTradeCashDateAssign, cashDateAssign, BF::HOST, false);  // AsActualSettleDate attribute in PendingTradeCashDate function control 
-	bAsSettleDateFlg = cashDateAssign.strip().upperCase() == I_("Y"); 
-
-	getWorkSession().getOption (ifds::PendingTradeCashDateTransfer, cashDateTransfer, BF::HOST, false); // DirectTransfer attribute in PendingTradeCashDate function control
-	bTransferFlg = cashDateTransfer.strip().upperCase() == I_("Y");
-
-	getWorkSession().getOption (ifds::PendingTradeCashDateRebook, cashDateRebook, BF::HOST, false); // PurchaseRebook attribute in PendingTradeCashDate function control 
-	bRebookFlg = cashDateRebook.strip().upperCase() == I_("Y"); 	
-
-	DString emptyDate, orderType, tradeDate;
-	getWorkSession().getDateInHostFormat (emptyDate, DSTCWorkSession::DATE_TYPE::DAY12319999, idDataGroup);
-	getField (ifds::OrderType, orderType, idDataGroup, false);
-	getField (ifds::EffectiveDate, tradeDate, idDataGroup);	
-	
-	if (orderType.upperCase() == N) 
-	{
-		// direct trades
-		if ( isTransfer(idDataGroup) && bTransferFlg && !tradeDate.strip().empty()) { 
-
-			// CashDate = TradeDate for Direct Transfers 
-			bReadOnly = true;
-			setFieldNoValidate (ifds::CashDate, tradeDate, idDataGroup, false,  true, true); 
-
-		} else if (( isRebook() && bRebookFlg ) /* CashDate = Original Purchase CashDate for Purchase Rebook) */ || 
-				   ( isNew() && bAsSettleDateFlg ) /* CashDate = Actual Settlement Date */ ) {
-
-			bReadOnly = true;
-			setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false,  true, true); 
-		}
-		else if (!isRebook())
-		{
-			bReadOnly = true;
-			setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false,  true, true); // PIMCO
-			setCashDateUpdatable (idDataGroup);	
-		}
-		
-	} else {
-
-		// wire trades 
-		if ( !isRebook() ) {
-			setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false,  true, true); // PIMCO
-			setCashDateUpdatable (idDataGroup);		
-		}
-	}
-
-	return (bReadOnly);
-}
-
 /******************************************************************************
  Input: Fund,Class,TransType,dataGroup
  OutPut:FundLmtOverrideList
@@ -27806,48 +27828,71 @@ SEVERITY Trade::validateCashDateMandatory (const BFDataGroupId &idDataGroup)
 	// Default condition
 	SEVERITY sevRtn = NO_CONDITION;
 
-	DString tradeDate, fundCode, classCode, lastValDate;
+	DString tradeDate, fundCode, classCode, cashDateOverride, lastValDate, dstrCashDateOverriden;
 
 	getField( ifds::EffectiveDate, tradeDate,idDataGroup, false);
 	getField (ifds::FromFund, fundCode,  idDataGroup);
 	getField (ifds::FromClass, classCode, idDataGroup);
+	
+	getWorkSession().getOption (ifds::OrderUserOverride, cashDateOverride, BF::HOST, false); // OrdEntryUserOverride attribute in PendingTradeCashDate function control: 01-no override, 02-override backdated trades, 03-override all	
+
 	if (!fundCode.strip ().empty () && !classCode.strip ().empty ())
 	{
 		getField (ifds::EffectiveDate, tradeDate, idDataGroup);
+		getField (ifds::CashDateOverriden, dstrCashDateOverriden, idDataGroup, false);
+
+		bool bIsCashDateOverriden = dstrCashDateOverriden.strip().upperCase() == Y;		
+
 		// Check if transaction is backdated
-		if ( getFundField ( fundCode, 
-							classCode, 
-							ifds::LastValDate, 
-							lastValDate) <= WARNING &&
-							DSTCommonFunctions::CompareDates (tradeDate, lastValDate) == DSTCommonFunctions::FIRST_EARLIER )
+		if ( (cashDateOverride != I_("03") &&
+			  getFundField ( fundCode, 
+							 classCode, 
+							 ifds::LastValDate, 
+							 lastValDate) <= WARNING &&
+							 DSTCommonFunctions::CompareDates (tradeDate, lastValDate) == DSTCommonFunctions::FIRST_EARLIER ) ||
+			 (cashDateOverride == I_("03") &&
+			  getFundField ( fundCode, 
+							 classCode, 
+							 ifds::LastValDate, 
+							 lastValDate) <= WARNING &&
+							 (DSTCommonFunctions::CompareDates (tradeDate, lastValDate) == DSTCommonFunctions::FIRST_EARLIER || 
+							  DSTCommonFunctions::CompareDates (tradeDate, lastValDate) == DSTCommonFunctions::EQUAL)) )													
 		{
 			FundMasterList *pFundMasterList = NULL;
-			if ( getMgmtCo ().getFundMasterList (pFundMasterList) <= WARNING &&
-				pFundMasterList)
+			if ( getMgmtCo ().getFundMasterList (pFundMasterList) <= WARNING && pFundMasterList)
 			{
 				FundMaster *pFundMaster = NULL;
 				if ( pFundMasterList->getFundMaster (fundCode, idDataGroup, pFundMaster) &&
 					pFundMaster  &&
 					isCashDateUpdatable (pFundMaster, idDataGroup))
 				{
-					DString emptyDate, dstrCashdate;
+					DString emptyDate, dstrCashdate, dstrCashDateOverriden;
 					getWorkSession().getDateInHostFormat (emptyDate, DSTCWorkSession::DATE_TYPE::DAY12319999, idDataGroup);
 					getField (ifds::CashDate, dstrCashdate, idDataGroup, false);
 
-					if(dstrCashdate.compare(emptyDate)== 0)
+					if (dstrCashdate.compare(emptyDate) == 0)
 					{
-						getErrMsg(IFASTERR::CASH_DATE_MANDATORY,
-							CND::ERR_CASH_DATE_MANDATORY,
-							CND::WARN_CASH_DATE_MANDATORY,
-							idDataGroup);
-					}
-
+						// 1941 - Cash Date is mandatory for Backdated Trades.
+						getErrMsg (IFASTERR::CASH_DATE_MANDATORY,
+								   CND::ERR_CASH_DATE_MANDATORY,
+								   CND::WARN_CASH_DATE_MANDATORY,
+								   idDataGroup);
+					}					
 				}
-			}
+			}			
+		}
+
+		if (bIsCashDateOverriden)
+		{
+			// 2242 - Please note cash date will remain as assigned.
+			getErrMsg (IFASTERR::CASH_DATE_WILL_REMAIN_AS_ASSIGNED,
+					   CND::ERR_CASH_DATE_WILL_REMAIN_AS_ASSIGNED,
+					   CND::WARN_CASH_DATE_WILL_REMAIN_AS_ASSIGNED,
+					   idDataGroup);
 		}
 	}
 
-return GETCURRENTHIGHESTSEVERITY();
+	return GETCURRENTHIGHESTSEVERITY();
 }
 
 //******************************************************************************

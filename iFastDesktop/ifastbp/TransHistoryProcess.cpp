@@ -589,6 +589,8 @@ _pTransDecimalsList( NULL )
    addFieldDetails( ifds::AggregationType, IFASTBP_PROC::PENDING_LIST );
    addFieldDetails( ifds::SourceofFundsChecked, IFASTBP_PROC::PENDING_LIST);
    addFieldDetails( ifds::Allocation, IFASTBP_PROC::PENDING_LIST );
+   addFieldDetails( ifds::CashDate,        IFASTBP_PROC::PENDING_LIST );
+   addFieldDetails( ifds::CashDateOverriden, IFASTBP_PROC::PENDING_LIST );
 
 //PET 1117
    addFieldDetails( ifds::AltAccount, IFASTBP_PROC::PENDING_LIST );

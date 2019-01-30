@@ -1345,8 +1345,7 @@ private:
                                                   const DString &bankAcctUseCode,
                                                   const BFDataGroupId &idDataGroup);
    void loadRDRAdviceSubstList(const BFDataGroupId& idDataGroup);
-   SEVERITY addBlankToSubSet(const BFFieldId &idField ,const BFDataGroupId &idDataGroup, bool dstrUseNotApplicableAsDesc = false );
-   bool setPendingTradeCashDate (const BFDataGroupId &idDataGroup);
+   SEVERITY addBlankToSubSet(const BFFieldId &idField ,const BFDataGroupId &idDataGroup, bool dstrUseNotApplicableAsDesc = false );  
    
    SEVERITY validateSettleTypeSettleNetworkXEdit(const BFDataGroupId& idDataGroup);
    SEVERITY validateSettleSourceSettleNetworkXEdit(const BFDataGroupId& idDataGroup);

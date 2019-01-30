@@ -72,6 +72,7 @@ const BFCBO::CLASS_FIELD_INFO classFieldInfo[] =
    {ifds::EffectiveDateFailed, BFCBO::NONE, 0}, 
    {ifds::TradeInDate,         BFCBO::NONE, 0},
    {ifds::TradeInDateFailed,   BFCBO::NONE, 0},
+   {ifds::CashDate,            BFCBO::NONE, 0},
 };
 
 namespace
@@ -330,6 +331,10 @@ void DateValidation::getField ( const BFFieldId &idField,
 		BFCBO::getField  (ifds::TradeInDateFailed, tempValue, idDataGroup);
 	}
 	if (idField == ifds::ValuationInDt)
+    {
+        tempValue = YES;
+    }
+	if (idField == ifds::CashDate)
     {
         tempValue = YES;
     }

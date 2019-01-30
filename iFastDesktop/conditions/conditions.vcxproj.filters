@@ -29145,6 +29145,21 @@
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_matching_key_not_found.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_invalid_cash_date.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cash_date_will_remain_as_assigned.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_cash_date_will_remain_as_assigned.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_cash_date_must_be_greater_than_trade_date.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cash_date_must_be_greater_than_trade_date.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

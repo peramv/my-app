@@ -305,6 +305,7 @@ namespace ifds
     extern const BFTextFieldId GateOverrideIndicator;
     extern const BFDateFieldId RDSPPaymtDate;
     extern const BFTextFieldId MatchingKey;
+    extern const BFTextFieldId CashDateOverriden;
     extern const BFNumericFieldId RepeatCount;
 
     //Property Externs
@@ -596,6 +597,7 @@ namespace ifds
     extern const BFDataFieldProperties s_FldProp_GateOverrideIndicator;
     extern const BFDataFieldProperties s_FldProp_RDSPPaymtDate;
     extern const BFDataFieldProperties s_FldProp_MatchingKey;
+    extern const BFDataFieldProperties s_FldProp_CashDateOverriden;
     extern const BFDataFieldProperties s_FldProp_RepeatCount;
 }
 
@@ -621,7 +623,7 @@ public:
     static bool fieldExists( const BFFieldId& id );
 
 private:
-    BFDataField* aFlds_[288];
+    BFDataField* aFlds_[289];
     // Field Declarations
     BFTextField_60 SessionId_;
     BFTextField_60 User_Id_;
@@ -911,5 +913,6 @@ private:
     BFTextField_60 GateOverrideIndicator_;
     BFDateField RDSPPaymtDate_;
     BFTextField<12> MatchingKey_;
+    BFTextField_1 CashDateOverriden_;
     BFNumericField RepeatCount_;
 };

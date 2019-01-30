@@ -5806,4 +5806,6 @@ namespace ifds
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_SrchEntityId;
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_DistrAcctTypeDetl;
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_MatchingKey;
+   extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_CashDateOverriden;
+   extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_OrderUserOverride;
 }

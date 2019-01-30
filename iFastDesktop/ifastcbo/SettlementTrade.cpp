@@ -122,7 +122,10 @@ namespace CND
    extern const long ERR_TRADE_SETTLEMENT_IS_RESTRICTED_DUE_TO;
    extern const long WARN_TRADE_SETTLEMENT_IS_RESTRICTED_DUE_TO;
    extern const long ERR_INVALID_CASH_DATE;
+   extern const long WARN_INVALID_CASH_DATE;
    extern const long ERR_INVALID_PAYMENT_METHOD;
+   extern const long ERR_CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE;
+   extern const long WARN_CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE;
 }
 
 namespace ifds
@@ -175,6 +178,8 @@ namespace IFASTERR
    extern CLASS_IMPORT I_CHAR * const UNVERIFIED_BANK_SETTLEMENT;
    extern CLASS_IMPORT I_CHAR * const SHAREHOLDER_ADDRESS_NOT_VERIFIED_FOR_SETTLEMENT;
    extern CLASS_IMPORT I_CHAR * const TRADE_SETTLEMENT_IS_RESTRICTED_DUE_TO;
+   extern CLASS_IMPORT I_CHAR * const INVALID_CASH_DATE;
+   extern CLASS_IMPORT I_CHAR * const CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE;
 }
 namespace ACCOUNT_TYPE
 {
@@ -2314,12 +2319,26 @@ SEVERITY SettlementTrade::validateCashDate ( const DString &cashDate,
 						nextSettleDate ) <= WARNING &&
 						!DSTCommonFunctions::IsDateBetween (tradeDate, nextSettleDate, cashDate))
 					{
-						ADDCONDITIONFROMFILE (CND::ERR_INVALID_CASH_DATE);
+						// 2240 - Invalid cash date.
+						getErrMsg (IFASTERR::INVALID_CASH_DATE,
+								   CND::ERR_INVALID_CASH_DATE,
+								   CND::WARN_INVALID_CASH_DATE,
+								   idDataGroup);	
+					}
+
+					if (DSTCommonFunctions::CompareDates (cashDate, tradeDate) == DSTCommonFunctions::FIRST_EARLIER)
+					{
+						// 2241 - Overridden cash date should be greater than or equal to trade date.
+						getErrMsg (IFASTERR::CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE,
+								   CND::ERR_CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE,
+								   CND::WARN_CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE,
+								   idDataGroup);
 					}
 				}
 			}
 		}
 	}
+
 	return GETCURRENTHIGHESTSEVERITY ();
 }
 //******************************************************************************
@@ -2341,16 +2360,17 @@ bool SettlementTrade::isCashDateUpdatable ( FundMaster *pFundMaster,
       pFundMaster->getField (ifds::IntFromDateType, intFromDateType, BF::HOST);
       pFundMaster->getField (ifds::IntToDateType,   intToDateType,   BF::HOST);
 
-     dividendType.strip().upperCase();
+      dividendType.strip().upperCase();
       intFromDateType.strip().upperCase();
       intToDateType.strip().upperCase();
       blUpdateable = I_("S") == dividendType && 
                      I_("C") == intFromDateType || 
                      I_("C") == intToDateType;
-   }     
-   DString cashDateOverride;   
-   getWorkSession().getOption (ifds::PendingTradeCashDateOverride, cashDateOverride, BF::HOST, false); // UserOverride attribute in PendingTradeCashDate function control 
-   return ( blUpdateable && (cashDateOverride.strip().upperCase() == I_("Y")) ); 
+   }
+
+   DString cashDateOverride; 
+   getWorkSession().getOption (ifds::OrderUserOverride, cashDateOverride, BF::HOST, false); // UserOverride attribute in PendingTradeCashDate function control: 01-no override, 02-override backdated trades, 03-override all 
+   return (blUpdateable && DSTCommonFunctions::codeInList (cashDateOverride, I_("02,03")));
 
    return blUpdateable;
 }

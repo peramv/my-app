@@ -303,6 +303,7 @@ dsi_DSTC0115_REQ::dsi_DSTC0115_REQ()
 , GateOverrideIndicator_( ifds::GateOverrideIndicator, &ifds::s_FldProp_GateOverrideIndicator )
 , RDSPPaymtDate_( ifds::RDSPPaymtDate, &ifds::s_FldProp_RDSPPaymtDate )
 , MatchingKey_( ifds::MatchingKey, &ifds::s_FldProp_MatchingKey )
+, CashDateOverriden_( ifds::CashDateOverriden, &ifds::s_FldProp_CashDateOverriden )
 , RepeatCount_( ifds::RepeatCount, &ifds::s_FldProp_RepeatCount )
 {
     cFields_ = 289;
@@ -604,6 +605,7 @@ BFDataImpl* dsi_DSTC0115_REQ::clone()
     p->GateOverrideIndicator_ = GateOverrideIndicator_;
     p->RDSPPaymtDate_ = RDSPPaymtDate_;
     p->MatchingKey_ = MatchingKey_;
+    p->CashDateOverriden_ = CashDateOverriden_;
     p->RepeatCount_ = RepeatCount_;
     return(p);
 }
@@ -899,6 +901,7 @@ BFDataField* dsi_DSTC0115_REQ::getElement( const BFFieldId& id )
         case 40007896: return ( &GateOverrideIndicator_ ); break; // GateOverrideIndicator
         case 40007917: return ( &RDSPPaymtDate_ ); break; // RDSPPaymtDate
         case 40007932: return ( &MatchingKey_ ); break; // MatchingKey
+        case 40007931: return ( &CashDateOverriden_ ); break; // CashDateOverriden
         case 40000120: return ( &RepeatCount_ ); break; // RepeatCount
     }
     return( NULL );
@@ -1205,7 +1208,7 @@ BFDataField* dsi_DSTC0115_REQ::getElementByIndex( unsigned int iField )
                 case 284: aFlds_[284] = &CurrYrTaxRedAmt_; break;
                 case 285: aFlds_[285] = &GateOverrideIndicator_; break;
                 case 286: aFlds_[286] = &RDSPPaymtDate_; break;
-                case 287: aFlds_[287] = &RepeatCount_; break;
+                case 287: aFlds_[287] = &CashDateOverriden_; break;
                 case 288: aFlds_[288] = &RepeatCount_; break;
             }
             pField = aFlds_[iField];
@@ -1528,6 +1531,7 @@ bool dsi_DSTC0115_REQ::fieldExists( const BFFieldId& id )
         case 40007896: return ( true );
         case 40007917: return ( true );
         case 40007932: return ( true );
+        case 40007931: return ( true );
         case 40000120: return ( true );
     }
     return false;

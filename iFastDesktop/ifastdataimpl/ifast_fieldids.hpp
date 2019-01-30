@@ -5808,4 +5808,6 @@ namespace ifds
    extern IFAST_DATAIMPL_LINKAGE const BFNumericFieldId SrchEntityId;
    extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId DistrAcctTypeDetl;
    extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId MatchingKey;
+   extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId CashDateOverriden;
+   extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId OrderUserOverride;
 }

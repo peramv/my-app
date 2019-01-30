@@ -163,7 +163,8 @@ private:
       m_initialSettleDate,
       m_initialSettleInDate,
 	  m_Caller,
-	  m_tradeTransactionType;
+	  m_tradeTransactionType,
+	  m_initialCashDate;
    CWnd *m_pCWndF4Focus;
    bool m_bTradeListSelectionInProgress,
       m_bAllocationListSelectionInProgress,

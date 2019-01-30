@@ -1709,6 +1709,8 @@ _fromclass(NULL_STRING)
 
    addFieldDetails(ifds::TaxType, ACCOUNT);    
 
+   addFieldDetails ( ifds::CashDateOverriden,  IFASTBP_PROC::TRADES_LIST); //set when user changes the Cash date
+
 }
 
 //******************************************************************************

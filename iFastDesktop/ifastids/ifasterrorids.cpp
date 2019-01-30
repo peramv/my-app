@@ -887,6 +887,12 @@ namespace IFASTERR
    // Email Phone Details cannot be blank
    extern CLASS_EXPORT I_CHAR * const EMAIL_PHONE_CANNOT_BE_BLANK                                     = I_("2220");
    extern CLASS_EXPORT I_CHAR * const BIC_CODE_LINKED_MSG                                             = I_("2222");
+   // Invalid cash date.
+   extern CLASS_EXPORT I_CHAR * const INVALID_CASH_DATE												  = I_("2240");
+   // Overridden cash date should be greater than or equal to trade date.
+   extern CLASS_EXPORT I_CHAR * const CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE						  = I_("2241");
+   // Please note cash date will remain as assigned.
+   extern CLASS_EXPORT I_CHAR * const CASH_DATE_WILL_REMAIN_AS_ASSIGNED								  = I_("2242");
 }
 
 //******************************************************************************

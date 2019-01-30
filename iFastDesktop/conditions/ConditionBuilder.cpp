@@ -12659,6 +12659,21 @@ CConditionObject* CConditionBuilder::CreateIFastIFastConditionObject(long condit
 		case 1702807: /* WARN_MATCHING_KEY_NOT_FOUND */
 			conditionObj = new CIFast_IFast_ifastcbo_warn_matching_key_not_found();
 			break;
+		case 1702808: /* WARN_INVALID_CASH_DATE */
+			conditionObj = new CIFast_IFast_ifastcbo_warn_invalid_cash_date();
+			break;
+		case 1702809: /* ERR_CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE */
+			conditionObj = new CIFast_IFast_ifastcbo_err_cash_date_must_be_greater_than_trade_date();
+			break;
+		case 1702810: /* WARN_CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE */
+			conditionObj = new CIFast_IFast_ifastcbo_warn_cash_date_must_be_greater_than_trade_date();
+			break;
+		case 1702811: /* ERR_CASH_DATE_WILL_REMAIN_AS_ASSIGNED */
+			conditionObj = new CIFast_IFast_ifastcbo_err_cash_date_will_remain_as_assigned();
+			break;
+		case 1702812: /* WARN_CASH_DATE_WILL_REMAIN_AS_ASSIGNED */
+			conditionObj = new CIFast_IFast_ifastcbo_warn_cash_date_will_remain_as_assigned();
+			break;
 		case 1800001: /* ERR_511_RECORDS_NOT_ALLOWED */
 			conditionObj = new CIFast_IFast_ifastdbrkr_err_511_records_not_allowed();
 			break;

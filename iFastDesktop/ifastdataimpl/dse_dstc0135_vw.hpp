@@ -27,5 +27,6 @@ namespace ifds
    extern __declspec(dllimport) const BFDateFieldId TradeInDate;
    extern __declspec(dllimport) const BFDateFieldId ValuationInDt;
     extern __declspec(dllimport) const BFDateFieldId RestrictedSettleInDate;
+    extern __declspec(dllimport) const BFDateFieldId CashDate;
 }
 

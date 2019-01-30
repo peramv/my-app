@@ -5581,4 +5581,8 @@
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_email_phone_details_cannot_be_blank.h"
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_matching_key_not_found.h"
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_matching_key_not_found.h"
-
+#include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_invalid_cash_date.h"
+#include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_cash_date_must_be_greater_than_trade_date.h"
+#include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cash_date_must_be_greater_than_trade_date.h"
+#include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_cash_date_will_remain_as_assigned.h"
+#include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cash_date_will_remain_as_assigned.h"

@@ -298,5 +298,6 @@ namespace ifds
     extern __declspec(dllimport) const BFTextFieldId GateOverrideIndicator;
     extern __declspec(dllimport) const BFDateFieldId RDSPPaymtDate;
     extern __declspec(dllimport) const BFTextFieldId MatchingKey;
+    extern __declspec(dllimport) const BFTextFieldId CashDateOverriden;
     extern __declspec(dllimport) const BFNumericFieldId RepeatCount;
 }

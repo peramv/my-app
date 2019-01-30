@@ -344,7 +344,8 @@ m_bPayInstructSelectionInProgress (false),
 m_bMultipleSettleLocSelectionInProgress (false),
 m_bRESPBenefAllocationInProgress (false),
 m_bRESPTransfersInProgress (false),
-m_bG1G2PageRegistered(false)
+m_bG1G2PageRegistered(false),
+m_initialCashDate (NULL_STRING)
 {
    TRACE_CONSTRUCTOR (CLASSNAME,NULL_STRING);
    //{{AFX_DATA_INIT (TradesDlg)
@@ -2388,6 +2389,12 @@ void TradesDlg::ControlUpdated ( UINT controlID,
 //finally, set the internal parameter to the value of the last account num
                   m_accountNum = accountNum;
 
+				  getParent ()->getField ( this,
+                                           IFASTBP_PROC::TRADES_LIST,
+                                           ifds::CashDate,
+                                           m_initialCashDate,
+                                           false);
+
                   updateNetworkIDExternalTransNum();
                }
 
@@ -2482,6 +2489,12 @@ void TradesDlg::ControlUpdated ( UINT controlID,
                   m_bSettleDateOverriden = settleDateOverridden == I_("Y") ? true : false;
 //finally, set the internal parameter to the value of the last account num
                   m_accountNum = accountNum;
+
+				  getParent ()->getField ( this,
+					  IFASTBP_PROC::TRADES_LIST,
+					  ifds::CashDate,
+					  m_initialCashDate,
+					  false);
 
                   updateNetworkIDExternalTransNum();
                }
@@ -3604,6 +3617,29 @@ bool TradesDlg::OnGridSetCellValue ( UINT ctrlId,
             updateFeesPage ();
          }
       }
+	  else if (rowKey == I_("CashDate"))
+	  {
+		  DString dstrCashDate;
+
+		  getParent ()->getField ( this,
+			  IFASTBP_PROC::TRADES_LIST,
+			  ifds::CashDate,
+			  dstrCashDate,
+			  false);
+
+
+		  if (!strIn.empty() &&
+			  DSTCommonFunctions::CompareDates (dstrCashDate, m_initialCashDate) != DSTCommonFunctions::EQUAL)
+		  {
+			  getParent()->setField ( this, 
+				  IFASTBP_PROC::TRADES_LIST, 
+				  ifds::CashDateOverriden, 
+				  I_("Y"), 
+				  false);
+
+   }
+
+     }
    }
    else if (ctrlId == IDC_GRD_FEES)
    {

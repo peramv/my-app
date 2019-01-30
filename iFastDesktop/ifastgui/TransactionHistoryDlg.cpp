@@ -5097,7 +5097,7 @@ void TransactionHistoryDlg::PopulatePendingDetails()
    {
 	   DisplayItem(IFASTBP_PROC::PENDING_LIST, ifds::RDSPPaymtDate, TXT_RDSP_PAYMENT_DATE);
    }
-
+   DisplayItem(IFASTBP_PROC::PENDING_LIST, ifds::CashDate, TXT_TRANS_CASHDATE,IS_DATE);
    UpdateData(FALSE);
    
    m_bIgnore = false;

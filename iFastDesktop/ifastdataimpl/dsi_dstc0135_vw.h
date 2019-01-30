@@ -36,6 +36,7 @@ namespace ifds
    extern const BFDateFieldId TradeInDate;
    extern const BFDateFieldId ValuationInDt;
    extern const BFDateFieldId RestrictedSettleInDate;
+    extern const BFDateFieldId CashDate;
 
    //Property Externs
    extern const BFDataFieldProperties s_FldProp_TradeDate;
@@ -57,6 +58,7 @@ namespace ifds
    extern const BFDataFieldProperties s_FldProp_TradeInDate;
    extern const BFDataFieldProperties s_FldProp_ValuationInDt;
    extern const BFDataFieldProperties s_FldProp_RestrictedSettleInDate;
+    extern const BFDataFieldProperties s_FldProp_CashDate;
 }
 
 
@@ -81,7 +83,7 @@ public:
    static bool fieldExists( const BFFieldId& id );
 
 private:
-    BFDataField* aFlds_[19];
+    BFDataField* aFlds_[20];
    // Field Declarations
    BFDateField TradeDate_;
    BFTextField_1 TradeDateFailed_;
@@ -102,4 +104,5 @@ private:
    BFDateField TradeInDate_;
    BFDateField ValuationInDt_;
    BFDateField RestrictedSettleInDate_;
+    BFDateField CashDate_;
 };

@@ -38,8 +38,9 @@ dsi_DSTC0135_VW::dsi_DSTC0135_VW()
 , TradeInDate_( ifds::TradeInDate, &ifds::s_FldProp_TradeInDate )
 , ValuationInDt_( ifds::ValuationInDt, &ifds::s_FldProp_ValuationInDt )
 , RestrictedSettleInDate_( ifds::RestrictedSettleInDate, &ifds::s_FldProp_RestrictedSettleInDate )
+, CashDate_( ifds::CashDate, &ifds::s_FldProp_CashDate )
 {
-    cFields_ = 19;
+    cFields_ = 20;
     memset( &aFlds_[0], 0x00, sizeof( aFlds_ ) );
 }
 
@@ -69,6 +70,7 @@ BFDataImpl* dsi_DSTC0135_VW::clone()
    p->TradeInDate_ = TradeInDate_;
    p->ValuationInDt_ = ValuationInDt_;
    p->RestrictedSettleInDate_ = RestrictedSettleInDate_;
+    p->CashDate_ = CashDate_;
    return(p);
 }
 
@@ -94,6 +96,7 @@ BFDataField* dsi_DSTC0135_VW::getElement( const BFFieldId& id )
 	  case 40007782: return ( &TradeInDate_ ); break; // TradeInDate
       case 40007783: return ( &ValuationInDt_ ); break; // ValuationInDt
       case 40007797: return ( &RestrictedSettleInDate_ ); break; // RestrictedSettleInDate
+      case 40000450: return ( &CashDate_ ); break; // CashDate
    }
    return( NULL );
 }
@@ -105,7 +108,7 @@ const BFDataField* dsi_DSTC0135_VW::getElement( const BFFieldId& id ) const
 
 BFDataField* dsi_DSTC0135_VW::getElementByIndex( unsigned int iField )
 {
-    if ( iField >=0 && iField < 19 )
+    if ( iField >=0 && iField < 20 )
    {
       BFDataField* pField = aFlds_[iField];
       if( NULL == pField )
@@ -131,6 +134,7 @@ BFDataField* dsi_DSTC0135_VW::getElementByIndex( unsigned int iField )
 			case 16: aFlds_[16] = &TradeInDate_; break;
             case 17: aFlds_[17] = &ValuationInDt_; break;
             case 18: aFlds_[18] = &RestrictedSettleInDate_; break;
+            case 19: aFlds_[19] = &CashDate_; break;
          }
          pField = aFlds_[iField];
          if( NULL == pField ) return( NULL );
@@ -152,7 +156,7 @@ unsigned long dsi_DSTC0135_VW::getLargestDefinedField( void ) const
 
 unsigned long dsi_DSTC0135_VW::getDefinedByteLength( void ) const
 {
-    return( 154 * sizeof( I_CHAR ) );
+    return( 162 * sizeof( I_CHAR ) );
 }
 
 bool dsi_DSTC0135_VW::exists( const BFFieldId& id ) const
@@ -183,6 +187,7 @@ bool dsi_DSTC0135_VW::fieldExists( const BFFieldId& id )
 	  case 40007782: return ( true );
       case 40007783: return ( true );
       case 40007797: return ( true );
+      case 40000450: return ( true );
    }
    return false;
 }

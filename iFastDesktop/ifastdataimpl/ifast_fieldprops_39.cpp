@@ -107,7 +107,8 @@ namespace ifds
    extern const BFDecimalFieldId CashRate;
    extern const BFDecimalFieldId Deduction;
    extern const BFTextFieldId GetNextAvailList;
-
+   extern const BFTextFieldId CashDateOverriden;
+   extern const BFTextFieldId OrderUserOverride;
    //------------------------------------------------------------------
    // Field s_FldProp_DfltConfDetlKeyValue (7800)
    //------------------------------------------------------------------
@@ -3592,6 +3593,68 @@ namespace ifds
       ,NULL // default value (integer)
       ,NULL // default value (double)
       ,s_FldProp_MatchingKey_FLF // label
+      ,NULL // field name is deprecated
+      ,false // allow Nulls
+      ,None // justification
+      ,NULL // no substitution set
+      );
+   //------------------------------------------------------------------            
+   // Field s_FldProp_CashDateOverriden (7931)            
+   //------------------------------------------------------------------            
+   const DString& s_FldProp_CashDateOverriden_s_DVF( const ClientLocale& locale )            
+   {            
+      static const DString dstrDefValue_7931_1( I_("") );            
+      return( dstrDefValue_7931_1 );            
+   }
+   const DString& s_FldProp_CashDateOverriden_FLF( const ClientLocale& locale )            
+   {            
+      static const DString dstrFldLabel_7931_1( I_("CashDateOverriden") );            
+      return( dstrFldLabel_7931_1 );            
+   } 
+   PBF_SSC subset_super_chooser_2_7931( const ClientLocale& locale )
+   {
+      return chooser_ss_002_068; 
+   }
+   extern CLASS_EXPORT const BFDataFieldProperties s_FldProp_CashDateOverriden(
+       BFDataFieldProperties::Type::text // field is text
+      ,CashDateOverriden // fieldId
+      ,1 // length
+      ,0 // minimum length
+      ,0 // decimals
+      ,mask_chooser_1_1 // mask chooser function
+      ,s_FldProp_CashDateOverriden_s_DVF // default value (string)
+      ,NULL // default value (integer)
+      ,NULL // default value (double)
+      ,s_FldProp_CashDateOverriden_FLF // label
+      ,NULL // field name is deprecated
+      ,false // allow Nulls
+      ,None // justification
+      ,subset_super_chooser_2_7931 // substitution set super chooser
+      );
+   //------------------------------------------------------------------            
+   // Field s_FldProp_OrderUserOverride (7933)            
+   //------------------------------------------------------------------            
+   const DString& s_FldProp_OrderUserOverride_s_DVF( const ClientLocale& locale )            
+   {            
+      static const DString dstrDefValue_7933_1( I_("") );            
+      return( dstrDefValue_7933_1 );            
+}
+   const DString& s_FldProp_OrderUserOverride_FLF( const ClientLocale& locale )            
+   {            
+      static const DString dstrFldLabel_7933_1( I_("OrderUserOverride") );            
+      return( dstrFldLabel_7933_1 );            
+   }            
+   extern CLASS_EXPORT const BFDataFieldProperties s_FldProp_OrderUserOverride(
+       BFDataFieldProperties::Type::text // field is text
+      ,OrderUserOverride // fieldId
+      ,10 // length
+      ,0 // minimum length
+      ,0 // decimals
+      ,mask_chooser_1_1 // mask chooser function
+      ,s_FldProp_OrderUserOverride_s_DVF // default value (string)
+      ,NULL // default value (integer)
+      ,NULL // default value (double)
+      ,s_FldProp_OrderUserOverride_FLF // label
       ,NULL // field name is deprecated
       ,false // allow Nulls
       ,None // justification

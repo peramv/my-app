@@ -103,6 +103,8 @@ namespace ifds
    extern const BFNumericFieldId SrchEntityId;
    extern const BFTextFieldId DistrAcctTypeDetl;
    extern const BFTextFieldId MatchingKey;
+   extern const BFTextFieldId CashDateOverriden;
+   extern const BFTextFieldId OrderUserOverride;
    extern const BFDataFieldProperties s_FldProp_DfltConfDetlKeyValue;
    extern const BFDataFieldProperties s_FldProp_DfltConfDetlDefValue;
    extern const BFDataFieldProperties s_FldProp_PriceCode6;
@@ -197,6 +199,8 @@ namespace ifds
    extern const BFDataFieldProperties s_FldProp_SrchEntityId;
    extern const BFDataFieldProperties s_FldProp_DistrAcctTypeDetl;
    extern const BFDataFieldProperties s_FldProp_MatchingKey;
+   extern const BFDataFieldProperties s_FldProp_CashDateOverriden;
+   extern const BFDataFieldProperties s_FldProp_OrderUserOverride;
    BFDataField* createField_39( const BFFieldId id )
    {
       BFDataField* pField = NULL;
@@ -296,7 +300,10 @@ namespace ifds
          case 40007928: pField = new BFNumericField( SrchEntityId, &s_FldProp_SrchEntityId ); break; 
          case 40007930: pField = new BFTextField<80>( DistrAcctTypeDetl, &s_FldProp_DistrAcctTypeDetl ); break;
          case 40007932: pField = new BFTextField<12>( MatchingKey, &s_FldProp_MatchingKey ); break;
-	  }
+         case 40007929: pField = new BFTextField_60( BankCountryCode, &s_FldProp_BankCountryCode ); break;	  
+         case 40007931: pField = new BFTextField_1( CashDateOverriden, &s_FldProp_CashDateOverriden ); break; 
+         case 40007933: pField = new BFTextField_10( OrderUserOverride, &s_FldProp_OrderUserOverride ); break; 
+      }
       return pField;
    }
 }

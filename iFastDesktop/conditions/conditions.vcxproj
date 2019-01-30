@@ -1951,6 +1951,8 @@
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_cappedfund_statuse.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_cappedfund_statusw.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_cash_date_mandatory.h" />
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_cash_date_must_be_greater_than_trade_date.h" />
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_cash_date_will_remain_as_assigned.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_cash_distrib_not_allowed_for_from_fund_class.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_cash_fund_not_allowed.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_cash_instr_not_allowed_for_reg_acc.h" />
@@ -3745,6 +3747,8 @@
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cancel_guar_adj_exist_for_acct_contract_aftr_trade_date.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_can_transfer_only_to_rrsp_rrif.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cash_date_mandatory.h" />
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cash_date_must_be_greater_than_trade_date.h" />
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cash_date_will_remain_as_assigned.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cash_dividend_paid_after.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cash_instr_not_allowed_for_reg_acc.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cesg_adcesg_amount_be_returned_because_redemption.h" />
@@ -3917,6 +3921,7 @@
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_Invalid_australian_business_number_value.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_invalid_broker_for_money_market_wire_orders.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_invalid_businessno.h" />
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_invalid_cash_date.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_invalid_cesg_repayment_reason_code.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_invalid_combination_acct_type_entity_category.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_invalid_cusip_number.h" />
