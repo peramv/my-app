@@ -299,9 +299,8 @@ namespace ifds
          case 40007921: pField = new BFDecimalField( RefundNAV, &s_FldProp_RefundNAV ); break;
          case 40007928: pField = new BFNumericField( SrchEntityId, &s_FldProp_SrchEntityId ); break; 
          case 40007930: pField = new BFTextField<80>( DistrAcctTypeDetl, &s_FldProp_DistrAcctTypeDetl ); break;
-         case 40007932: pField = new BFTextField<12>( MatchingKey, &s_FldProp_MatchingKey ); break;
-         case 40007929: pField = new BFTextField_60( BankCountryCode, &s_FldProp_BankCountryCode ); break;	  
-         case 40007931: pField = new BFTextField_1( CashDateOverriden, &s_FldProp_CashDateOverriden ); break; 
+		 case 40007931: pField = new BFTextField_1( CashDateOverriden, &s_FldProp_CashDateOverriden ); break; 
+         case 40007932: pField = new BFTextField<12>( MatchingKey, &s_FldProp_MatchingKey ); break;                  
          case 40007933: pField = new BFTextField_10( OrderUserOverride, &s_FldProp_OrderUserOverride ); break; 
       }
       return pField;
