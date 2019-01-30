@@ -903,8 +903,12 @@ namespace IFASTERR
    extern CLASS_EXPORT I_CHAR * const ACCOUNT_HAS_UNVERIFIED_DATA                                     = I_("2256");
    // RDSP Beneficiary's Date of Birth is missing.
    extern CLASS_EXPORT I_CHAR * const RDSP_BENEFICIARY_DOFBIRTH_MISSING								  = I_("2266");
+   // Not eligible for Target Fund Cash Sweep.
+   extern CLASS_EXPORT I_CHAR * const NOT_ELIGIBLE_TARGET_FUND_CASHSWEEP							  = I_("2264");
+   // Not eligible for Target Fund GIA Maturity/Interest.
+   extern CLASS_EXPORT I_CHAR * const NOT_ELIGIBLE_TARGET_FUND_GIA_MATURITY							  = I_("2265");
 }
-   
+
 //******************************************************************************
 //              Revision Control Entries
 //******************************************************************************

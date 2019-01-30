@@ -12704,6 +12704,18 @@ CConditionObject* CConditionBuilder::CreateIFastIFastConditionObject(long condit
 		case 1702825: /* WARN_RDSP_BENEFICIARY_DOFBIRTH_MISSING */
 			conditionObj = new CIFast_IFast_ifastcbo_warn_rdsp_beneficiary_dofbirth_missing();
 			break;
+		case 1702820: /* ERR_NOT_ELIGIBLE_TARGET_FUND_CASHSWEEP */
+			conditionObj = new CIFast_IFast_ifastcbo_err_not_eligible_target_fund_cashsweep();
+			break;
+		case 1702821: /* ERR_NOT_ELIGIBLE_TARGET_FUND_GIA_MATURITY */
+			conditionObj = new CIFast_IFast_ifastcbo_err_not_eligible_target_fund_giamaturity();
+			break;
+		case 1702822: /* WARN_NOT_ELIGIBLE_TARGET_FUND_CASHSWEEP */
+			conditionObj = new CIFast_IFast_ifastcbo_warn_not_eligible_target_fund_cashsweep();
+			break;
+		case 1702823: /* WARN_NOT_ELIGIBLE_TARGET_FUND_GIA_MATURITY */
+			conditionObj = new CIFast_IFast_ifastcbo_warn_not_eligible_target_fund_giamaturity();
+			break;
 		case 1800001: /* ERR_511_RECORDS_NOT_ALLOWED */
 			conditionObj = new CIFast_IFast_ifastdbrkr_err_511_records_not_allowed();
 			break;

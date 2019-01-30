@@ -142,7 +142,11 @@ protected:
                                      const DString& classCode,
                                      const BFDataGroupId &idDataGroup);
 
-
+	SEVERITY getFundLmtOverrideList (FundLmtOverrideList *&pFundLmtOverrideList,
+                                     const DString& fundCode,
+                                     const DString& classCode,
+									 const DString& dstrTransType,
+                                     const BFDataGroupId &idDataGroup);
 
 	SEVERITY setFundClassMinAmount (const BFDataGroupId& idDataGroup);
    SEVERITY businessTypeRelatedChanges (const BFDataGroupId &idDataGroup);//P0186486_FN15_The Source of Funds
@@ -152,6 +156,7 @@ protected:
 
 private:
 	DString m_multiCurrency;
+	bool m_possibleDIFError, m_checkDIFEligible;
 };
 
 //******************************************************************************

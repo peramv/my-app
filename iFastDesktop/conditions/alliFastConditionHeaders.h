@@ -5596,3 +5596,7 @@
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cash_date_will_remain_as_assigned.h"
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_acc_has_unverified_data.h"
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_acc_has_unverified_data.h"
+#include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_not_eligible_target_fund_cashsweep.h"
+#include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_not_eligible_target_fund_giamaturity.h"
+#include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_not_eligible_target_fund_cashsweep.h"
+#include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_not_eligible_target_fund_giamaturity.h"

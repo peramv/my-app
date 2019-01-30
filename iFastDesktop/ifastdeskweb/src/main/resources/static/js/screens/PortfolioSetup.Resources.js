@@ -12,6 +12,9 @@
  *
  *  17 Jun 2016 Matira T. P0255810 CHG0045497 T83083
  *     - Added new field "Family Specimen Number"
+ *     
+ *  25 Jan 2019 Ravindra P0300024-35
+ *	   - Allow Multiple DIFs in a Portfolio. 
  */
 
 DesktopWeb.ScreenResources = function(ctrlr)
@@ -180,7 +183,8 @@ DesktopWeb.ScreenResources = function(ctrlr)
 							  'contractType', 
 							  'contractVer', 
 							  'fund', 
-							  'class', 
+							  'class',
+							  'defaultFund',
 							  'deff', 
 							  'stopDate',
 							  'userName',
@@ -229,6 +233,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 					,{header: _translationMap['Version'], dataIndex: 'contractVer', width: 48}
 					,{header: _translationMap['Fund'], dataIndex: 'fund', width: 45}
 					,{header: _translationMap['Class'], dataIndex: 'class', width: 38}
+					,{header: _translationMap['Default'], dataIndex: 'defaultFund', width: 100}
 					,{header: _translationMap['EffDate'], dataIndex: 'deff', width: 65}
 					,{header: _translationMap['StopDate'], dataIndex: 'stopDate', width: 65}
 				]
@@ -242,7 +247,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 				,new DesktopWeb.Controls.ActionButton({
 					itemId: 'modBtn'
 					,text: _translationMap['Modify']
-					,handler: function(){_controller.openActionPopup('detls', _controller.MOD);}
+					,handler: function(){_controller.openActionPopup( 'detls', _controller.MOD);}
 				})
 				,new DesktopWeb.Controls.ActionButton({
 					itemId: 'delBtn'
@@ -557,44 +562,59 @@ DesktopWeb.ScreenResources = function(ctrlr)
 							,changeHandler: function(callbackFn){
 								var investType = _popups['detls'].getField('investmentType').getValue();								
 								var fundFld = _popups['detls'].getField('fund');								
-								var contractTypeFld = _popups['detls'].getField('contractType');								
+								var classFld = _popups['detls'].getField('class');								
+								var contractTypeFld = _popups['detls'].getField('contractType');
+								var defaultfld = _popups['detls'].getField('defaultFund');
+								
+								if (investType.toLowerCase() == 'd') {
+									defaultfld.enableField();
+								}
 																													
 								_controller.fetchDetlOptions(_popups['detls'].portfolioUUID, 
 									investType,
 									_popups['detls'].action, 
 									callback);
-								
 								function callback(optionsXML)
 								{
 									_popups['detls'].optionsXML = optionsXML;
-									
 									var contractTypeFld = _popups['detls'].getField('contractType');
 									if (investType != 'S')
 									{	
-										fundFld.clearField();
 										fundFld.changeHandler();																																 								
 										fundFld.loadData(IFDS.Xml.getNode(optionsXML, 'List[@listName="FundLists"]'));
 										fundFld.shGroupXML = IFDS.Xml.getNode(optionsXML, 'ShGroupList');
-										fundFld.enableField();																			
-										contractTypeFld.clearField();
+										if(_popups['detls'].action ==  _controller.MOD) {
+											fundFld.disableField();
+											fundFld.changeHandler();
+											classFld.disableField();
+										} else {
+											fundFld.clearValue();
+											fundFld.enableField();
+										}
+										contractTypeFld.clearValue();
 										contractTypeFld.disableField();										
 										contractTypeFld.changeHandler();											
-									}
+									} 
 									else
 									{
-										contractTypeFld.clearField();
-										contractTypeFld.changeHandler
+										contractTypeFld.clearValue();
+										contractTypeFld.changeHandler();
 										contractTypeFld.loadData(IFDS.Xml.getNode(optionsXML, 'List[@listName="ContractTypeLists"]'));
 										contractTypeFld.enableField();
-										fundFld.clearField();
+										fundFld.clearValue();
 										fundFld.disableField();										
 										fundFld.changeHandler();
+									}
+									
+									if (investType.toLowerCase() != 'd') {
+										defaultfld.clearValue();
+										defaultfld.disableField();
 									}
 									
 									if (callbackFn)
 									{
 										callbackFn();
-									}										
+									}									
 								}									
 							}							 					
 							,listeners: {
@@ -629,7 +649,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 													var contractVerFld = _popups['detls'].getField('contractVer');
 													contractVerFld.clearField();									
 													if (this.getValue() != "")
-													{														
+													{	
 														contractVerFld.loadData(IFDS.Xml.getNode(_popups['detls'].optionsXML, 'List[@listName="' + this.getValue() + 'VersionLists"]'));
 														contractVerFld.enableField();
 													}
@@ -665,9 +685,9 @@ DesktopWeb.ScreenResources = function(ctrlr)
 												var fundFld = _popups['detls'].getField('fund');
 												var classFld = _popups['detls'].getField('class');
 												
-												classFld.clearField();
+												classFld.clearValue();
 												if (fundFld.getValue() != "")
-												{												
+												{			
 													_controller.fetchClassList(fundFld.getValue(), fundFld.shGroupXML, callback);
 												}
 												else
@@ -678,11 +698,16 @@ DesktopWeb.ScreenResources = function(ctrlr)
 												function callback(classListXML)
 												{
 													classFld.loadData(classListXML);
-													classFld.enableField();													
-												} 
+													if(_popups['detls'].action ==  _controller.MOD) {
+														classFld.disableField();
+													} else {
+														classFld.enableField();
+													}
+												}
+												
 											}																			
 											,listeners:{
-												select: function(){this.changeHandler()}												
+												select: function() {this.changeHandler()}
 											}										
 										})
 										,new DesktopWeb.Controls.DateField({
@@ -691,6 +716,11 @@ DesktopWeb.ScreenResources = function(ctrlr)
 											,width: 90					
 											,allowBlank: false						
 											,format: DesktopWeb.Util.parseSMVDateFormat(DesktopWeb.Util.getDateDisplayFormat())
+										})
+										,new DesktopWeb.Controls.SMVComboBox({
+											itemId: 'defaultFund'
+											,fieldLabel: _translationMap['Default']
+											,width: 100
 										})
 													
 									]
@@ -752,7 +782,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 					text: _translationMap['OK']
 					,handler: function()
 					{
-						if (_popups['detls'].isValid())
+						if (_popups['detls'].isValid(_popups['detls'].action))
 						{ 
 							_controller.saveDetlRecord(_popups['detls'].action, _popups['detls'].getData());
 						}						
@@ -766,8 +796,8 @@ DesktopWeb.ScreenResources = function(ctrlr)
 				})
 			]
 			,init: function(action, portfolioUUID)
-			{			
-				this.action = action
+			{		
+				this.action = action;
 				this.portfolioUUID = portfolioUUID;
 				this.clearAllFields();
 				this.get(0).hide(); //hide delete message
@@ -778,20 +808,27 @@ DesktopWeb.ScreenResources = function(ctrlr)
 					case _controller.ADD:
 					{
 						this.setTitle(_translationMap['Investment']+ ' - ' +_translationMap['Add']);
-						this.getField('investmentType').clearField();						
-						this.getField('investmentType').enableField();
-																							
 						this.getField('deff').enableField();
 						this.getField('stopDate').enableField();
-						this.populateWithDefaultValues();						
+						this.populateWithDefaultValues();
+						this.getField('investmentType').enableField();
+						this.getField('investmentType').clearValue();
+						this.getField('fund').clearValue();
+						this.getField('class').clearValue();
+						this.getField('defaultFund').clearValue();
 						break;
 					}
 					case _controller.MOD:
 					{
 						this.setTitle(_translationMap['Investment']+ ' - ' +_translationMap['Modify']);
 						this.populateWithSelectedRecord(this.action);
+						if(this.getField('investmentType').getValue().toLowerCase() == 'd') {
+							this.getField('defaultFund').enableField();
+						}
 						this.getField('deff').enableField();
-						this.getField('stopDate').enableField();											
+						this.getField('stopDate').enableField();
+						this.getField('fund').disableField();
+						this.getField('class').disableField();
 						break;
 					}
 					case _controller.DEL:
@@ -807,25 +844,81 @@ DesktopWeb.ScreenResources = function(ctrlr)
 			{
 				var mstrRecord = _grids['mstrs'].getSelectedRecord();
 				this.getField('deff').setValue(mstrRecord.data['deff']);
-				this.getField('stopDate').setValue(mstrRecord.data['stopDate']);				
-			}			
-			,populateWithSelectedRecord: function()
+				this.getField('stopDate').setValue(mstrRecord.data['stopDate']);
+			}	
+			,isValid: function(action) {
+				var grid = _grids['detls'];
+				var popup = _popups['detls'];
+				var valid = true;
+				valid = popup.getField('fund').isValid() && valid;
+				valid = popup.getField('defaultFund').isValid() && valid;
+				var numberOfRows = grid.getStore().getCount();
+				
+				var newFundValue = popup.getField('fund').getValue();
+				if (this.getField('investmentType').getValue().toLowerCase() == 'd') {
+					var defaultFund = popup.getField('defaultFund').getValue();
+					if (action == _controller.ADD) {
+						for (var i = 0; i < numberOfRows; i++) {
+							var funds = grid.getStore().getAt(i).data.fund;
+							if(newFundValue == funds ) {
+								popup.getField('fund').markInvalid(_translationMap['ERR_DUPLICATE_DIF']);
+								valid = false;
+							}
+						}
+					}
+					
+					if (action == _controller.ADD || action == _controller.MOD) {
+						if(defaultFund ==_controller.YES) {
+							for (var i = 0; i < numberOfRows; i++) {
+								var defaultFunds = grid.getStore().getAt(i).data.defaultFund;
+								var currentFundValue = grid.getStore().getAt(i).data.fund;
+								if( (defaultFunds) == defaultFund && newFundValue != currentFundValue ) {
+									popup.getField('defaultFund').markInvalid(_translationMap['ERR_DIF_ALLOWED_AS_DEFAULT']);
+									valid = false;
+								}
+							}
+						}
+						if(action == _controller.MOD && defaultFund ==_controller.NO) {
+							var numOfDifInGrid = 0;
+							var gridDefaultFund;
+							for(var i = 0; i < numberOfRows; i++) {
+								if(grid.getStore().getAt(i).data.investmentType == 'D') {
+									numOfDifInGrid++;
+									gridDefaultFund = grid.getStore().getAt(i).data.defaultFund;
+								}
+							}
+							if(numOfDifInGrid == 1 && (gridDefaultFund ==_controller.YES)) {
+								DesktopWeb.Util.displayError(_translationMap['ERR_DEFAULT_FUND_MUST_SETUP']);
+								valid = false;
+							}
+						}
+					}
+					if (action == _controller.DEL) {
+						if(defaultFund ==_controller.YES) {		
+							DesktopWeb.Util.displayError(_translationMap['ERR_DEFAULT_FUND_MUST_SETUP']);
+							valid = false;
+						}
+					}
+				}
+				return valid;
+			}
+			,populateWithSelectedRecord: function(action)
 			{
 				var rec = _grids['detls'].getSelectedRecord();
-				if (this.action == _controller.MOD)
+				if (action == _controller.MOD)
 				{
-					this.getField('investmentType').setValue(rec.data['investmentType']);				
+					var self = this;
+					this.getField('investmentType').setValue(rec.data['investmentType']);
 					this.getField('investmentType').changeHandler(callback);
 					
-					var self = this;
 					function callback()
 					{
 						self.getField('contractType').setValue(rec.data['contractType']);
 						self.getField('contractType').changeHandler();
 						self.getField('contractVer').setValue(rec.data['contractVer']);
 						self.getField('fund').setValue(rec.data['fund']);
-						self.getField('fund').changeHandler();
-						self.getField('class').setValue(rec.data['class']);										
+						self.getField('class').setValue(rec.data['class']);	
+						self.getField('defaultFund').setValue(rec.data['defaultFund']);
 						self.getField('deff').setValue(rec.data['deff']);
 						self.getField('stopDate').setValue(rec.data['stopDate']);
 					}
@@ -837,6 +930,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 					this.getField('contractVer').setValue(rec.data['contractVer']);	
 					this.getField('fund').setValue(rec.data['fund']);
 					this.getField('class').setValue(rec.data['class']);
+					this.getField('defaultFund').setValue(rec.data['defaultFund']);
 					this.getField('deff').setValue(rec.data['deff']);
 					this.getField('stopDate').setValue(rec.data['stopDate']);					
 				}
@@ -851,6 +945,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 				data['contractVer'] = this.getField('contractVer').getValue();
 				data['fund'] = this.getField('fund').getValue();
 				data['class'] = this.getField('class').getValue();
+				data['defaultFund'] = this.getField('defaultFund').getValue();
 				data['deff'] = this.getField('deff').getSMVDateString();
 				data['stopDate'] = this.getField('stopDate').getSMVDateString();
 				data['active'] = 'yes';
@@ -1114,7 +1209,13 @@ DesktopWeb.ScreenResources = function(ctrlr)
 		,screenButtons: [
 			new DesktopWeb.Controls.ScreenButton({
 				text: _translationMap['OK']
-				,handler: function(){DesktopWeb.Util.commitScreen();}					
+				,handler: function() {
+					if (_controller.updatesFlag) {
+						_controller.doCommitValidate();
+					} else {
+						DesktopWeb.Util.cancelScreen();
+					}				
+				}
 			})
 			,new DesktopWeb.Controls.ScreenButton({
 				text: _translationMap['Cancel']

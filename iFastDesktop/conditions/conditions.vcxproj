@@ -2817,6 +2817,8 @@
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_not_a_valid_status.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_not_backdated_no_holdings.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_not_conf_for_rebalancing.h" />
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_not_eligible_target_fund_cashsweep.h" />
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_not_eligible_target_fund_giamaturity.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_not_enough_grant_amount_for_return.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_not_in_allowable_transfer.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_not_iwt_tax_juris.h" />
@@ -3994,6 +3996,8 @@
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_notional_amounts_must_be_negative.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_notional_amounts_update_for_cancelled_or_reversed_trade_not_allowed.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_notional_paid_by_other_amounts_must_be_positive.h" />
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_not_eligible_target_fund_cashsweep.h" />
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_not_eligible_target_fund_giamaturity.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_not_enough_grant_amount_for_return.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_no_check_on_taxrate_for_non_dollar_amttype.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_no_divtype_unit_rate_exists_for_this_date.h" />

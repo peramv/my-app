@@ -12,6 +12,9 @@
  *
  *	24 Feb 2016 Watchara Th. P0241773 DFT0056976 T82328
  *	   - Fixed screens don't response when user's profile has too many slots attached.  
+ *
+ *  25 Jan 2019 Ravindra P0300024-35
+ *	   - Allow Multiple DIFs in a Portfolio. 
  */
 
 DesktopWeb.ScreenController = function(){	
@@ -63,6 +66,7 @@ DesktopWeb.ScreenController = function(){
 		{
 			_resources.fields['searchType'].loadData(IFDS.Xml.getNode(initXML, "//List[@listName='SearchTypeOptions']"));
 			_resources.popups['detls'].getField('investmentType').loadData(IFDS.Xml.getNode(initXML, '//List[@listName="InvestTypeList"]'));
+			_resources.popups['detls'].getField('defaultFund').loadData(IFDS.Xml.getNode(initXML, '//List[@listName="DefaultPlanOptions"]'));
 			_resources.popups['plans'].getField('defaultPlan').loadData(IFDS.Xml.getNode(initXML, '//List[@listName="DefaultPlanOptions"]'));			
 		}
 		catch(e){throw new Error("Error loading data from XML - " + e.description)}		
@@ -203,7 +207,7 @@ DesktopWeb.ScreenController = function(){
 		if (curRec != null)
 		{
 			var xmlIndex = _resources.grids['detls'].getRecordIndex(curRec) + 1; 			
-			detlXML	= IFDS.Xml.getNode(detlsXML, 'Detl[' + xmlIndex + ']');
+			detlXML	= IFDS.Xml.getNode(detlsXML, 'Detl[' + xmlIndex  + ']');
 			
 			if (IFDS.Xml.getNode(detlXML, 'errorMsg'))
 			{
@@ -224,7 +228,7 @@ DesktopWeb.ScreenController = function(){
 		else
 		{
 			for (var i in data)
-			{
+			{				
 				IFDS.Xml.replaceSingleNode(detlXML, i, data[i]);
 			}
 		}
@@ -396,10 +400,12 @@ DesktopWeb.ScreenController = function(){
 		ADD: 'add'
 		,MOD: 'mod'
 		,DEL: 'del'
-		,UNCH: 'unch'				
-
+		,UNCH: 'unch'
+		,YES: 'YES'
+		,NO: 'NO'
+			
 		,updatesFlag: false
-
+		
 		,init: function(res)
 		{
 			_resources = res;
@@ -437,7 +443,7 @@ DesktopWeb.ScreenController = function(){
 				}
 			}
 		}
-		
+		 
 		,updateSearchType: function()
 		{
 			var searchType = _resources.fields['searchType'].getValue();			
@@ -516,7 +522,7 @@ DesktopWeb.ScreenController = function(){
 						if (success)
 						{	
 							//_portfolioInfoXML = formatPortfolioInfoXML(IFDS.Xml.getNode(responseXML, '*/PortfolioInfo'));
-							_portfolioInfoXML = IFDS.Xml.getNode(responseXML, '*/PortfolioInfo') 									
+							_portfolioInfoXML = IFDS.Xml.getNode(responseXML, '*/PortfolioInfo') 	
 							if (_portfolioInfoXML == null)
 							{
 								_portfolioXML = IFDS.Xml.newDocument('PortfolioInfo'); 								
@@ -687,7 +693,7 @@ DesktopWeb.ScreenController = function(){
 			{
 				var mstrIndex = _resources.grids['mstrs'].getRecordIndex(_selectedMstrRecord) + 1;							
 				_resources.grids['detls'].loadData(IFDS.Xml.getNode(_portfolioInfoXML, 'Mstr[' + mstrIndex + ']/Detls'));				
-				_resources.grids['plans'].loadData(IFDS.Xml.getNode(_portfolioInfoXML, 'Mstr[' + mstrIndex + ']/Plans'));				
+				_resources.grids['plans'].loadData(IFDS.Xml.getNode(_portfolioInfoXML, 'Mstr[' + mstrIndex + ']/Plans'));	
 			}
 			else
 			{
@@ -786,7 +792,7 @@ DesktopWeb.ScreenController = function(){
 				if (curRec.data['runMode'] == this.ADD)
 				{
 					if (action == this.DEL)
-					{						
+					{					
 						validationReqd = false;																	
 					}
 					else
@@ -813,7 +819,7 @@ DesktopWeb.ScreenController = function(){
 					updateDetlsXML(curRec, data, IFDS.Xml.getNode(_portfolioInfoXML, 'Mstr[' + mstrXMLIndex + ']'));
 										
 					var mstrRecordIndexToReSelect = _resources.grids['mstrs'].getRecordIndex(_selectedMstrRecord);
-					var detlRecordIndexToReSelect = (action == _self.MOD ? _resources.grids['detls'].getRecordIndex(_resources.grids['detls'].getSelectedRecord()) : null);
+					var detlRecordIndexToReSelect = (action == _self.MOD  ? _resources.grids['detls'].getRecordIndex(_resources.grids['detls'].getSelectedRecord()) : null);
 					var planRecordIndexToReSelect = _resources.grids['plans'].getRecordIndex(_resources.grids['plans'].getSelectedRecord());
 										
 					_resources.grids['mstrs'].loadData(_portfolioInfoXML);
@@ -968,18 +974,18 @@ DesktopWeb.ScreenController = function(){
 			IFDS.Xml.addSingleNode(requestXML, 'portfolioUUID', portfolioUUID);
 			IFDS.Xml.addSingleNode(requestXML, 'investmentType', investmentType);
 			IFDS.Xml.addSingleNode(requestXML, 'runMode', action);
-			
 			var allRecords = _resources.grids['detls'].getAllRecords();
-			var selectedDetlRec = _resources.grids['detls'].getSelectedRecord();				
+			var selectedDetRlec = _resources.grids['detls'].getSelectedRecord();				
 			for (var i = allRecords.length - 1; i >= 0; i--)
 			{
-				if (allRecords[i] != selectedDetlRec)
-				{					
+				if (allRecords[i] != selectedDetRlec)
+				{			
 					var detlNode = IFDS.Xml.addSingleNode(requestXML, 'Detl');
 					IFDS.Xml.addSingleNode(detlNode, 'runMode', allRecords[i].data['runMode']);
 					IFDS.Xml.addSingleNode(detlNode, 'contractType', allRecords[i].data['contractType']);
 					IFDS.Xml.addSingleNode(detlNode, 'fund', allRecords[i].data['fund']);
 					IFDS.Xml.addSingleNode(detlNode, 'class', allRecords[i].data['class']);
+					IFDS.Xml.addSingleNode(detlNode, 'defaultFund', allRecords[i].data['defaultFund']);
 				}				
 			}
 								
@@ -995,19 +1001,20 @@ DesktopWeb.ScreenController = function(){
 		}
 		
 		,fetchClassList : function(fundCode, shGroupListXML, callbackFn)
-		{			
+		{	
+			
 			var requestXML = IFDS.Xml.newDocument("data");
 			IFDS.Xml.addSingleNode(requestXML, 'fund', fundCode);
-			IFDS.Xml.appendNode(requestXML, IFDS.Xml.cloneDocument(shGroupListXML));
-								
+			if(shGroupListXML != null) {
+				IFDS.Xml.appendNode(requestXML, IFDS.Xml.cloneDocument(shGroupListXML));
+			}
 			DesktopWeb.Ajax.doSmartviewAjax(_detlClassListView, null, requestXML, responseHandler, _translationMap['ProcMsg_Loading']);
-			
 			function responseHandler(success, responseXML)
 			{			
 				if (success)
-				{					
+				{		
 					callbackFn(IFDS.Xml.getNode(responseXML, '*/List[@listName="ClassLists"]'));
-				}
+				} 
 			}			
 		}
 		
@@ -1054,6 +1061,35 @@ DesktopWeb.ScreenController = function(){
 				}				
 			}
 			return updateStatus;
+		}
+		
+		,doCommitValidate: function()
+		{
+			var updateStatus = null;			
+			var updateXML = IFDS.Xml.addSingleNode(buildUpdateXML(_portfolioInfoXML), 'runMode', 'validation');
+			
+			DesktopWeb.Ajax.doSmartviewAjax(_updateView, null, updateXML, responseHandler, _translationMap['ProcMsg_Saving'], Ext.Msg.OKCANCEL);
+			
+			function responseHandler(success, responseXML, contextErrors, warnings, btn)
+			{				
+				if (success)
+				{			
+					if (btn == null || btn == 'ok') {
+						DesktopWeb.Util.commitScreen();
+					}
+				}
+				else 
+				{
+					storeContextErrors(contextErrors);
+					_resources.grids['mstrs'].loadData(_portfolioInfoXML);
+					
+					var recIndex = _resources.grids['mstrs'].getStore().findBy(function(rec){return rec.data['errorMsg'].length > 0});										
+					if (recIndex)
+					{						
+						_resources.grids['mstrs'].setSelectedRecord(recIndex);
+					}
+				}
+			}
 		}
 	}
 }

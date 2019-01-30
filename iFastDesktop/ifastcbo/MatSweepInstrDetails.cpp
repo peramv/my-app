@@ -66,6 +66,8 @@ namespace
    const I_CHAR * const SEG_CASH_SWP_RULE    = I_("44");
    const I_CHAR * const EMPLOYEE             = I_("08");
    const I_CHAR * const AGENT                = I_("09");
+   const I_CHAR * const NOT_ELIGIB_CSWP_RULE = I_("83");
+   const I_CHAR * const NOT_ELIGIB_MATURITY_RULE = I_("84");
 
 }
 
@@ -103,6 +105,7 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId AcctDesignation;
    extern CLASS_IMPORT const BFTextFieldId IntCalcMthdList;
    extern CLASS_IMPORT const BFTextFieldId FundRelnCode;
+   extern CLASS_IMPORT const BFTextFieldId StopFlagSeverityCode;
 }
 
 namespace IFASTERR
@@ -110,6 +113,8 @@ namespace IFASTERR
    extern CLASS_IMPORT I_CHAR * const REFERENCE_NO_IS_MANDATORY_FOR_SOURCE_OF_FUND;
    extern CLASS_IMPORT I_CHAR * const SUPPRESS_PAYTYPE_REQUIRED_FOR_FUND_SOURCE; //P0186486_FN15_The Source of Funds
    extern CLASS_IMPORT I_CHAR * const CASH_INSTR_NOT_ALLOWED_FOR_REG_ACC;
+   extern CLASS_IMPORT I_CHAR * const NOT_ELIGIBLE_TARGET_FUND_CASHSWEEP;
+   extern CLASS_IMPORT I_CHAR * const NOT_ELIGIBLE_TARGET_FUND_GIA_MATURITY;
 }
 
 namespace CND
@@ -127,6 +132,10 @@ namespace CND
    extern const long WARN_SUPPRESS_PAYTYPE_REQUIRED_FOR_FUND_SOURCE; 
    extern const long ERR_CASH_INSTR_NOT_ALLOWED_FOR_REG_ACC; 
    extern const long WARN_CASH_INSTR_NOT_ALLOWED_FOR_REG_ACC;
+   extern const long ERR_NOT_ELIGIBLE_TARGET_FUND_CASHSWEEP;
+   extern const long ERR_NOT_ELIGIBLE_TARGET_FUND_GIA_MATURITY;
+   extern const long WARN_NOT_ELIGIBLE_TARGET_FUND_CASHSWEEP;
+   extern const long WARN_NOT_ELIGIBLE_TARGET_FUND_GIA_MATURITY;
 }
 
 namespace ACCT_DESIGNATION
@@ -266,17 +275,24 @@ SEVERITY MatSweepInstrDetails::doValidateField( const BFFieldId& idField,
    {
       FundMasterList	*pFundMasterList; 
 
+	  m_possibleDIFError = false;
+	  m_checkDIFEligible = false;
+
       if (!dstrValue.empty() && getMgmtCo().getFundMasterList (pFundMasterList) && 
          pFundMasterList)
       {
          DString dstrInstrType;
+		 bool isDIFFund = pFundMasterList->isDIFFund (dstrValue);
 
          getParent ()->getParent ()->getField (ifds::MatSwpInstructionType, dstrInstrType, idDataGroup, false);
 
-         if (dstrInstrType == CASH_SWEEP && pFundMasterList->isDIFFund (dstrValue))
+         if (dstrInstrType == CASH_SWEEP && isDIFFund)
          {
-            ADDCONDITIONFROMFILE (CND::ERR_FUND_CANNOTBE_DIF)
+           
+			 m_possibleDIFError = true;  // postpone the error ADDCONDITIONFROMFILE (CND::ERR_FUND_CANNOTBE_DIF) until you know the class 
          }
+		 else if (isDIFFund) // Maturity/Interest Instructions context: dstrInstrType in GI, GM, GB
+				m_checkDIFEligible = true;
       }
    }
    else if (idField == ifds::MatInstrFundClassXEdit)
@@ -830,6 +846,46 @@ SEVERITY MatSweepInstrDetails::validateFundClass (const BFDataGroupId &idDataGro
 
             pMFAccount->fundClassInGroup (fundCode, classCode, effectiveDate, idDataGroup);
          }
+
+		 // even the Fund is DIF, check if there is any "Not eligible" rule defined. if there is none, then is OK 
+		 if (m_possibleDIFError || m_checkDIFEligible) {
+
+		   FundLmtOverrideList	*pFundToLmtOverrideList = NULL;
+		   FundLmtOverride		*pFundLmtOverride = NULL;
+		   DString dstrAccountNum, dstrEWI;
+
+		   getParent ()->getParent ()->getField (ifds::AccountNum, dstrAccountNum, idDataGroup, false);
+
+		   if (getFundLmtOverrideList (pFundToLmtOverrideList, fundCode, classCode, CASH_SWEEP, idDataGroup) <= WARNING &&
+			  pFundToLmtOverrideList)
+		   {
+			  if (pFundToLmtOverrideList->getFundLmtOverride (getWorkSession(), dstrAccountNum, (m_possibleDIFError ? NOT_ELIGIB_CSWP_RULE : NOT_ELIGIB_MATURITY_RULE), pFundLmtOverride, idDataGroup) 
+				 <= WARNING && pFundLmtOverride)
+			  {
+				   pFundLmtOverride->getField (ifds::StopFlagSeverityCode, dstrEWI, idDataGroup, false);
+				   dstrEWI.strip().upperCase();
+				   if (dstrEWI == I_("E")) 
+				   {
+						if (m_possibleDIFError)
+						{
+							// Before it was ERR_FUND_CANNOTBE_DIF
+							getErrMsg ( IFASTERR::NOT_ELIGIBLE_TARGET_FUND_CASHSWEEP,
+											  CND::ERR_NOT_ELIGIBLE_TARGET_FUND_CASHSWEEP, 
+											  CND::WARN_NOT_ELIGIBLE_TARGET_FUND_CASHSWEEP, 
+											  idDataGroup);
+
+						} 
+						else 
+						{
+							getErrMsg ( IFASTERR::NOT_ELIGIBLE_TARGET_FUND_GIA_MATURITY,
+											  CND::ERR_NOT_ELIGIBLE_TARGET_FUND_GIA_MATURITY, 
+											  CND::WARN_NOT_ELIGIBLE_TARGET_FUND_GIA_MATURITY, 
+											  idDataGroup);
+						}
+				   }
+			  }
+		   }
+		 }  //  m_possibleDIFError or m_checkDIFEligible
       }
    }
 
@@ -2089,6 +2145,40 @@ SEVERITY MatSweepInstrDetails::getFundLmtOverrideList (FundLmtOverrideList *&pFu
       pFundLmtOverrideList = new FundLmtOverrideList (*this);
 
       if (pFundLmtOverrideList->init (fundCode, classCode, PURCHASE) <= WARNING)
+      {
+         setObject (pFundLmtOverrideList, strKey, OBJ_ACTIVITY_NONE, idDataGroup); 
+      }
+      else
+      {
+         delete pFundLmtOverrideList;
+         pFundLmtOverrideList = NULL;
+      }
+   }
+
+   return GETCURRENTHIGHESTSEVERITY();
+}
+
+//****************************************************************************
+SEVERITY MatSweepInstrDetails::getFundLmtOverrideList (FundLmtOverrideList *&pFundLmtOverrideList,
+                                                       const DString& fundCode,
+                                                       const DString& classCode,
+													   const DString& dstrTransType,
+                                                       const BFDataGroupId &idDataGroup)
+{
+   MAKEFRAMEAUTOPROMOTE2 ( CND::IFASTCBO_CONDITION, CLASSNAME, I_("getFundLmtOverrideList2"));
+
+   pFundLmtOverrideList = NULL;
+
+   DString strKey = I_("FundLmtOverrideList");
+   strKey += I_(";FundCode=") + fundCode + I_(";ClassCode=") + classCode;   
+
+   pFundLmtOverrideList = dynamic_cast<FundLmtOverrideList *>(BFCBO::getObject(strKey, idDataGroup));
+
+   if (!pFundLmtOverrideList )
+   {
+      pFundLmtOverrideList = new FundLmtOverrideList (*this);
+
+      if (pFundLmtOverrideList->init (fundCode, classCode, dstrTransType) <= WARNING)
       {
          setObject (pFundLmtOverrideList, strKey, OBJ_ACTIVITY_NONE, idDataGroup); 
       }
