@@ -19,11 +19,13 @@ namespace ifds
    //Field Externs
    extern const BFTextFieldId MoreAvailable;
    extern const BFTextFieldId NextKey;
+   extern const BFTextFieldId VerifyReqExist;
    extern const BFNumericFieldId RepeatCount;
 
    //Property Externs
    extern const BFDataFieldProperties s_FldProp_MoreAvailable;
    extern const BFDataFieldProperties s_FldProp_NextKey;
+   extern const BFDataFieldProperties s_FldProp_VerifyReqExist;
    extern const BFDataFieldProperties s_FldProp_RepeatCount;
 }
 
@@ -49,10 +51,11 @@ public:
    static bool fieldExists( const BFFieldId& id );
 
 private:
-   BFDataField* aFlds_[3];
+   BFDataField* aFlds_[4];
    // Field Declarations
    BFTextField_1 MoreAvailable_;
    BFTextField<100> NextKey_;
+   BFTextField_1 VerifyReqExist_;
    BFNumericField RepeatCount_;
 
 };

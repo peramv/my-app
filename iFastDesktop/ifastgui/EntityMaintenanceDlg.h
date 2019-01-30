@@ -131,7 +131,7 @@ protected:
                       bool /* bOkStatus */
                       );
    virtual bool PreOk();
-
+   void UpdateDetailsVerifyStat();
    virtual void ControlUpdated(UINT controlID, const DString &dstrValue);
    LRESULT OpenFundClassListDlg( WPARAM, LPARAM );
    virtual void DoListItemChanged(

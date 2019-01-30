@@ -29160,6 +29160,12 @@
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cash_date_must_be_greater_than_trade_date.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_acc_has_unverified_data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_acc_has_unverified_data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>  
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

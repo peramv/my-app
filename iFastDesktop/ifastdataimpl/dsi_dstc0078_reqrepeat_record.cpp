@@ -64,8 +64,9 @@ dsi_DSTC0078_REQRepeat_Record::dsi_DSTC0078_REQRepeat_Record()
 , SecondPhoneNumExt_( ifds::SecondPhoneNumExt, &ifds::s_FldProp_SecondPhoneNumExt )
 , FATCAFFI_( ifds::FATCAFFI, &ifds::s_FldProp_FATCAFFI )
 , CountryOfExposure_( ifds::CountryOfExposure, &ifds::s_FldProp_CountryOfExposure )
+, VerifyStatDetails_( ifds::VerifyStatDetails, &ifds::s_FldProp_VerifyStatDetails )
 {
-    cFields_ = 49;
+    cFields_ = 50;
    memset( &aFlds_[0], 0x00, sizeof( aFlds_ ) );
 }
 
@@ -125,6 +126,7 @@ BFDataImpl* dsi_DSTC0078_REQRepeat_Record::clone()
    p->SecondPhoneNumExt_ = SecondPhoneNumExt_;
    p->FATCAFFI_ = FATCAFFI_;
     p->CountryOfExposure_ = CountryOfExposure_;
+   p->VerifyStatDetails_ = VerifyStatDetails_;
    return(p);
 }
 
@@ -179,7 +181,8 @@ BFDataField* dsi_DSTC0078_REQRepeat_Record::getElement( const BFFieldId& id )
       case 40005651: return ( &SecondPhoneNum_ ); break; // SecondPhoneNum
       case 40005652: return ( &SecondPhoneNumExt_ ); break; // SecondPhoneNumExt
       case 40006947: return ( &FATCAFFI_ ); break; // FATCAFFI
-        case 40007577: return ( &CountryOfExposure_ ); break; // CountryOfExposure
+      case 40007577: return ( &CountryOfExposure_ ); break; // CountryOfExposure
+      case 40007934: return ( &VerifyStatDetails_ ); break; // VerifyStatDetails
    }
    return( NULL );
 }
@@ -191,7 +194,7 @@ const BFDataField* dsi_DSTC0078_REQRepeat_Record::getElement( const BFFieldId& i
 
 BFDataField* dsi_DSTC0078_REQRepeat_Record::getElementByIndex( unsigned int iField )
 {
-    if ( iField >=0 && iField < 49 )
+    if ( iField >=0 && iField < 50 )
    {
       BFDataField* pField = aFlds_[iField];
       if( NULL == pField )
@@ -246,7 +249,8 @@ BFDataField* dsi_DSTC0078_REQRepeat_Record::getElementByIndex( unsigned int iFie
             case 45: aFlds_[45] = &SecondPhoneNum_; break;
             case 46: aFlds_[46] = &SecondPhoneNumExt_; break;
             case 47: aFlds_[47] = &FATCAFFI_; break;
-                case 48: aFlds_[48] = &CountryOfExposure_; break;
+            case 48: aFlds_[48] = &CountryOfExposure_; break;
+            case 49: aFlds_[49] = &VerifyStatDetails_; break;
          }
          pField = aFlds_[iField];
          if( NULL == pField ) return( NULL );
@@ -268,7 +272,7 @@ unsigned long dsi_DSTC0078_REQRepeat_Record::getLargestDefinedField( void ) cons
 
 unsigned long dsi_DSTC0078_REQRepeat_Record::getDefinedByteLength( void ) const
 {
-   return( 2298 * sizeof( I_CHAR ) );
+   return( 2358 * sizeof( I_CHAR ) );
 }
 
 bool dsi_DSTC0078_REQRepeat_Record::exists( const BFFieldId& id ) const
@@ -329,6 +333,7 @@ bool dsi_DSTC0078_REQRepeat_Record::fieldExists( const BFFieldId& id )
       case 40005652: return( true );
       case 40006947: return( true );
       case 40007577: return ( true );
+      case 40007934: return ( true );
    }
    return false;
 }

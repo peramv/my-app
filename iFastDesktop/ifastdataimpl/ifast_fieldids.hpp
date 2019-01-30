@@ -5810,4 +5810,7 @@ namespace ifds
    extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId MatchingKey;
    extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId CashDateOverriden;
    extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId OrderUserOverride;
+   extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId VerifyStatDetails;
+   extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId DefStatus;
+   extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId VerifyReqExist;
 }

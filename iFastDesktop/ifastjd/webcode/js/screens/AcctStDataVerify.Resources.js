@@ -8,6 +8,10 @@
  *
  *  11 Nov 2013 G. Thawornwachirakun P0181067 CHG0034430 T54444
  *					- Fix display date format follows dateFormatDisplay parameter
+ *
+ *  04 Jan 2018 G. Umamahesh PBSGEALV-135,PBSGEALV-181 & PBSGEALV-177
+ *					- Added VerifyCategory,Shareholder Number columns and verification of the Shareholder,Broker,Branch and Sales Rep
+ *
  */
  
 DesktopWeb.ScreenResources = function(ctrlr)
@@ -87,7 +91,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 			,store: new Ext.data.XmlStore({
 				record: 'EntityInfo'
 				,fields: ['entityId']
-				,fields: ['entityId', 'verifyStat', 'modDate', 'modTime', 'modUser', 'verifyDate', 'verfyUser', 'fldLabel', 'oldVal', 'newVal']
+				,fields: ['ShareHolder','entityId', 'verifyStat', 'modDate', 'modTime', 'modUser', 'verifyDate', 'verfyUser', 'fldLabel', 'oldVal', 'newVal','VerifyCategory','VerifyRequestUUID']
 				,listeners: {
 					load: function(store, records)
 					{
@@ -107,7 +111,8 @@ DesktopWeb.ScreenResources = function(ctrlr)
 
 				,listeners: {
 					rowselect: function(selModel, index, record){
-					_controller.checkVerifyButton();}
+						_controller.checkVerifyButton();
+					}
 				}
 
 			})
@@ -117,6 +122,8 @@ DesktopWeb.ScreenResources = function(ctrlr)
 				}
 				,columns: [
 					_expander
+					,{header: _translationMap['ShareHolder'], dataIndex: 'ShareHolder', width:100}
+					,{header: _translationMap['VerifyCategory'], dataIndex: 'VerifyCategory', width:100}
 					,{header: _translationMap['verifyStat'], dataIndex: 'verifyStat', width:100}
 					,{header: _translationMap['entityId'], dataIndex: 'entityId', width:70}
 					,{header: _translationMap['modDate'], dataIndex: 'modDate', width:100}

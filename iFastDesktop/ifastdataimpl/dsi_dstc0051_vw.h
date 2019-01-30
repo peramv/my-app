@@ -70,7 +70,8 @@ namespace ifds
    extern const BFTextFieldId SecondPhoneNum;
    extern const BFTextFieldId SecondPhoneNumExt;
    extern const BFTextFieldId FATCAFFI;
-    extern const BFTextFieldId CountryOfExposure;
+   extern const BFTextFieldId CountryOfExposure;
+   extern const BFTextFieldId VerifyStatDetails;
    extern const BFNumericFieldId RepeatCount;
 
    //Property Externs
@@ -127,7 +128,8 @@ namespace ifds
    extern const BFDataFieldProperties s_FldProp_SecondPhoneNum;
    extern const BFDataFieldProperties s_FldProp_SecondPhoneNumExt;
    extern const BFDataFieldProperties s_FldProp_FATCAFFI;
-    extern const BFDataFieldProperties s_FldProp_CountryOfExposure;
+   extern const BFDataFieldProperties s_FldProp_CountryOfExposure;
+   extern const BFDataFieldProperties s_FldProp_VerifyStatDetails;
    extern const BFDataFieldProperties s_FldProp_RepeatCount;
 }
 
@@ -153,7 +155,7 @@ public:
    static bool fieldExists( const BFFieldId& id );
 
 private:
-    BFDataField* aFlds_[55];
+    BFDataField* aFlds_[56];
    // Field Declarations
    BFTextField<25> Salutation_;
    BFTextField<80> LastName_;
@@ -209,5 +211,6 @@ private:
    BFTextField_60 SecondPhoneNumExt_;
    BFTextField_60 FATCAFFI_;
    BFTextField_6 CountryOfExposure_;
+   BFTextField_60 VerifyStatDetails_;
    BFNumericField RepeatCount_;
 };

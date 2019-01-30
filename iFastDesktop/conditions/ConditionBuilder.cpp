@@ -12674,6 +12674,12 @@ CConditionObject* CConditionBuilder::CreateIFastIFastConditionObject(long condit
 		case 1702812: /* WARN_CASH_DATE_WILL_REMAIN_AS_ASSIGNED */
 			conditionObj = new CIFast_IFast_ifastcbo_warn_cash_date_will_remain_as_assigned();
 			break;
+		case 1702822: /* ERR_ACCOUNT_HAS_UNVERIFIED_DATA */
+			conditionObj = new CIFast_IFast_ifastcbo_err_account_has_unverified_data();
+			break;
+		case 1702823: /* WARN_ACCOUNT_HAS_UNVERIFIED_DATA */
+			conditionObj = new CIFast_IFast_ifastcbo_warn_account_has_unverified_data();
+			break;		
 		case 1800001: /* ERR_511_RECORDS_NOT_ALLOWED */
 			conditionObj = new CIFast_IFast_ifastdbrkr_err_511_records_not_allowed();
 			break;

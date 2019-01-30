@@ -157,6 +157,7 @@ namespace ifds
    extern CLASS_IMPORT const BFDateFieldId RDSPConsentDeff;
    extern CLASS_IMPORT const BFTextFieldId VerifyStat;
    extern CLASS_IMPORT const BFTextFieldId Active;
+   extern CLASS_IMPORT const BFTextFieldId VerifyStatDetails;
 }
 
 namespace ENTSRCHLIT //entity search literals
@@ -373,6 +374,7 @@ _rpChildGI(NULL)
    addFieldDetails( ifds::RDSPConsentDeff,	   IFASTBP_PROC::ENTITY_LIST                               );
    addFieldDetails( ifds::VerifyStat,          IFASTBP_PROC::ENTITY_LIST                               );
    addFieldDetails( ifds::Active,              IFASTBP_PROC::ENTITY_LIST                              );
+   addFieldDetails( ifds::VerifyStatDetails,   IFASTBP_PROC::ENTITY_LIST, SUBCLASS_PROCESS             );
 
    //Risk List
    addFieldDetails( ifds::RiskLevel,           IFASTBP_PROC::RISK_LIST                               );

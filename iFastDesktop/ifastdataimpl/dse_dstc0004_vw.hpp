@@ -11,6 +11,7 @@ namespace ifds
    extern __declspec(dllimport) const BFDataId DSTC0004_VW;
    extern __declspec(dllimport) const BFTextFieldId MoreAvailable;
    extern __declspec(dllimport) const BFTextFieldId NextKey;
+   extern __declspec(dllimport) const BFTextFieldId VerifyReqExist;
    extern __declspec(dllimport) const BFNumericFieldId RepeatCount;
 }
 

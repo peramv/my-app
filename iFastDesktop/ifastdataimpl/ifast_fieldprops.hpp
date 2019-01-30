@@ -5808,4 +5808,7 @@ namespace ifds
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_MatchingKey;
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_CashDateOverriden;
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_OrderUserOverride;
+   extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_VerifyStatDetails;
+   extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_DefStatus;
+   extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_VerifyReqExist;
 }

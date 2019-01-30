@@ -104,4 +104,7 @@ namespace ifds
    extern CLASS_EXPORT const BFTextFieldId MatchingKey( 40007932 , I_("MatchingKey") );
    extern CLASS_EXPORT const BFTextFieldId CashDateOverriden( 40007931 , I_("CashDateOverriden") );
    extern CLASS_EXPORT const BFTextFieldId OrderUserOverride( 40007933 , I_("OrderUserOverride") );
+   extern CLASS_EXPORT const BFTextFieldId VerifyStatDetails( 40007934 , I_("VerifyStatDetails") );
+   extern CLASS_EXPORT const BFTextFieldId DefStatus( 40007943 , I_("DefStatus") );
+   extern CLASS_EXPORT const BFTextFieldId VerifyReqExist( 40007944 , I_("VerifyReqExist") );
 }

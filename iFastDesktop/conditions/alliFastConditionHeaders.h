@@ -5586,3 +5586,5 @@
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cash_date_must_be_greater_than_trade_date.h"
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_cash_date_will_remain_as_assigned.h"
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_cash_date_will_remain_as_assigned.h"
+#include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_acc_has_unverified_data.h"
+#include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_acc_has_unverified_data.h"

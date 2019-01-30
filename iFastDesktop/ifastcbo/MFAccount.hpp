@@ -918,6 +918,7 @@ public:
    DString _initAccountNum;
    DString _initEffectiveDate;
    DString _grpCodeLevel;
+   DString _verifyReqExists;
    GroupList* _pGroupList;
    DString _GroupName;
    AccountEntityXref* _pAcctEntityXref;

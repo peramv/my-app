@@ -10,7 +10,10 @@
  *					- Fix display date format follows dateFormatDisplay parameter
  *
  *	24 Feb 2016 Watchara Th. P0241773 DFT0056976 T82328
- *					- Fixed screens don't response when user's profile has too many slots attached.  
+ *					- Fixed screens don't response when user's profile has too many slots attached.
+ *
+ *  23 Jan 2018 Umamahesh PBSGEALV-181 & PBSGEALV-177
+ *					- User verification Shareholder,Broker,Branch and Sales Rep
  */
 
 DesktopWeb.ScreenController = function(){
@@ -27,21 +30,16 @@ DesktopWeb.ScreenController = function(){
 
 	function updateVerifyButton(responseXML)
 	{
+		var selectedVerifyRecord = _resources.grids['acctStDataVerifyGrid'].getSelectedRecord();
 		Ext.getCmp('verifyButton').setDisabled(true);
-		var loginUser = DesktopWeb._SCREEN_PARAM_MAP['ruserId'];
-		var nodeArray = IFDS.Xml.getNodes(_initXml,'/*//EntityInfo');
-
-		for(var i=1; i<nodeArray.length; i++){
-			verifiedStatus= IFDS.Xml.getNodeValue(nodeArray[i],"verifyStat");
-			modifyUser =IFDS.Xml.getNodeValue(nodeArray[i],"modUser");
-
-			if(verifiedStatus=='Unverified'){
-				if(modifyUser != loginUser){
-
-						Ext.getCmp('verifyButton').setDisabled(false);
-				}
-			}	
-
+		
+		if(selectedVerifyRecord != null) {
+			var loginUser = DesktopWeb._SCREEN_PARAM_MAP['ruserId'];
+			var modUser = selectedVerifyRecord.data.modUser;
+			var verifyStat = selectedVerifyRecord.data.verifyStat;			
+			if( modUser != loginUser && verifyStat=='Unverified') {
+				Ext.getCmp('verifyButton').setDisabled(false);
+			}
 		}
 
 	}
@@ -83,7 +81,7 @@ DesktopWeb.ScreenController = function(){
 		}
 
 	
-		,recordsList: function (){
+		,recordsList: function () {
 
 			var selectedRecord = _resources.grids['acctStDataVerifyGrid'].getSelectedRecord();
 			var recordsReturnValue = []
@@ -104,15 +102,17 @@ DesktopWeb.ScreenController = function(){
 			return recordsReturnValue;	
 		}
 
-		,verifyStaticDataChanges: function(){
+		,verifyStaticDataChanges: function() {
 			var _updateXML = IFDS.Xml.newDocument('VerifyRequestUpdate');
 			var selectedRecord = _resources.grids['acctStDataVerifyGrid'].getSelectedRecord();
 			var entityId = selectedRecord.data.entityId;
+			var VerifyRequestUUID = selectedRecord.data.VerifyRequestUUID;
 			IFDS.Xml.addSingleNode(_updateXML, "entityId", entityId);
+			IFDS.Xml.addSingleNode(_updateXML, "VerifyRequestUUID", VerifyRequestUUID);
 			doUpdate(_updateXML);
 		}
 		
-		,checkVerifyButton : function(){
+		,checkVerifyButton : function() {
 			updateVerifyButton();
 		}
 	}

@@ -311,4 +311,5 @@ namespace ifds
     extern __declspec(dllimport) const BFTextFieldId IntraDayPricing;
     extern __declspec(dllimport) const BFTextFieldId PendingTradeCashDateOverride;
     extern __declspec(dllimport) const BFTextFieldId OrderUserOverride;
+    extern __declspec(dllimport) const BFTextFieldId DefStatus;
 }

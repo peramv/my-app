@@ -21,9 +21,10 @@ dsi_DSTC0004_VW::dsi_DSTC0004_VW()
 : BFDataImpl( 40000170, 40000171 )
 , MoreAvailable_( ifds::MoreAvailable, &ifds::s_FldProp_MoreAvailable )
 , NextKey_( ifds::NextKey, &ifds::s_FldProp_NextKey )
+, VerifyReqExist_( ifds::VerifyReqExist, &ifds::s_FldProp_VerifyReqExist )
 , RepeatCount_( ifds::RepeatCount, &ifds::s_FldProp_RepeatCount )
 {
-   cFields_ = 3;
+   cFields_ = 4;
    memset( &aFlds_[0], 0x00, sizeof( aFlds_ ) );
 }
 
@@ -36,6 +37,7 @@ BFDataImpl* dsi_DSTC0004_VW::clone()
    dsi_DSTC0004_VW* p = new dsi_DSTC0004_VW;
    p->MoreAvailable_ = MoreAvailable_;
    p->NextKey_ = NextKey_;
+   p->VerifyReqExist_ = VerifyReqExist_;
    p->RepeatCount_ = RepeatCount_;
    return(p);
 }
@@ -45,6 +47,7 @@ BFDataField* dsi_DSTC0004_VW::getElement( const BFFieldId& id )
    switch( id.getId() ) {
       case 40000126: return ( &MoreAvailable_ ); break; // MoreAvailable
       case 40000029: return ( &NextKey_ ); break; // NextKey
+      case 40007944: return ( &VerifyReqExist_ ); break; // VerifyReqExist
       case 40000120: return ( &RepeatCount_ ); break; // RepeatCount
    }
    return( NULL );
@@ -57,7 +60,7 @@ const BFDataField* dsi_DSTC0004_VW::getElement( const BFFieldId& id ) const
 
 BFDataField* dsi_DSTC0004_VW::getElementByIndex( unsigned int iField )
 {
-   if ( iField >=0 && iField < 3 )
+   if ( iField >=0 && iField < 4 )
    {
       BFDataField* pField = aFlds_[iField];
       if( NULL == pField )
@@ -66,7 +69,8 @@ BFDataField* dsi_DSTC0004_VW::getElementByIndex( unsigned int iField )
          {
             case 0: aFlds_[0] = &MoreAvailable_; break;
             case 1: aFlds_[1] = &NextKey_; break;
-            case 2: aFlds_[2] = &RepeatCount_; break;
+            case 2: aFlds_[2] = &VerifyReqExist_; break;
+            case 3: aFlds_[3] = &RepeatCount_; break;
          }
          pField = aFlds_[iField];
          if( NULL == pField ) return( NULL );
@@ -88,7 +92,7 @@ unsigned long dsi_DSTC0004_VW::getLargestDefinedField( void ) const
 
 unsigned long dsi_DSTC0004_VW::getDefinedByteLength( void ) const
 {
-   return( 116 * sizeof( I_CHAR ) );
+   return( 117 * sizeof( I_CHAR ) );
 }
 
 bool dsi_DSTC0004_VW::exists( const BFFieldId& id ) const
@@ -102,6 +106,7 @@ bool dsi_DSTC0004_VW::fieldExists( const BFFieldId& id )
    {
       case 40000126: return( true );
       case 40000029: return( true );
+      case 40007944: return ( true );
       case 40000120: return( true );
    }
    return false;

@@ -69,9 +69,10 @@ dsi_DSTC0051_VW::dsi_DSTC0051_VW()
 , SecondPhoneNumExt_( ifds::SecondPhoneNumExt, &ifds::s_FldProp_SecondPhoneNumExt )
 , FATCAFFI_( ifds::FATCAFFI, &ifds::s_FldProp_FATCAFFI )
 , CountryOfExposure_( ifds::CountryOfExposure, &ifds::s_FldProp_CountryOfExposure )
+, VerifyStatDetails_( ifds::VerifyStatDetails, &ifds::s_FldProp_VerifyStatDetails )
 , RepeatCount_( ifds::RepeatCount, &ifds::s_FldProp_RepeatCount )
 {
-    cFields_ = 55;
+    cFields_ = 56;
     memset( &aFlds_[0], 0x00, sizeof( aFlds_ ) );
 }
 
@@ -136,6 +137,7 @@ BFDataImpl* dsi_DSTC0051_VW::clone()
     p->SecondPhoneNumExt_ = SecondPhoneNumExt_;
     p->FATCAFFI_ = FATCAFFI_;
     p->CountryOfExposure_ = CountryOfExposure_;
+    p->VerifyStatDetails_ = VerifyStatDetails_;
     p->RepeatCount_ = RepeatCount_;
     return(p);
 }
@@ -197,6 +199,7 @@ BFDataField* dsi_DSTC0051_VW::getElement( const BFFieldId& id )
         case 40005652: return ( &SecondPhoneNumExt_ ); break; // SecondPhoneNumExt
         case 40006947: return ( &FATCAFFI_ ); break; // FATCAFFI
         case 40007577: return ( &CountryOfExposure_ ); break; // CountryOfExposure
+        case 40007934: return ( &VerifyStatDetails_ ); break; // VerifyStatDetails
         case 40000120: return ( &RepeatCount_ ); break; // RepeatCount
     }
     return( NULL );
@@ -209,7 +212,7 @@ const BFDataField* dsi_DSTC0051_VW::getElement( const BFFieldId& id ) const
 
 BFDataField* dsi_DSTC0051_VW::getElementByIndex( unsigned int iField )
 {
-    if ( iField >=0 && iField < 55 )
+    if ( iField >=0 && iField < 56 )
     {
         BFDataField* pField = aFlds_[iField];
         if( NULL == pField )
@@ -270,7 +273,8 @@ BFDataField* dsi_DSTC0051_VW::getElementByIndex( unsigned int iField )
                 case 51: aFlds_[51] = &SecondPhoneNumExt_; break;
                 case 52: aFlds_[52] = &FATCAFFI_; break;
                 case 53: aFlds_[53] = &CountryOfExposure_; break;
-                case 54: aFlds_[54] = &RepeatCount_; break;
+            	case 54: aFlds_[54] = &VerifyStatDetails_; break;
+            	case 55: aFlds_[55] = &RepeatCount_; break;
             }
             pField = aFlds_[iField];
             if( NULL == pField ) return( NULL );
@@ -292,7 +296,7 @@ unsigned long dsi_DSTC0051_VW::getLargestDefinedField( void ) const
 
 unsigned long dsi_DSTC0051_VW::getDefinedByteLength( void ) const
 {
-    return( 2510 * sizeof( I_CHAR ) );
+    return( 2570 * sizeof( I_CHAR ) );
 }
 
 bool dsi_DSTC0051_VW::exists( const BFFieldId& id ) const
@@ -358,6 +362,7 @@ bool dsi_DSTC0051_VW::fieldExists( const BFFieldId& id )
         case 40005652: return ( true );
         case 40006947: return ( true );
         case 40007577: return ( true );
+        case 40007934: return ( true );
         case 40000120: return ( true );
     }
     return false;

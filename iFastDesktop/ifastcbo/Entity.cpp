@@ -167,6 +167,10 @@ namespace
    const I_CHAR * const RDSP_TAX_TYPE				  = I_( "RS" );
    const I_CHAR * const RDSP_BENEFICIARY			  = I_( "79" );
    const I_CHAR * const RDSP_PCG					  = I_( "80" );
+   const I_CHAR * const ENTITYSEARCH_CATEGORY            = I_("4");
+   const I_CHAR * const ENTITYSEARCH_LEVEL               = I_("02");
+   const I_CHAR * const UNVERIFIED                       = I_("02");
+   const I_CHAR * const VERIFIED                         = I_("01");
 }
 
 namespace CND
@@ -330,6 +334,7 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId RiskForAcctHldrRsk;
    extern CLASS_IMPORT const BFTextFieldId RiskLevel;
    extern CLASS_IMPORT const BFTextFieldId MiscCode;
+   extern CLASS_IMPORT const BFTextFieldId VerifyStatDetails;
 }
 
 namespace ENTITY_CATEGORY
@@ -422,6 +427,7 @@ const BFCBO::CLASS_FIELD_INFO classFieldInfo[] = {
    {ifds::CountryOfExposure,        BFCBO::NONE,                  0},
    {ifds::CurrentSelectedEntityType,BFCBO::NOT_ON_HOST,           0},
    {ifds::CurrentEntRegAcctNum,     BFCBO::NOT_ON_HOST,           0},
+   {ifds::VerifyStatDetails,        BFCBO::NONE,                  0},
 };
 
 static const int NUM_FIELDS = sizeof (classFieldInfo) / sizeof (BFCBO::CLASS_FIELD_INFO);
@@ -458,8 +464,10 @@ namespace TAX_TYPES
 //******************************************************************************
 Entity::Entity (BFAbstractCBO &parent) : MFCanBFCbo (parent),
 _pResponseData (NULL),
+_bIsDirty (false),
 _pErrMsgRulesList (NULL),
-_bRefresh (false)
+_bRefresh (false),
+_bInit (true)
 {
    TRACE_CONSTRUCTOR (CLASSNAME , NULL_STRING);
    registerMemberData (NUM_FIELDS, (const CLASS_FIELD_INFO *)&classFieldInfo,
@@ -534,6 +542,8 @@ SEVERITY Entity::init (const DString& entityId,
    }
    doApplyRelatedChanges (ifds::EmployeeClass, idDataGroup);
    setFieldSubstituteValues (ifds::Salutation, idDataGroup, ifds::SalutationSetField);
+   initVerifyStatus (idDataGroup, isNew());
+   _bInit = false;
 
    return (GETCURRENTHIGHESTSEVERITY ());
 }
@@ -594,7 +604,9 @@ SEVERITY Entity::init (const BFData &data)
    }
    //init (strEntityNum);
    doApplyRelatedChanges (ifds::EmployeeClass, BF::HOST);
-   setFieldSubstituteValues (ifds::Salutation, BF::HOST, ifds::SalutationSetField);  
+   setFieldSubstituteValues (ifds::Salutation, BF::HOST, ifds::SalutationSetField); 
+   initVerifyStatus (BF::HOST, false);
+   _bInit = false;
 
    return GETCURRENTHIGHESTSEVERITY ();
 }
@@ -765,6 +777,8 @@ SEVERITY Entity::init (const DString& strEntityNum)
          setValidFlag (ifds::OccupationCode, BF::HOST, false);
       }
    }
+   initVerifyStatus (BF::HOST, false);
+
    return (GETCURRENTHIGHESTSEVERITY ());
 }
 
@@ -1496,6 +1510,8 @@ SEVERITY Entity::doApplyRelatedChanges (const BFFieldId &idField, const BFDataGr
          setFieldValid( ifds::CountryOfExposure, idDataGroup, false);
       }
    }
+   if(idField != ifds::CurrentSelectedEntityType)
+		verifyStatusRelatedChanges (idField, idDataGroup);
 
    return GETCURRENTHIGHESTSEVERITY ();
 }
@@ -2040,6 +2056,8 @@ void Entity::doInitWithDefaultValues (const BFDataGroupId& idDataGroup)
    DString languageDefault;
    getWorkSession().getOption (ifds::LanguageDefault,languageDefault, idDataGroup, false );
    setFieldNoValidate(ifds::LanguageCode, languageDefault,idDataGroup,false,true,true,false);
+   initVerifyStatus (idDataGroup, isNew());
+   _bInit = false;
 }
 
 //****************************************************************************
@@ -3314,6 +3332,133 @@ SEVERITY Entity::validateLoanTypeLoanNumber( const BFDataGroupId& idDataGroup )
 */
 
 //******************************************************************************
+SEVERITY Entity::initVerifyStatus (const BFDataGroupId &idDataGroup, bool bNew)
+{
+   MAKEFRAMEAUTOPROMOTE2(CND::IFASTCBO_CONDITION, CLASSNAME, I_("initVerifyStatus"));
+
+   bool bReadOnly = false;
+   DString modUser;
+
+   getField (ifds::ModUser, modUser, idDataGroup, false);
+
+   modUser.strip().upperCase();
+
+   if (modUser.empty())
+   {
+      getField (ifds::Username, modUser, idDataGroup, false);
+	  modUser.strip().upperCase();
+   }
+
+   DString dstrCurrentUser = dynamic_cast<const DSTCSecurity *> (getWorkSession ().getSecurity(DSTCHost::getPrimaryHost()))->getUserId(); 
+   dstrCurrentUser.strip().upperCase();
+
+   bool bDifferentUser = false;
+   if ( modUser != dstrCurrentUser )
+   {
+	   bDifferentUser = true;
+   }
+
+   getWorkSession ().isVerificationEnabled (idDataGroup, 
+                                            ENTITYSEARCH_CATEGORY, 
+                                            ENTITYSEARCH_LEVEL, 
+                                            _bVerificationEnabled);
+
+   // enviroment level:
+   if (_bVerificationEnabled)
+   {
+	   // field level:
+	   bReadOnly = !bDifferentUser;
+
+	   if ( bNew )
+	   {
+		   setFieldNoValidate (ifds::VerifyStatDetails, UNVERIFIED, idDataGroup, false);
+		   bReadOnly = true;
+	   }
+	   else
+	   {
+		   DString strVerifyStatDetails;
+		   getField( ifds::VerifyStatDetails, strVerifyStatDetails, idDataGroup, false );
+		   strVerifyStatDetails.strip().upperCase();
+
+		   if (strVerifyStatDetails == VERIFIED )
+		   {
+			   setFieldNoValidate (ifds::VerifyStatDetails, VERIFIED, idDataGroup, false);
+			   bReadOnly = true;
+		   }
+		   else
+		   {
+			   setFieldNoValidate (ifds::VerifyStatDetails, UNVERIFIED, idDataGroup, false);
+		   }
+	   }
+   }
+   else
+   {
+	   // enviroment does not support verficaiton
+	   // Verify Status is read only
+	   // Verify Status on new IDSEARCH is set to Verified.
+
+	   setFieldNoValidate (ifds::VerifyStatDetails, VERIFIED, idDataGroup, false);
+	   bReadOnly = true;
+   }
+   
+   if( _bVerificationEnabled && idDataGroup == BF::HOST  ) // if data is verified is from backend, lock verify stat
+   { 
+	   bReadOnly = !bDifferentUser;
+	   DString strVerifyStatDetails;
+	   getField( ifds::VerifyStatDetails, strVerifyStatDetails, idDataGroup, false );
+	   strVerifyStatDetails.strip().upperCase();
+
+	   if (strVerifyStatDetails == VERIFIED )
+	   {
+		   bReadOnly = true;
+	   }
+   }
+
+   setFieldReadOnly (ifds::VerifyStatDetails, idDataGroup, bReadOnly);
+
+   return GETCURRENTHIGHESTSEVERITY();
+}
+//******************************************************************************************************************
+SEVERITY Entity::verifyStatusRelatedChanges (const BFFieldId &idFieldId, const BFDataGroupId &idDataGroup)
+{
+   MAKEFRAMEAUTOPROMOTE2(CND::IFASTCBO_CONDITION, 
+                         CLASSNAME, 
+                         I_("verifyStatusRelatedChanges"));
+
+
+   if (!_bVerificationEnabled || _bInit )
+      return GETCURRENTHIGHESTSEVERITY ();
+
+   if (idFieldId != ifds::VerifyStatDetails )
+   {
+      // if data in CBO never changed before
+      if ( !_bIsDirty )
+      { 
+		 _bIsDirty = isObjectDirty (idDataGroup);
+         if (_bIsDirty)
+         {
+			 setFieldNoValidate (ifds::VerifyStatDetails, UNVERIFIED, idDataGroup, false);
+			 setValidFlag ( ifds::VerifyStatDetails, idDataGroup, true );
+         }
+      }
+      else
+      {
+         DString strVerifyStatDetails;
+         getField(ifds::VerifyStatDetails,strVerifyStatDetails,idDataGroup,false);
+
+		 if ( strVerifyStatDetails == VERIFIED )
+		 {
+			 setFieldNoValidate (ifds::VerifyStatDetails, UNVERIFIED, idDataGroup, false);
+			 setValidFlag ( ifds::VerifyStatDetails, idDataGroup, true );
+		 }
+      }
+	  if(_bIsDirty)
+		setFieldReadOnly (ifds::VerifyStatDetails, idDataGroup, _bIsDirty);
+   }
+
+   return GETCURRENTHIGHESTSEVERITY();
+}
+//******************************************************************************************************************
 bool Entity::hasIDSByType (const DString &strIDCheck, 
                            const BFDataGroupId& idDataGroup )
 {

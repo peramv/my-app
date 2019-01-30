@@ -319,7 +319,7 @@ namespace ifds
     extern const BFTextFieldId IntraDayPricing;
     extern const BFTextFieldId PendingTradeCashDateOverride;
     extern const BFTextFieldId OrderUserOverride;
-
+    extern const BFTextFieldId DefStatus;
     //Property Externs
     extern const BFDataFieldProperties s_FldProp_AllowMultiplePacSwp;
     extern const BFDataFieldProperties s_FldProp_SWPEditlevel;
@@ -623,6 +623,7 @@ namespace ifds
     extern const BFDataFieldProperties s_FldProp_IntraDayPricing;
     extern const BFDataFieldProperties s_FldProp_PendingTradeCashDateOverride;
     extern const BFDataFieldProperties s_FldProp_OrderUserOverride;
+    extern const BFDataFieldProperties s_FldProp_DefStatus;
 }
 
 
@@ -647,7 +648,7 @@ public:
     static bool fieldExists( const BFFieldId& id );
 
 private:
-    BFDataField* aFlds_[304];
+    BFDataField* aFlds_[305];
     // Field Declarations
     BFTextField_10 AllowMultiplePacSwp_;
     BFTextField_60 SWPEditlevel_;
@@ -951,4 +952,5 @@ private:
     BFTextField_1 IntraDayPricing_;
     BFTextField_1 PendingTradeCashDateOverride_;
     BFTextField_10 OrderUserOverride_;
+    BFTextField_60 DefStatus_;
 };

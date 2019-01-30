@@ -25839,6 +25839,7 @@ namespace ifds
       I_("41"),
       I_("14"),
       I_("15"),
+      I_("50"),
       0x00
    };
 
@@ -25852,6 +25853,7 @@ namespace ifds
       I_("Death transfer"),
       I_("Reported Unclaimed Property"),
       I_("Remitted Unclaimed Property"),
+      I_("Unverified"),
       0x00
    };
 

@@ -893,7 +893,8 @@ namespace IFASTERR
    extern CLASS_EXPORT I_CHAR * const CASH_DATE_MUST_BE_GREATER_THAN_TRADE_DATE						  = I_("2241");
    // Please note cash date will remain as assigned.
    extern CLASS_EXPORT I_CHAR * const CASH_DATE_WILL_REMAIN_AS_ASSIGNED								  = I_("2242");
-}
+   // Account has unverified data
+   extern CLASS_EXPORT I_CHAR * const ACCOUNT_HAS_UNVERIFIED_DATA                                     = I_("2256");}
 
 //******************************************************************************
 //              Revision Control Entries

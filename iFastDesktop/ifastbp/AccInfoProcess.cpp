@@ -125,6 +125,7 @@ namespace ifds
    extern CLASS_IMPORT const BFDateFieldId TaxableTrustDate;
    extern CLASS_IMPORT const BFDateFieldId ExemptPeriod;
    extern CLASS_IMPORT const BFTextFieldId DistrAcctTypeDetl;
+   extern CLASS_IMPORT const BFTextFieldId DefStatus;
 }
 
 extern CLASS_IMPORT BF_OBJ_TYPE OBJ_TYPE_MFACCOUNT;
@@ -219,6 +220,7 @@ _pCondition(NULL)
    addFieldDetails( ifds::InvestorClassification, IFASTBP_PROC::MFACCOUNT_CBO );
    addFieldDetails( ifds::AIFMDInvestorCategory, IFASTBP_PROC::MFACCOUNT_CBO  );
    addFieldDetails( ifds::AcctTaxModel, IFASTBP_PROC::MFACCOUNT_CBO  );
+   addFieldDetails( ifds::DefStatus, IFASTBP_PROC::MFACCOUNT_CBO  );
 
    //for SUBCLASS_PROCESS
    addFieldDetails( ACCINFOPROC::CREATING_ACCOUNT_FIELD,       BF::NullContainerId, SUBCLASS_PROCESS );

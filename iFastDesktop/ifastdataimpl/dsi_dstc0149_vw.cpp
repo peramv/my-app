@@ -317,8 +317,9 @@ dsi_DSTC0149_VW::dsi_DSTC0149_VW()
 , IntraDayPricing_( ifds::IntraDayPricing, &ifds::s_FldProp_IntraDayPricing )
 , PendingTradeCashDateOverride_( ifds::PendingTradeCashDateOverride, &ifds::s_FldProp_PendingTradeCashDateOverride )
 , OrderUserOverride_( ifds::OrderUserOverride, &ifds::s_FldProp_OrderUserOverride )
+, DefStatus_( ifds::DefStatus, &ifds::s_FldProp_DefStatus )
 {
-    cFields_ = 302;
+    cFields_ = 305;
     memset( &aFlds_[0], 0x00, sizeof( aFlds_ ) );
 }
 
@@ -631,6 +632,7 @@ BFDataImpl* dsi_DSTC0149_VW::clone()
     p->IntraDayPricing_ = IntraDayPricing_;
     p->PendingTradeCashDateOverride_ = PendingTradeCashDateOverride_;
     p->OrderUserOverride_ = OrderUserOverride_;
+    p->DefStatus_ = DefStatus_;
     return(p);
 }
 
@@ -939,6 +941,7 @@ BFDataField* dsi_DSTC0149_VW::getElement( const BFFieldId& id )
         case 40007885: return ( &IntraDayPricing_ ); break; // IntraDayPricing
         case 40007237: return ( &PendingTradeCashDateOverride_ ); break; // PendingTradeCashDateOverride
         case 40007933: return ( &OrderUserOverride_ ); break; // OrderUserOverride
+        case 40007943: return ( &DefStatus_ ); break; // DefStatus
     }
     return( NULL );
 }
@@ -950,7 +953,7 @@ const BFDataField* dsi_DSTC0149_VW::getElement( const BFFieldId& id ) const
 
 BFDataField* dsi_DSTC0149_VW::getElementByIndex( unsigned int iField )
 {
-    if ( iField >=0 && iField < 302 )
+    if ( iField >=0 && iField < 305 )
     {
         BFDataField* pField = aFlds_[iField];
         if( NULL == pField )
@@ -1259,6 +1262,7 @@ BFDataField* dsi_DSTC0149_VW::getElementByIndex( unsigned int iField )
                 case 299: aFlds_[299] = &IntraDayPricing_; break;
                 case 300: aFlds_[300] = &PendingTradeCashDateOverride_; break;
                 case 301: aFlds_[301] = &OrderUserOverride_; break;
+                case 304: aFlds_[304] = &DefStatus_; break;
             }
             pField = aFlds_[iField];
             if( NULL == pField ) return( NULL );
@@ -1594,7 +1598,7 @@ bool dsi_DSTC0149_VW::fieldExists( const BFFieldId& id )
         case 40007885: return ( true );
         case 40007237: return ( true );
         case 40007933: return ( true );
-    }
+        case 40007943: return ( true );    }
     return false;
 }
 

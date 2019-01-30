@@ -254,6 +254,7 @@ namespace
    const I_CHAR * const TERMINATED_ACCT_STATUS          = I_( "30" ); 
    const I_CHAR * const DEATH_ACCT_STATUS               = I_( "40" ); 
    const I_CHAR * const DEATH_TRANSFER_ACCT_STATUS      = I_( "41" ); 
+   const I_CHAR * const UNVERIFIED_ACCT_STATUS			= I_( "50" );
 
    const I_CHAR * const EXTEMPT_HOLDING_EXCESS_RRSP_FEE = I_( "4" ); 
 
@@ -347,6 +348,7 @@ namespace
    const I_CHAR * const SOCIAL_CODE					= I_("SO");
 
    const I_CHAR * const RDSP_TAX_TYPE				= I_("RS");
+   const I_CHAR * const UNVERIFIED					=I_("50");
 }
 
 namespace IDS
@@ -619,6 +621,8 @@ namespace CND
    //P0266360 HSBC - Custodian
    extern const long ERR_PIM_INST_ACCT_MUST_BE_ADDED_TO_CUSTODIAN;
    extern const long WARN_PIM_INST_ACCT_MUST_BE_ADDED_TO_CUSTODIAN;
+   extern const long ERR_ACCOUNT_HAS_UNVERIFIED_DATA;
+   extern const long WARN_ACCOUNT_HAS_UNVERIFIED_DATA;
 }
 
 namespace IFASTERR
@@ -646,6 +650,7 @@ namespace IFASTERR
    extern CLASS_IMPORT I_CHAR * const ACCT_NOT_ELIGIBLE_MONEY_IN_AGE_LESS_THAN_MINIMUM;
    extern CLASS_IMPORT I_CHAR * const PIM_INST_ACCT_MUST_BE_ADDED_TO_CUSTODIAN;
    extern CLASS_IMPORT I_CHAR * const UNREVERSED_TERMINATION_ENTRIES_EXIST;
+   extern CLASS_IMPORT I_CHAR * const ACCOUNT_HAS_UNVERIFIED_DATA;
 }
 
 namespace ifds
@@ -786,6 +791,8 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId ReqAcctCustodian;
    extern CLASS_IMPORT const BFTextFieldId AccountClosingReasonRDSP;
    extern CLASS_IMPORT const BFTextFieldId DistrAcctTypeDetl;
+   extern CLASS_IMPORT const BFTextFieldId DefStatus;
+   extern CLASS_IMPORT const BFTextFieldId VerifyReqExist;
 }
 
 namespace ACCOUNT_GROUPING
@@ -1058,6 +1065,8 @@ const BFCBO::CLASS_FIELD_INFO classFieldInfo[] =
 	{ ifds::TermEntryExist,           BFCBO::NONE,                 0 },
 	{ ifds::AccountClosingReasonRDSP, BFCBO::NONE,                 0 },
 	{ ifds::DistrAcctTypeDetl,        BFCBO::NONE,                 0 },
+	{ ifds::DefStatus,				  BFCBO::NONE,                 0 },
+	{ ifds::VerifyReqExist,			  BFCBO::NONE,                 0 },
 };
 
 static const int NUM_FIELDS = sizeof( classFieldInfo ) / sizeof( BFCBO::CLASS_FIELD_INFO );
@@ -1504,6 +1513,8 @@ SEVERITY MFAccount::init( const DString& acctNum, const DString& dstrTrack,const
       clearUpdatedFlags( BF::HOST, false );
 
       bool bSettlementRuleExist = isSettlementRuleExist( BF::HOST );
+
+	  response.getElementValue(ifds::VerifyReqExist, _verifyReqExists);
    }
 
    return(GETCURRENTHIGHESTSEVERITY());
@@ -3732,6 +3743,19 @@ SEVERITY MFAccount::doValidateField( const BFFieldId& idField, const DString& st
    {
       bool b30or90 = strValue == TERMINATED_ACCT_STATUS || strValue == I_( "90" );
 
+	  // if Status is Unverified then it can only be changed to some other status if
+	  // VerifyReqExists is 'N' i.e. QC Verification is done for all fields
+      DString dstrAcctStatus;
+      getField( ifds::AcctStatus, dstrAcctStatus, BF::HOST, false  );
+	  
+	  if((dstrAcctStatus == UNVERIFIED_ACCT_STATUS) && (_verifyReqExists == I_("Y")))
+	  {
+		 getErrMsg(IFASTERR::ACCOUNT_HAS_UNVERIFIED_DATA, 
+						CND::ERR_ACCOUNT_HAS_UNVERIFIED_DATA, 
+						CND::WARN_ACCOUNT_HAS_UNVERIFIED_DATA,
+						idDataGroup);
+	  }
+
       // user cannot select status code 30 (terminated) or 90 (delete) 
       // if there is balance in the account or if the account in new
       if( b30or90 && isNew() )
@@ -5649,6 +5673,29 @@ SEVERITY MFAccount::initFieldsAndSubst( const BFDataGroupId& idDataGroup )
    if (isRDSPAccount(idDataGroup))
    {
 	   setFieldSubstituteValues( ifds::AccountClosingReason, idDataGroup, ifds::AccountClosingReasonRDSP );
+   }
+
+   DString dstrDefStatus;
+   DString dstrAcctStatus;
+   getField( ifds::AcctStatus, dstrAcctStatus, idDataGroup, false  );
+   getWorkSession().getOption2( ifds::DefStatus, dstrDefStatus, idDataGroup );
+   if((DSTCommonFunctions::getMarket() == MARKET_IDS::LUXEMBOURG) && (dstrDefStatus == I_("50")) && ((dstrAcctStatus == UNVERIFIED_ACCT_STATUS) || isNew()))
+   {
+	   setFieldNoValidate(ifds::AcctStatus, UNVERIFIED, idDataGroup);
+	   if(isNew())
+		   setFieldReadOnly(ifds::AcctStatus,idDataGroup,true);
+   }
+   else
+   {
+	   // Remove Unverified From List
+	   DString acctStatusSet;
+	   BFProperties *pBFProperties = getFieldProperties (ifds::AcctStatus, idDataGroup);     
+	   if( pBFProperties )
+	   {
+	 	   pBFProperties->getAllSubstituteValues (acctStatusSet);
+	   }
+	   acctStatusSet = removeItemFromSubtList( acctStatusSet, UNVERIFIED );
+	   pBFProperties->setAllSubstituteValues(acctStatusSet);
    }
 
    return GETCURRENTHIGHESTSEVERITY();

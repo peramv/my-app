@@ -64,5 +64,6 @@ namespace ifds
    extern __declspec(dllimport) const BFTextFieldId SecondPhoneNumExt;
    extern __declspec(dllimport) const BFTextFieldId FATCAFFI;
    extern __declspec(dllimport) const BFTextFieldId CountryOfExposure;
+   extern __declspec(dllimport) const BFTextFieldId VerifyStatDetails;
    extern __declspec(dllimport) const BFNumericFieldId RepeatCount;
 }

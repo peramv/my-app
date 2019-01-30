@@ -105,6 +105,9 @@ namespace ifds
    extern const BFTextFieldId MatchingKey;
    extern const BFTextFieldId CashDateOverriden;
    extern const BFTextFieldId OrderUserOverride;
+   extern const BFTextFieldId VerifyStatDetails;
+   extern const BFTextFieldId DefStatus;
+   extern const BFTextFieldId VerifyReqExist;
    extern const BFDataFieldProperties s_FldProp_DfltConfDetlKeyValue;
    extern const BFDataFieldProperties s_FldProp_DfltConfDetlDefValue;
    extern const BFDataFieldProperties s_FldProp_PriceCode6;
@@ -201,6 +204,9 @@ namespace ifds
    extern const BFDataFieldProperties s_FldProp_MatchingKey;
    extern const BFDataFieldProperties s_FldProp_CashDateOverriden;
    extern const BFDataFieldProperties s_FldProp_OrderUserOverride;
+   extern const BFDataFieldProperties s_FldProp_VerifyStatDetails;
+   extern const BFDataFieldProperties s_FldProp_DefStatus;
+   extern const BFDataFieldProperties s_FldProp_VerifyReqExist;
    BFDataField* createField_39( const BFFieldId id )
    {
       BFDataField* pField = NULL;
@@ -302,6 +308,9 @@ namespace ifds
 		 case 40007931: pField = new BFTextField_1( CashDateOverriden, &s_FldProp_CashDateOverriden ); break; 
          case 40007932: pField = new BFTextField<12>( MatchingKey, &s_FldProp_MatchingKey ); break;                  
          case 40007933: pField = new BFTextField_10( OrderUserOverride, &s_FldProp_OrderUserOverride ); break; 
+         case 40007934: pField = new BFTextField_60( VerifyStatDetails, &s_FldProp_VerifyStatDetails ); break;
+         case 40007943: pField = new BFTextField_60( DefStatus, &s_FldProp_DefStatus ); break;
+         case 40007944: pField = new BFTextField_1( VerifyReqExist, &s_FldProp_VerifyReqExist ); break; 
       }
       return pField;
    }

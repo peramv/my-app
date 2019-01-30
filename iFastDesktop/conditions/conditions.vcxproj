@@ -1700,6 +1700,7 @@
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_acct_transfer_in_flag_enable.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_acct_type_must_same_in_kind_trans.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_acct_type_not_valid_for_tax_type.h" />
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_acc_has_unverified_data.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_acc_tax_type_not_match.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_acq_fees_must_be_zero_for_automatic_transfer.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_acq_fee_option_not_applicable_for_adl_env.h" />
@@ -3656,6 +3657,7 @@
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_acct_to_transfer_not_allowed.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_acct_value_record_not_exist.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_acct_value_zero.h" />
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_acc_has_unverified_data.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_active_swp_amttype_exists.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_active_swp_conttype_exists.h" />
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_additional_acctnum_must_be_setup_in_identification.h" />

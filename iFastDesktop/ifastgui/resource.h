@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by D:\iFastDesktop\19.2_RDSP\fb_Sprint18\iFastDesktop\ifastgui\resCommonFr\ResCommonFr.rc
+// Used by D:\Deepak\TASK\21GDPR_V2\feature1\iFastDesktop\ifastgui\resEurope\ResEurope.rc
 //
 #define ID1                             1
 #define ID2                             2
@@ -2483,6 +2483,7 @@
 #define IDC_CMB_FORCED_INDC             2624
 #define IDC_CMB_ROLLOVER_TYPE           2624
 #define IDC_CMB_FORCED_RATE             2624
+#define IDC_CMB_DETAILS_VERIFY_STAT     2624
 #define IDC_EDT_ENGLISH_LONG_NAME       2625
 #define IDC_EDIT6                       2625
 #define IDC_CMB_SETTLEMENT              2625

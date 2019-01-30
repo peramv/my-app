@@ -109,6 +109,9 @@ namespace ifds
    extern const BFTextFieldId GetNextAvailList;
    extern const BFTextFieldId CashDateOverriden;
    extern const BFTextFieldId OrderUserOverride;
+   extern const BFTextFieldId VerifyStatDetails;
+   extern const BFTextFieldId DefStatus;
+   extern const BFTextFieldId VerifyReqExist;
    //------------------------------------------------------------------
    // Field s_FldProp_DfltConfDetlKeyValue (7800)
    //------------------------------------------------------------------
@@ -3659,5 +3662,100 @@ namespace ifds
       ,false // allow Nulls
       ,None // justification
       ,NULL // no substitution set
+      );
+   //------------------------------------------------------------------            
+   // Field s_FldProp_VerifyStatDetails (7934)            
+   //------------------------------------------------------------------            
+   const DString& s_FldProp_VerifyStatDetails_s_DVF( const ClientLocale& locale )            
+   {            
+      static const DString dstrDefValue_7934_1( I_("01") );            
+      return( dstrDefValue_7934_1 );            
+   }
+   const DString& s_FldProp_VerifyStatDetails_FLF( const ClientLocale& locale )            
+   {            
+      static const DString dstrFldLabel_7934_1( I_("VerifyStatDetails") );            
+      return( dstrFldLabel_7934_1 );            
+   }            
+   PBF_SSC subset_super_chooser_2_7934( const ClientLocale& locale )
+   {
+      return chooser_ss_002_783; 
+   }
+   extern CLASS_EXPORT const BFDataFieldProperties s_FldProp_VerifyStatDetails(
+       BFDataFieldProperties::Type::text // field is text
+      ,VerifyStatDetails // fieldId
+      ,60 // length
+      ,0 // minimum length
+      ,0 // decimals
+      ,mask_chooser_1_1 // mask chooser function
+      ,s_FldProp_VerifyStatDetails_s_DVF // default value (string)
+      ,NULL // default value (integer)
+      ,NULL // default value (double)
+      ,s_FldProp_VerifyStatDetails_FLF // label
+      ,NULL // field name is deprecated
+      ,false // allow Nulls
+      ,None // justification
+      ,subset_super_chooser_2_7934 // substitution set super chooser
+      );
+   //------------------------------------------------------------------            
+   // Field s_FldProp_DefStatus (7943)            
+   //------------------------------------------------------------------            
+   const DString& s_FldProp_DefStatus_s_DVF( const ClientLocale& locale )            
+   {            
+      static const DString dstrDefValue_7943_1( I_("") );            
+      return( dstrDefValue_7943_1 );            
+   }
+   const DString& s_FldProp_DefStatus_FLF( const ClientLocale& locale )            
+   {            
+      static const DString dstrFldLabel_7943_1( I_("DefStatus") );            
+      return( dstrFldLabel_7943_1 );            
+   }            
+   extern CLASS_EXPORT const BFDataFieldProperties s_FldProp_DefStatus(
+       BFDataFieldProperties::Type::text // field is text
+      ,DefStatus // fieldId
+      ,60 // length
+      ,0 // minimum length
+      ,0 // decimals
+      ,mask_chooser_1_1 // mask chooser function
+      ,s_FldProp_DefStatus_s_DVF // default value (string)
+      ,NULL // default value (integer)
+      ,NULL // default value (double)
+      ,s_FldProp_DefStatus_FLF // label
+      ,NULL // field name is deprecated
+      ,false // allow Nulls
+      ,None // justification
+      ,NULL // no substitution set
+      );
+   //------------------------------------------------------------------            
+   // Field s_FldProp_VerifyReqExist (7944)            
+   //------------------------------------------------------------------            
+   const DString& s_FldProp_VerifyReqExist_s_DVF( const ClientLocale& locale )            
+   {            
+      static const DString dstrDefValue_7944_1( I_("") );            
+      return( dstrDefValue_7944_1 );            
+   }
+   const DString& s_FldProp_VerifyReqExist_FLF( const ClientLocale& locale )            
+   {            
+      static const DString dstrFldLabel_7944_1( I_("VerifyReqExist") );            
+      return( dstrFldLabel_7944_1 );            
+   }            
+   PBF_SSC subset_super_chooser_2_7944( const ClientLocale& locale )
+   {
+      return chooser_ss_002_068; 
+   }
+   extern CLASS_EXPORT const BFDataFieldProperties s_FldProp_VerifyReqExist(
+       BFDataFieldProperties::Type::text // field is text
+      ,VerifyReqExist // fieldId
+      ,1 // length
+      ,0 // minimum length
+      ,0 // decimals
+      ,mask_chooser_1_1 // mask chooser function
+      ,s_FldProp_VerifyReqExist_s_DVF // default value (string)
+      ,NULL // default value (integer)
+      ,NULL // default value (double)
+      ,s_FldProp_VerifyReqExist_FLF // label
+      ,NULL // field name is deprecated
+      ,false // allow Nulls
+      ,None // justification
+      ,subset_super_chooser_2_7944 // substitution set super chooser
       );
 }

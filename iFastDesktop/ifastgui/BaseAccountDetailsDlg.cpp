@@ -5002,15 +5002,17 @@ void BaseAccountDetailsDlg::fillOptionsList()
 
    }
 
-
-   bool bVerificationEnabled = false;
+   //PBSGEALV-184 - In order to support the field level Verification of Shareholder and Acct Info through Verify Static data screen, with minimal impact,
+   //the condition to check if Entity VerifyConfig Category 4 and level 02 with active status needs to be removed.
+   
+   /*bool bVerificationEnabled = false;
    dstWorkSession->isVerificationEnabled (getParent()->getDataGroupId(), 
                                           ENTITY_CATEGORY, 
                                           ENTITY_LEVEL, 
-                                          bVerificationEnabled );
+                                          bVerificationEnabled );*/
 
    //account static data verification
-   if (hasReadPermission (UAF::ACCOUNT_STATIC_DATA_VERIFY) && bVerificationEnabled )
+   if (hasReadPermission (UAF::ACCOUNT_STATIC_DATA_VERIFY))
    {
       lbStrings.LoadString (ROW_DETAILS_ACCOUNT_STATIC_DATA_VERIFY);
       pOptionsListBox->InsertString (i++, lbStrings);

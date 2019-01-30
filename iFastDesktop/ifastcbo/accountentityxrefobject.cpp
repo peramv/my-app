@@ -395,6 +395,7 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId CRSEntityList;
    extern CLASS_IMPORT const BFTextFieldId EntityAssociationAML;
    extern CLASS_IMPORT const BFTextFieldId NASUMode;
+   extern CLASS_IMPORT const BFTextFieldId VerifyStatDetails;
 }
 
 namespace IFASTERR
@@ -542,6 +543,7 @@ const BFCBO::CLASS_FIELD_INFO classFieldInfo[] = {
    { ifds::RDSPConsentDeff,		 BFCBO::NONE,                0 },
    { ifds::NASUMode,			 BFCBO::NONE,                0 },
    { ifds::VerifyStat,           BFCBO::NONE,                0 },
+   {ifds::VerifyStatDetails,     BFCBO::NONE,                  0},
 };
 
 static const int NUM_FIELDS = sizeof( classFieldInfo ) / sizeof( BFCBO::CLASS_FIELD_INFO );
@@ -2242,6 +2244,18 @@ SEVERITY AccountEntityXrefObject::setField( const BFFieldId& idField,
          }
       }
    }
+   else if( idField == ifds::VerifyStatDetails )
+   {
+	   DString strEntityId;
+	   getField (ifds::EntityId, strEntityId, idDataGroup );
+
+	   Entity *pEntity (NULL);
+	   if ( getWorkSession().getEntity( idDataGroup, strEntityId, pEntity) <= WARNING && 
+			pEntity)
+	   {
+		  pEntity->setField (ifds::VerifyStatDetails, dstrValue, idDataGroup, false);
+	   }
+   }
    else
    {
 	  
@@ -3551,6 +3565,18 @@ void AccountEntityXrefObject::doPopulateField( const BFFieldId& idField, DString
    {
       if( PopulateWhereUsedForAccount(BF::HOST) <= WARNING )
          BFCBO::getField( idField, strValue, BF::HOST, formattedReturn );
+   }
+   if(idField == ifds::VerifyStatDetails)
+   {
+	   DString strEntityId;
+	   getField (ifds::EntityId, strEntityId, BF::HOST );
+
+	   Entity *pEntity (NULL);
+	   if ( getWorkSession().getEntity( BF::HOST, strEntityId, pEntity) <= WARNING && 
+			pEntity)
+	   {
+		  pEntity->getField (ifds::VerifyStatDetails, strValue, BF::HOST, false);
+	   }
    }
 }
 //********************************************************************************

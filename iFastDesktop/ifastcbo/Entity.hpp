@@ -106,6 +106,7 @@ public:
    bool isNEQEntity (const BFDataGroupId& idDataGroup);
    bool isDead (const BFDataGroupId& idDataGroup);
    DString getTheRegulatoryStandardComplyRule (const BFDataGroupId& idDataGroup);
+   SEVERITY initVerifyStatus (const BFDataGroupId &idDataGroup, bool bNew);
    bool hasIDSByType (const DString &strIDCheck, const BFDataGroupId& idDataGroup);
 
    void saveShareNum (const DString& shrNum)
@@ -177,6 +178,7 @@ protected:
    SEVERITY doesNEQExists (const BFDataGroupId &idDataGroup);
    SEVERITY validateEmployeeClass (const DString &strValue, const BFDataGroupId &idDataGroup);
    SEVERITY validateTaxJuris (const DString &strValue, const BFDataGroupId &idDataGroup);
+   SEVERITY verifyStatusRelatedChanges (const BFFieldId &idFieldId, const BFDataGroupId &idDataGroup);
 
 private:
    SEVERITY setSINToEntity (const BFDataGroupId &idDataGroup);
@@ -216,7 +218,10 @@ private:
    DString _shrNum;
    BFData* _pResponseData;
    ErrMsgRulesList* _pErrMsgRulesList;
+   bool     _bIsDirty;
    bool   _bRefresh;
+   bool _bVerificationEnabled;
+   bool     _bInit;
 };
 
 ///#endif
