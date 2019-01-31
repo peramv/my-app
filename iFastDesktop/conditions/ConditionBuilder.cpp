@@ -12710,10 +12710,10 @@ CConditionObject* CConditionBuilder::CreateIFastIFastConditionObject(long condit
 		case 1702821: /* ERR_NOT_ELIGIBLE_TARGET_FUND_GIA_MATURITY */
 			conditionObj = new CIFast_IFast_ifastcbo_err_not_eligible_target_fund_giamaturity();
 			break;
-		case 1702822: /* WARN_NOT_ELIGIBLE_TARGET_FUND_CASHSWEEP */
+		case 1702826: /* WARN_NOT_ELIGIBLE_TARGET_FUND_CASHSWEEP */
 			conditionObj = new CIFast_IFast_ifastcbo_warn_not_eligible_target_fund_cashsweep();
 			break;
-		case 1702823: /* WARN_NOT_ELIGIBLE_TARGET_FUND_GIA_MATURITY */
+		case 1702827: /* WARN_NOT_ELIGIBLE_TARGET_FUND_GIA_MATURITY */
 			conditionObj = new CIFast_IFast_ifastcbo_warn_not_eligible_target_fund_giamaturity();
 			break;
 		case 1800001: /* ERR_511_RECORDS_NOT_ALLOWED */
