@@ -7,7 +7,6 @@ DesktopWeb.ScreenController = function(){
 	var _translationMap = DesktopWeb.Translation.getTranslationMap();
 	var _cycleDate;
 	var incpDate;
-	var _cycleDate;
 		
 	function validateAsOfDate(value){
 		var valueDate=DesktopWeb.Util.stringToDate(value,'dmy');
@@ -40,7 +39,6 @@ DesktopWeb.ScreenController = function(){
 			
 			function callbackFn(buttonId){
 				if(buttonId == 'ok'){
-		setCycleDate(_cycleDate);
 				}
 			}
  	 	}
@@ -92,17 +90,6 @@ DesktopWeb.ScreenController = function(){
 	 	 	}
 	 	 	
 	 	 	_cycleDate = JRDSP.Util.convertStringToDate(cycleDateFromService);
-		JRDSP.Util.sendRequestToDesktopWeb("configService","getConfiguration",null,'POST_Inquiry',DesktopWeb._SCREEN_PARAM_MAP,null,responseHandler,responseHandlerFailure);
- 	 	function responseHandler(success, responseXML)
- 	 	{       
- 	 	var configList = IFDS.Xml.getNodes(success.responseXML, '//configList/configuration');
- 	 	var cycleDateFromService;
- 	 	for(var i=0;i<configList.length;i++){
- 	 	if(configList[i].childNodes[0].childNodes[0].data == 'NEXT-NR'){
- 	 		cycleDateFromService = configList[i].childNodes[1].childNodes[0].data;
- 	 	}
- 	 	}
- 	 	_cycleDate = JRDSP.Util.convertStringToDate(cycleDateFromService);
 	 	 	 _resources.fields['period'].enable();
 	         _resources.fields['periodRadio'].enable();
 	         _resources.fields['asOfRadio'].enable();
@@ -116,9 +103,6 @@ DesktopWeb.ScreenController = function(){
 	         DesktopWeb._SCREEN_PARAM_MAP['cycleDate'] = _cycleDate;
 	         getNotionalBalance(true);
  	 	}
- 	 	function responseHandlerFailure(response, options)
-		{
-			DesktopWeb.Util.displayError( " Data not found . Please contact Administrator!!", callbackFn);
  	 	
  	 	function responseHandlerFailure(response, options) {
 			DesktopWeb.Util.displayError( " Data not found . Please contact Administrator!!", callbackFn);
@@ -130,16 +114,6 @@ DesktopWeb.ScreenController = function(){
 				}
 			}
  	 	}
-	}
-	
-			function callbackFn(buttonId){
-				if(buttonId == 'ok')
-				{
-				goToScreen();
-				}
-			}
- 	 	}
-       
 	}
 	
 	function getAccountNumber () {
@@ -285,10 +259,6 @@ DesktopWeb.ScreenController = function(){
 		return value.format(DesktopWeb.Util.parseSMVDateFormat('dmy')).trim();
 	}
     
-    function setCycleDate(date){
-    	_resources.fields['asOfDate'].maxValue = DesktopWeb.Util.stringToDate(date,'dmy');
-    }
-    
 	return {
 		init: function(res) {
 			_resources = res;
@@ -368,8 +338,6 @@ DesktopWeb.ScreenController = function(){
     	},
     	setCycleDate:setCycleDate,
     	clickHandle_RdspNotionalLotDetail:clickHandle_RdspNotionalLotDetail
-    	},
-    	setCycleDate:setCycleDate
 	}
 
 };
