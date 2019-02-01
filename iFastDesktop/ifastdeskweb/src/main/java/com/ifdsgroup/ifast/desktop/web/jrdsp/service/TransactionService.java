@@ -37,14 +37,6 @@ import com.ifdsgroup.ifast.desktop.web.jrdsp.util.DateUtil;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.util.JRDSPUtil;
 import com.ifdsgroup.ifast.desktop.web.service.ApiService;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class TransactionService {
 	private static final String ANNUAL = "Annual - ";
@@ -82,35 +74,15 @@ public class TransactionService {
 	private String jrdspServiceURL;
 
 	public NotionalBalanceResponse getNotionalBalance(String userId, long accountNumber, String toDate,String cycleDate) {
-		String toDateStr = null;
 		String inceptionDate = accountService.getInceptionDate(String.valueOf(accountNumber));		
 		String fromDateStr = inceptionDate;
 		
 		NotionalBalanceDatePeriod datePeriod = new NotionalBalanceDatePeriod(fromDateStr, toDate, cycleDate, inceptionDate);
-		if (StringUtils.isNotEmpty(toDate)) {
-			if (LIFE_TO_DATE.equals(toDate)) {
-				LocalDate cycleDateLocal =  LocalDate.parse(cycleDate, DateTimeFormatter.ofPattern(CommonConstants.DATE_FORMAT));
-				toDateStr = DateUtil.getCurrentDateStr(cycleDateLocal,CommonConstants.DATE_FORMAT);
-			} else if (toDate.startsWith(ANNUAL)) {
-				String selectedYear = toDate.length() < 4 ? toDate : toDate.trim().substring(toDate.length() - 4);
-				toDateStr = LAST_DAY_MONTH + selectedYear;
-				if (DateUtil.getYear(inceptionDate, CommonConstants.DATE_FORMAT) < Integer.parseInt(selectedYear)) {
-					fromDateStr = FIRST_DAY_MONTH + selectedYear;
-				} else {
-					fromDateStr = inceptionDate;
-				}
-			} else {
-				toDateStr = toDate;
-			}
-		}
 		NotionalBalanceResponse response = new NotionalBalanceResponse();
 
 		response.setAccountNumber(accountNumber);
 		response.setBeneName(accountService.getBeneName(accountNumber));
 		response.setInceptionDate(inceptionDate);
-		buildNotionalSummary(userId, accountNumber, fromDateStr, toDateStr, response);
-		buildLimits(accountNumber, fromDateStr, toDateStr, response);
-		response.setList(createElementList(inceptionDate,cycleDate));
 		
 		buildNotionalSummary(userId, accountNumber, datePeriod, response);
 		
