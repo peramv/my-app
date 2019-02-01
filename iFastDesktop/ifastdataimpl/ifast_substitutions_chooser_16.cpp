@@ -132,6 +132,7 @@ namespace ifds
 
    // Chooser function for Substitution set AcctPurposeSet.
    extern const BFSubstitutionSet SubSet_002_484_001_000_000;
+   extern const BFSubstitutionSet SubSet_002_484_001_004_026;
    extern const BFSubstitutionSet SubSet_002_484_003_000_000;
    extern const BFSubstitutionSet SubSet_002_484_005_000_000;
    extern const BFSubstitutionSet SubSet_002_484_007_000_000;
@@ -140,6 +141,11 @@ namespace ifds
    const BFSubstitutionSet& chooser_ss_002_484( const ClientLocale& locale )
    {
       if ( locale.getLocale() == I_("enUS") ) {
+         if ( locale.getMarketIndex() == 4 ) {
+            if ( locale.getClientIndex() == 26 ) {
+               return SubSet_002_484_001_004_026; // defined in ifast_substitutions_16.cpp
+            }
+         }
          return SubSet_002_484_001_000_000; // defined in ifast_substitutions_16.cpp
       }
       if ( locale.getLocale() == I_("enCA") ) {

@@ -64,6 +64,9 @@ extern IFASTBP_LINKAGE const I_CHAR* CMD_BPROC_ENTITY;
 #include <bfproc\concreteprocesscreator.hpp>
 static ConcreteProcessCreator< EntityProcess > processCreator( CMD_BPROC_ENTITY );
 
+#include <core\bfcbo\bfcbo.hpp>
+#include <ifastcbo\mfcancbo.hpp>
+
 namespace
 {
    // Trace literals
@@ -382,6 +385,10 @@ _rpChildGI(NULL)
    addFieldDetails( ifds::EffectiveDate,       IFASTBP_PROC::RISK_LIST                               );
    addFieldDetails( ifds::StopDate,            IFASTBP_PROC::RISK_LIST                               );
    addFieldDetails( ENTPROC::RISK_DEFF_DATE_APPL, IFASTBP_PROC::RISK_LIST,           SUBCLASS_PROCESS);
+
+   // AcctMainenance LastNameFormat = Double
+   addFieldDetails( ifds::PaternalLastName,           IFASTBP_PROC::ENTITY_LIST,              SUBCLASS_PROCESS );
+   addFieldDetails( ifds::MaternalLastName,          IFASTBP_PROC::ENTITY_LIST,              SUBCLASS_PROCESS );
 }
 
 //******************************************************************************
@@ -1138,7 +1145,10 @@ SEVERITY EntityProcess::doSetField( const GenericInterface *rpGICaller,
 
          Entity *pEntity;
          dstcWorkSession->getEntity( idDataGroup, entityId, pEntity );
-         pEntity->setField( idField, strValueOut, idDataGroup, bFormatted, false, true );
+
+		 if( idField != ifds::PaternalLastName && idField != ifds::MaternalLastName)
+	         pEntity->setField( idField, strValueOut, idDataGroup, bFormatted, false, true );
+
          if( pEntity != NULL )
             pEntity->setFlagsUpdated( getDataGroupId() );
          BFAbstractCBO *rpPtr = getCBOItem( IFASTBP_PROC::ENTITY_LIST, idDataGroup );
@@ -1154,6 +1164,36 @@ SEVERITY EntityProcess::doSetField( const GenericInterface *rpGICaller,
          {
             rpPtr->setField (idField, strValueOut, idDataGroup);
          }
+
+		 if (idField == ifds::PaternalLastName || idField == ifds::MaternalLastName) 
+		 {
+			 rpPtr->setField (idField, strValueOut, idDataGroup,  bFormatted, false, false );
+			 pEntity->setField (idField, strValueOut, idDataGroup,  bFormatted, false, false );
+
+			 if (idField == ifds::PaternalLastName)
+				_paternalLastName = strValueOut;
+			 else {
+				getField (rpGICaller, IFASTBP_PROC::ENTITY_LIST, ifds::PaternalLastName, _paternalLastName, false);
+			 }
+
+			 if (idField == ifds::MaternalLastName)
+				_maternalLastName = strValueOut;
+			 else {
+				getField (rpGICaller, IFASTBP_PROC::ENTITY_LIST, ifds::MaternalLastName, _maternalLastName, false);
+			 }
+
+			 DString dstrCompundName;
+			 _paternalLastName.strip ();
+			 _maternalLastName.strip ();
+			 dstrCompundName = _paternalLastName + I_(" ") + _maternalLastName;
+			 dstrCompundName.strip();
+
+			 if (dstrCompundName.length() > 40) 
+				 dstrCompundName = dstrCompundName.substr(0, 40);
+
+			 pEntity->setField (ifds::LastName, dstrCompundName, idDataGroup,  bFormatted, true, false );
+		 }
+
          if( idField == ifds::AccountNum )
          {
             DString temp( _accNum );

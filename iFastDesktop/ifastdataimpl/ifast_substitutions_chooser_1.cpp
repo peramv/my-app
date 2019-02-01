@@ -50,6 +50,7 @@ namespace ifds
 
    // Chooser function for Substitution set MaritalCodeSet.
    extern const BFSubstitutionSet SubSet_002_031_001_000_000;
+   extern const BFSubstitutionSet SubSet_002_031_001_004_026;
    extern const BFSubstitutionSet SubSet_002_031_003_000_000;
    extern const BFSubstitutionSet SubSet_002_031_004_000_000;
    extern const BFSubstitutionSet SubSet_002_031_005_000_000;
@@ -60,6 +61,11 @@ namespace ifds
    const BFSubstitutionSet& chooser_ss_002_031( const ClientLocale& locale )
    {
       if ( locale.getLocale() == I_("enUS") ) {
+         if ( locale.getMarketIndex() == 4 ) {            
+            if ( locale.getClientIndex() == 26 ) {            
+               return SubSet_002_031_001_004_026; // defined in ifast_substitutions_1.cpp            
+            }            
+         }  
          return SubSet_002_031_001_000_000; // defined in ifast_substitutions_1.cpp
       }
       if ( locale.getLocale() == I_("enCA") ) {
@@ -1086,6 +1092,7 @@ namespace ifds
    extern const BFSubstitutionSet SubSet_002_039_001_003_000;
    extern const BFSubstitutionSet SubSet_002_039_001_004_000;
    extern const BFSubstitutionSet SubSet_002_039_001_000_000;
+   extern const BFSubstitutionSet SubSet_002_039_001_004_026;
    extern const BFSubstitutionSet SubSet_002_039_003_003_000;
    extern const BFSubstitutionSet SubSet_002_039_003_004_000;
    extern const BFSubstitutionSet SubSet_002_039_003_000_000;
@@ -1119,6 +1126,9 @@ namespace ifds
             return SubSet_002_039_001_003_000; // defined in ifast_substitutions_1.cpp
          }
          if ( locale.getMarketIndex() == 4 ) {
+            if ( locale.getClientIndex() == 26 ) {
+               return SubSet_002_039_001_004_026; // defined in ifast_substitutions_1.cpp
+            }
             return SubSet_002_039_001_004_000; // defined in ifast_substitutions_1.cpp
          }
          return SubSet_002_039_001_000_000; // defined in ifast_substitutions_1.cpp
@@ -1561,6 +1571,7 @@ namespace ifds
    extern const BFSubstitutionSet SubSet_002_046_001_003_003;
    extern const BFSubstitutionSet SubSet_002_046_001_003_011;
    extern const BFSubstitutionSet SubSet_002_046_001_003_014;
+   extern const BFSubstitutionSet SubSet_002_046_001_004_026;
    extern const BFSubstitutionSet SubSet_002_046_001_003_000;
    extern const BFSubstitutionSet SubSet_002_046_001_000_000;
    extern const BFSubstitutionSet SubSet_002_046_003_002_000;
@@ -1619,6 +1630,11 @@ namespace ifds
             }
             return SubSet_002_046_001_003_000; // defined in ifast_substitutions_1.cpp
          }
+         if ( locale.getMarketIndex() == 4 ) {            
+            if ( locale.getClientIndex() == 26 ) {            
+               return SubSet_002_046_001_004_026; // defined in ifast_substitutions_1.cpp            
+            }            
+         }  
          return SubSet_002_046_001_000_000; // defined in ifast_substitutions_1.cpp
       }
       if ( locale.getLocale() == I_("enCA") ) {
@@ -2587,6 +2603,7 @@ namespace ifds
    extern const BFSubstitutionSet SubSet_002_054_003_000_000;
    extern const BFSubstitutionSet SubSet_002_054_004_003_011;
    extern const BFSubstitutionSet SubSet_002_054_004_003_014;
+   extern const BFSubstitutionSet SubSet_002_054_001_004_026;
    extern const BFSubstitutionSet SubSet_002_054_004_000_000;
    extern const BFSubstitutionSet SubSet_002_054_005_003_011;
    extern const BFSubstitutionSet SubSet_002_054_005_003_014;
@@ -2613,6 +2630,11 @@ namespace ifds
                return SubSet_002_054_001_003_014; // defined in ifast_substitutions_1.cpp
             }
             return SubSet_002_054_001_003_000; // defined in ifast_substitutions_1.cpp
+         }
+         if ( locale.getMarketIndex() == 4 ) {
+            if ( locale.getClientIndex() == 26 ) {
+               return SubSet_002_054_001_004_026; // defined in ifast_substitutions_1.cpp
+            }
          }
          return SubSet_002_054_001_000_000; // defined in ifast_substitutions_1.cpp
       }

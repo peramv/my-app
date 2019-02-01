@@ -12653,6 +12653,12 @@ CConditionObject* CConditionBuilder::CreateIFastIFastConditionObject(long condit
 		case 1702801: /* WARN_FUND_SUBJECT_TO_LIQUIDITY_FEE_MEASURE */
 			conditionObj = new CIFast_IFast_ifastcbo_warn_attention_fund_subject_to_liquidity_fee();
 			break;		
+		case 1702804: /* ERR_PATERNAL_MATERNAL_NAMES_BOTH_BLANK */
+			conditionObj = new CIFast_IFast_ifastcbo_err_paternal_maternal_names_both_blank();
+			break;
+		case 1702805: /* WARN_PATERNAL_MATERNAL_NAMES_ADD_UP_OVER_40 */
+			conditionObj = new CIFast_IFast_ifastcbo_warn_paternal_maternal_names_addup_over_40();
+			break;
 		case 1702806: /* ERR_MATCHING_KEY_NOT_FOUND */
 			conditionObj = new CIFast_IFast_ifastcbo_err_matching_key_not_found();
 			break;

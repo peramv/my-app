@@ -101,6 +101,7 @@ public:
       if ( ulMarket == 4 && dstrClient == I_("qjh") ) return( 23 );
       if ( ulMarket == 4 && dstrClient == I_("stp") ) return( 24 );
       if ( ulMarket == 4 && dstrClient == I_("uau") ) return( 25 );
+	  if ( ulMarket == 4 && dstrClient == I_("ccc") ) return( 26 );
       return( 1 );
    }
 
@@ -167,6 +168,7 @@ public:
 	  if ( ulMarket == 4 && ulClient == 23 ) return( DString( I_( "qih" ) ) );
 	  if ( ulMarket == 4 && ulClient == 24 ) return( DString( I_( "stp" ) ) );
 	  if ( ulMarket == 4 && ulClient == 25 ) return( DString( I_( "uau" ) ) );
+	  if ( ulMarket == 4 && ulClient == 26 ) return( DString( I_( "ccc" ) ) );
       return( DString( I_("No Client") ) );
    }
 

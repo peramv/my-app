@@ -25,6 +25,9 @@
  *	12 Jun 2018 Sreejith.A P0277704 P0277704-17
  *			- T+0 Project put back reverted changes for trade control and settle date control
  *
+ *	11 Jan 2018 Umamahesh P0277997 P0277997-126
+ *			Trade Day Delay field will be accepting negative values
+ *
  */
  
 DesktopWeb.ScreenResources = function(ctrlr)
@@ -273,7 +276,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 			})
 		}
 		,tradeDayDelay: {
-			numDays: new DesktopWeb.ScreenResources.NumberField({width: 45, allowBlank: false})
+			numDays: new DesktopWeb.ScreenResources.NumberField({width: 45, allowBlank: false, allowNegative: true})
 			,dayType: new DesktopWeb.Controls.SMVComboBox({width: 100, allowBlank: false, showCode: true})
 			,dayFld: new DesktopWeb.Controls.TextField({
 				width: 40

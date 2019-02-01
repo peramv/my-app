@@ -209,6 +209,8 @@ private:
    SEVERITY validateLoanTypeLoanNumber( const BFDataGroupId& idDataGroup );
    SEVERITY validateTIN (const BFDataGroupId& idDataGroup);
    SEVERITY validateRESPAcctHolder(const BFDataGroupId& idDataGroup);
+   SEVERITY validatePaternalMaternalNames (const BFDataGroupId& idDataGroup);
+   SEVERITY validateCorporateNameForPaternalMaternal (const BFDataGroupId& idDataGroup);
    void getAccountNum(DString& accountNum, const BFDataGroupId& idDataGroup);
 
    DString _entityId, 
@@ -218,8 +220,8 @@ private:
    DString _shrNum;
    BFData* _pResponseData;
    ErrMsgRulesList* _pErrMsgRulesList;
+   bool   _bRefresh, m_bPaternalMaternal;
    bool     _bIsDirty;
-   bool   _bRefresh;
    bool _bVerificationEnabled;
    bool     _bInit;
 };

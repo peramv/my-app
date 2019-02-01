@@ -29145,6 +29145,12 @@
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_rdsp_insufficient_grant_bond_balance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_paternal_maternal_names_both_blank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_paternal_maternal_names_addup_over_40.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_rdsp_bond_return_cannot_be_greater_than_bond_purchase.h">
       <Filter>Header Files</Filter>
     </ClInclude>

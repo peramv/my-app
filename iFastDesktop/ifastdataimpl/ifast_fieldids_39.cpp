@@ -99,6 +99,9 @@ namespace ifds
    extern CLASS_EXPORT const BFDateFieldId RDSPPaymtDate( 40007917 , I_("RDSPPaymtDate") );
    extern CLASS_EXPORT const BFTextFieldId LiqRedFeeExist( 40007918 , I_("LiqRedFeeExist") );
    extern CLASS_EXPORT const BFDecimalFieldId RefundNAV( 40007921 , I_("RefundNAV") );
+   extern CLASS_EXPORT const BFTextFieldId PaternalLastName( 40007923 , I_("PaternalLastName") );            
+   extern CLASS_EXPORT const BFTextFieldId MaternalLastName( 40007924 , I_("MaternalLastName") );            
+   extern CLASS_EXPORT const BFTextFieldId LastNameFormat( 40007925 , I_("LastNameFormat") );
    extern CLASS_EXPORT const BFNumericFieldId SrchEntityId( 40007928 , I_("SrchEntityId") );
    extern CLASS_EXPORT const BFTextFieldId DistrAcctTypeDetl( 40007930 , I_("DistrAcctTypeDetl") );
    extern CLASS_EXPORT const BFTextFieldId CashDateOverriden( 40007931 , I_("CashDateOverriden") );

@@ -54,6 +54,9 @@
 #include <bfproc\abstractprocess.hpp>
 #include <ifastcbo\mgmtcooptions.hpp>
 
+#include <ifastdataimpl\dse_dstc0149_vw.hpp>
+#include <ifastdataimpl\dse_dstc0050_vwrepeat_record.hpp>
+
 extern CLASS_IMPORT const I_CHAR* CMD_BPROC_RESPBENREL;
 extern CLASS_IMPORT const I_CHAR* CMD_BPROC_WHEREUSED;
 extern CLASS_IMPORT const I_CHAR* CMD_BPROC_FUNDCLASS;
@@ -217,6 +220,9 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId RiskHeading;
    extern CLASS_IMPORT const BFDateFieldId CurrBusDate;
    extern CLASS_IMPORT const BFTextFieldId TaxType;
+   extern CLASS_IMPORT const BFTextFieldId LastNameFormat;
+   extern CLASS_IMPORT const BFTextFieldId PaternalLastName;
+   extern CLASS_IMPORT const BFTextFieldId MaternalLastName;
 }
 
 namespace ENTITY_IDS_VALUE
@@ -417,6 +423,18 @@ END_MESSAGE_MAP()
 BOOL EntityMaintenanceDlg::OnInitDialog() 
 {
    TRACE_METHOD( CLASSNAME, I_("OnInitDialog") );
+
+   MgmtCoOptions *pMgmtCoOptions = NULL; 
+   DString dstrLastNameFormat (NULL_STRING);
+   DSTCWorkSession *dstWorkSession = dynamic_cast<DSTCWorkSession *>(getParent()->getBFWorkSession());
+
+   if (dstWorkSession->getMgmtCo().getMgmtCoOptions (pMgmtCoOptions) <= WARNING && pMgmtCoOptions)
+   {
+      pMgmtCoOptions->getField (ifds::LastNameFormat, dstrLastNameFormat, BF::HOST, false); 
+	  dstrLastNameFormat.upperCase();
+      m_bPaternalMaternal = (dstrLastNameFormat == I_("DOUBLE")) ? true : false;
+   }
+
    BaseMainDlg::OnInitDialog();
 
    bool bIsRES2Client = 
@@ -497,6 +515,13 @@ BOOL EntityMaintenanceDlg::OnInitDialog()
 
    AddControl( CTRL_EDIT,     IDC_EDT_LAST_NAME,               IFASTBP_PROC::ENTITY_LIST, ifds::LastName,              0,                              (UINT)IDC_LV_ENTITIES );
    AddControl( CTRL_EDIT,     IDC_EDT_FIRST_NAME,              IFASTBP_PROC::ENTITY_LIST, ifds::FirstName,             0,                              (UINT)IDC_LV_ENTITIES );
+
+   if (m_bPaternalMaternal) 
+   {
+	   AddControl( CTRL_EDIT,     IDC_EDT_FIRST_NAME_DOUBLE, IFASTBP_PROC::ENTITY_LIST, ifds::FirstName,				0,                              (UINT)IDC_LV_ENTITIES );
+	   AddControl( CTRL_EDIT,     IDC_EDT_PATERNAL_NAME,	IFASTBP_PROC::ENTITY_LIST, ifds::PaternalLastName,			0,                              (UINT)IDC_LV_ENTITIES );
+	   AddControl( CTRL_EDIT,     IDC_EDT_MATERNAL_NAME,	IFASTBP_PROC::ENTITY_LIST, ifds::MaternalLastName,			0,                              (UINT)IDC_LV_ENTITIES );
+   }
 
    AddControl( CTRL_EDIT,     IDC_EDT_HOME_TEL,                IFASTBP_PROC::ENTITY_LIST, ifds::HomePhone,             0,                              (UINT)IDC_LV_ENTITIES );
    AddControl( CTRL_EDIT,     IDC_EDT_BUSINESS_TEL,            IFASTBP_PROC::ENTITY_LIST, ifds::BusinessPhone,         0,                              (UINT)IDC_LV_ENTITIES );
@@ -602,6 +627,13 @@ BOOL EntityMaintenanceDlg::OnInitDialog()
    AddControl (CTRL_STATIC, IDC_STC_CATEGORY, CTRLFLAG_GUI_FIELD);
    AddControl (CTRL_STATIC, IDC_STC_LAST_NAME, CTRLFLAG_GUI_FIELD);
    AddControl (CTRL_STATIC, IDC_STC_FIRST_NAME, CTRLFLAG_GUI_FIELD);
+
+   if (m_bPaternalMaternal) 
+   {
+	   AddControl (CTRL_STATIC, IDC_STC_PATERNAL_NAME, CTRLFLAG_GUI_FIELD);
+	   AddControl (CTRL_STATIC, IDC_STC_MATERNAL_NAME, CTRLFLAG_GUI_FIELD);
+   }
+
    AddControl (CTRL_STATIC, IDC_STC_NAME, CTRLFLAG_GUI_FIELD);
    AddControl (CTRL_STATIC, IDC_STC_BIRTH_DATE, CTRLFLAG_GUI_FIELD);
    AddControl (CTRL_STATIC, IDC_STC_BIRTH_PLACE, CTRLFLAG_GUI_FIELD);
@@ -799,6 +831,14 @@ BOOL EntityMaintenanceDlg::OnInitDialog()
       pTabCtrl->registerControl (IDC_EDT_LAST_NAME, TXT_PAGE_DETAILS);
       pTabCtrl->registerControl (IDC_STC_FIRST_NAME, TXT_PAGE_DETAILS);
       pTabCtrl->registerControl (IDC_EDT_FIRST_NAME, TXT_PAGE_DETAILS);
+
+	  if (m_bPaternalMaternal) {
+		  pTabCtrl->registerControl (IDC_STC_PATERNAL_NAME, TXT_PAGE_DETAILS);
+		  pTabCtrl->registerControl (IDC_EDT_PATERNAL_NAME, TXT_PAGE_DETAILS);
+		  pTabCtrl->registerControl (IDC_STC_MATERNAL_NAME, TXT_PAGE_DETAILS);
+		  pTabCtrl->registerControl (IDC_EDT_MATERNAL_NAME, TXT_PAGE_DETAILS);
+	  }
+
       pTabCtrl->registerControl (IDC_STC_NAME, TXT_PAGE_DETAILS);
       pTabCtrl->registerControl (IDC_EDT_NAME, TXT_PAGE_DETAILS);
       pTabCtrl->registerControl (IDC_STC_BIRTH_DATE, TXT_PAGE_DETAILS);
@@ -944,6 +984,12 @@ void EntityMaintenanceDlg::OnPostInitDialog()
       ( dynamic_cast < DSTEdit* > ( GetControl( IDC_EDT_HOME_FAX_AREA ) ) )->SetMaxCharNum( 3 );
       ( dynamic_cast < DSTEdit* > ( GetControl( IDC_EDT_BUSINESS_FAX_AREA ) ) )->SetMaxCharNum( 3 );
       ( dynamic_cast < DSTEdit* > ( GetControl( IDC_EDT_RESP2_ALLOCATION_PRCNT ) ) )->SetAllowedChars(I_("0123456789."));
+   }
+
+   if (m_bPaternalMaternal) 
+   {
+      ( dynamic_cast < DSTEdit* > ( GetControl( IDC_EDT_PATERNAL_NAME ) ) )->SetMaxCharNum( 40 );
+      ( dynamic_cast < DSTEdit* > ( GetControl( IDC_EDT_MATERNAL_NAME ) ) )->SetMaxCharNum( 40 );
    }
 
    ( dynamic_cast < DSTEdit* > ( GetControl( IDC_EDT_ID_VALUE ) ) )->SetMaxCharNum( 20 );
@@ -4517,15 +4563,30 @@ void EntityMaintenanceDlg::updateEmployeeClass(const DString &dstrValue)
             GetDlgItem (IDC_STATIC_SALUTATION)->ShowWindow( SW_HIDE );
             GetDlgItem (IDC_EDT_NAME)->ShowWindow( SW_SHOW );
             GetDlgItem (IDC_STC_NAME)->ShowWindow( SW_SHOW );
+
+			GetDlgItem (IDC_EDT_FIRST_NAME_DOUBLE)->ShowWindow( SW_HIDE);
+			GetDlgItem (IDC_EDT_PATERNAL_NAME)->ShowWindow( SW_HIDE );
+			GetDlgItem (IDC_EDT_MATERNAL_NAME)->ShowWindow( SW_HIDE );
+			GetDlgItem (IDC_STC_PATERNAL_NAME)->ShowWindow( SW_HIDE );
+			GetDlgItem (IDC_STC_MATERNAL_NAME)->ShowWindow( SW_HIDE );
+
             pTabCtrl->removeControlFromPage (IDC_EDT_FIRST_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->removeControlFromPage (IDC_EDT_LAST_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->removeControlFromPage (IDC_STC_FIRST_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->removeControlFromPage (IDC_STC_LAST_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->registerControl (IDC_EDT_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->registerControl (IDC_STC_NAME, TXT_PAGE_DETAILS );
+
+			pTabCtrl->removeControlFromPage (IDC_EDT_FIRST_NAME_DOUBLE, TXT_PAGE_DETAILS );
+			pTabCtrl->removeControlFromPage (IDC_EDT_PATERNAL_NAME, TXT_PAGE_DETAILS );
+			pTabCtrl->removeControlFromPage (IDC_EDT_MATERNAL_NAME, TXT_PAGE_DETAILS );
+			pTabCtrl->removeControlFromPage (IDC_STC_PATERNAL_NAME, TXT_PAGE_DETAILS );
+			pTabCtrl->removeControlFromPage (IDC_STC_MATERNAL_NAME, TXT_PAGE_DETAILS );
          }
          else
          {
+		   if (!m_bPaternalMaternal) 
+		   {
             GetDlgItem (IDC_EDT_FIRST_NAME)->ShowWindow( SW_SHOW );
             GetDlgItem (IDC_EDT_LAST_NAME)->ShowWindow( SW_SHOW );
             GetDlgItem (IDC_STC_FIRST_NAME)->ShowWindow( SW_SHOW );
@@ -4533,12 +4594,56 @@ void EntityMaintenanceDlg::updateEmployeeClass(const DString &dstrValue)
             GetDlgItem (IDC_STATIC_SALUTATION)->ShowWindow( SW_SHOW );
             GetDlgItem (IDC_EDT_NAME)->ShowWindow( SW_HIDE );
             GetDlgItem (IDC_STC_NAME)->ShowWindow( SW_HIDE );
+
+			GetDlgItem (IDC_EDT_FIRST_NAME_DOUBLE)->ShowWindow( SW_HIDE);
+			GetDlgItem (IDC_EDT_PATERNAL_NAME)->ShowWindow( SW_HIDE );
+			GetDlgItem (IDC_EDT_MATERNAL_NAME)->ShowWindow( SW_HIDE );
+			GetDlgItem (IDC_STC_PATERNAL_NAME)->ShowWindow( SW_HIDE );
+			GetDlgItem (IDC_STC_MATERNAL_NAME)->ShowWindow( SW_HIDE );
+
             pTabCtrl->registerControl (IDC_EDT_FIRST_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->registerControl (IDC_EDT_LAST_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->registerControl (IDC_STC_FIRST_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->registerControl (IDC_STC_LAST_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->removeControlFromPage (IDC_EDT_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->removeControlFromPage (IDC_STC_NAME, TXT_PAGE_DETAILS );
+			pTabCtrl->removeControlFromPage (IDC_EDT_FIRST_NAME_DOUBLE, TXT_PAGE_DETAILS );
+			pTabCtrl->removeControlFromPage (IDC_EDT_PATERNAL_NAME, TXT_PAGE_DETAILS );
+			pTabCtrl->removeControlFromPage (IDC_EDT_MATERNAL_NAME, TXT_PAGE_DETAILS );
+			pTabCtrl->removeControlFromPage (IDC_STC_PATERNAL_NAME, TXT_PAGE_DETAILS );
+			pTabCtrl->removeControlFromPage (IDC_STC_MATERNAL_NAME, TXT_PAGE_DETAILS );
+
+			}
+			else {  // Double
+
+				GetDlgItem (IDC_EDT_FIRST_NAME)->ShowWindow( SW_HIDE );
+				GetDlgItem (IDC_EDT_LAST_NAME)->ShowWindow( SW_HIDE );
+				GetDlgItem (IDC_STC_FIRST_NAME)->ShowWindow( SW_SHOW );
+				GetDlgItem (IDC_STC_LAST_NAME)->ShowWindow( SW_HIDE );
+				GetDlgItem (IDC_STATIC_SALUTATION)->ShowWindow( SW_SHOW );
+				GetDlgItem (IDC_EDT_NAME)->ShowWindow( SW_HIDE );
+				GetDlgItem (IDC_STC_NAME)->ShowWindow( SW_HIDE );
+
+				GetDlgItem (IDC_EDT_FIRST_NAME_DOUBLE)->ShowWindow( SW_SHOW);
+				GetDlgItem (IDC_EDT_PATERNAL_NAME)->ShowWindow( SW_SHOW );
+				GetDlgItem (IDC_EDT_MATERNAL_NAME)->ShowWindow( SW_SHOW );
+				GetDlgItem (IDC_STC_PATERNAL_NAME)->ShowWindow( SW_SHOW );
+				GetDlgItem (IDC_STC_MATERNAL_NAME)->ShowWindow( SW_SHOW );
+
+				pTabCtrl->registerControl (IDC_STC_FIRST_NAME, TXT_PAGE_DETAILS );
+				pTabCtrl->registerControl (IDC_EDT_FIRST_NAME_DOUBLE, TXT_PAGE_DETAILS );
+				pTabCtrl->registerControl (IDC_EDT_PATERNAL_NAME, TXT_PAGE_DETAILS );
+				pTabCtrl->registerControl (IDC_EDT_MATERNAL_NAME, TXT_PAGE_DETAILS );
+				pTabCtrl->registerControl (IDC_STC_PATERNAL_NAME, TXT_PAGE_DETAILS );
+				pTabCtrl->registerControl (IDC_STC_MATERNAL_NAME, TXT_PAGE_DETAILS );
+
+				pTabCtrl->removeControlFromPage (IDC_EDT_FIRST_NAME, TXT_PAGE_DETAILS );
+				pTabCtrl->removeControlFromPage (IDC_EDT_LAST_NAME, TXT_PAGE_DETAILS );
+				pTabCtrl->removeControlFromPage (IDC_STC_LAST_NAME, TXT_PAGE_DETAILS );
+				pTabCtrl->removeControlFromPage (IDC_EDT_NAME, TXT_PAGE_DETAILS );
+				pTabCtrl->removeControlFromPage (IDC_STC_NAME, TXT_PAGE_DETAILS );
+
+			}
             
          }
          //GetDlgItem (IDC_EDT_FIRST_NAME)->ShowWindow( bShowName ? SW_HIDE : SW_SHOW );
@@ -4558,9 +4663,20 @@ void EntityMaintenanceDlg::updateEmployeeClass(const DString &dstrValue)
             GetDlgItem ( IDC_CMB_SALUTATION )->ShowWindow( bShowName ? SW_HIDE : SW_SHOW );
          }
 
-         ConnectControlToData (IDC_EDT_LAST_NAME, !bShowName);
-         ConnectControlToData (IDC_EDT_FIRST_NAME, !bShowName);
-         ConnectControlToData (IDC_EDT_NAME, bShowName);
+		 if (!m_bPaternalMaternal) {
+			 ConnectControlToData (IDC_EDT_LAST_NAME, !bShowName);
+			 ConnectControlToData (IDC_EDT_FIRST_NAME, !bShowName);
+			 ConnectControlToData (IDC_EDT_NAME, bShowName);
+		 }
+		 else {
+
+			 ConnectControlToData (IDC_EDT_FIRST_NAME_DOUBLE, !bShowName);
+			 ConnectControlToData (IDC_EDT_PATERNAL_NAME, !bShowName);
+			 ConnectControlToData (IDC_EDT_MATERNAL_NAME, !bShowName);
+			 ConnectControlToData (IDC_EDT_NAME, bShowName);
+			 ConnectControlToData (IDC_EDT_LAST_NAME, false);
+			 ConnectControlToData (IDC_EDT_FIRST_NAME, false);
+		 }
 
          if (iMaxCharNum > 0)
          {
@@ -4573,10 +4689,15 @@ void EntityMaintenanceDlg::updateEmployeeClass(const DString &dstrValue)
             {
                dynamic_cast< DSTEdit * >( GetControl( IDC_EDT_NAME ) )->SetMaxCharNum( 80 );
             }
-            else
-            {
-               dynamic_cast< DSTEdit * >( GetControl( IDC_EDT_LAST_NAME ) )->SetMaxCharNum( 40 );
-            }
+            else 
+			{
+				if (!m_bPaternalMaternal)
+					dynamic_cast< DSTEdit * >( GetControl( IDC_EDT_LAST_NAME ) )->SetMaxCharNum( 40 );
+				else  {
+				 dynamic_cast< DSTEdit * >( GetControl( IDC_EDT_PATERNAL_NAME ) )->SetMaxCharNum( 40 );
+				 dynamic_cast< DSTEdit * >( GetControl( IDC_EDT_MATERNAL_NAME ) )->SetMaxCharNum( 40 );
+			    } 
+			}  
          }
 
          if( bShowName )
@@ -4585,8 +4706,17 @@ void EntityMaintenanceDlg::updateEmployeeClass(const DString &dstrValue)
          }
          else
          {
-            LoadControl (IDC_EDT_FIRST_NAME);
-            LoadControl (IDC_EDT_LAST_NAME);
+			if (!m_bPaternalMaternal)
+			{
+				LoadControl (IDC_EDT_FIRST_NAME);
+				LoadControl (IDC_EDT_LAST_NAME);
+			}
+			else 
+			{
+				LoadControl (IDC_EDT_FIRST_NAME_DOUBLE);
+				LoadControl (IDC_EDT_PATERNAL_NAME);
+				LoadControl (IDC_EDT_MATERNAL_NAME);
+			}
          }
 
          LoadControl (m_bSalutationFreeFormat ? IDC_EDT_SALUTATION : IDC_CMB_SALUTATION);
@@ -4602,6 +4732,12 @@ void EntityMaintenanceDlg::updateEmployeeClass(const DString &dstrValue)
          GetDlgItem (IDC_CMB_SALUTATION )->ShowWindow( SW_HIDE );
          GetDlgItem (IDC_EDT_NAME)->ShowWindow ( SW_HIDE );
          GetDlgItem (IDC_STC_NAME)->ShowWindow ( SW_HIDE );
+
+ 		 GetDlgItem (IDC_EDT_FIRST_NAME_DOUBLE)->ShowWindow( SW_HIDE);
+		 GetDlgItem (IDC_EDT_PATERNAL_NAME)->ShowWindow( SW_HIDE );
+		 GetDlgItem (IDC_EDT_MATERNAL_NAME)->ShowWindow( SW_HIDE );
+		 GetDlgItem (IDC_STC_PATERNAL_NAME)->ShowWindow( SW_HIDE );
+		 GetDlgItem (IDC_STC_MATERNAL_NAME)->ShowWindow( SW_HIDE );
       }
    }
 }

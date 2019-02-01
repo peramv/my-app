@@ -35,6 +35,8 @@
  *	12 Jun 2018 Sreejith.A P0277704 P0277704-17
  *			- T+0 Project put back reverted changes for trade control and settle date control
  * 	
+ * 	11 Jan 2018 Umamahesh P0277997 P0277997-126
+ *			- Trade Day Delay field will be accepting negative values
  */
  
 DesktopWeb.ScreenController = function(){	
@@ -539,10 +541,10 @@ DesktopWeb.ScreenController = function(){
 	}
 	
 	function validateDayField(fld, val) {
-		if (val.length > 3) {
+		if (Math.abs(val) > 999) {
 			DesktopWeb.Util.displayError(_translationMap['DaysMoreThan3DigitsErrMsg']);
 			fld.markInvalid(_translationMap['Exceeds3Digits']);
-		}else if (val.length > 2 && parseInt(val) > 99) {
+		} else if (val.length > 2 && parseInt(val) > 99) {
 			DesktopWeb.Util.displayWarning(_translationMap['DaysMoreThan99WarningMsg']);
 		}
 	}
@@ -618,6 +620,14 @@ DesktopWeb.ScreenController = function(){
 		isValid = dayTypVldn(_resources.fields['purchase']['purchasePmtLdDays']) && isValid;
 		isValid = dayTypVldn(_resources.fields['purchase']['diffSettleCurr']) && isValid;
 		
+		isValid = dayDelayVldn(_resources.fields['tradeDayDelay']['numDays']) && isValid;
+		isValid = dayDelayVldn(_resources.fields['pymtLeadDays']['numDays']) && isValid;
+		isValid = dayDelayVldn(_resources.fields['mfrPymtLeadDays']['numDays']) && isValid;
+		isValid = dayDelayVldn(_resources.fields['purchase']['purchasePmtLdDays']['UnitDays']) && isValid;
+		isValid = dayDelayVldn(_resources.fields['purchase']['purchasePmtLdDays']['AmountDays']) && isValid;
+		isValid = dayDelayVldn(_resources.fields['purchase']['diffSettleCurr']['UnitDays']) && isValid;
+		isValid = dayDelayVldn(_resources.fields['purchase']['diffSettleCurr']['AmountDays']) && isValid;		
+		
 		return isValid;
 		
 		function amountTypVldn(fields) {
@@ -646,6 +656,14 @@ DesktopWeb.ScreenController = function(){
 			}
 			return true;
 		}
+		
+		function dayDelayVldn(field) {
+			if(field.getValue()!='' && Math.abs(field.getValue()) > 999) {
+				 field.markInvalid(_translationMap['DaysMoreThan3DigitsErrMsg']);
+				 return false;
+			}
+			return true;
+		}		
 	}
 	
 	function goToScreen(screenName)

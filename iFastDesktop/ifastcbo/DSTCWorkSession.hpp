@@ -294,6 +294,8 @@ public:
    void getFundName ( const DString &fundCode, 
                       DString &fundName);
 
+   bool getLastNameFormat ();
+
    // MFAccount maints
    SEVERITY getNewMFAccount ( const BFDataGroupId &idDataGroup, 
                               const DString &shrNum, 

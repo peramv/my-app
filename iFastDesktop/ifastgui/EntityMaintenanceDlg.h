@@ -206,7 +206,7 @@ private:
    bool m_bSalutationFreeFormat;
    HACCEL m_hAccel;
    BOOL m_bUpdateShareholder;
-
+   bool m_bPaternalMaternal;
 };
 
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

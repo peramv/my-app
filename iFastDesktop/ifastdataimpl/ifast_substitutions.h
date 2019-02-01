@@ -6928,6 +6928,12 @@ namespace ifds
    extern const BFSubstitutionSet SubSet_002_1031_001_000_000;
    extern const BFSubstitutionSet SubSet_002_1031_005_000_000;
    extern const BFSubstitutionSet SubSet_002_1034_001_003_000;
+   extern const BFSubstitutionSet SubSet_002_031_001_004_026;
+   extern const BFSubstitutionSet SubSet_002_046_001_004_026;
+   extern const BFSubstitutionSet SubSet_002_054_001_004_026;
+   extern const BFSubstitutionSet SubSet_002_023_001_004_026;
+   extern const BFSubstitutionSet SubSet_002_039_001_004_026;
+   extern const BFSubstitutionSet SubSet_002_484_001_004_026;
    extern const BFSubstitutionSet SubSet_Empty;
 
 

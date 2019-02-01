@@ -315,6 +315,7 @@ dsi_DSTC0149_VW::dsi_DSTC0149_VW()
 , MultipleRisk_( ifds::MultipleRisk, &ifds::s_FldProp_MultipleRisk )
 , AWDPortalURL_( ifds::AWDPortalURL, &ifds::s_FldProp_AWDPortalURL )
 , IntraDayPricing_( ifds::IntraDayPricing, &ifds::s_FldProp_IntraDayPricing )
+, LastNameFormat_( ifds::LastNameFormat, &ifds::s_FldProp_LastNameFormat )
 , PendingTradeCashDateOverride_( ifds::PendingTradeCashDateOverride, &ifds::s_FldProp_PendingTradeCashDateOverride )
 , OrderUserOverride_( ifds::OrderUserOverride, &ifds::s_FldProp_OrderUserOverride )
 , DefStatus_( ifds::DefStatus, &ifds::s_FldProp_DefStatus )
@@ -630,6 +631,7 @@ BFDataImpl* dsi_DSTC0149_VW::clone()
     p->MultipleRisk_ = MultipleRisk_;
     p->AWDPortalURL_ = AWDPortalURL_;
     p->IntraDayPricing_ = IntraDayPricing_;
+    p->LastNameFormat_ = LastNameFormat_;
     p->PendingTradeCashDateOverride_ = PendingTradeCashDateOverride_;
     p->OrderUserOverride_ = OrderUserOverride_;
     p->DefStatus_ = DefStatus_;
@@ -939,6 +941,7 @@ BFDataField* dsi_DSTC0149_VW::getElement( const BFFieldId& id )
         case 40007746: return ( &MultipleRisk_ ); break; // MultipleRisk
         case 40007795: return ( &AWDPortalURL_ ); break; // AWDPortalURL
         case 40007885: return ( &IntraDayPricing_ ); break; // IntraDayPricing
+        case 40007925: return ( &LastNameFormat_ ); break; // LastNameFormat
         case 40007237: return ( &PendingTradeCashDateOverride_ ); break; // PendingTradeCashDateOverride
         case 40007933: return ( &OrderUserOverride_ ); break; // OrderUserOverride
         case 40007943: return ( &DefStatus_ ); break; // DefStatus
@@ -1260,9 +1263,11 @@ BFDataField* dsi_DSTC0149_VW::getElementByIndex( unsigned int iField )
                 case 297: aFlds_[297] = &MultipleRisk_; break;
                 case 298: aFlds_[298] = &AWDPortalURL_; break;
                 case 299: aFlds_[299] = &IntraDayPricing_; break;
-                case 300: aFlds_[300] = &PendingTradeCashDateOverride_; break;
-                case 301: aFlds_[301] = &OrderUserOverride_; break;
-                case 304: aFlds_[304] = &DefStatus_; break;
+                case 300: aFlds_[300] = &LastNameFormat_; break;
+                case 301: aFlds_[301] = &PendingTradeCashDateOverride_; break;
+                case 302: aFlds_[302] = &OrderUserOverride_; break;
+                case 303: aFlds_[303] = &DefStatus_; break;
+                
             }
             pField = aFlds_[iField];
             if( NULL == pField ) return( NULL );
@@ -1596,9 +1601,11 @@ bool dsi_DSTC0149_VW::fieldExists( const BFFieldId& id )
         case 40007746: return ( true );
         case 40007795: return ( true );
         case 40007885: return ( true );
+        case 40007925: return ( true );
         case 40007237: return ( true );
         case 40007933: return ( true );
-        case 40007943: return ( true );    }
+        case 40007943: return ( true );    
+    }
     return false;
 }
 

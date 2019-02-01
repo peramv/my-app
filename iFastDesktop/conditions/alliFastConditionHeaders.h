@@ -5579,6 +5579,8 @@
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_attention_fund_subject_to_liquidity_gating.h"
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_email_phone_details_cannot_be_blank.h"
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_email_phone_details_cannot_be_blank.h"
+#include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_paternal_maternal_names_both_blank.h"
+#include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_paternal_maternal_names_addup_over_40.h"
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_rdsp_insufficient_grant_bond_balance.h"
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_rdsp_insufficient_grant_bond_balance.h"
 #include "iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_rdsp_grant_return_cannot_be_greater_than_grant_purchase.h"

@@ -91,6 +91,8 @@ namespace ifds
     extern const BFDateFieldId RDSPConsentDeff;
     extern const BFTextFieldId VerifyStat;
     extern const BFTextFieldId Active;
+    extern const BFTextFieldId PaternalLastName;
+    extern const BFTextFieldId MaternalLastName;
 
     //Property Externs
     extern const BFDataFieldProperties s_FldProp_Salutation;
@@ -167,6 +169,8 @@ namespace ifds
     extern const BFDataFieldProperties s_FldProp_RDSPConsentDeff;
     extern const BFDataFieldProperties s_FldProp_VerifyStat;
     extern const BFDataFieldProperties s_FldProp_Active;
+    extern const BFDataFieldProperties s_FldProp_PaternalLastName;
+    extern const BFDataFieldProperties s_FldProp_MaternalLastName;
 }
 
 
@@ -191,7 +195,7 @@ public:
     static bool fieldExists( const BFFieldId& id );
 
 private:
-    BFDataField* aFlds_[74];
+    BFDataField* aFlds_[76];
     // Field Declarations
     BFTextField<25> Salutation_;
     BFTextField<80> LastName_;
@@ -267,4 +271,6 @@ private:
     BFDateField RDSPConsentDeff_;
     BFTextField_60 VerifyStat_;
     BFTextField_60 Active_;
+    BFTextField<80> PaternalLastName_;
+    BFTextField<80> MaternalLastName_;
 };

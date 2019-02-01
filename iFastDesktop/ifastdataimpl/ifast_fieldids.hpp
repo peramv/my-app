@@ -5814,4 +5814,7 @@ namespace ifds
    extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId DefStatus;
    extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId VerifyReqExist;
    extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId GrossNetType;
+   extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId PaternalLastName;            
+   extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId MaternalLastName;            
+   extern IFAST_DATAIMPL_LINKAGE const BFTextFieldId LastNameFormat;
 }

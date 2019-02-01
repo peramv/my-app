@@ -708,6 +708,20 @@ namespace ifds
    extern const BFSubstitutionSet SubSet_002_483_010_000_000;
    const BFSubstitutionSet SubSet_002_483_010_000_000(
     &aKeys_002_483_010_000_000[0], &aValues_002_483_010_000_000[0] );
+   // Substitution set AcctPurposeSet.  Language: enUS, Market: 4, Client: 26
+   static const I_CHAR* aKeys_002_484_001_004_026[] = {
+      I_("IV"),
+      0x00
+   };
+
+   static const I_CHAR* aValues_002_484_001_004_026[] = {
+      I_("Investment"),
+      0x00
+   };
+
+   extern const BFSubstitutionSet SubSet_002_484_001_004_026;
+   const BFSubstitutionSet SubSet_002_484_001_004_026( 
+    &aKeys_002_484_001_004_026[0], &aValues_002_484_001_004_026[0] );
    // Substitution set AcctPurposeSet.  Language: enUS
    static const I_CHAR* aKeys_002_484_001_000_000[] = {
       I_("01"),

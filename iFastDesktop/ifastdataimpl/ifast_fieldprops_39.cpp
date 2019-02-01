@@ -98,6 +98,9 @@ namespace ifds
    extern const BFNumericFieldId SrchEntityId;
    extern const BFTextFieldId DistrAcctTypeDetl;
    extern const BFTextFieldId MatchingKey;
+   extern const BFTextFieldId PaternalLastName;            
+   extern const BFTextFieldId MaternalLastName;            
+   extern const BFTextFieldId LastNameFormat;   
    extern const BFDecimalFieldId AMSAllocDelta;
    extern const BFDecimalFieldId TaxCrdAmt;
    extern const BFDecimalFieldId AttrbAmt;
@@ -3786,5 +3789,92 @@ namespace ifds
       ,false // allow Nulls
       ,None // justification
       ,subset_super_chooser_2_7944 // substitution set super chooser
+      );
+   //------------------------------------------------------------------            
+   // Field s_FldProp_PaternalLastName (7923)            
+   //------------------------------------------------------------------            
+   const DString& s_FldProp_PaternalLastName_s_DVF( const ClientLocale& locale )            
+   {            
+      static const DString dstrDefValue_7923_1( I_("") );            
+      return( dstrDefValue_7923_1 );            
+   }            
+   const DString& s_FldProp_PaternalLastName_FLF( const ClientLocale& locale )            
+   {            
+      static const DString dstrFldLabel_7923_1( I_("PaternalLastName") );            
+      return( dstrFldLabel_7923_1 );            
+   }            
+   extern CLASS_EXPORT const BFDataFieldProperties s_FldProp_PaternalLastName(            
+       BFDataFieldProperties::Type::text // field is text            
+      ,PaternalLastName // fieldId            
+      ,80 // length            
+      ,0 // minimum length            
+      ,0 // decimals            
+      ,NULL // mask chooser function            
+      ,s_FldProp_PaternalLastName_s_DVF // default value (string)            
+      ,NULL // default value (integer)            
+      ,NULL // default value (double)            
+      ,s_FldProp_PaternalLastName_FLF // label            
+      ,NULL // field name is deprecated            
+      ,false // allow Nulls            
+      ,None // justification            
+      ,NULL // no substitution set            
+      );            
+   //------------------------------------------------------------------            
+   // Field s_FldProp_MaternalLastName (7924)            
+   //------------------------------------------------------------------            
+   const DString& s_FldProp_MaternalLastName_s_DVF( const ClientLocale& locale )            
+   {            
+      static const DString dstrDefValue_7924_1( I_("") );            
+      return( dstrDefValue_7924_1 );            
+   }            
+   const DString& s_FldProp_MaternalLastName_FLF( const ClientLocale& locale )            
+   {            
+      static const DString dstrFldLabel_7924_1( I_("MaternalLastName") );            
+      return( dstrFldLabel_7924_1 );            
+   }            
+   extern CLASS_EXPORT const BFDataFieldProperties s_FldProp_MaternalLastName(            
+       BFDataFieldProperties::Type::text // field is text            
+      ,MaternalLastName // fieldId            
+      ,80 // length            
+      ,0 // minimum length            
+      ,0 // decimals            
+      ,NULL // mask chooser function            
+      ,s_FldProp_MaternalLastName_s_DVF // default value (string)            
+      ,NULL // default value (integer)            
+      ,NULL // default value (double)            
+      ,s_FldProp_MaternalLastName_FLF // label            
+      ,NULL // field name is deprecated            
+      ,false // allow Nulls            
+      ,None // justification            
+      ,NULL // no substitution set            
+      );            
+   //------------------------------------------------------------------            
+   // Field s_FldProp_LastNameFormat (7925)            
+   //------------------------------------------------------------------            
+   const DString& s_FldProp_LastNameFormat_s_DVF( const ClientLocale& locale )            
+   {            
+      static const DString dstrDefValue_7925_1( I_("") );            
+      return( dstrDefValue_7925_1 );            
+   }
+   const DString& s_FldProp_LastNameFormat_FLF( const ClientLocale& locale )            
+   {            
+      static const DString dstrFldLabel_7925_1( I_("LastNameFormat") );            
+      return( dstrFldLabel_7925_1 );            
+   }            
+   extern CLASS_EXPORT const BFDataFieldProperties s_FldProp_LastNameFormat(
+       BFDataFieldProperties::Type::text // field is text
+      ,LastNameFormat // fieldId
+      ,80 // length
+      ,0 // minimum length
+      ,0 // decimals
+      ,NULL // mask chooser function
+      ,s_FldProp_LastNameFormat_s_DVF // default value (string)
+      ,NULL // default value (integer)
+      ,NULL // default value (double)
+      ,s_FldProp_LastNameFormat_FLF // label
+      ,NULL // field name is deprecated
+      ,false // allow Nulls
+      ,None // justification
+      ,NULL // no substitution set
       );
 }

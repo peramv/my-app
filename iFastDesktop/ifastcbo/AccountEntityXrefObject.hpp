@@ -188,6 +188,7 @@ private:
    bool     _bIsDirty;
    bool     _bVerificationEnabled;
    bool     _bInit;
+   DString _paternalLastName;
 };
 
 /******************************************************************************

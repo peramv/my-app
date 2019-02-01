@@ -109,6 +109,9 @@ namespace ifds
    extern const BFTextFieldId DefStatus;
    extern const BFTextFieldId VerifyReqExist;
    extern const BFTextFieldId GrossNetType;
+   extern const BFTextFieldId PaternalLastName;            
+   extern const BFTextFieldId MaternalLastName;            
+   extern const BFTextFieldId LastNameFormat;
    extern const BFDataFieldProperties s_FldProp_DfltConfDetlKeyValue;
    extern const BFDataFieldProperties s_FldProp_DfltConfDetlDefValue;
    extern const BFDataFieldProperties s_FldProp_PriceCode6;
@@ -209,6 +212,9 @@ namespace ifds
    extern const BFDataFieldProperties s_FldProp_DefStatus;
    extern const BFDataFieldProperties s_FldProp_VerifyReqExist;
    extern const BFDataFieldProperties s_FldProp_GrossNetType;
+   extern const BFDataFieldProperties s_FldProp_PaternalLastName;            
+   extern const BFDataFieldProperties s_FldProp_MaternalLastName;            
+   extern const BFDataFieldProperties s_FldProp_LastNameFormat;
    BFDataField* createField_39( const BFFieldId id )
    {
       BFDataField* pField = NULL;
@@ -306,6 +312,9 @@ namespace ifds
          case 40007918: pField = new BFTextField_1( LiqRedFeeExist, &s_FldProp_LiqRedFeeExist ); break;
          case 40007921: pField = new BFDecimalField( RefundNAV, &s_FldProp_RefundNAV ); break;
          case 40007928: pField = new BFNumericField( SrchEntityId, &s_FldProp_SrchEntityId ); break;
+         case 40007923: pField = new BFTextField<80>( PaternalLastName, &s_FldProp_PaternalLastName ); break;            
+         case 40007924: pField = new BFTextField<80>( MaternalLastName, &s_FldProp_MaternalLastName ); break;            
+         case 40007925: pField = new BFTextField<80>( LastNameFormat, &s_FldProp_LastNameFormat ); break;
          case 40007930: pField = new BFTextField<80>( DistrAcctTypeDetl, &s_FldProp_DistrAcctTypeDetl ); break;
 		 case 40007931: pField = new BFTextField_1( CashDateOverriden, &s_FldProp_CashDateOverriden ); break; 
          case 40007932: pField = new BFTextField<12>( MatchingKey, &s_FldProp_MatchingKey ); break;                  

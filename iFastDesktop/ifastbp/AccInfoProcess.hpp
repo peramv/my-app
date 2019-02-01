@@ -70,7 +70,7 @@ protected:
                               const DString& strValue,
                               bool bFormatted
                               );
-                              
+
    //virtual bool setCommitDataGroupAsHost()
    //{
    //   return(false);

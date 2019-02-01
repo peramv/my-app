@@ -396,6 +396,10 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId TOExistAfterPreElectReset;
    extern CLASS_IMPORT const BFTextFieldId CRSEntityList;
    extern CLASS_IMPORT const BFTextFieldId EntityAssociationAML;
+
+   extern CLASS_IMPORT const BFTextFieldId LastNameFormat;
+   extern CLASS_IMPORT const BFTextFieldId PaternalLastName;
+   extern CLASS_IMPORT const BFTextFieldId MaternalLastName;
    extern CLASS_IMPORT const BFTextFieldId NASUMode;
    extern CLASS_IMPORT const BFTextFieldId VerifyStatDetails;
 }
@@ -547,6 +551,9 @@ const BFCBO::CLASS_FIELD_INFO classFieldInfo[] = {
    { ifds::NASUMode,			 BFCBO::NONE,                0 },
    { ifds::VerifyStat,           BFCBO::NONE,                0 },
    {ifds::VerifyStatDetails,     BFCBO::NONE,                  0},
+   { ifds::PaternalLastName,            BFCBO::NONE,             0 }, 
+   { ifds::MaternalLastName,            BFCBO::NONE,                 0 }, 
+
 };
 
 static const int NUM_FIELDS = sizeof( classFieldInfo ) / sizeof( BFCBO::CLASS_FIELD_INFO );
@@ -665,6 +672,12 @@ SEVERITY AccountEntityXrefObject::init( const DString& strKey,
    attachDataObject (const_cast <BFData&> ( data ), baseDelete);
    
    DString taxType;
+
+   if (getWorkSession().getLastNameFormat())  // LastNameFormat is Double
+   {
+         setFieldRequired (ifds::LastName, BF::HOST, false);
+		 setFieldValid (ifds::LastName, BF::HOST, true);
+   }
 
    if (!flg_where_used)
    {
@@ -1486,7 +1499,30 @@ SEVERITY AccountEntityXrefObject::doApplyRelatedChanges ( const BFFieldId& idFie
 
    // PTS 10007408
    // to ensure Entity object is being validated as soon as one field in this object is changed
-   setValidFlag (ifds::LastName, idDataGroup, false);
+   setValidFlag (ifds::LastName, idDataGroup, (!getWorkSession().getLastNameFormat()) ? false : true); // True if LastNameFormat is Double
+
+   if( idField == ifds::PaternalLastName || idField == ifds::MaternalLastName ) {
+
+		DString dstrOtherName, dstrCompoundName;
+		getField( idField, dstrOtherName, idDataGroup);
+
+		if (idField == ifds::PaternalLastName) {
+			_paternalLastName = dstrOtherName;
+			getField( ifds::MaternalLastName, dstrOtherName, idDataGroup);
+		}
+		else // idField == ifds::MaternalLastName
+			getField( ifds::PaternalLastName, _paternalLastName, idDataGroup);
+
+		dstrCompoundName = _paternalLastName + I_(" ") + dstrOtherName;
+		dstrCompoundName.strip();
+
+		if (dstrCompoundName.length() > 40)
+				dstrCompoundName = dstrCompoundName.substr(0, 40);
+
+		setFieldNoValidate ( ifds::LastName, dstrCompoundName, idDataGroup, false,
+									false,  //force validation 
+									true);  //notify
+   }
 
    if (idField == ifds::FrFundNumber)
    {
@@ -2053,10 +2089,12 @@ SEVERITY AccountEntityXrefObject::doApplyRelatedChanges ( const BFFieldId& idFie
 			  pEntity->getField (ifds::EmployeeClass, dstrEmployeeClass, idDataGroup, false);
 
 			  if ((entityType == ACCOUNT_OWNER || entityType == RDSP_PCG) && dstrEmployeeClass != ENTITY_CATEGORY::CORPORATE)   
-			  {				  				 				  				 		  					 									  
-				  pEntity->setFieldRequired (ifds::LastName, idDataGroup, true);
-				  pEntity->setFieldValid (ifds::LastName, idDataGroup, false);
-
+			  {		
+				  if (!getWorkSession().getLastNameFormat()) {  // it is in majority of cases when LastNameFormat is not Double
+					  pEntity->setFieldRequired (ifds::LastName, idDataGroup, true);
+					  pEntity->setFieldValid (ifds::LastName, idDataGroup, false);
+				  }
+				
 				  if (entityType == ACCOUNT_OWNER)
 				  {
 					  pEntity->setFieldRequired (ifds::Gender, idDataGroup, true);

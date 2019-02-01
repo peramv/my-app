@@ -68,7 +68,6 @@
 #include <conditions\iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_err_country_of_exposure_is_required.h>
 #include <conditions\iFastLayer\iFast\ifastcbo\IFast_IFast_ifastcbo_warn_country_of_exposure_is_required.h>
 
-
 namespace DSTC_REQUEST
 {
    extern CLASS_IMPORT const DSTCRequest ENTITY_IDS;
@@ -171,7 +170,7 @@ namespace
    const I_CHAR * const ENTITYSEARCH_LEVEL               = I_("02");
    const I_CHAR * const UNVERIFIED                       = I_("02");
    const I_CHAR * const VERIFIED                         = I_("01");
-}
+   const I_CHAR * const CODE_CATEGORY_CORPORATE		  = I_( "02" );}
 
 namespace CND
 {
@@ -292,6 +291,8 @@ namespace CND
    extern const long ERR_DEATHDATE_NOTIFICATION_UPDATION_DISABLED;
    extern const long WARN_EMAIL_PHONE_DETAILS_CANNOT_BE_BLANK;
    extern const long ERR_EMAIL_PHONE_DETAILS_CANNOT_BE_BLANK;
+   extern const long ERR_PATERNAL_MATERNAL_NAMES_BOTH_BLANK;
+   extern const long WARN_PATERNAL_MATERNAL_NAMES_ADD_UP_OVER_40;
 
 }
 
@@ -334,6 +335,9 @@ namespace ifds
    extern CLASS_IMPORT const BFTextFieldId RiskForAcctHldrRsk;
    extern CLASS_IMPORT const BFTextFieldId RiskLevel;
    extern CLASS_IMPORT const BFTextFieldId MiscCode;
+   extern CLASS_IMPORT const BFTextFieldId PaternalLastName;
+   extern CLASS_IMPORT const BFTextFieldId MaternalLastName;
+   extern CLASS_IMPORT const BFTextFieldId LastNameFormat;
    extern CLASS_IMPORT const BFTextFieldId VerifyStatDetails;
 }
 
@@ -427,6 +431,10 @@ const BFCBO::CLASS_FIELD_INFO classFieldInfo[] = {
    {ifds::CountryOfExposure,        BFCBO::NONE,                  0},
    {ifds::CurrentSelectedEntityType,BFCBO::NOT_ON_HOST,           0},
    {ifds::CurrentEntRegAcctNum,     BFCBO::NOT_ON_HOST,           0},
+
+   {ifds::PaternalLastName,         BFCBO::NONE,                  0},
+   {ifds::MaternalLastName,         BFCBO::NONE,                  0},
+   {ifds::LastNameFormat,           BFCBO::NONE,                  0},   // used here only for Cross Validation
    {ifds::VerifyStatDetails,        BFCBO::NONE,                  0},
 };
 
@@ -474,6 +482,8 @@ _bInit (true)
                        NUM_OBJECTS, (const CLASS_OBJECT_INFO *)&classObjectInfo);
    addCrossEdit (ifds::CompoundDate, ifds::DofBirth);
    addCrossEdit (ifds::CompoundDate, ifds::DofDeath);   
+   addCrossEdit (ifds::LastNameFormat, ifds::PaternalLastName);   
+   addCrossEdit (ifds::LastNameFormat, ifds::MaternalLastName);   
 }
 
 //******************************************************************************
@@ -495,6 +505,15 @@ SEVERITY Entity::init (const DString& entityId,
 {
    MAKEFRAMEAUTOPROMOTE2 (CND::IFASTCBO_CONDITION, CLASSNAME, I_("init"));
 
+   m_bPaternalMaternal = getWorkSession().getLastNameFormat(); 
+   if (m_bPaternalMaternal)   // LastNameFormat is Double
+   {
+         setFieldRequired (ifds::LastName, idDataGroup, false);
+		 setFieldValid (ifds::LastName, idDataGroup, true);
+         setFieldValid (ifds::PaternalLastName, idDataGroup, false);
+         setFieldValid (ifds::MaternalLastName, idDataGroup, false);
+   }
+ 
    _entityId = entityId;
    setObjectNew( );
    setFieldNoValidate (ifds::EntityId, entityId, idDataGroup, true);
@@ -553,6 +572,14 @@ SEVERITY Entity::init (const DString& entityId,
 SEVERITY Entity::init (const BFData &data)
 {
    MAKEFRAMEAUTOPROMOTE2 (CND::IFASTCBO_CONDITION, CLASSNAME, I_("init"));
+
+   m_bPaternalMaternal = getWorkSession().getLastNameFormat(); 
+   if (m_bPaternalMaternal)   // // LastNameFormat is Double
+   {
+         setFieldRequired (ifds::LastName, BF::HOST, false);
+         setFieldValid (ifds::PaternalLastName, BF::HOST, false);
+         setFieldValid (ifds::MaternalLastName, BF::HOST, false);
+   }
 
    //attachDataObject (const_cast<Data&> (data), false, true);
    _entityId = data.getElementValue (ifds::EntityId, BFDataField::USE_MASK);
@@ -619,6 +646,14 @@ SEVERITY Entity::init (const DString& strEntityNum)
 
    try
    {
+      m_bPaternalMaternal = getWorkSession().getLastNameFormat();  // LastNameFormat is Double
+      if (m_bPaternalMaternal)
+      {
+			 setFieldRequired (ifds::LastName, BF::HOST, false);
+			 setFieldValid (ifds::PaternalLastName, BF::HOST, false);
+			 setFieldValid (ifds::MaternalLastName, BF::HOST, false);
+      }
+
       BFData queryData (ifds::DSTC0051_REQ);
       BFData *response = new BFData (ifds::DSTC0051_VW);
 
@@ -1091,6 +1126,8 @@ SEVERITY Entity::doValidateAll ( const BFDataGroupId &idDataGroup,
 
    validateRDSPEntity (idDataGroup);
    validateTaxJurisForRDSP (idDataGroup);
+   validatePaternalMaternalNames (idDataGroup);  // it is executed only m_bPaternalMaternal
+   validateCorporateNameForPaternalMaternal (idDataGroup);   // it does action only when m_bPaternalMaternal and Corporate
 
    return GETCURRENTHIGHESTSEVERITY ();
 }
@@ -1384,6 +1421,13 @@ SEVERITY Entity::doValidateField ( const BFFieldId& idField,
                                 idDataGroup);
       }
    }
+   else if (idField == ifds::LastNameFormat || idField == ifds::PaternalLastName || idField == ifds::MaternalLastName)
+   {
+      validatePaternalMaternalNames (idDataGroup);
+   }
+   
+   if (idField == ifds::LastName)  // 
+		validateCorporateNameForPaternalMaternal (idDataGroup);   // it does action only when m_bPaternalMaternal and Corporate
 
    return GETCURRENTHIGHESTSEVERITY ();
 }
@@ -1433,6 +1477,11 @@ SEVERITY Entity::doApplyRelatedChanges (const BFFieldId &idField, const BFDataGr
       {
          setFieldNoValidate (ifds::FirstName, NULL_STRING, idDataGroup, false, true, true);
          setFieldNoValidate (ifds::Salutation, NULL_STRING, idDataGroup, false, true, true);
+
+		 if (m_bPaternalMaternal) {
+			 setFieldNoValidate (ifds::PaternalLastName, NULL_STRING, idDataGroup, false, true, true);
+			 setFieldNoValidate (ifds::MaternalLastName, NULL_STRING, idDataGroup, false, true, true);
+		 }
       }
       else
       {
@@ -5065,6 +5114,79 @@ SEVERITY Entity::validationForEmailPhone (const BFDataGroupId& idDataGroup)
 
    return (GETCURRENTHIGHESTSEVERITY ());
 }
+
+//********************************************************************************
+SEVERITY Entity::validatePaternalMaternalNames (const BFDataGroupId& idDataGroup)
+{
+   MAKEFRAMEAUTOPROMOTE2 (CND::IFASTCBO_CONDITION, CLASSNAME, I_("validatePaternalMaternalNames"));
+
+   if (m_bPaternalMaternal) 
+   {
+
+	   DString dstrPN, dstrMN, dstrEmployeeClass, dstrCompundName;
+	   bool isOk = true;
+
+	   getField (ifds::EmployeeClass, dstrEmployeeClass, idDataGroup, false );
+	   if (dstrEmployeeClass != CODE_CATEGORY_CORPORATE)
+	   {
+
+			getField (ifds::PaternalLastName, dstrPN, idDataGroup, false);
+			dstrPN.strip ();
+			getField (ifds::MaternalLastName, dstrMN, idDataGroup, false);
+			dstrMN.strip ();
+
+			if (dstrMN == NULL_STRING && dstrPN == NULL_STRING)
+			{
+				  isOk = false;
+				  ADDCONDITIONFROMFILE (CND::ERR_PATERNAL_MATERNAL_NAMES_BOTH_BLANK);
+			}
+			else 
+			{
+				if (dstrPN != NULL_STRING && dstrMN != NULL_STRING)
+					dstrCompundName = dstrPN + I_(" ") + dstrMN; 
+				 
+				if (dstrCompundName.length() > 40)	
+				{
+					isOk = false;  
+					ADDCONDITIONFROMFILE (CND::WARN_PATERNAL_MATERNAL_NAMES_ADD_UP_OVER_40);
+				}
+			}
+
+			if (isOk) {
+
+				dstrCompundName = dstrPN + I_(" ") + dstrMN;
+				dstrCompundName.strip();
+				setFieldNoValidate (ifds::LastName, dstrCompundName, idDataGroup, false, true, true);
+			}
+	   }
+   }
+   return (GETCURRENTHIGHESTSEVERITY ());
+}
+
+//********************************************************************************
+SEVERITY Entity::validateCorporateNameForPaternalMaternal (const BFDataGroupId& idDataGroup)
+{
+   MAKEFRAMEAUTOPROMOTE2 (CND::IFASTCBO_CONDITION, CLASSNAME, I_("validateCorporateNameForPaternalMaternal"));
+
+   if (m_bPaternalMaternal) 
+   {
+	   DString dstrEmployeeClass;
+
+	   getField (ifds::EmployeeClass, dstrEmployeeClass, idDataGroup, false );
+	   if (dstrEmployeeClass == CODE_CATEGORY_CORPORATE)
+	        {
+			   DString dstrName;
+			   getField (ifds::LastName, dstrName, idDataGroup, false);
+			   dstrName.strip ();
+			   if (dstrName.empty()) 
+			   {
+				   ADDCONDITIONFROMFILE (CND::ERR_FIELD_VAL_REQUIRED_PLS_ENTER);
+			   }
+	        }
+   }
+   return (GETCURRENTHIGHESTSEVERITY ());
+}
+
 //******************************************************************************
 //              Revision Control Entries
 //******************************************************************************

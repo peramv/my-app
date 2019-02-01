@@ -89,8 +89,10 @@ dsi_DSTC0050_VWRepeat_Record::dsi_DSTC0050_VWRepeat_Record()
 , RDSPConsentDeff_( ifds::RDSPConsentDeff, &ifds::s_FldProp_RDSPConsentDeff )
 , VerifyStat_( ifds::VerifyStat, &ifds::s_FldProp_VerifyStat )
 , Active_( ifds::Active, &ifds::s_FldProp_Active )
+, PaternalLastName_( ifds::PaternalLastName, &ifds::s_FldProp_PaternalLastName )
+, MaternalLastName_( ifds::MaternalLastName, &ifds::s_FldProp_MaternalLastName )
 {
-    cFields_ = 74;
+    cFields_ = 76;
     memset( &aFlds_[0], 0x00, sizeof( aFlds_ ) );
 }
 
@@ -175,6 +177,8 @@ BFDataImpl* dsi_DSTC0050_VWRepeat_Record::clone()
     p->RDSPConsentDeff_ = RDSPConsentDeff_;
     p->VerifyStat_ = VerifyStat_;
     p->Active_ = Active_;
+    p->PaternalLastName_ = PaternalLastName_;
+    p->MaternalLastName_ = MaternalLastName_;
     return(p);
 }
 
@@ -255,6 +259,8 @@ BFDataField* dsi_DSTC0050_VWRepeat_Record::getElement( const BFFieldId& id )
         case 40007890: return ( &RDSPConsentDeff_ ); break; // RDSPConsentDeff
         case 40006046: return ( &VerifyStat_ ); break; // VerifyStat
         case 40000222: return ( &Active_ ); break; // Active
+        case 40007923: return ( &PaternalLastName_ ); break; // PaternalLastName
+        case 40007924: return ( &MaternalLastName_ ); break; // MaternalLastName
     }
     return( NULL );
 }
@@ -266,7 +272,7 @@ const BFDataField* dsi_DSTC0050_VWRepeat_Record::getElement( const BFFieldId& id
 
 BFDataField* dsi_DSTC0050_VWRepeat_Record::getElementByIndex( unsigned int iField )
 {
-    if ( iField >=0 && iField < 74 )
+    if ( iField >=0 && iField < 76 )
     {
         BFDataField* pField = aFlds_[iField];
         if( NULL == pField )
@@ -347,6 +353,8 @@ BFDataField* dsi_DSTC0050_VWRepeat_Record::getElementByIndex( unsigned int iFiel
                 case 71: aFlds_[71] = &RDSPConsentDeff_; break;
                 case 72: aFlds_[72] = &VerifyStat_; break;
                 case 73: aFlds_[73] = &Active_; break;
+                case 74: aFlds_[74] = &PaternalLastName_; break;
+                case 75: aFlds_[75] = &MaternalLastName_; break;
             }
             pField = aFlds_[iField];
             if( NULL == pField ) return( NULL );
@@ -368,7 +376,7 @@ unsigned long dsi_DSTC0050_VWRepeat_Record::getLargestDefinedField( void ) const
 
 unsigned long dsi_DSTC0050_VWRepeat_Record::getDefinedByteLength( void ) const
 {
-    return( 2583 * sizeof( I_CHAR ) );
+    return( 2743 * sizeof( I_CHAR ) );
 }
 
 bool dsi_DSTC0050_VWRepeat_Record::exists( const BFFieldId& id ) const
@@ -454,6 +462,8 @@ bool dsi_DSTC0050_VWRepeat_Record::fieldExists( const BFFieldId& id )
         case 40007890: return ( true );
         case 40006046: return ( true );
         case 40000222: return ( true );
+        case 40007923: return ( true );
+        case 40007924: return ( true );
     }
     return false;
 }

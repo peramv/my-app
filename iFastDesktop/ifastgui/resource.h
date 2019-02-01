@@ -6532,16 +6532,21 @@
 #define IDC_CMB_DISTRIB_ACCTTD          62359
 
 #define IDC_TXT_IFAST_MATCHINGKEY       62360 
-#define IDC_EDT_IFAST_MATCHINGKEY       62361       
+#define IDC_EDT_IFAST_MATCHINGKEY       62361
+#define IDC_STC_PATERNAL_NAME           62362
+#define IDC_STC_MATERNAL_NAME           62363
+#define IDC_EDT_FIRST_NAME_DOUBLE       62364
+#define IDC_EDT_PATERNAL_NAME           62365
+#define IDC_EDT_MATERNAL_NAME           62366
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        62362
-#define _APS_NEXT_COMMAND_VALUE         62362
-#define _APS_NEXT_CONTROL_VALUE         62362
+#define _APS_NEXT_RESOURCE_VALUE        62367
+#define _APS_NEXT_COMMAND_VALUE         62367
+#define _APS_NEXT_CONTROL_VALUE         62367
 #define _APS_NEXT_SYMED_VALUE           111
 #endif
 #endif

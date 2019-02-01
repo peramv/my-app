@@ -5810,4 +5810,7 @@ namespace ifds
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_DefStatus;
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_VerifyReqExist;
    extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_GrossNetType;
+   extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_PaternalLastName;            
+   extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_MaternalLastName;            
+   extern IFAST_DATAIMPL_LINKAGE const BFDataFieldProperties s_FldProp_LastNameFormat;
 }

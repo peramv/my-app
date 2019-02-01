@@ -5346,6 +5346,21 @@ bool DSTCWorkSession::isIWTClient( const BFDataGroupId& idDataGroup )
 }
 
 //******************************************************************************
+bool DSTCWorkSession::getLastNameFormat()
+{
+   MgmtCoOptions *pMgmtCoOptions = NULL; 
+   DString dstrLastNameFormat (NULL_STRING);
+
+   if (getMgmtCo().getMgmtCoOptions (pMgmtCoOptions) <= WARNING && pMgmtCoOptions)
+   {
+      pMgmtCoOptions->getField (ifds::LastNameFormat, dstrLastNameFormat, BF::HOST, false); 
+	  dstrLastNameFormat.upperCase();
+      return (dstrLastNameFormat == I_("DOUBLE")) ? true : false;
+   }
+   return false;
+}
+
+//******************************************************************************
 SEVERITY DSTCWorkSession::getFamilyCodeList( FamilyCodeList*& pFamilyCodeList,
                                              const BFDataGroupId &idDataGroup)
 {

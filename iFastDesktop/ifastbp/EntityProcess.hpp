@@ -166,6 +166,8 @@ private:
    DString _originalDeathDate;
    DString _originalDeathOfNotifDate;
 
+   DString _paternalLastName, _maternalLastName ;
+
    std::set < DString > setEntityIds;
    std::set < DString > setEntityOwnerIds;
 };

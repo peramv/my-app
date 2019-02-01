@@ -317,6 +317,7 @@ namespace ifds
     extern const BFTextFieldId MultipleRisk;
     extern const BFTextFieldId AWDPortalURL;
     extern const BFTextFieldId IntraDayPricing;
+    extern const BFTextFieldId LastNameFormat;
     extern const BFTextFieldId PendingTradeCashDateOverride;
     extern const BFTextFieldId OrderUserOverride;
     extern const BFTextFieldId DefStatus;
@@ -621,6 +622,7 @@ namespace ifds
     extern const BFDataFieldProperties s_FldProp_MultipleRisk;
     extern const BFDataFieldProperties s_FldProp_AWDPortalURL;
     extern const BFDataFieldProperties s_FldProp_IntraDayPricing;
+	extern const BFDataFieldProperties s_FldProp_LastNameFormat;
     extern const BFDataFieldProperties s_FldProp_PendingTradeCashDateOverride;
     extern const BFDataFieldProperties s_FldProp_OrderUserOverride;
     extern const BFDataFieldProperties s_FldProp_DefStatus;
@@ -950,6 +952,7 @@ private:
     BFTextField_60 MultipleRisk_;
     BFTextField<100> AWDPortalURL_;
     BFTextField_1 IntraDayPricing_;
+    BFTextField<80> LastNameFormat_;
     BFTextField_1 PendingTradeCashDateOverride_;
     BFTextField_10 OrderUserOverride_;
     BFTextField_60 DefStatus_;

@@ -3050,6 +3050,7 @@ namespace ifds
    extern const BFSubstitutionSet SubSet_002_023_001_003_020;
    extern const BFSubstitutionSet SubSet_002_023_001_003_000;
    extern const BFSubstitutionSet SubSet_002_023_001_004_000;
+   extern const BFSubstitutionSet SubSet_002_023_001_004_026;
    extern const BFSubstitutionSet SubSet_002_023_001_000_000;
    extern const BFSubstitutionSet SubSet_002_023_003_003_020;
    extern const BFSubstitutionSet SubSet_002_023_003_003_000;
@@ -3097,6 +3098,9 @@ namespace ifds
             return SubSet_002_023_001_003_000; // defined in ifast_substitutions_0.cpp
          }
          if ( locale.getMarketIndex() == 4 ) {
+            if ( locale.getClientIndex() == 26 ) {
+               return SubSet_002_023_001_004_026; // defined in ifast_substitutions_0.cpp
+            }
             return SubSet_002_023_001_004_000; // defined in ifast_substitutions_0.cpp
          }
          return SubSet_002_023_001_000_000; // defined in ifast_substitutions_0.cpp
