@@ -320,7 +320,7 @@ dsi_DSTC0149_VW::dsi_DSTC0149_VW()
 , OrderUserOverride_( ifds::OrderUserOverride, &ifds::s_FldProp_OrderUserOverride )
 , DefStatus_( ifds::DefStatus, &ifds::s_FldProp_DefStatus )
 {
-    cFields_ = 305;
+    cFields_ = 304;
     memset( &aFlds_[0], 0x00, sizeof( aFlds_ ) );
 }
 
@@ -956,7 +956,7 @@ const BFDataField* dsi_DSTC0149_VW::getElement( const BFFieldId& id ) const
 
 BFDataField* dsi_DSTC0149_VW::getElementByIndex( unsigned int iField )
 {
-    if ( iField >=0 && iField < 305 )
+    if ( iField >=0 && iField < 304 )
     {
         BFDataField* pField = aFlds_[iField];
         if( NULL == pField )
@@ -1289,7 +1289,7 @@ unsigned long dsi_DSTC0149_VW::getLargestDefinedField( void ) const
 
 unsigned long dsi_DSTC0149_VW::getDefinedByteLength( void ) const
 {
-    return( 14007 * sizeof( I_CHAR ) );
+    return( 14066 * sizeof( I_CHAR ) );
 }
 
 bool dsi_DSTC0149_VW::exists( const BFFieldId& id ) const
