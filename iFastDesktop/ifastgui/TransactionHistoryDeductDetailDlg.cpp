@@ -387,11 +387,17 @@ public:
          else if (*pFieldId == ifds::FeeRate)
          {
 //Incident 288176; TPS cannot provide STTR/ER %, so Desktop will just display unavailable
-            if ( pData->DeductCode_ == FEES::SHORT_TERM_TRANSFER ||
-                 pData->DeductCode_ == FEES::EARLY_REDEMPTION)
+            if ( pData->DeductCode_ == FEES::SHORT_TERM_TRANSFER )
             {               
                pDispInfo->item.pszText = I_("N/A");
             }
+			else if ( pData->DeductCode_ == FEES::EARLY_REDEMPTION )
+			{
+				if ( pData->FeeRate_.c_str() != 0 )
+					pDispInfo->item.pszText = (I_CHAR*)pData->FeeRate_.c_str();
+				else
+					pDispInfo->item.pszText = I_("N/A");
+			}
             else
             {
                pDispInfo->item.pszText = (I_CHAR*)pData->FeeRate_.c_str();
