@@ -280,7 +280,6 @@ namespace CND
    extern const long ERR_ACCOUNT_MANAGER_ID_MANDATORY;
    extern const long ERR_HIGHEST_RISK_LVL_IS_REQUIRED;
    extern const long WARN_HIGHEST_RISK_LVL_IS_REQUIRED;
-   extern const long ERR_FIELD_VAL_REQUIRED_PLS_ENTER;
    extern const long ERR_INVALID_HIGHEST_RISK_LEVEL;
    extern const long WARN_INVALID_HIGHEST_RISK_LEVEL;
    extern const long ERR_ANNUITANT_DOFBIRTH_IS_CHANGING;
@@ -1127,7 +1126,6 @@ SEVERITY Entity::doValidateAll ( const BFDataGroupId &idDataGroup,
    validateRDSPEntity (idDataGroup);
    validateTaxJurisForRDSP (idDataGroup);
    validatePaternalMaternalNames (idDataGroup);  // it is executed only m_bPaternalMaternal
-   validateCorporateNameForPaternalMaternal (idDataGroup);   // it does action only when m_bPaternalMaternal and Corporate
 
    return GETCURRENTHIGHESTSEVERITY ();
 }
@@ -1426,9 +1424,6 @@ SEVERITY Entity::doValidateField ( const BFFieldId& idField,
       validatePaternalMaternalNames (idDataGroup);
    }
    
-   if (idField == ifds::LastName)  // 
-		validateCorporateNameForPaternalMaternal (idDataGroup);   // it does action only when m_bPaternalMaternal and Corporate
-
    return GETCURRENTHIGHESTSEVERITY ();
 }
 
@@ -5159,30 +5154,6 @@ SEVERITY Entity::validatePaternalMaternalNames (const BFDataGroupId& idDataGroup
 				setFieldNoValidate (ifds::LastName, dstrCompundName, idDataGroup, false, true, true);
 			}
 	   }
-   }
-   return (GETCURRENTHIGHESTSEVERITY ());
-}
-
-//********************************************************************************
-SEVERITY Entity::validateCorporateNameForPaternalMaternal (const BFDataGroupId& idDataGroup)
-{
-   MAKEFRAMEAUTOPROMOTE2 (CND::IFASTCBO_CONDITION, CLASSNAME, I_("validateCorporateNameForPaternalMaternal"));
-
-   if (m_bPaternalMaternal) 
-   {
-	   DString dstrEmployeeClass;
-
-	   getField (ifds::EmployeeClass, dstrEmployeeClass, idDataGroup, false );
-	   if (dstrEmployeeClass == CODE_CATEGORY_CORPORATE)
-	        {
-			   DString dstrName;
-			   getField (ifds::LastName, dstrName, idDataGroup, false);
-			   dstrName.strip ();
-			   if (dstrName.empty()) 
-			   {
-				   ADDCONDITIONFROMFILE (CND::ERR_FIELD_VAL_REQUIRED_PLS_ENTER);
-			   }
-	        }
    }
    return (GETCURRENTHIGHESTSEVERITY ());
 }
