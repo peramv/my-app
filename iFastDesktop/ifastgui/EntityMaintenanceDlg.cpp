@@ -4608,6 +4608,21 @@ void EntityMaintenanceDlg::updateEmployeeClass(const DString &dstrValue)
             pTabCtrl->removeControlFromPage (IDC_EDT_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->removeControlFromPage (IDC_STC_NAME, TXT_PAGE_DETAILS );
 
+			DString strMarket = DSTCommonFunctions::getMarket();
+			if (strMarket == MARKET_IDS::LUXEMBOURG)
+				{
+					GetDlgItem (IDC_EDT_FIRST_NAME_DOUBLE)->ShowWindow( SW_HIDE);
+					GetDlgItem (IDC_EDT_PATERNAL_NAME)->ShowWindow( SW_HIDE );
+					GetDlgItem (IDC_EDT_MATERNAL_NAME)->ShowWindow( SW_HIDE );
+					GetDlgItem (IDC_STC_PATERNAL_NAME)->ShowWindow( SW_HIDE );
+					GetDlgItem (IDC_STC_MATERNAL_NAME)->ShowWindow( SW_HIDE );
+
+					pTabCtrl->removeControlFromPage (IDC_EDT_FIRST_NAME_DOUBLE, TXT_PAGE_DETAILS );
+					pTabCtrl->removeControlFromPage (IDC_EDT_PATERNAL_NAME, TXT_PAGE_DETAILS );
+					pTabCtrl->removeControlFromPage (IDC_EDT_MATERNAL_NAME, TXT_PAGE_DETAILS );
+					pTabCtrl->removeControlFromPage (IDC_STC_PATERNAL_NAME, TXT_PAGE_DETAILS );
+					pTabCtrl->removeControlFromPage (IDC_STC_MATERNAL_NAME, TXT_PAGE_DETAILS );
+				}
 			}
 			else {  // Double
 
