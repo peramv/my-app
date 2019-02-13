@@ -4743,13 +4743,11 @@ void EntityMaintenanceDlg::updateEmployeeClass(const DString &dstrValue)
          GetDlgItem (IDC_EDT_NAME)->ShowWindow ( SW_HIDE );
          GetDlgItem (IDC_STC_NAME)->ShowWindow ( SW_HIDE );
 
-		 if (m_bPaternalMaternal) {
- 			 GetDlgItem (IDC_EDT_FIRST_NAME_DOUBLE)->ShowWindow( SW_HIDE);
-			 GetDlgItem (IDC_EDT_PATERNAL_NAME)->ShowWindow( SW_HIDE );
-			 GetDlgItem (IDC_EDT_MATERNAL_NAME)->ShowWindow( SW_HIDE );
-			 GetDlgItem (IDC_STC_PATERNAL_NAME)->ShowWindow( SW_HIDE );
-			 GetDlgItem (IDC_STC_MATERNAL_NAME)->ShowWindow( SW_HIDE );
-		 }
+		 GetDlgItem (IDC_EDT_FIRST_NAME_DOUBLE)->ShowWindow( SW_HIDE);
+		 GetDlgItem (IDC_EDT_PATERNAL_NAME)->ShowWindow( SW_HIDE );
+		 GetDlgItem (IDC_EDT_MATERNAL_NAME)->ShowWindow( SW_HIDE );
+		 GetDlgItem (IDC_STC_PATERNAL_NAME)->ShowWindow( SW_HIDE );
+		 GetDlgItem (IDC_STC_MATERNAL_NAME)->ShowWindow( SW_HIDE );
       }
    }
 }
