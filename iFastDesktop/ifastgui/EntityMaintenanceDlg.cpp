@@ -4535,6 +4535,7 @@ void EntityMaintenanceDlg::updateEmployeeClass(const DString &dstrValue)
 
    int iMaxCharNum = dstrNameLength.asInteger();
    bool bShowName = dstrValue == CODE_CATEGORY_CORPORATE;
+   DString strMarket = DSTCommonFunctions::getMarket();
 
    DSTTabCtrl* pTabCtrl = GetTabCtrl (IDC_TAB_ENTITY_MAINTENANCE);
    if (pTabCtrl != NULL)
@@ -4564,11 +4565,14 @@ void EntityMaintenanceDlg::updateEmployeeClass(const DString &dstrValue)
             GetDlgItem (IDC_EDT_NAME)->ShowWindow( SW_SHOW );
             GetDlgItem (IDC_STC_NAME)->ShowWindow( SW_SHOW );
 
-			GetDlgItem (IDC_EDT_FIRST_NAME_DOUBLE)->ShowWindow( SW_HIDE);
-			GetDlgItem (IDC_EDT_PATERNAL_NAME)->ShowWindow( SW_HIDE );
-			GetDlgItem (IDC_EDT_MATERNAL_NAME)->ShowWindow( SW_HIDE );
-			GetDlgItem (IDC_STC_PATERNAL_NAME)->ShowWindow( SW_HIDE );
-			GetDlgItem (IDC_STC_MATERNAL_NAME)->ShowWindow( SW_HIDE );
+			if (strMarket == MARKET_IDS::LUXEMBOURG)  // m_bPaternalMaternal
+			{
+				GetDlgItem (IDC_EDT_FIRST_NAME_DOUBLE)->ShowWindow( SW_HIDE);
+				GetDlgItem (IDC_EDT_PATERNAL_NAME)->ShowWindow( SW_HIDE );
+				GetDlgItem (IDC_EDT_MATERNAL_NAME)->ShowWindow( SW_HIDE );
+				GetDlgItem (IDC_STC_PATERNAL_NAME)->ShowWindow( SW_HIDE );
+				GetDlgItem (IDC_STC_MATERNAL_NAME)->ShowWindow( SW_HIDE );
+			}
 
             pTabCtrl->removeControlFromPage (IDC_EDT_FIRST_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->removeControlFromPage (IDC_EDT_LAST_NAME, TXT_PAGE_DETAILS );
@@ -4577,11 +4581,14 @@ void EntityMaintenanceDlg::updateEmployeeClass(const DString &dstrValue)
             pTabCtrl->registerControl (IDC_EDT_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->registerControl (IDC_STC_NAME, TXT_PAGE_DETAILS );
 
-			pTabCtrl->removeControlFromPage (IDC_EDT_FIRST_NAME_DOUBLE, TXT_PAGE_DETAILS );
-			pTabCtrl->removeControlFromPage (IDC_EDT_PATERNAL_NAME, TXT_PAGE_DETAILS );
-			pTabCtrl->removeControlFromPage (IDC_EDT_MATERNAL_NAME, TXT_PAGE_DETAILS );
-			pTabCtrl->removeControlFromPage (IDC_STC_PATERNAL_NAME, TXT_PAGE_DETAILS );
-			pTabCtrl->removeControlFromPage (IDC_STC_MATERNAL_NAME, TXT_PAGE_DETAILS );
+			if (strMarket == MARKET_IDS::LUXEMBOURG)
+			{
+				pTabCtrl->removeControlFromPage (IDC_EDT_FIRST_NAME_DOUBLE, TXT_PAGE_DETAILS );
+				pTabCtrl->removeControlFromPage (IDC_EDT_PATERNAL_NAME, TXT_PAGE_DETAILS );
+				pTabCtrl->removeControlFromPage (IDC_EDT_MATERNAL_NAME, TXT_PAGE_DETAILS );
+				pTabCtrl->removeControlFromPage (IDC_STC_PATERNAL_NAME, TXT_PAGE_DETAILS );
+				pTabCtrl->removeControlFromPage (IDC_STC_MATERNAL_NAME, TXT_PAGE_DETAILS );
+			}
          }
          else
          {
@@ -4595,24 +4602,27 @@ void EntityMaintenanceDlg::updateEmployeeClass(const DString &dstrValue)
             GetDlgItem (IDC_EDT_NAME)->ShowWindow( SW_HIDE );
             GetDlgItem (IDC_STC_NAME)->ShowWindow( SW_HIDE );
 
-			GetDlgItem (IDC_EDT_FIRST_NAME_DOUBLE)->ShowWindow( SW_HIDE);
-			GetDlgItem (IDC_EDT_PATERNAL_NAME)->ShowWindow( SW_HIDE );
-			GetDlgItem (IDC_EDT_MATERNAL_NAME)->ShowWindow( SW_HIDE );
-			GetDlgItem (IDC_STC_PATERNAL_NAME)->ShowWindow( SW_HIDE );
-			GetDlgItem (IDC_STC_MATERNAL_NAME)->ShowWindow( SW_HIDE );
-
             pTabCtrl->registerControl (IDC_EDT_FIRST_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->registerControl (IDC_EDT_LAST_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->registerControl (IDC_STC_FIRST_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->registerControl (IDC_STC_LAST_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->removeControlFromPage (IDC_EDT_NAME, TXT_PAGE_DETAILS );
             pTabCtrl->removeControlFromPage (IDC_STC_NAME, TXT_PAGE_DETAILS );
-			pTabCtrl->removeControlFromPage (IDC_EDT_FIRST_NAME_DOUBLE, TXT_PAGE_DETAILS );
-			pTabCtrl->removeControlFromPage (IDC_EDT_PATERNAL_NAME, TXT_PAGE_DETAILS );
-			pTabCtrl->removeControlFromPage (IDC_EDT_MATERNAL_NAME, TXT_PAGE_DETAILS );
-			pTabCtrl->removeControlFromPage (IDC_STC_PATERNAL_NAME, TXT_PAGE_DETAILS );
-			pTabCtrl->removeControlFromPage (IDC_STC_MATERNAL_NAME, TXT_PAGE_DETAILS );
 
+			if (strMarket == MARKET_IDS::LUXEMBOURG)
+				{
+					GetDlgItem (IDC_EDT_FIRST_NAME_DOUBLE)->ShowWindow( SW_HIDE);
+					GetDlgItem (IDC_EDT_PATERNAL_NAME)->ShowWindow( SW_HIDE );
+					GetDlgItem (IDC_EDT_MATERNAL_NAME)->ShowWindow( SW_HIDE );
+					GetDlgItem (IDC_STC_PATERNAL_NAME)->ShowWindow( SW_HIDE );
+					GetDlgItem (IDC_STC_MATERNAL_NAME)->ShowWindow( SW_HIDE );
+
+					pTabCtrl->removeControlFromPage (IDC_EDT_FIRST_NAME_DOUBLE, TXT_PAGE_DETAILS );
+					pTabCtrl->removeControlFromPage (IDC_EDT_PATERNAL_NAME, TXT_PAGE_DETAILS );
+					pTabCtrl->removeControlFromPage (IDC_EDT_MATERNAL_NAME, TXT_PAGE_DETAILS );
+					pTabCtrl->removeControlFromPage (IDC_STC_PATERNAL_NAME, TXT_PAGE_DETAILS );
+					pTabCtrl->removeControlFromPage (IDC_STC_MATERNAL_NAME, TXT_PAGE_DETAILS );
+				}
 			}
 			else {  // Double
 
@@ -4733,7 +4743,7 @@ void EntityMaintenanceDlg::updateEmployeeClass(const DString &dstrValue)
          GetDlgItem (IDC_EDT_NAME)->ShowWindow ( SW_HIDE );
          GetDlgItem (IDC_STC_NAME)->ShowWindow ( SW_HIDE );
 
- 		 GetDlgItem (IDC_EDT_FIRST_NAME_DOUBLE)->ShowWindow( SW_HIDE);
+		 GetDlgItem (IDC_EDT_FIRST_NAME_DOUBLE)->ShowWindow( SW_HIDE);
 		 GetDlgItem (IDC_EDT_PATERNAL_NAME)->ShowWindow( SW_HIDE );
 		 GetDlgItem (IDC_EDT_MATERNAL_NAME)->ShowWindow( SW_HIDE );
 		 GetDlgItem (IDC_STC_PATERNAL_NAME)->ShowWindow( SW_HIDE );
