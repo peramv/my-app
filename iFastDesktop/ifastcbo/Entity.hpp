@@ -210,7 +210,6 @@ private:
    SEVERITY validateTIN (const BFDataGroupId& idDataGroup);
    SEVERITY validateRESPAcctHolder(const BFDataGroupId& idDataGroup);
    SEVERITY validatePaternalMaternalNames (const BFDataGroupId& idDataGroup);
-   SEVERITY validateCorporateNameForPaternalMaternal (const BFDataGroupId& idDataGroup);
    void getAccountNum(DString& accountNum, const BFDataGroupId& idDataGroup);
 
    DString _entityId, 
