@@ -1910,6 +1910,40 @@ const BFProperties *EntityProcess::doGetFieldAttributes ( const GenericInterface
 }
 
 //*****************************************************************************
+bool EntityProcess::doRegisterObserver ( const GenericInterface *rpGICaller,
+                                            const BFContainerId &idContainer,
+                                            const BFFieldId &idField,
+                                            const BFDataGroupId &idDataGroup,
+                                            BFObserver &rpObserver) 
+{
+   bool bRegistered = false;
+
+   if (idContainer == IFASTBP_PROC::ENTITY_LIST)
+   {
+      if ( idField == ifds::VerifyStatDetails)
+      {
+        
+		  BFAbstractCBO *rpPtr = getCBOItem( IFASTBP_PROC::ENTITY_LIST, idDataGroup );
+		  AccountEntityXrefObject *pAcctEntityXrefObject = dynamic_cast < AccountEntityXrefObject* > ( rpPtr );
+		  if( pAcctEntityXrefObject != NULL )
+		  {
+			 DString entityId;
+			 pAcctEntityXrefObject->getField( ifds::EntityId, entityId, idDataGroup );
+
+			 Entity *pEntity;
+			 dynamic_cast<DSTCWorkSession *>(getBFWorkSession())->getEntity( idDataGroup, entityId, pEntity );
+			 bRegistered = pEntity->registerObserver ( idField, 
+														idDataGroup, 
+														&rpObserver, 
+														FIELD_NOTIFICATIONS, 
+														E_EVENT_ALL);
+
+		  }
+      }
+   }
+   return bRegistered;
+}
+//*****************************************************************************
 
 SEVERITY EntityProcess::setData( GenericInterface *rpGICaller, const BFContainerId& idContainer, const BFData *rpData )
 {

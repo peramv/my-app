@@ -2962,14 +2962,6 @@ void EntityMaintenanceDlg::ShowOverLappedPart ()
    }
 }
 
-void EntityMaintenanceDlg::UpdateDetailsVerifyStat()
-{
-	DString strMarket = DSTCommonFunctions::getMarket();
-	if( strMarket == MARKET_IDS::LUXEMBOURG ) 
-	{
-		LoadControl(IDC_CMB_DETAILS_VERIFY_STAT);
-	}
-}
 //**********************************************************************************
 void EntityMaintenanceDlg::ControlUpdated (UINT controlID, const DString &dstrValue)
 {
@@ -3273,7 +3265,6 @@ void EntityMaintenanceDlg::ControlUpdated (UINT controlID, const DString &dstrVa
             DString strMarket = DSTCommonFunctions::getMarket();
             if( strMarket == MARKET_IDS::CANADA || strMarket == MARKET_IDS::LUXEMBOURG )
                LoadControl( IDC_TXT_AGE );
-			UpdateDetailsVerifyStat();
          }
          break;
       /*case IDC_DTP_DEATH_DATE:
@@ -3317,7 +3308,6 @@ void EntityMaintenanceDlg::ControlUpdated (UINT controlID, const DString &dstrVa
          // Display Other Edit field if Occupation is 'Other' (Code 08)
          LoadControl( IDC_EDT_OCCUPATION );
          GetDlgItem( IDC_EDT_OCCUPATION )->ShowWindow( ( dstrValue == I_("08") ) ? SW_SHOW : SW_HIDE );
-		 UpdateDetailsVerifyStat();
          break;
       case IDC_CMB_EMPLOYEECLASS:
          {
@@ -3360,7 +3350,6 @@ void EntityMaintenanceDlg::ControlUpdated (UINT controlID, const DString &dstrVa
             //LoadControl (IDC_EDT_FIRST_NAME);
             //LoadControl (IDC_EDT_LAST_NAME);
             //LoadControl (m_bSalutationFreeFormat ? IDC_EDT_SALUTATION : IDC_CMB_SALUTATION);
-			UpdateDetailsVerifyStat();
          }
          break;
       case IDC_EDT_TAX_JURIS:
@@ -3387,7 +3376,6 @@ void EntityMaintenanceDlg::ControlUpdated (UINT controlID, const DString &dstrVa
 
             bEnable = dstrUpdate == Y && strEntityType != RESP_BENEFICIARY;
             GetDlgItem (IDC_CHK_UPDATE_SHAREHOLDER_TAX_JURIS)->EnableWindow( bEnable );
-			UpdateDetailsVerifyStat();
          }
          break;
       case IDC_CMB_RESP2_PRIM_CARE_GIVER:
@@ -3458,7 +3446,6 @@ void EntityMaintenanceDlg::ControlUpdated (UINT controlID, const DString &dstrVa
 			  {
 				  LoadControl (IDC_CMB_RESP2_TAX_JUR);
 			  }
-			  UpdateDetailsVerifyStat();
 		  }
 		 break;
       case IDC_EDT_ID_VALUE:
@@ -3538,7 +3525,6 @@ void EntityMaintenanceDlg::ControlUpdated (UINT controlID, const DString &dstrVa
                   }
               }
            }
-		   UpdateDetailsVerifyStat();
         }
         break;
      case IDC_CMB_RISK_TYPE:
@@ -3551,35 +3537,6 @@ void EntityMaintenanceDlg::ControlUpdated (UINT controlID, const DString &dstrVa
              GetDlgItem(IDC_DTP_RISK_DEFF)->ShowWindow(riskDeffAppl && riskTabSelected());
          }
          break;
-	 case IDC_CMB_SALUTATION:
-	 case IDC_EDT_FIRST_NAME:
-	 case IDC_EDT_LAST_NAME:
-	 case IDC_EDT_BIRTH_PLACE:
-	 case IDC_CMB_COUNTRY_OF_BIRTH:
-	 case IDC_CMB_NATIONALITY:
-	 case IDC_CMB_LANGUAGE:
-	 case IDC_CMB_GENDER:
-	 case IDC_DTP_EFFECTIVE_DATE:
-	 case IDC_DTP_DEATH_DATE:
-	 case IDC_DTP_DEATHNOTIFDATE:
-	 case IDC_DTP_DEATH_DATE_SETTLEMENT:
-	 case IDC_EDT_HOME_TEL:
-	 case IDC_EDT_BUSINESS_TEL:
-	 case IDC_EDT_BUSINESS_EXT:
-	 case IDC_EDT_HOME_FAX:
-	 case IDC_EDT_BUSINESS_FAX:
-	 case IDC_EDT_EMAIL:
-	 case IDC_EDT_TELEX:
-	 case IDC_EDT_EMAIL2:
-	 case IDC_EDT_SECOND_PHONENUM:
-	 case IDC_EDT_SECOND_PHONENUM_EXT:
-	 case IDC_EDT_CONTACT_NAME:
-	 case IDC_CMB_EUSD_OPTION:
-	 case IDC_EDT_NAME:
-		  {
-			  UpdateDetailsVerifyStat();
-		  }
-		  break;
       default:
          break;
    }

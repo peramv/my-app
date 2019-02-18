@@ -96,6 +96,13 @@ protected:
    SEVERITY doGetErrors( const GenericInterface *rpGICaller, const BFContainerId& idContainer,
                          const BFFieldId& idField, const BFDataGroupId& idDataGroup, CONDITIONVECTOR &conditions ) const;
    const BFProperties *doGetFieldAttributes( const GenericInterface *rpGICaller, const BFContainerId& idContainer, const BFFieldId& idField, const BFDataGroupId& idDataGroup );
+
+    virtual bool doRegisterObserver ( const GenericInterface *rpGICaller,
+                                     const BFContainerId &idContainer,
+                                     const BFFieldId &idField,
+                                     const BFDataGroupId &idDataGroup,
+                                     BFObserver &rpObserver);
+
    /**
      * Set up the list and get parameters.
      * @returns SEVERITY noting any error/warning conditions
