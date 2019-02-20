@@ -5682,9 +5682,13 @@ SEVERITY MFAccount::initFieldsAndSubst( const BFDataGroupId& idDataGroup )
    getWorkSession().getOption2( ifds::DefStatus, dstrDefStatus, idDataGroup );
    if((DSTCommonFunctions::getMarket() == MARKET_IDS::LUXEMBOURG) && (dstrDefStatus == I_("50")) && ((dstrAcctStatus == UNVERIFIED_ACCT_STATUS) || isNew()))
    {
-	   setFieldNoValidate(ifds::AcctStatus, UNVERIFIED, idDataGroup);
+	   // If account status is Unverified flow will come in this block and else block will not be executed which removes Unverified from status set
+	   // Account status will be set as unverified(Because VEW4 call doesn't happnen in NASU flow) and read only if it is NASU Flow i.e. isNew() is true
 	   if(isNew())
+	   {
+		   setFieldNoValidate(ifds::AcctStatus, UNVERIFIED, idDataGroup);
 		   setFieldReadOnly(ifds::AcctStatus,idDataGroup,true);
+	   }
    }
    else
    {
