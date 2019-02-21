@@ -1160,7 +1160,8 @@ SEVERITY EntityProcess::doSetField( const GenericInterface *rpGICaller,
              idField == ifds::FirstName      || 
              idField == ifds::Salutation     || 
              idField == ifds::EmployeeClass  ||
-             idField == ifds::DofBirth )
+             idField == ifds::DofBirth		 ||
+			 idField == ifds::VerifyStatDetails )
          {
             rpPtr->setField (idField, strValueOut, idDataGroup);
          }
