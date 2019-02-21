@@ -2713,6 +2713,15 @@ SEVERITY Trade::initRebook (const BFData &data)
    setFieldReadOnly( ifds::AggregationType, BF::HOST, true );
    setFieldReadOnly( ifds::SourceofFundsChecked, BF::HOST, true );   
 
+   DString dstrCashdate;
+   getField (ifds::CashDate, dstrCashdate, BF::HOST, false);
+   if ( dstrCashdate.empty() )
+   {
+	   DString emptyDate;
+	   getWorkSession().getDateInHostFormat (emptyDate, DSTCWorkSession::DATE_TYPE::DAY12319999, BF::HOST);
+	   setFieldNoValidate (ifds::CashDate, emptyDate, BF::HOST, false);
+   }
+
    return GETCURRENTHIGHESTSEVERITY ();
 }
 
@@ -6044,12 +6053,17 @@ SEVERITY Trade::doApplyRelatedChanges ( const BFFieldId &idField,
                                     false,
                                     false); 
             }
-			DString dstrCashDate;
-			pTrade_DateValidation->getField( ifds::CashDate, dstrCashDate, idDataGroup, false ); 
-			setFieldNoValidate ( ifds::CashDate, dstrCashDate, idDataGroup,  false, 
-                                    false, 
-                                    false,
-                                    false); 
+			DString dstrCashDate,emptyDate;
+			getWorkSession().getDateInHostFormat (emptyDate, DSTCWorkSession::DATE_TYPE::DAY12319999, idDataGroup);
+			pTrade_DateValidation->getField( ifds::CashDate, dstrCashDate, idDataGroup, false );
+			if(!dstrCashDate.empty())
+				setFieldNoValidate ( ifds::CashDate, dstrCashDate, idDataGroup,  false, 
+				false, 
+				false,
+				false);
+			else if(!isRebook() )
+				 setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false);
+
          } 
       }
 
@@ -12004,14 +12018,18 @@ SEVERITY Trade::validateDate ( const DString &validationType,
                      }
                   }
                }
-
+			   
+			   DString emptyDate;
+			   getWorkSession().getDateInHostFormat (emptyDate, DSTCWorkSession::DATE_TYPE::DAY12319999, idDataGroup);
 			   if (!bIsCashDateOverriden && !cashDate.empty() && 
 				   !(DSTCommonFunctions::CompareDates (!tradeDate.empty() ? tradeDate : oldTradeDate, _currentBusinessDate) == DSTCommonFunctions::FIRST_EARLIER))
 			   {
 				   setFieldNoValidate ( ifds::CashDate, cashDate, idDataGroup, false, 
 										false, 
 										true); 
-            }
+			   }
+			   else if(!isRebook() && !bIsCashDateOverriden && cashDate.empty() )
+				 setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false);
             }
             else
             {
@@ -12042,13 +12060,17 @@ SEVERITY Trade::validateDate ( const DString &validationType,
                                           true); //notify
                   }
                }
+			   DString emptyDate;
+			   getWorkSession().getDateInHostFormat (emptyDate, DSTCWorkSession::DATE_TYPE::DAY12319999, idDataGroup);
 			   if (!bIsCashDateOverriden && !cashDate.empty() && 
 				   !(DSTCommonFunctions::CompareDates (!tradeDate.empty() ? tradeDate : oldTradeDate, _currentBusinessDate) == DSTCommonFunctions::FIRST_EARLIER))
 			   {
 				   setFieldNoValidate ( ifds::CashDate, cashDate, idDataGroup, false, 
 										false, 
 										true); 
-            }
+			   }
+			   else if(!isRebook() && !bIsCashDateOverriden && cashDate.empty() )
+				 setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false);
 			}
             if (validationType_ == DATE_VALIDATION::DEFAULT_TRADE_DATE)
             {
@@ -12109,16 +12131,18 @@ SEVERITY Trade::validateDate ( const DString &validationType,
                                     true); //notify
             }
 			
-			DString oldTradeDate;
-            getField (ifds::EffectiveDate, oldTradeDate, idDataGroup, false);
-
+			DString oldTradeDate,emptyDate;
+			getField (ifds::EffectiveDate, oldTradeDate, idDataGroup, false);
+			getWorkSession().getDateInHostFormat (emptyDate, DSTCWorkSession::DATE_TYPE::DAY12319999, idDataGroup);
 			if (!bIsCashDateOverriden && !cashDate.empty() && 
 				!(DSTCommonFunctions::CompareDates (!tradeDate.empty() ? tradeDate : oldTradeDate, _currentBusinessDate) == DSTCommonFunctions::FIRST_EARLIER))
 			{
 				setFieldNoValidate ( ifds::CashDate, cashDate, idDataGroup, false, 
 									 false, 
 									 true); 
-         } 
+			} 
+			else if(!isRebook() && !bIsCashDateOverriden && cashDate.empty() )
+				setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false);
          } 
          else if (validationType_ == DATE_VALIDATION::BUSINESS_DATE)
          {
@@ -12495,8 +12519,12 @@ SEVERITY Trade::validateCashDate ( const DString &cashDate,
 			getField (ifds::CashDate, cashDate, idDataGroup);
 			getField (ifds::CashDateOverriden, dstrCashDateOverriden, idDataGroup, false);
 
+			DString cashDateOverride;
+			getWorkSession().getOption (ifds::OrderUserOverride, cashDateOverride, BF::HOST, false); // OrdEntryUserOverride attribute in PendingTradeCashDate function control: 01-no override, 02-override backdated trades, 03-override all	
+
 // check if transaction is backdated
-            if ( getFundField ( fundCode, 
+            if ( cashDateOverride == I_("02") &&
+				getFundField ( fundCode, 
                                 classCode, 
                                 ifds::NextSettleDate, 
                                 nextSettleDate ) <= WARNING &&
@@ -15388,8 +15416,6 @@ SEVERITY Trade::fetchTransNum ( const BFDataGroupId &idDataGroup,
 		 }
          //deposit date
          setFieldNoValidate (ifds::DepositDate, _currentBusinessDate, idDataGroup, false);         
-         //cash date
-         //setFieldNoValidate (ifds::CashDate, _currentBusinessDate, idDataGroup, false);
 		 DString emptyDate;
 		 getWorkSession().getDateInHostFormat (emptyDate, DSTCWorkSession::DATE_TYPE::DAY12319999, idDataGroup);
 		 setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false);
