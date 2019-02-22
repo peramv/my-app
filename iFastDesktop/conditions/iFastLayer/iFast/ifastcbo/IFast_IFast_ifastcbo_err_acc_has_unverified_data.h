@@ -19,7 +19,7 @@ namespace CND
 
 		// Messages
 		virtual DString GetMessage_EN_US() const { return DString(I_("Account has unverified data.")); }
-		virtual DString GetMessage_FR_CA() const { return DString(I_("Account has unverified data.")); }
+		virtual DString GetMessage_FR_CA() const { return DString(I_("Le compte a des données non vérifiées.")); }
 
         // Actions
 	};

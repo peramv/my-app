@@ -900,7 +900,7 @@ namespace IFASTERR
    // Bond Return amount cannot be greater than the bond purchase amount.
    extern CLASS_EXPORT I_CHAR * const RDSP_BOND_RETURN_CANNOT_BE_GREATER_THAN_BOND_PURCHASE			  = I_("2255");
    // Account has unverified data
-   extern CLASS_EXPORT I_CHAR * const ACCOUNT_HAS_UNVERIFIED_DATA                                     = I_("2256");
+   extern CLASS_EXPORT I_CHAR * const ACCOUNT_HAS_UNVERIFIED_DATA                                     = I_("2272");
    // RDSP Beneficiary's Date of Birth is missing.
    extern CLASS_EXPORT I_CHAR * const RDSP_BENEFICIARY_DOFBIRTH_MISSING								  = I_("2266");
    // Not eligible for Target Fund Cash Sweep.
