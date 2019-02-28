@@ -2178,6 +2178,7 @@ void TradesDlg::ControlUpdated ( UINT controlID,
       case IDC_CMB_TRANSACTION_TYPE:
          {
             show2Sides (strValue);
+			m_tradeTransactionType = strValue;  // stored for being sent to Dilution screen
 //security access
             if (DSTCommonFunctions::codeInList ( strValue, 
                                                  TRADETYPE::PURCHASE_LIKE))
