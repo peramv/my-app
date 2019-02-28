@@ -267,8 +267,8 @@ public class AccountService {
 	public BaseResponse getEntityDetails(String accountId)  {
 
 
-		String httpPath1="/account/rdsp/entity";
-		String httpPath2="/account/rdsp/"+accountId+"/entity";
+		String httpPath1="/account/accountinfo/entity";
+		String httpPath2="/account/accountinfo/"+accountId+"/entity";
 		String URL=jrdspServiceURL+httpPath2;
 
 		MultiValueMap<String, String> headers = JRDSPUtil.addHeaders(httpPath1, HttpMethod.GET.name(), "application/json", "1.0", JRDSPUtil.generateTraceId(),"");
