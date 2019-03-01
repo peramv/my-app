@@ -1499,7 +1499,7 @@ SEVERITY AccountEntityXrefObject::doApplyRelatedChanges ( const BFFieldId& idFie
 
    // PTS 10007408
    // to ensure Entity object is being validated as soon as one field in this object is changed
-   setValidFlag (ifds::LastName, idDataGroup, (!getWorkSession().getLastNameFormat()) ? false : true); // True if LastNameFormat is Double
+   setValidFlag (ifds::LastName, idDataGroup, false);
 
    if( idField == ifds::PaternalLastName || idField == ifds::MaternalLastName ) {
 

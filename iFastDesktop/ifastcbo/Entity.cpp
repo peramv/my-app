@@ -4037,7 +4037,12 @@ SEVERITY Entity::validateEmployeeClass (const DString &strValue, const BFDataGro
          }
       }
    }
-
+   // When LastNameFormat is Double,  For Corporate Account LastName is mandatory field
+   if ( ! _entityType.empty() && m_bPaternalMaternal && strEmployeeClass == ENTITY_CATEGORY::CORPORATE )
+   {
+	   setFieldValid(ifds::LastName, idDataGroup, false);
+	   setFieldRequired (ifds::LastName, idDataGroup, true);
+   }
    //NULL_STRING means using EntityType from selected xref in the gui list.
    validateEmployeeClassForFATCA(idDataGroup, NULL_STRING);
 
