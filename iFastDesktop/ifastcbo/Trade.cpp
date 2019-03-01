@@ -2719,7 +2719,7 @@ SEVERITY Trade::initRebook (const BFData &data)
    {
 	   DString emptyDate;
 	   getWorkSession().getDateInHostFormat (emptyDate, DSTCWorkSession::DATE_TYPE::DAY12319999, BF::HOST);
-	   setFieldNoValidate (ifds::CashDate, emptyDate, BF::HOST, false);
+	   setFieldNoValidate (ifds::CashDate, emptyDate, BF::HOST, false,true, false, false);
    }
 
    return GETCURRENTHIGHESTSEVERITY ();
@@ -6062,7 +6062,10 @@ SEVERITY Trade::doApplyRelatedChanges ( const BFFieldId &idField,
 				false,
 				false);
 			else if(!isRebook() )
-				 setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false);
+				 setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false,
+				 false,
+				 false,
+				 false);
 
          } 
       }
@@ -12029,7 +12032,9 @@ SEVERITY Trade::validateDate ( const DString &validationType,
 										true); 
 			   }
 			   else if(!isRebook() && !bIsCashDateOverriden && cashDate.empty() )
-				 setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false);
+				 setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false,
+									 false,
+									 true);
             }
             else
             {
@@ -12070,7 +12075,9 @@ SEVERITY Trade::validateDate ( const DString &validationType,
 										true); 
 			   }
 			   else if(!isRebook() && !bIsCashDateOverriden && cashDate.empty() )
-				 setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false);
+				 setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false,
+									 false,
+									 true);
 			}
             if (validationType_ == DATE_VALIDATION::DEFAULT_TRADE_DATE)
             {
@@ -12142,7 +12149,9 @@ SEVERITY Trade::validateDate ( const DString &validationType,
 									 true); 
 			} 
 			else if(!isRebook() && !bIsCashDateOverriden && cashDate.empty() )
-				setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false);
+				setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false,
+									false,
+									true);
          } 
          else if (validationType_ == DATE_VALIDATION::BUSINESS_DATE)
          {
