@@ -5156,7 +5156,7 @@ SEVERITY Entity::validatePaternalMaternalNames (const BFDataGroupId& idDataGroup
 
 				dstrCompundName = dstrPN + I_(" ") + dstrMN;
 				dstrCompundName.strip();
-				setFieldNoValidate (ifds::LastName, dstrCompundName, idDataGroup, false, true, true);
+				setFieldNoValidate (ifds::LastName, dstrCompundName, idDataGroup, false, true, true, false);
 			}
 	   }
    }
