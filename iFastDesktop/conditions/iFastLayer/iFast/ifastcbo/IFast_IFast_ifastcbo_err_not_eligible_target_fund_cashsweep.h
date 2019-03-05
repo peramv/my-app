@@ -19,7 +19,7 @@ namespace CND
 
 		// Messages
 		virtual DString GetMessage_EN_US() const { return DString(I_("Not eligible for Target Fund Cash Sweep.")); }		
-		virtual DString GetMessage_FR_CA() const { return DString(I_("Non admissible au remboursement obligatoire en trésorerie du Fonds cible.")); }	
+		virtual DString GetMessage_FR_CA() const { return DString(I_("Fonds cible non permis pour le terme automatique d'investissement.")); }	
 
         // Actions
 	};
