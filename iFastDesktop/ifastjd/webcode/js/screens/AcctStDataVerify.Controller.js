@@ -14,6 +14,9 @@
  *
  *  23 Jan 2018 Umamahesh PBSGEALV-181 & PBSGEALV-177
  *					- User verification Shareholder,Broker,Branch and Sales Rep
+ *
+ *  06 March 2019 Umamahesh P0300018-191 DFT0089385
+ *					- Fix DataDisplay Verify Static Data
  */
 
 DesktopWeb.ScreenController = function(){
@@ -86,16 +89,19 @@ DesktopWeb.ScreenController = function(){
 			var selectedRecord = _resources.grids['acctStDataVerifyGrid'].getSelectedRecord();
 			var recordsReturnValue = []
 			var nodeArray = IFDS.Xml.getNodes(_initXml,'//*/EntityInfo/EntityInfo');
-
+					
 			for(var i=0; i< nodeArray.length; i++){
+				var node = IFDS.Xml.getNodeValue(nodeArray[i],"VerifyCategory");
 				var changedFieldsNodeArray = IFDS.Xml.getNodes(IFDS.Xml.cloneDocument(nodeArray[i]),'//fieldInfo');
-
-				if(((selectedRecord.data.modTime == IFDS.Xml.getNodeValue(nodeArray[i], "modTime")) ) 
-					&& ((DesktopWeb.Util.getSMVDateValue(selectedRecord.data.modDate) == IFDS.Xml.getNodeValue(nodeArray[i], "modDate")))){
-					for(var j=0; j< changedFieldsNodeArray.length; j++){
-							recordsReturnValue[j] = IFDS.Xml.getNodeValue(changedFieldsNodeArray[j], 'fldLabel')
-							+ '~' + IFDS.Xml.getNodeValue(changedFieldsNodeArray[j], 'oldVal')
-							+ '~' + IFDS.Xml.getNodeValue(changedFieldsNodeArray[j], 'newVal');
+				
+				if(node == selectedRecord.data['VerifyCategory']){
+					if(((selectedRecord.data.modTime == IFDS.Xml.getNodeValue(nodeArray[i], "modTime")) ) 
+						&& ((DesktopWeb.Util.getSMVDateValue(selectedRecord.data.modDate) == IFDS.Xml.getNodeValue(nodeArray[i], "modDate")))){
+						for(var j=0; j< changedFieldsNodeArray.length; j++){
+								recordsReturnValue[j] = IFDS.Xml.getNodeValue(changedFieldsNodeArray[j], 'fldLabel')
+								+ '~' + IFDS.Xml.getNodeValue(changedFieldsNodeArray[j], 'oldVal')
+								+ '~' + IFDS.Xml.getNodeValue(changedFieldsNodeArray[j], 'newVal');
+						}
 					}
 				}
 			}
