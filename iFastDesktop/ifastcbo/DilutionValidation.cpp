@@ -115,7 +115,8 @@ SEVERITY DilutionValidation::init(const DString &dstrAccountNum,
   queryData.setElementValue(ifds::RDSPValidation, NO);
   queryData.setElementValue(ifds::GRRepayReason, NULL_STRING);
   queryData.setElementValue(ifds::RDSPPaymtDate, NULL_STRING);
-  queryData.setElementValue(ifds::MatchingKey, dstrMatchingKey);
+  queryData.setElementValue(ifds::MatchingKey, dstrMatchingKey); 
+  queryData.setElementValue(ifds::FullMoneyOutIndc, NULL_STRING);
 
   ReceiveData(DSTC_REQUEST::TRADE_MIN_AMT_CHECK, 
               queryData, 

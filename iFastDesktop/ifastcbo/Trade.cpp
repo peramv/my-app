@@ -28329,13 +28329,11 @@ SEVERITY Trade::validateRDSPTrade (const BFDataGroupId &idDataGroup, DString& ds
 {
 	MAKEFRAMEAUTOPROMOTE2 ( CND::IFASTCBO_CONDITION, CLASSNAME, I_("validateRDSPTrade"));
 
-	DString dstrTransType, dstrFundCode, dstrClassCode, dstrEffectiveDate, dstrDepositType, dstrRedCode, dstrAmount, dstrGRRepayReason, dstrRDSPPaymtDate;   
+	DString dstrTransType, dstrFundCode, dstrClassCode, dstrEffectiveDate, dstrDepositType, dstrRedCode, dstrAmount, dstrGRRepayReason, dstrRDSPPaymtDate, dstrFullMoneyOutIndc;   
 			
 	getField (ifds::TradesTransType, dstrTransType, idDataGroup, false);
 
-	if (isRDSPTradeAccount (idDataGroup, dstrAccountNum) && !(dstrTransType == TRADETYPE::EXCHANGE || 
-															  dstrTransType == TRADETYPE::ROLLOVER_EXCHANGE || 
-															  dstrTransType == TRADETYPE::INTER_CLASS_SWITCH)) // XR,XR33,XR45
+	if (isRDSPTradeAccount (idDataGroup, dstrAccountNum))
 	{				
 		getField (ifds::TradesTransType, dstrTransType, idDataGroup, false);
 		getField (ifds::EffectiveDate, dstrEffectiveDate, idDataGroup, false);
@@ -28344,6 +28342,7 @@ SEVERITY Trade::validateRDSPTrade (const BFDataGroupId &idDataGroup, DString& ds
 		getField (ifds::Amount, dstrAmount, idDataGroup, false);
 		getField (ifds::GRRepayReason, dstrGRRepayReason, idDataGroup, false);
 		getField (ifds::RDSPPaymtDate, dstrRDSPPaymtDate, idDataGroup, false);
+		getField (ifds::FullMoneyOutIndc, dstrFullMoneyOutIndc, idDataGroup, false);
 
 		if (hasAllocations (idDataGroup))
 		{
@@ -28377,6 +28376,7 @@ SEVERITY Trade::validateRDSPTrade (const BFDataGroupId &idDataGroup, DString& ds
 		dstrAccountNum.strip();
 		dstrFundCode.strip().upperCase();
 		dstrFundCode.strip().upperCase();
+		dstrFullMoneyOutIndc.strip().upperCase();
 
 		RDSPTradeValidation *pRDSPTradeValidation = new RDSPTradeValidation(*this);
 		if (pRDSPTradeValidation->init( dstrAccountNum, 
@@ -28388,7 +28388,8 @@ SEVERITY Trade::validateRDSPTrade (const BFDataGroupId &idDataGroup, DString& ds
 										dstrRedCode, 
 										dstrAmount, 
 										dstrGRRepayReason,
-										dstrRDSPPaymtDate) > WARNING) 
+										dstrRDSPPaymtDate,
+										dstrFullMoneyOutIndc) > WARNING) 
 		{
 			delete pRDSPTradeValidation;
 			pRDSPTradeValidation = NULL;

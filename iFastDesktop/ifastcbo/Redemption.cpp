@@ -5942,11 +5942,11 @@ SEVERITY Redemption::validateRDSPTrade (const BFDataGroupId &idDataGroup)
 	dstrExtAccount.stripAll();
 	dstrExtSpecimenPlanNo.stripAll();
 
-	if (!dstrAccountNum.empty() && !isAllFundsFullMoneyOutIndc(idDataGroup))
+	if (!dstrAccountNum.empty())
 	{
 		Trade::validateRDSPTrade (idDataGroup, dstrAccountNum);
 
-		if (dstrRedCode == EXTERNAL_RDSP_TRANSFER_OUT)
+		if (dstrRedCode == EXTERNAL_RDSP_TRANSFER_OUT && !isAllFundsFullMoneyOutIndc(idDataGroup))
 		{
 			if (dstrFullMoneyOutIndc.empty())
 			{

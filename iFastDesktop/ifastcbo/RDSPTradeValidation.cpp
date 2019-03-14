@@ -143,7 +143,8 @@ SEVERITY RDSPTradeValidation::init(const DString &dstrAccountNum,
 								   const DString &dstrRedCode,
 								   const DString &dstrAmount,
 								   const DString &dstrGRRepayReason,
-								   const DString &dstrRDSPPaymtDate)
+								   const DString &dstrRDSPPaymtDate,
+								   const DString &dstrFullMoneyOutIndc)
 {
 	MAKEFRAMEAUTOPROMOTE2(CND::IFASTCBO_CONDITION, CLASSNAME, I_("init"));
 
@@ -176,6 +177,8 @@ SEVERITY RDSPTradeValidation::init(const DString &dstrAccountNum,
 	queryData.setElementValue(ifds::RDSPValidation, YES);
 	queryData.setElementValue(ifds::GRRepayReason, dstrGRRepayReason);
 	queryData.setElementValue(ifds::RDSPPaymtDate, dstrRDSPPaymtDate);
+	queryData.setElementValue(ifds::MatchingKey, NULL_STRING);
+	queryData.setElementValue(ifds::FullMoneyOutIndc, dstrFullMoneyOutIndc);
 	
 	ReceiveData(DSTC_REQUEST::TRADE_MIN_AMT_CHECK, queryData, ifds::DSTC0167_VW, DSTCRequestor(getSecurity (), true, true));
 

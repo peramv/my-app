@@ -50,7 +50,8 @@ public:
 				const DString &dstrRedCode,
 				const DString &dstrAmount,
 				const DString &dstrGRRepayReason,
-				const DString &dstrRDSPPaymtDate);
+				const DString &dstrRDSPPaymtDate,
+				const DString &dstrFullMoneyOutIndc);
 
   SEVERITY addConditions(const BFDataGroupId &idDataGroup);
 
