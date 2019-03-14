@@ -339,6 +339,8 @@ void DilutionDlg::ControlUpdated(UINT controlID, const DString &strValue )
    dstrTransType = _dstrTransType;   // this approach works for both IFASTBP_PROC::TRANS_LIST and IFASTBP_PROC::PENDING_LIST
    dstrTransType.stripAll().upperCase();
 
+   DString strMarket = DSTCommonFunctions::getMarket();
+
 	if( controlID == IDC_CMB_BILLING_TYPE )
    {
 	   bool bBroker = false;
@@ -427,11 +429,14 @@ void DilutionDlg::ControlUpdated(UINT controlID, const DString &strValue )
 	   GetDlgItem(IDC_EDT_IFAST_LINKID)->ShowWindow(showLinkID);
 	   GetDlgItem(IDC_TXT_IFAST_LINKID)->ShowWindow(showLinkID);
 
-   	   DString strMarket = DSTCommonFunctions::getMarket();
 	   if( strMarket == MARKET_IDS::CANADA)
 	   {
 		   GetDlgItem(IDC_TXT_IFAST_MATCHINGKEY)->ShowWindow(showLinkID);
 		   GetDlgItem(IDC_EDT_IFAST_MATCHINGKEY)->ShowWindow(showLinkID);
+
+		   // For Transfers make Matching Key Disabled
+		   if (DSTCommonFunctions::codeInList(dstrTransType, TRANSHIST_LIKE_4NSM))
+			   GetDlgItem(IDC_EDT_IFAST_MATCHINGKEY)->EnableWindow(false);
 	   }
 	   else 
 	   {
@@ -446,10 +451,6 @@ void DilutionDlg::ControlUpdated(UINT controlID, const DString &strValue )
 	   getParent()->getField(this, IFASTBP_PROC::DILUTION_LIST, ifds::SettleNetwork, dstrSettleNetwork, false);
 	   getParent()->getField(this, IFASTBP_PROC::DILUTION_LIST, ifds::DilutionNSM, dstrDilutionNSM, false);
 
-	   DString dstrTransType;
-	   dstrTransType = _dstrTransType;   // this approach works for both IFASTBP_PROC::TRANS_LIST and IFASTBP_PROC::PENDING_LIST
-       dstrTransType.stripAll().upperCase();
-
 	   const int show = dstrSettleNetwork == I_("FSRV") || dstrDilutionNSM == I_("02") 
 		   || (DSTCommonFunctions::codeInList(dstrTransType, TRANSHIST_EXCHANGE_LIKE) ||
                DSTCommonFunctions::codeInList( dstrTransType, TRANSHIST_EXCHANGE_LIKE_2)) ? SW_SHOW:SW_HIDE;
@@ -457,11 +458,13 @@ void DilutionDlg::ControlUpdated(UINT controlID, const DString &strValue )
 	   GetDlgItem(IDC_EDT_IFAST_LINKID)->ShowWindow(show);
 	   GetDlgItem(IDC_TXT_IFAST_LINKID)->ShowWindow(show);
 
-   	   DString strMarket = DSTCommonFunctions::getMarket();
 	   if( strMarket == MARKET_IDS::CANADA)
 	   {
 		   GetDlgItem(IDC_TXT_IFAST_MATCHINGKEY)->ShowWindow(show);
 		   GetDlgItem(IDC_EDT_IFAST_MATCHINGKEY)->ShowWindow(show);
+
+		   if (DSTCommonFunctions::codeInList(dstrTransType, TRANSHIST_LIKE_4NSM))
+			   GetDlgItem(IDC_EDT_IFAST_MATCHINGKEY)->EnableWindow(false);
 	   }
    }
 }

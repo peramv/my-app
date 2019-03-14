@@ -594,6 +594,9 @@ SEVERITY DilutionAlloc::doApplyRelatedChanges( const BFFieldId &idField, const B
      getField(ifds::DilutionNSM, dstrDilutionNSM, idDataGroup, false);
      getParent()->getField(ifds::SettleNetwork, dstrSettleNetwork, idDataGroup, false);
 
+	 DString dstrDilutionLinkNum;
+	 getParent()->getField(ifds::DilutionLinkNum, dstrDilutionLinkNum, idDataGroup, false);
+
      if(dstrShowExSysDilPymtNSM == I_("Y") && dstrShowDilution == I_("Y"))
      {
        if(dstrDilutionNSM == I_("02"))
@@ -607,8 +610,8 @@ SEVERITY DilutionAlloc::doApplyRelatedChanges( const BFFieldId &idField, const B
        notifyObservers(ifds::ExSysDilPymtNSM, idDataGroup, FIELD_NOTIFICATIONS, E_EVENT_VALUE_CHANGE, I_(""));
      }
 
-     if(dstrSettleNetwork != FSRV && dstrDilutionNSM != I_("02"))
-     {
+     if(dstrSettleNetwork != FSRV && dstrDilutionNSM != I_("02") && dstrDilutionLinkNum.empty())
+     { // either this block makes no sense, I am reluctant to delete it - it has been added for FS V28
        getParent()->setField(ifds::DilutionLinkNum, NULL_STRING, idDataGroup, false, true, true);
      }
    }

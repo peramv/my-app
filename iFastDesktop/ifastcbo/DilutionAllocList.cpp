@@ -670,8 +670,15 @@ SEVERITY DilutionAllocList::doValidateAll( const BFDataGroupId& idDataGroup, lon
    {
      if(!dstrDilutionLinkNum.empty())
      {
+
+		DString strMarket = DSTCommonFunctions::getMarket();
+		DString dstrMatchingKey = I_("");
+
+		if (strMarket == MARKET_IDS::CANADA)
+			getField(ifds::MatchingKey, dstrMatchingKey, idDataGroup, false);
+
         DilutionValidation *pDilutionValidation = new DilutionValidation(*this);
-        if(pDilutionValidation->init(dstrAccountNum, dstrFundCode, dstrClassCode, dstrDilutionLinkNum) > WARNING)
+        if(pDilutionValidation->init(dstrAccountNum, dstrFundCode, dstrClassCode, dstrDilutionLinkNum, dstrMatchingKey) > WARNING)
         {
           delete pDilutionValidation;
           pDilutionValidation = NULL;
