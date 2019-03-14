@@ -87,9 +87,13 @@ DesktopWeb.ScreenTranslation = {
 			,PW99RDSP_TAB:			"RDSP Termination Adj Bond"
 			,TI68:			"Internal Non-Reg Rollover"
 			,TI47:			"Internal RSP Rollover to RDSP"
-			,TI48:			"Internal RESP Rollover to RDSP",
+			,TI48:			"Internal RESP Rollover to RDSP"
+			,PW99RDSP_LC: 		"Loss On Contribution"
+			,PW99RDSP_LB: 		"Loss On Bond"
+			,PW99RDSP_LG: 		"Loss On Grant"
+			,PW99RDSP_LR: 		"Loss On Rollover"
 
-			BD:     "Beneficiary ceases to be DTC eligible",
+			,BD:     "Beneficiary ceases to be DTC eligible",
 			BP:     "Bond payment rectification",
 			CR:     "Contract ceases to be registered",
 			CT:     "Contract Terminated",
@@ -182,9 +186,13 @@ DesktopWeb.ScreenTranslation = {
 			,PW99RDSP_TAB:			"RDSP Termination Adj Bond"
 			,TI68:		"Internal Non-Reg Rollover"
 			,TI47:			"Internal RSP Rollover to RDSP"
-			,TI48:			"Internal RESP Rollover to RDSP",
-					
-		BD:     "Beneficiary ceases to be DTC eligible",
+			,TI48:			"Internal RESP Rollover to RDSP"
+			,PW99RDSP_LC: 		"Loss On Contribution"
+			,PW99RDSP_LB: 		"Loss On Bond"
+			,PW99RDSP_LG: 		"Loss On Grant"
+			,PW99RDSP_LR: 		"Loss On Rollover"
+
+		,BD:     "Beneficiary ceases to be DTC eligible",
 		BP:     "Bond payment rectification",
 		CR:     "Contract ceases to be registered",
 		CT:     "Contract Terminated",
