@@ -201,6 +201,8 @@ SEVERITY MatSweepInstrDetailsList::validateCashSweepDetails (const BFDataGroupId
 	DString					dstrInstrType;
 	int						numfOfGIAFunds = 0;
 	int						numfOfSEGFunds = 0;
+	int						numTargetFunds = 0;
+	bool					bcaughtError = false;
    
 	getParent ()->getField (ifds::MatSwpInstructionType, dstrInstrType, idDataGroup, false);
 
@@ -232,16 +234,24 @@ SEVERITY MatSweepInstrDetailsList::validateCashSweepDetails (const BFDataGroupId
 			}
 		}
 		++iter;
+		numTargetFunds++;
 	}
    
 	if(numfOfGIAFunds > 1)
 	{ 
 		ADDCONDITIONFROMFILE (CND::ERR_ONLY_ONE_GIA_FUND_ALLOWED); 
+		bcaughtError = true;
 	}
 
 	if (numfOfSEGFunds > 0 && numfOfGIAFunds >= 1)
 	{
 		ADDCONDITIONFROMFILE (CND::ERR_ONEGI_MULTIPLESEGS_ALLOWED); 
+		bcaughtError = true;
+	}
+
+	if (numfOfGIAFunds >= 1 && numTargetFunds > 1 && !bcaughtError)
+	{ 
+		ADDCONDITIONFROMFILE (CND::ERR_ONLY_ONE_GIA_FUND_ALLOWED); 
 	}
 
 	return GETCURRENTHIGHESTSEVERITY();
