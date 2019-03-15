@@ -174,7 +174,9 @@ SEVERITY RefundRedemption::validateMinFromFundAmount ( const DString &accountNum
    {
       
       DString oldTransNum;
+      DString transNum;
       getField (ifds::AdjTransNum, oldTransNum, BF::HOST, false);
+	  getField (ifds::TransNum, transNum, BF::HOST, false);
 
       fundClassTradeMinimumAmtCheck ( TRADETYPE::REDEMPTION,
                                       accountNum,
@@ -192,7 +194,8 @@ SEVERITY RefundRedemption::validateMinFromFundAmount ( const DString &accountNum
                                       idDataGroup,
                                       false,
                                       TRADETYPE::REFUND_REDEMPTION_INDC,
-                                      oldTransNum);
+                                      oldTransNum,
+									  transNum);
    }
    return GETCURRENTHIGHESTSEVERITY();
 }

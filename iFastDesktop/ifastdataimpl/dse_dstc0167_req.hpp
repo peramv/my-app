@@ -40,5 +40,6 @@ namespace ifds
     extern __declspec(dllimport) const BFTextFieldId GRRepayReason;
     extern __declspec(dllimport) const BFDateFieldId RDSPPaymtDate;
     extern __declspec(dllimport) const BFTextFieldId MatchingKey;
+    extern __declspec(dllimport) const BFNumericFieldId TransNum;
     extern __declspec(dllimport) const BFTextFieldId FullMoneyOutIndc;
 }

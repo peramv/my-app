@@ -48,6 +48,7 @@ namespace ifds
     extern const BFTextFieldId GRRepayReason;
     extern const BFDateFieldId RDSPPaymtDate;
     extern const BFTextFieldId MatchingKey;
+    extern const BFNumericFieldId TransNum;
     extern const BFTextFieldId FullMoneyOutIndc;
 
     //Property Externs
@@ -82,6 +83,7 @@ namespace ifds
     extern const BFDataFieldProperties s_FldProp_GRRepayReason;
     extern const BFDataFieldProperties s_FldProp_RDSPPaymtDate;
     extern const BFDataFieldProperties s_FldProp_MatchingKey;
+    extern const BFDataFieldProperties s_FldProp_TransNum;
     extern const BFDataFieldProperties s_FldProp_FullMoneyOutIndc;
 }
 
@@ -107,7 +109,7 @@ public:
     static bool fieldExists( const BFFieldId& id );
 
 private:
-    BFDataField* aFlds_[32];
+    BFDataField* aFlds_[33];
     // Field Declarations
     BFTextField_60 SessionId_;
     BFTextField_60 User_Id_;
@@ -140,5 +142,6 @@ private:
     BFTextField_60 GRRepayReason_;
     BFDateField RDSPPaymtDate_;
     BFTextField<12> MatchingKey_;
+    BFNumericField TransNum_;
     BFTextField_60 FullMoneyOutIndc_;
 };

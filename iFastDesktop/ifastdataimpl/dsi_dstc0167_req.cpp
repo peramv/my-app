@@ -46,9 +46,10 @@ dsi_DSTC0167_REQ::dsi_DSTC0167_REQ()
 , GRRepayReason_( ifds::GRRepayReason, &ifds::s_FldProp_GRRepayReason )
 , RDSPPaymtDate_( ifds::RDSPPaymtDate, &ifds::s_FldProp_RDSPPaymtDate )
 , MatchingKey_( ifds::MatchingKey, &ifds::s_FldProp_MatchingKey )
+, TransNum_( ifds::TransNum, &ifds::s_FldProp_TransNum )
 , FullMoneyOutIndc_( ifds::FullMoneyOutIndc, &ifds::s_FldProp_FullMoneyOutIndc )
 {
-    cFields_ = 32;
+    cFields_ = 33;
     memset( &aFlds_[0], 0x00, sizeof( aFlds_ ) );
 }
 
@@ -90,6 +91,7 @@ BFDataImpl* dsi_DSTC0167_REQ::clone()
     p->GRRepayReason_ = GRRepayReason_;
     p->RDSPPaymtDate_ = RDSPPaymtDate_;
     p->MatchingKey_ = MatchingKey_;
+    p->TransNum_ = TransNum_;
     p->FullMoneyOutIndc_ = FullMoneyOutIndc_;
     return(p);
 }
@@ -128,6 +130,7 @@ BFDataField* dsi_DSTC0167_REQ::getElement( const BFFieldId& id )
         case 40006143: return ( &GRRepayReason_ ); break; // GRRepayReason
         case 40007917: return ( &RDSPPaymtDate_ ); break; // RDSPPaymtDate
         case 40007932: return ( &MatchingKey_ ); break; // MatchingKey
+        case 40000096: return ( &TransNum_ ); break; // TransNum
         case 40007893: return ( &FullMoneyOutIndc_ ); break; // FullMoneyOutIndc
     }
     return( NULL );
@@ -140,7 +143,7 @@ const BFDataField* dsi_DSTC0167_REQ::getElement( const BFFieldId& id ) const
 
 BFDataField* dsi_DSTC0167_REQ::getElementByIndex( unsigned int iField )
 {
-    if ( iField >=0 && iField < 32 )
+    if ( iField >=0 && iField < 33 )
     {
         BFDataField* pField = aFlds_[iField];
         if( NULL == pField )
@@ -178,7 +181,8 @@ BFDataField* dsi_DSTC0167_REQ::getElementByIndex( unsigned int iField )
                 case 28: aFlds_[28] = &GRRepayReason_; break;
                 case 29: aFlds_[29] = &RDSPPaymtDate_; break;
                 case 30: aFlds_[30] = &MatchingKey_; break;
-                case 31: aFlds_[31] = &FullMoneyOutIndc_; break;
+                case 31: aFlds_[31] = &TransNum_; break;
+                case 32: aFlds_[32] = &FullMoneyOutIndc_; break;
             }
             pField = aFlds_[iField];
             if( NULL == pField ) return( NULL );
@@ -200,7 +204,7 @@ unsigned long dsi_DSTC0167_REQ::getLargestDefinedField( void ) const
 
 unsigned long dsi_DSTC0167_REQ::getDefinedByteLength( void ) const
 {
-    return( 1546 * sizeof( I_CHAR ) );
+    return( 1563 * sizeof( I_CHAR ) );
 }
 
 bool dsi_DSTC0167_REQ::exists( const BFFieldId& id ) const
@@ -243,6 +247,7 @@ bool dsi_DSTC0167_REQ::fieldExists( const BFFieldId& id )
         case 40006143: return ( true );
         case 40007917: return ( true );
         case 40007932: return ( true );
+        case 40000096: return ( true );
         case 40007893: return ( true );
     }
     return false;

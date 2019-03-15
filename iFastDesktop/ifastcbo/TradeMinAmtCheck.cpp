@@ -378,7 +378,8 @@ SEVERITY TradeMinAmtCheck::init (const DString &strAccountNum,
                                  bool ignoreDataNotFound, /*=true*/
                                  bool bFullExchPrntToPrnt,
                                  const DString &Indc,
-                                 const DString &adjForTransNum)
+                                 const DString &adjForTransNum,
+								 const DString &transNum)
 {
    MAKEFRAMEAUTOPROMOTE2 (CND::IFASTCBO_CONDITION, CLASSNAME, I_ ("init"));
    BFData queryData  (ifds::DSTC0167_REQ);
@@ -418,6 +419,7 @@ SEVERITY TradeMinAmtCheck::init (const DString &strAccountNum,
    queryData.setElementValue(ifds::GRRepayReason, NULL_STRING);
    queryData.setElementValue(ifds::RDSPPaymtDate, NULL_STRING);
    queryData.setElementValue(ifds::MatchingKey, NULL_STRING);
+   queryData.setElementValue (ifds::TransNum, transNum);
    queryData.setElementValue(ifds::FullMoneyOutIndc, NULL_STRING);
 
    ReceiveData  (DSTC_REQUEST::TRADE_MIN_AMT_CHECK, 

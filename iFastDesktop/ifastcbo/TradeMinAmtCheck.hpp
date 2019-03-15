@@ -61,7 +61,8 @@ public:
                   bool ignoreDataNotFound = true,
                   bool bFullExchPrntToPrnt = false,
                   const DString &Indc = I_(""),
-                  const DString &adjForTransNum = I_(""));   
+                  const DString &adjForTransNum = I_(""),
+				  const DString &transNum = I_(""));   
 
    SEVERITY addConditions();
 private:

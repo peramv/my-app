@@ -598,7 +598,8 @@ protected:
                                             const BFDataGroupId &idDataGroup,
                                             bool bFullExchPrntToPrnt = false,
                                             const DString &Indc = I_(""),
-                                            const DString &adjForTransNum = I_(""));
+                                            const DString &adjForTransNum = I_(""),
+											const DString &transNum = I_(""));
    virtual SEVERITY validateFromSoftCapCheck (const BFDataGroupId &idDataGroup);
    virtual SEVERITY validateToSoftCapCheck (const BFDataGroupId &idDataGroup);
    SEVERITY fundClassSoftCapCheck ( const DString &transType,

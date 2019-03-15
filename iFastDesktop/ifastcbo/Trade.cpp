@@ -11304,7 +11304,8 @@ SEVERITY Trade::fundClassTradeMinimumAmtCheck ( const DString &transType,
                                                 const BFDataGroupId &idDataGroup,
                                                 bool bFullExchPrntToPrnt,
                                                 const DString &Indc,
-                                                const DString &adjForTransNum)
+                                                const DString &adjForTransNum,
+												const DString &transNum)
 {
    MAKEFRAMEAUTOPROMOTE2 ( CND::IFASTCBO_CONDITION, 
                            CLASSNAME, 
@@ -11359,7 +11360,8 @@ SEVERITY Trade::fundClassTradeMinimumAmtCheck ( const DString &transType,
                                         true,
                                         bFullExchPrntToPrnt,
                                         Indc,
-                                        adjForTransNum) <= WARNING)
+                                        adjForTransNum, 
+										transNum) <= WARNING)
          {
             setObject (pTradeMinAmtCheck, strKey, OBJ_ACTIVITY_NONE, idDataGroup); 
          }
@@ -12436,19 +12438,25 @@ SEVERITY Trade::validateTradeDate ( const DString &tradeDate,
    dstrTransType.stripAll().upperCase();
    if(dstrTransType == TRADETYPE::REFUND_REDEMPTION)
    {
-	   DString dstrTransID, origtradeDate;
-	   TransactionDetails *_pTransDetails = new TransactionDetails( *this );
-	   getField(ifds::TransId, dstrTransID, idDataGroup);
-	   if( (_pTransDetails->getDetails(dstrTransID)) <= WARNING )
+	   TransactionList *pAdjustTransactionList = NULL;
+	   if (getAdjustTransactionList(pAdjustTransactionList, idDataGroup )<=WARNING &&
+		   pAdjustTransactionList != NULL)
 	   {
-		   _pTransDetails->getField(ifds::TradeDate, origtradeDate, idDataGroup);
-		   if (DSTCommonFunctions::CompareDates (tradeDate, origtradeDate) == DSTCommonFunctions::FIRST_EARLIER)
+		   BFObjIter iter(*pAdjustTransactionList, idDataGroup, BFObjIter::NON_DELETED);
+		   if(TransactionDetails *pTransDetails = dynamic_cast<TransactionDetails*>(iter.getObject()))
 		   {
-			   ADDCONDITIONFROMFILE(CND::ERR_TRADE_DATE_MUST_BE_EQUAL_OR_GREATER_THAN_PURCHASE_DATE);
+			   DString transId, origtradeDate;
+			   pTransDetails->getField(ifds::TransId, transId, idDataGroup);
+			   pTransDetails->getDetails(transId);
+			   pTransDetails->getField(ifds::TradeDate, origtradeDate, idDataGroup);
+
+			   if (DSTCommonFunctions::CompareDates (tradeDate, origtradeDate) == DSTCommonFunctions::FIRST_EARLIER)
+			   {
+				   ADDCONDITIONFROMFILE(CND::ERR_TRADE_DATE_MUST_BE_EQUAL_OR_GREATER_THAN_PURCHASE_DATE);
+			   }
 		   }
+
 	   }
-	   if(_pTransDetails)
-		   delete _pTransDetails;
    }
 
    return GETCURRENTHIGHESTSEVERITY (); 
