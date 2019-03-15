@@ -3745,17 +3745,24 @@ SEVERITY MFAccount::doValidateField( const BFFieldId& idField, const DString& st
 
 	  // if Status is Unverified then it can only be changed to some other status if
 	  // VerifyReqExists is 'N' i.e. QC Verification is done for all fields
-      DString dstrAcctStatus;
-      getField( ifds::AcctStatus, dstrAcctStatus, BF::HOST, false  );
+	  DString acctStatusSet;
 	  
-	  if((dstrAcctStatus == UNVERIFIED_ACCT_STATUS) && (_verifyReqExists == I_("Y")))
+	  BFProperties *pBFProperties = getFieldProperties (ifds::AcctStatus, idDataGroup);     
+	  if( pBFProperties )
 	  {
-		 getErrMsg(IFASTERR::ACCOUNT_HAS_UNVERIFIED_DATA, 
-						CND::ERR_ACCOUNT_HAS_UNVERIFIED_DATA, 
-						CND::WARN_ACCOUNT_HAS_UNVERIFIED_DATA,
-						idDataGroup);
+		 pBFProperties->getAllSubstituteValues (acctStatusSet);
 	  }
-
+	  // If account is never verified i.e Unverified is present in the list
+	  if(acctStatusSet.find(UNVERIFIED_ACCT_STATUS) != DString::npos)
+	  {	  
+		  if((strValue != UNVERIFIED_ACCT_STATUS) && (_verifyReqExists == I_("Y")))
+		  {
+			 getErrMsg(IFASTERR::ACCOUNT_HAS_UNVERIFIED_DATA, 
+							CND::ERR_ACCOUNT_HAS_UNVERIFIED_DATA, 
+							CND::WARN_ACCOUNT_HAS_UNVERIFIED_DATA,
+							idDataGroup);
+		  }
+	  }
       // user cannot select status code 30 (terminated) or 90 (delete) 
       // if there is balance in the account or if the account in new
       if( b30or90 && isNew() )
