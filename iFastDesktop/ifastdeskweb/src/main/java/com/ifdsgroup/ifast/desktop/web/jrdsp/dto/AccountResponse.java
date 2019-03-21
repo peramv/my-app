@@ -2,10 +2,7 @@ package com.ifdsgroup.ifast.desktop.web.jrdsp.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement(name="AcctInqResponse")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -20,6 +17,8 @@ public class AccountResponse extends BaseResponse  {
 	private Elections dtcEligiblities;
 	
 	private EntityInfo entityInfo;
+	
+	private GrantBondPaymentHistory grantBondHistory;
 
 	public String getAccountId() {
 		return accountId;
@@ -60,9 +59,14 @@ public class AccountResponse extends BaseResponse  {
 	public void setEntityInfo(EntityInfo entityInfo) {
 		this.entityInfo = entityInfo;
 	}
+	public GrantBondPaymentHistory getGrantBondHistory() {
+		return grantBondHistory;
+	}
 
+	public void setGrantBondHistory(GrantBondPaymentHistory grantBondHistory) {
+		this.grantBondHistory = grantBondHistory;
+	}
 
-	//private List<AccountEntity> entityList;
 	
 	
 

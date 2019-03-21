@@ -39,6 +39,8 @@ public class AccountUpdateRequest {
 	private String accountUuid;
 
 	private Elections elections;
+	
+	private String cycleDate;
 
 	public String getInceptionDate() {
 		return inceptionDate;
@@ -173,5 +175,13 @@ public class AccountUpdateRequest {
 
 	public void setGrantDate(String grantDate) {
 		this.grantDate = grantDate;
+	}
+	
+	public String getCycleDate() {
+		return cycleDate;
+	}
+
+	public void setCycleDate(String cycleDate) {
+		this.cycleDate = cycleDate;
 	}
 }

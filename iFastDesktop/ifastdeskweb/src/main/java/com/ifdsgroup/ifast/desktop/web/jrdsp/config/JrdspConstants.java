@@ -7,4 +7,6 @@ public class JrdspConstants {
 	public static final String YES = "Yes";
 	public static final String NO = "No";
 	public static final String NA = "Undetermined";
+	public static final String GRANT_BOND_STATUS_NO = "No";
+	public static final String GRANT_BOND_STATUS_YES = "Yes";
 }

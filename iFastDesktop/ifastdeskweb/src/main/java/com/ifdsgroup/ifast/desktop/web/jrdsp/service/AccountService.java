@@ -1,5 +1,6 @@
 package com.ifdsgroup.ifast.desktop.web.jrdsp.service;
 
+import com.ifdsgroup.ifast.desktop.web.jrdsp.config.JrdspConstants;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.AccountElectionHistoryDto;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.AccountEntityDto;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.AccountRdspDto;
@@ -8,6 +9,7 @@ import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.AccountRdspResponse;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.EntityGetResponse;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.EntityRelation;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.EntityType;
+import com.ifdsgroup.ifast.desktop.web.jrdsp.domain.GrantBondPaymentHistoryDto;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.AccountDetails;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.AccountResponse;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.AccountUpdateRequest;
@@ -17,7 +19,10 @@ import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.Elections;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.Entities;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.Entity;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.EntityInfo;
+import com.ifdsgroup.ifast.desktop.web.jrdsp.dto.GrantBondPaymentHistory;
 import com.ifdsgroup.ifast.desktop.web.jrdsp.util.JRDSPUtil;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -31,9 +36,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -102,6 +109,20 @@ public class AccountService {
                 accountRdspDto.getAccountElectionHistories().add(electionHistory);
             });
         }
+		
+		GrantBondPaymentHistoryDto grantHistory = new GrantBondPaymentHistoryDto();
+		grantHistory.setAccountNumber(accountId);
+		grantHistory.setEffectiveFromDate(accountUpdateRequest.getGrantDate());
+		grantHistory.setStatus(accountUpdateRequest.getGrantRequested());
+		grantHistory.setPaymentTypeCode("15");
+		
+		GrantBondPaymentHistoryDto bondHistory = new GrantBondPaymentHistoryDto();
+		bondHistory.setAccountNumber(accountId);
+		bondHistory.setEffectiveFromDate(accountUpdateRequest.getCycleDate());
+		bondHistory.setStatus(accountUpdateRequest.getBondRequested());
+		bondHistory.setPaymentTypeCode("03");
+		
+		accountRdspDto.setAccountGrantBondPaymentHistories(Arrays.asList(grantHistory));
 
 		accountPutRequest.setAccountRdsp(accountRdspDto);
 		
@@ -259,6 +280,63 @@ public class AccountService {
 			
 		}
 		accountResponse.setDtcEligiblities(dtcEligibilities);
+		
+		List<GrantBondPaymentHistoryDto> accountGrantBondPaymentHistories = account.getAccountGrantBondPaymentHistories();
+
+		
+		Comparator<GrantBondPaymentHistoryDto> comparator = Comparator.comparing( GrantBondPaymentHistoryDto::getEffectiveFromDate);
+		//Sort by EffectiveDate descending
+				Comparator<GrantBondPaymentHistoryDto> compareGBPaymentHistory = (a, b) -> {
+					Date dateA = null;
+					Date dateB = null;
+					try {
+						dateA = JRDSPUtil.convertStringToDate(a.getEffectiveFromDate());
+						dateB = JRDSPUtil.convertStringToDate(b.getEffectiveFromDate());
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(dateB.compareTo(dateA)==0) {
+						String idA = a.getId();
+						String idB = b.getId();
+						return (idB.compareTo(idA)>0)?1:-1;
+					}
+					return dateB.compareTo(dateA);
+				};
+		
+		if(CollectionUtils.isNotEmpty(accountGrantBondPaymentHistories)) {
+			accountGrantBondPaymentHistories.sort(compareGBPaymentHistory);
+			GrantBondPaymentHistoryDto currentGrant = accountGrantBondPaymentHistories
+					.stream()
+					.filter(grantBond -> grantBond.getPaymentTypeCode().equals("15"))
+					.findFirst().get();
+					
+			Optional<GrantBondPaymentHistoryDto> lastNoGrant = accountGrantBondPaymentHistories.stream()
+					.filter(grantBond -> grantBond.getPaymentTypeCode().equals("15"))
+					.filter(grant -> grant.getStatus().equalsIgnoreCase(JrdspConstants.GRANT_BOND_STATUS_NO))
+					.findFirst();
+			
+			String lastNoGrantDate;
+				GrantBondPaymentHistory gbHistory = new GrantBondPaymentHistory();
+				gbHistory.setAccountNumber(currentGrant.getAccountNumber());
+				gbHistory.setPaymentTypeCode(currentGrant.getPaymentTypeCode());
+				gbHistory.setStatus(currentGrant.getStatus());
+				gbHistory.setEffectiveFromDate(currentGrant.getEffectiveFromDate());
+				gbHistory.setEffectiveToDate(currentGrant.getEffectiveToDate());
+				gbHistory.setReportingStatusCode(currentGrant.getReportingStatusCode());
+				if(lastNoGrant.isPresent()) {
+					lastNoGrantDate = lastNoGrant.get().getEffectiveFromDate();
+					
+				}else {
+					lastNoGrantDate = accountDetails.getInceptionDate();
+				}
+				
+				gbHistory.setLastNoGrant(lastNoGrantDate);
+				accountDetails.setGrantDate(currentGrant.getEffectiveFromDate());
+				accountResponse.setGrantBondHistory(gbHistory);
+			
+		}
+		
 		}
 		return accountResponse;
 	}

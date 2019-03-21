@@ -20,9 +20,9 @@ DesktopWeb.ScreenResources = function(ctrlr)
 	var _MARKET_LUX = "LUX";
 	
 	var _startValueIncepDate=null,_startValueReportESDC=null,_startValueGrant=null,_startValueBond=null,_startValueTransferred=null;
-	var _flagIncepDate=null,_flagReportESDC=null,_flagGrant=null,_flagBond=null,_flagTransferred=null;
+	var _flagIncepDate=null,_flagReportESDC=null,_flagGrant=null,_flagBond=null,_flagTransferred=null;_flagGrantEffDate=null
 	var _startValueCertDate=null, _startValueTransDate=null;
-	var _flagCertDate=null,_flagTransDate=null;
+	var _flagCertDate=null,_flagTransDate=null;_startValueGrantEffectiveDate=null;
 	
 	
 	
@@ -96,7 +96,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 								}
 							}
 						
-						if(_controller.updatesFlag || _controller.getUpdateFlags() || _controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
+						if(_controller.updatesFlag || _controller.getUpdateFlags() || _controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate,_flagGrantEffDate))
 							_buttons['okScreenButton'].enable();
 						else
 							_buttons['okScreenButton'].disable();
@@ -137,13 +137,12 @@ DesktopWeb.ScreenResources = function(ctrlr)
 								_flagGrant=1;
 								}
 							}
-						
-						if(_controller.updatesFlag || _controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
+						_controller.setGrantDate(_flagGrant, newValue);						
+						if(_controller.updatesFlag || _controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate,_flagGrantEffDate))
 							_buttons['okScreenButton'].enable();
 						else
 							_buttons['okScreenButton'].disable();
 						
-						_fields['GrantDate'].setValue(new Date());
 					}
 				}
 			}),
@@ -174,7 +173,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 							_flagTransferred=1;
 							}
 						}
-					if(_controller.updatesFlag || _controller.getUpdateFlags() || _controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
+					if(_controller.updatesFlag || _controller.getUpdateFlags() || _controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate,_flagGrantEffDate))
 						_buttons['okScreenButton'].enable();
 					else
 						_buttons['okScreenButton'].disable();
@@ -216,7 +215,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 							}
 						}
 					
-					if(_controller.updatesFlag || _controller.getUpdateFlags()|| _controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
+					if(_controller.updatesFlag || _controller.getUpdateFlags()|| _controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate,_flagGrantEffDate))
 						_buttons['okScreenButton'].enable();
 					else
 						_buttons['okScreenButton'].disable();
@@ -249,7 +248,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 						_flagBond=1;
 						}
 					}
-				if(_controller.updatesFlag || _controller.getUpdateFlags() || _controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
+				if(_controller.updatesFlag || _controller.getUpdateFlags() || _controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate,_flagGrantEffDate))
 					_buttons['okScreenButton'].enable();
 				else
 					_buttons['okScreenButton'].disable();
@@ -269,27 +268,33 @@ DesktopWeb.ScreenResources = function(ctrlr)
 			,format: DesktopWeb.Util.parseSMVDateFormat(DesktopWeb.Util.getDateDisplayFormat())
 			,listeners : {
 				change : function(field, newValue, oldValue){
-					var originalFlag = _fields['GrantRequested'].originalValue;
-					var currentFlag = _flagGrant == null ? originalFlag : _flagGrant;
-					var today = new Date();
-					today.setHours(0,0,0,0);
+					var currFlag = _fields['GrantRequested'].value;
 					
-					if(currentFlag) {
-						if(originalFlag) {
-							if(today.getTime() > newValue.getTime()){
-								DesktopWeb.Util.displayError("Effective Date cannot be backdated");  
-								field.setValue(oldValue);	
-							}	
-						}			
+					
+					_controller.validateGrantDate(field, newValue, oldValue, currFlag);
+					
+					if(_startValueGrantEffectiveDate == null)
+					{
+						_startValueGrantEffectiveDate=oldValue.startValue;
+						_flagGrantEffDate=1;
 					}
-					else {
-						if(!originalFlag) {
-							if(today.getTime() > newValue.getTime()){
-								DesktopWeb.Util.displayError("Effective Date cannot be backdated");  
-								field.setValue(oldValue);	
-							}		
+					else 
+						{
+						if(_startValueGrant == newValue)
+							{
+							_flagGrantEffDate=0;
+							}
+						else
+							{
+							_flagGrantEffDate=1;
+							}
 						}
-					}
+				if(_controller.updatesFlag || _controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate,_flagGrantEffDate))
+					_buttons['okScreenButton'].enable();
+				else
+					_buttons['okScreenButton'].disable();
+					
+					
 				}
 			}
 		}),
@@ -717,7 +722,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 						//setting certDate and transDate flag to 0 as it is a delete
 						_flagCertDate=0;
 						_flagTransDate=0;
-						if(_controller.updatesFlag ||_controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
+						if(_controller.updatesFlag ||_controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate,_flagGrantEffDate))
 							_buttons['okScreenButton'].enable();
 						else
 							_buttons['okScreenButton'].disable();
@@ -811,7 +816,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 									{
 									var rowData=_popups['AddElection'].getData(_popups['AddElection'].action);	
 									_controller.modifyEntityGrid(rowData,_popups['AddElection'].action);
-									if(_controller.updatesFlag || _controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
+									if(_controller.updatesFlag || _controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate,_flagGrantEffDate))
 										_buttons['okScreenButton'].enable();
 									else
 										_buttons['okScreenButton'].disable();
@@ -940,7 +945,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 								}
 
 							
-							if(_controller.updatesFlag || _controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
+							if(_controller.updatesFlag || _controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate,_flagGrantEffDate))
 								_buttons['okScreenButton'].enable();
 							else
 								_buttons['okScreenButton'].disable();
@@ -959,7 +964,7 @@ DesktopWeb.ScreenResources = function(ctrlr)
 								else{
 									_flagTransDate = 0;
 								}
-								if(_controller.updatesFlag || _controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate))
+								if(_controller.updatesFlag || _controller.getUpdateFlags() ||_controller.checkFlagsForModification(_flagIncepDate,_flagReportESDC,_flagGrant,_flagBond,_flagTransferred,_flagCertDate,_flagTransDate,_flagGrantEffDate))
 									_buttons['okScreenButton'].enable();
 								else
 									_buttons['okScreenButton'].disable();

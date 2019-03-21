@@ -24,10 +24,10 @@ public class AccountRdspDto {
     private String inceptionDate;
     private String grantDate;   
 	private String createdBy;
-    
+	private String cycleDate;
     private List<AccountElectionHistoryDto> accountElectionHistories;
     private List<AccountElectionHistoryDto> dtcEligibilityHistories;
-
+    private List<GrantBondPaymentHistoryDto> accountGrantBondPaymentHistories;
     public List<AccountElectionHistoryDto> getDtcEligibilityHistories() {
 		return dtcEligibilityHistories;
 	}
@@ -180,6 +180,14 @@ public class AccountRdspDto {
 		this.grantDate = grantDate;
 	}
 	
+    public List<GrantBondPaymentHistoryDto> getAccountGrantBondPaymentHistories() {
+        return accountGrantBondPaymentHistories;
+    }
+
+    public void setAccountGrantBondPaymentHistories(List<GrantBondPaymentHistoryDto> accountGrantBondPaymentHistories) {
+        this.accountGrantBondPaymentHistories = accountGrantBondPaymentHistories;
+    }
+	
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -202,13 +210,14 @@ public class AccountRdspDto {
             Objects.equals(inceptionDate, that.inceptionDate) &&
             Objects.equals(createdBy, that.createdBy) &&
             Objects.equals(grantDate, that.grantDate) &&
-            Objects.equals(accountElectionHistories, that.accountElectionHistories);
+            Objects.equals(accountElectionHistories, that.accountElectionHistories)&&
+            Objects.equals(accountGrantBondPaymentHistories, that.accountGrantBondPaymentHistories);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(accountNumber, closureReasonCode, accountUuid, accountStatus, dtcStatusCode, sdspStatusCode, dtcElectionStatusCode, isTransferredAccount, isGrant, isBond, closureDate, registrationStatusCode, specifiedYearStatusCode, isReportToESDC, inceptionDate, createdBy, accountElectionHistories, grantDate);
+        return Objects.hash(accountNumber, closureReasonCode, accountUuid, accountStatus, dtcStatusCode, sdspStatusCode, dtcElectionStatusCode, isTransferredAccount, isGrant, isBond, closureDate, registrationStatusCode, specifiedYearStatusCode, isReportToESDC, inceptionDate, createdBy, accountElectionHistories, grantDate, accountGrantBondPaymentHistories);
     }
 
     @Override
@@ -232,6 +241,7 @@ public class AccountRdspDto {
             "\n, createdBy='" + createdBy + '\'' +
             "\n, grantDate='" + grantDate + '\'' +
             "\n, accountElectionHistories=" + accountElectionHistories +
+            "\n, accountGrantBondPaymentHistories=" + accountGrantBondPaymentHistories +
         '}';
     }
 }

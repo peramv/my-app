@@ -11,13 +11,15 @@ DesktopWeb.ScreenController = function(){
 	var _self               = null;
 	var _resources          = null;
 	var _popupList		     = {};
-	var _cycleDate;
+	var _cycleDate = null;
 	var _rdspIncepDate;
 	
 	var _beneDOB ;
 	var _incepDate;
 	var _minDate;
 	var isNewRecord=false;
+	var grantReqEffectiveDate;
+	var lastNoGrantEffectiveDate;
 	
 	var _actualGridDataStore = new Ext.data.XmlStore(
 			{
@@ -166,6 +168,7 @@ DesktopWeb.ScreenController = function(){
         }
 		IFDS.Xml.addSingleNode(requestXML, 'createdBy', fields['CreatedBy'].getValue());
 		IFDS.Xml.addSingleNode(requestXML, 'accountUuid', fields['AccountUuid'].getValue());
+		IFDS.Xml.addSingleNode(requestXML, 'cycleDate', _cycleDate);
 
 		if(_actualGridDataStore.data.items.length>0)
 		{
@@ -303,9 +306,10 @@ DesktopWeb.ScreenController = function(){
 	function setAccountDetails(response){
         var electionsList = IFDS.Xml.getNodes(response, '//elections');
         var eligiblityList = IFDS.Xml.getNodes(response, '//dtcEligiblities');
-        _resources.fields['GrantDate'].setValue(IFDS.Xml.getNodeValue(response, '//effectiveDate'));
+        setGrantRequestDetails(response);
+        
 		_resources.fields['IncepDate'].setValue(IFDS.Xml.getNodeValue(response, '//inceptionDate'));
-		_resources.fields['GrantRequested'].setOriginalValue(IFDS.Xml.getNodeValue(response, '//grantRequested'));
+		
 		_resources.fields['TransferredAccount'].setValue(IFDS.Xml.getNodeValue(response, '//transferredAccount'));
 		_resources.fields['DTCEligibleCurrLabel'].setValue(IFDS.Xml.getNodeValue(response, '//dtcEligible'));
 		_resources.fields['SpecifiedYearCurrLabel'].setValue(IFDS.Xml.getNodeValue(response, '//specifiedYear'));
@@ -333,6 +337,20 @@ DesktopWeb.ScreenController = function(){
 		
 		
 	}
+	
+	function setGrantRequestDetails(response) {
+		grantReqEffectiveDate = IFDS.Xml.getNodeValue(response, '//effectiveFromDate');
+        _resources.fields['GrantDate'].setValue(grantReqEffectiveDate);
+        lastNoGrantEffectiveDate = IFDS.Xml.getNodeValue(response, '//lastNoGrant');
+        
+        if(lastNoGrantEffectiveDate==null) {
+        	lastNoGrantEffectiveDate = _cycleDate;
+        }
+        
+        _resources.fields['GrantDate'].minValue = DesktopWeb.Util.stringToDate(lastNoGrantEffectiveDate,'dmy');
+        _resources.fields['GrantRequested'].setValue(IFDS.Xml.getNodeValue(response, '//status'));
+	}
+	
 	
 	function setBenefDetails(response){
 		 // var dom="<accountDetails>	<bondRequested>Yes</bondRequested>	<contractStatusRegistration>Registered</contractStatusRegistration>	<dtcElection>Yes</dtcElection>	<dtcEligible>Yes</dtcEligible>	<grantRequested>YES</grantRequested>	" +
@@ -1185,6 +1203,7 @@ function sortStoreByPeriodStart(store){
 		_resources.fields['CertificationDatePicker'].maxValue = DesktopWeb.Util.stringToDate(date,'dmy');
 		_resources.fields['TransactionDatePicker'].maxValue = DesktopWeb.Util.stringToDate(date,'dmy');
 		_resources.fields['TransactionDatePicker'].value = DesktopWeb.Util.stringToDate(date,'dmy');
+		_resources.fields['GrantDate'].maxValue = DesktopWeb.Util.stringToDate(date,'dmy');
 	}
 	
 	function getLastDTCEligibleYear(){
@@ -1202,6 +1221,30 @@ function sortStoreByPeriodStart(store){
 		return "";
 	}
 
+	function setGrantDate(changeFlag, newValue) {
+		if(changeFlag == 1) {
+			_resources.fields['GrantDate'].setValue(JRDSP.Util.convertStringToDate(_cycleDate));
+		} else if(changeFlag == 0){
+			_resources.fields['GrantDate'].setValue(DesktopWeb.Util.stringToDate(grantReqEffectiveDate,'dmy'));
+		}
+	}
+	
+	function validateGrantDate(field, newValue, oldValue, currFlag) {
+		var today = JRDSP.Util.convertStringToDate(_cycleDate);
+			if(currFlag == "Yes") {
+				if(DesktopWeb.Util.stringToDate(grantReqEffectiveDate,'dmy') > newValue){
+					DesktopWeb.Util.displayError("Effective Date cannot be backdated");  
+					field.setValue(oldValue);	
+				}	
+			}			
+			else {
+				if(today != DesktopWeb.Util.getDateString(newValue,'dmy')){
+					DesktopWeb.Util.displayError("Effective Date cannot be backdated");  
+					field.setValue(oldValue);	
+				}		
+			}
+	}
+	
 	
 
 	// PUBLIC ITEMS *************************************
@@ -1323,5 +1366,8 @@ function sortStoreByPeriodStart(store){
 		,getLastDTCEligibleYear:getLastDTCEligibleYear
 		,addBtnValidation:addBtnValidation
 		,addBtnValidationMsg:addBtnValidationMsg
+		,setGrantDate:setGrantDate
+		,cycleDate:_cycleDate
+		,validateGrantDate:validateGrantDate
 	}
 };

@@ -123,7 +123,6 @@ public class JRDSPUtil {
 		if(stringDate!=null) {
 			DateFormat format = new SimpleDateFormat("d/M/y", Locale.ENGLISH);
 			date = format.parse(stringDate);
-			System.out.println(date); 
 			
 		}
 		
