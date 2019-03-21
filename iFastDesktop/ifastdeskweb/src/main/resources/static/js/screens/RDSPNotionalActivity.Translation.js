@@ -100,6 +100,7 @@ DesktopWeb.ScreenTranslation = {
 			DB:     "Death of beneficiary",
 			DP:     "DAP",
 			LP:     "LDAP",
+			NE:		"Non Entitlement", 
 			rs  :"R/S",
 			refileSuppress:   "Refile/Suppress",
 			updateBtn:        "Update"
@@ -199,6 +200,7 @@ DesktopWeb.ScreenTranslation = {
 		DB:     "Death of beneficiary",
 		DP:     "DAP",
 		LP:     "LDAP",
+		NE:		"Non Entitlement",
 		rs  :"R/S",
 		refileSuppress:   "Refile/Suppress",
 		updateBtn:        "Update"

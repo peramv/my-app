@@ -140,7 +140,7 @@ DesktopWeb.ScreenController = function(){
 		
 		function responseHandler(success, responseXML)
 		{
-			var redemption = _resources.fields['TransactionTypeField'].getValue() == "PW";
+			var redemption = IFDS.Xml.getNodeValue(success.responseXML,'//rdspTransactionTypeCode') == '07' ;
 			
 			_resources.fields['ContributionAmount'].setValue(IFDS.Xml.getNodeValue(success.responseXML, '//contributionAmount'));
 			_resources.fields['GrantAmount'].setValue(IFDS.Xml.getNodeValue(success.responseXML, '//grantAmount'));
