@@ -128,8 +128,8 @@ public class AccountController {
 				"		<Element><code>01</code><value>Pending</value></Element>\n" +	
 				"		<Element><code>02</code><value>Registration Confirmed</value></Element>\n" +
 				"		<Element><code>03</code><value>De-Registered</value></Element>\n" +	
-				"		<Element><code>04</code><value>Closed</value></Element>\n" +	
-				"		<Element><code>05</code><value>Nullified</value></Element>\n" +
+				"		<Element><code>04</code><value>Nullified</value></Element>\n" +	
+				"		<Element><code>05</code><value>Closed</value></Element>\n" +
 				"		<Element><code>99</code><value>Rejected</value></Element>\n" +
 				"	</List>\n" + 
 				"</ContractRegistrationStatusDescription>";
