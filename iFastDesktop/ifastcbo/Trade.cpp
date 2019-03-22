@@ -12028,6 +12028,10 @@ SEVERITY Trade::validateDate ( const DString &validationType,
 				   if( (cashDateOverride == I_("03") && !bIsCashDateOverriden) || cashDateOverride != I_("03"))
 					   setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false,false,true);
 			   }
+			   else if(!isRebook() && !cashDate.empty() && cashDateOverride == I_("02"))
+			   {
+				   setFieldNoValidate ( ifds::CashDate, cashDate, idDataGroup, false,  false, true); 
+			   }
             }
             else
             {
@@ -12141,7 +12145,12 @@ SEVERITY Trade::validateDate ( const DString &validationType,
 				setFieldNoValidate ( ifds::CashDate, cashDate, idDataGroup, false, 
 									 false, 
 									 true); 
-			} 
+			}
+			else if (!isRebook() && !cashDate.empty())
+			{
+				if (cashDateOverride == I_("02") && orderType == N )
+					setFieldNoValidate ( ifds::CashDate, cashDate, idDataGroup, false,  false, true);
+			}
 			else if(!isRebook() && cashDate.empty() )
 			{
 				if( (cashDateOverride == I_("03") && !bIsCashDateOverriden) || cashDateOverride != I_("03"))
@@ -21346,7 +21355,6 @@ SEVERITY Trade::reCall135ForSettleDateOnly(const BFDataGroupId &idDataGroup)
    {
       DString strSettleDate;
       DString strValueDate;
-	  DString strCashDate;
 
       pTrade_DateValidation->getField( ifds::SettleDate, strSettleDate, idDataGroup, false ); 
       pTrade_DateValidation->getField( ifds::ValueDate, strValueDate, idDataGroup, false ); 
@@ -21364,6 +21372,40 @@ SEVERITY Trade::reCall135ForSettleDateOnly(const BFDataGroupId &idDataGroup)
                               true, 
                               true); //notify
       }
+	  
+	  
+	  //reassing cashDate if settledate is changed and cashdate is not overriden
+	  DString strTradeDate, strCashDate;
+	  pTrade_DateValidation->getField (ifds::TradeDate, strTradeDate, idDataGroup, false); 
+	  pTrade_DateValidation->getField( ifds::CashDate, strCashDate, idDataGroup, false);
+
+	  DString emptyDate,cashDateOverride,dstrCashDateOverriden;
+
+	  getWorkSession().getDateInHostFormat (emptyDate, DSTCWorkSession::DATE_TYPE::DAY12319999, idDataGroup);
+	  getWorkSession().getOption (ifds::OrderUserOverride, cashDateOverride, BF::HOST, false); // OrdEntryUserOverride attribute in PendingTradeCashDate function control: 01-no override, 02-override backdated trades, 03-override all	
+
+	  getField (ifds::CashDateOverriden, dstrCashDateOverriden, idDataGroup, false);
+	  bool bIsCashDateOverriden = dstrCashDateOverriden.strip().upperCase() == Y;
+
+	  if (!bIsCashDateOverriden && !strCashDate.empty() && 
+		  !(DSTCommonFunctions::CompareDates (!strTradeDate.empty() ? strTradeDate : strOldTradeDate, _currentBusinessDate) == DSTCommonFunctions::FIRST_EARLIER))
+	  {
+		  setFieldNoValidate ( ifds::CashDate, strCashDate, idDataGroup, false, 
+			  false, 
+			  true); 
+	  } 
+	  else if (!isRebook() && !strCashDate.empty())
+	  {
+		  DString orderType;
+		  getField (ifds::OrderType, orderType, idDataGroup);
+		  if (cashDateOverride == I_("02") && orderType == N )
+			  setFieldNoValidate ( ifds::CashDate, strCashDate, idDataGroup, false,  false, true);
+	  }
+	  else if(!isRebook() && strCashDate.empty() )
+	  {
+		  if( (cashDateOverride == I_("03") && !bIsCashDateOverriden) || cashDateOverride != I_("03"))
+			  setFieldNoValidate (ifds::CashDate, emptyDate, idDataGroup, false,false,true);
+	  }
 	  CONDITIONVECTOR *pConditionVector = NULL;
 
 	  getFieldConditionVector (ifds::SettleDate, idDataGroup, pConditionVector);
