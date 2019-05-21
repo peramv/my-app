@@ -15,7 +15,7 @@ use Sys::Hostname;
 use Time::HiRes qw( tv_interval gettimeofday );
 
 our $VERSION = 0.1_000;
-my $g_revision = sprintf q{%s}, q$Rev$ =~ /(\d+)/g;
+my $g_revision = sprintf q{%d}, q$Rev$ =~ /(\d+)/g;
 our $g_scriptDir = File::Spec->rel2abs(dirname(__FILE__));
 if( readlink( __FILE__ ) ) {
    $g_scriptDir = File::Spec->rel2abs(dirname(readlink(__FILE__)));
