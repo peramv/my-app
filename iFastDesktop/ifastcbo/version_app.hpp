@@ -21,6 +21,9 @@ namespace ifds
    // Get the current application build number.  If this is 0 then the build is local (i.e. not a scripted build)
    IFASTCBO_LINKAGE unsigned long getAppBuildNumber();
 
+   // Get the current application build number for Git.  If this is 0 then the build is local (i.e. not a scripted build)
+   IFASTCBO_LINKAGE DString getAppBuildNumberS();
+
    // Get the name of the computer which was used to build the application
    IFASTCBO_LINKAGE const DString& getAppBuildComputer();
 

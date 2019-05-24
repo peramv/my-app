@@ -82,7 +82,7 @@ BOOL AboutDlg::OnInitDialog()
    SetDlgItemText( IDC_TXT_VERSION, ifds::getAppVersion().c_str() );
 
    CString revisionNum;
-   revisionNum.Format(_T("%lu"), ifds::getAppBuildNumber());
+   revisionNum.Format(_T("%s"), ifds::getAppBuildNumberS().c_str());
    SetDlgItemText( IDC_ST_REVISION, revisionNum);
 
    return(TRUE);  //Success
