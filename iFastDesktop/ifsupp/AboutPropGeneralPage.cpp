@@ -52,8 +52,8 @@ AboutPropGeneralPage::AboutPropGeneralPage()
 
    m_strMarket = GetConfigValueAsString( I_("Market"), I_("Market") ).c_str();
    
-   m_strRevisionNum.Format(_T("%lu"), ifds::getAppBuildNumber());
-   
+   m_strRevisionNum.Format(_T("%s"), ifds::getAppBuildNumberS().c_str());
+
    m_strVaalMode = GetConfigValueAsBool( I_("Support"), I_("AllPowerfulVaalMode") ) ?
       _T("Vaal Mode") : _T("");
 }

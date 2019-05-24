@@ -8,7 +8,7 @@
 #define STRINGIZE( s ) L#s
 #define MAKESTRING( m, s ) m(s)
 
-#define THIS_BUILD 0
+#define THIS_BUILD I_("0") 
 #define THIS_COMPUTER I_("Local Computer")
 #define THIS_VERSION Dev
 
@@ -29,8 +29,14 @@ namespace ifds {
 
    unsigned long getAppBuildNumber()
    {
-      static const unsigned long ulBuildNumber = THIS_BUILD;
+      static const unsigned long ulBuildNumber = 0; /* THIS_BUILD; */
       return(ulBuildNumber);
+   }
+
+   DString getAppBuildNumberS()
+   {
+      static const DString sBuildNumber = THIS_BUILD;
+      return(sBuildNumber);
    }
 
    const DString& getAppBuildComputer()
