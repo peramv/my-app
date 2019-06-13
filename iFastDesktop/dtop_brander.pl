@@ -112,7 +112,7 @@ GetOptions( q{usage!}         => sub { require q{Pod/Usage.pm};
             q{cpp=s}          => sub { $opts{log} = $_[1]; },
             q{versionFile=s}  => sub { $opts{log} = $_[1]; },
             q{label=s}        => sub { $opts{label} = $_[1]; },
-            q{rev=i}          => sub { $opts{rev} = $_[1]; },
+            q{rev=s}          => sub { $opts{rev} = $_[1]; },
             );
 
 if( q{} ne $opts{log} ) {
@@ -159,7 +159,8 @@ while( <$CPP> ) {
    chomp;
    if( /^#define THIS_BUILD / ) {
       debug( qq{Rewriting THIS_BUILD: }.$opts{rev} );
-      $_ = qq[#define THIS_BUILD $opts{rev}];
+      #$_ = qq[#define THIS_BUILD $opts{rev}];
+      $_ = qq[#define THIS_BUILD I_("$opts{rev}")];
    }
    if( /^#define THIS_COMPUTER / ) {
       my $host = hostname;
