@@ -1,0 +1,554 @@
+commit 327d46b0fc20563e7cfcbd5d1cbef6d0ad9ab047
+Merge: 27519728 c10b1a80
+Author: Bogdan Stoenescu <bstoenescu@ifdsgroup.com>
+Date:   Thu Jun 13 16:16:04 2019 -0400
+
+    Merge branch 'project/P0300334_GITChange4RevisionBox' into 'development'
+    
+    P0300334-131,Check in Perl Library to make Desktop to display GIT hash instead of SVN revision
+    
+    See merge request iFastSandbox/iFastDesktopRepo!3
+
+commit c10b1a80ec1244aff212f85a18c8b8eee35b24a0
+Author: Stoenescu <if993927@canada01.ifdsnet.int>
+Date:   Thu Jun 13 16:07:14 2019 -0400
+
+    P0300334-131,Check in Perl Library to make Desktop to display GIT hash instead of SVN revision
+
+commit 27519728b24278ef070fdf5bb0c19b9f203675c6
+Merge: 5f6d799a 602a18ff
+Author: Bogdan Stoenescu <bstoenescu@ifdsgroup.com>
+Date:   Fri May 24 10:36:38 2019 -0400
+
+    Merge branch 'project/P0300334_GITChange4RevisionBox' into 'development'
+    
+    P0300334-131, Desktop CPP application front end change to display GIT hash instead of SVN revision
+    
+    See merge request iFastSandbox/iFastDesktopRepo!1
+
+commit 602a18ff0497f8bca4b8cdc8d69a59ba9ccb33e7
+Author: Stoenescu <if993927@canada01.ifdsnet.int>
+Date:   Fri May 24 10:30:42 2019 -0400
+
+    P0300334-131, Desktop CPP application front end change to display GIT hash instead of SVN revision
+
+commit 5f6d799a84de4ed08026b4a176a769f55f241f45
+Author: Diwakar Arumugam <darumugam@ifdsgroup.com>
+Date:   Tue May 21 02:42:48 2019 -0400
+
+    reverting changes dtop_brander.pl
+
+commit c72c153e3332c546b9ef810d911529e8e854bcea
+Author: Diwakar Arumugam <darumugam@ifdsgroup.com>
+Date:   Tue May 21 02:40:55 2019 -0400
+
+    Update dtop_brander.pl
+
+commit d82bc835af286d69cdf12fd02e3eb16dc6b5c947
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Mar 22 21:55:15 2019 +0000
+
+    PROM0012851,P0278104,Merge from feature_P0278104-379_DFT0089878_19.3QV6
+
+commit 37a962be95155f2fc6f0601c101c8c858569ed28
+Author: guest185 <guest185@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Mar 21 16:18:39 2019 +0000
+
+    PROM0012839, P0300177, Merge from feature_P0300177-65_GrantEffectiveDate_Defect_19.3_New
+
+commit 660c4ae559f1596e17ef95bd59b48b2538fa6327
+Author: guest185 <guest185@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Mar 21 16:09:47 2019 +0000
+
+    PROM0012843, P0300177, Merge from feature_P0300177-72_RepaymentReason-19.3
+
+commit d9f01924e47fabd1cca527f20151d770ed628371
+Author: guest185 <guest185@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Mar 21 15:44:52 2019 +0000
+
+    PROM0012833, P0300177, Merge from feature_P0300177-81_Incorrect_contract_reg_status-19.3-bug
+
+commit ed66cd31818e7112267b9d1a03a438c1283dcd77
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Mar 15 18:49:22 2019 +0000
+
+    PROM0012826, P0277862, Merge from change_CHG0058211_19.3_late_Refund_Redemption
+
+commit e578d4c94eb7b92db6c5ab6fd2d3f853f82cde0f
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Mar 15 15:30:36 2019 +0000
+
+    PROM0012831, P0278104, Merge from feature_P0278104-362_DFT0089518_19.3QV5
+
+commit 8332a6497e8f6c777557b42af244d43e999e325c
+Author: wp040576 <wp040576@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Mar 15 13:40:30 2019 +0000
+
+    PROM0012825, P0300018, Merged from feature_P0300018-194_DFT0089712_19.3QV5
+
+commit 2d79d6ab3a90fd9d44c2c821a6b2e19127506970
+Author: if993087 <if993087@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Mar 14 23:19:23 2019 +0000
+
+    PROM0012808,P0278104,Merge feature_P0278104-360_DFT0089352 branch to development branch.
+
+commit ebd4a3905e1d56c14cce96e542af6b7b202c1bd6
+Author: if993087 <if993087@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Mar 14 20:05:58 2019 +0000
+
+    PROM0012789,P0300177,Merge feature_P0300177-40_DFT0089512 branch to development branch.
+
+commit 79dd96a9f476d470b077961db57943c44334627c
+Author: if993087 <if993087@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Mar 14 17:40:27 2019 +0000
+
+    PROM0012806,P0300177,Merge feature_P0300177-64_LC_Transaction_description_not_shown_on_activity branch to development branch.
+
+commit ea1aa18658d57619d9723ecf1070d9c16f4d6125
+Author: if993927 <if993927@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Mar 14 16:12:22 2019 +0000
+
+    PROM0012798,CHG0056829,Mergung feature_P0274979-939_DFT0089566 (FS_V29) into Development
+
+commit b16da3eb4f3dd7fbf2767e83d50203b362a80cc0
+Author: if993927 <if993927@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Mar 14 14:54:58 2019 +0000
+
+    PROM0012796,P0300024,Merging feature_P0300024-61_DFT0089603 (INA) into Development
+
+commit 63fcb830f12f9a37224353978505582c84497eac
+Author: wp040067 <wp040067@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Mar 8 15:48:59 2019 +0000
+
+    PROM0012791,P0300018-191,commit to dev feature_P0300018-191_DFT0089385_Fix_DataDisplay_Verify_Static_Data_QV4
+
+commit 07bc88f6eb238a55560b6c08677aa9c279b7b327
+Author: if993927 <if993927@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Tue Mar 5 21:18:21 2019 +0000
+
+    PROM0012771,CHG0057168,Merging feature_P0300024-52_DFT0089466 into Development
+
+commit 3df184d3265dcce34215c56f63e550658e0205a1
+Author: wp040576 <wp040576@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Mar 1 17:10:17 2019 +0000
+
+    PROM0012753, P0300018, Merged from feature_P0300018-190_DFT0089305_19.3QV3
+
+commit 1b07323a7768b34716867fb7226835e687d7751a
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Mar 1 16:51:29 2019 +0000
+
+    PROM0012765, P0277997, Merge from feature_P0277997-241_DFT0088669_19.3QV3
+
+commit 733d96143abe1b2ec18a973582c1a484c355888b
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Mar 1 16:12:51 2019 +0000
+
+    PROM0012764, P0274979, Merge from feature_P0274979-925_DFT0089423_19.3QV3
+
+commit 0ce6604ecc52718b9f6f19de476e8b815ae0d2f3
+Author: if993087 <if993087@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 28 18:48:50 2019 +0000
+
+    PROM0012743,P0300177,Merge feature_P0300177-16_19.3_Defect_Fix_Multiple_Entities branch to development branch.
+
+commit 697971814d86e80df00c3a899bb2e6dbb75402b4
+Author: if993927 <if993927@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 28 16:16:00 2019 +0000
+
+    PROM0012737,CHG0056829,Merging feature_P0274979-918_DFT0089324 into Dev (FundServ v29)
+
+commit 5f400501789cea70a523d482f02850983c9f6fc1
+Author: if994134 <if994134@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Wed Feb 27 20:46:40 2019 +0000
+
+    PROM0012746, P0300177-25, Merge from feature_P0300177-25_DFT0089134_ConnectionPoolFix_QASlow
+
+commit 334473a443a4d0384f40144da04f89928e4b1873
+Merge: ac8af67f 26e5788a
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Feb 22 17:12:17 2019 +0000
+
+    PROM0012728, P0278104, Merge from feature_P0278104-358_DFT0089184_19.3QV2
+
+commit ac8af67fcbb529d56babfe46b2c368747c865eee
+Merge: 25418d9e 2015a764
+Author: wp040576 <wp040576@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Feb 22 15:47:25 2019 +0000
+
+    PROM0012726, P0300018, Merged from feature_P0300018-187_DFT0088752_19.3QV2
+
+commit 2015a7647e85bb099ef9b6b4fef664568c60aabe
+Author: wp040576 <wp040576@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 21 20:05:18 2019 +0000
+
+    P0300018-187, Account Status field is blank changes
+
+commit 26e5788a6728457f7abaf7249175cf4f86b37cdf
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 21 19:26:11 2019 +0000
+
+    P0278104-358, Committing code fix for the defect DFT0089184
+
+commit 9d00e5a25ef720464b9b2397c18fac4cf7416136
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 21 19:11:56 2019 +0000
+
+    P0278104-358, Create feature branch for Defect DFT0089184
+
+commit 483b760d49d233f83a82efbe36a50632c77e67cf
+Author: wp040576 <wp040576@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 21 15:59:37 2019 +0000
+
+    P0300018-187, Account Status field is blank changes
+
+commit 0deaaa2a616b6bf6ef37bc27ae89a14e97dcaa6c
+Author: wp040576 <wp040576@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Wed Feb 20 08:27:28 2019 +0000
+
+    P0300018-187, Account Status field is blank changes
+
+commit f34b52293a00a04d19682f5ccadf166e4f69af61
+Author: wp040576 <wp040576@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Mon Feb 18 12:42:56 2019 +0000
+
+    P0300018-187, Account Status field is blank changes
+
+commit b43dd3db52705a429904f81292af227df1ef25e0
+Author: wp040576 <wp040576@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Mon Feb 18 08:37:49 2019 +0000
+
+    P0300018-187, Fix for Defect DFT0088752
+
+commit 26fce63c05f2f97c429c4265e297add84c7a5bb7
+Author: IFDSbuild <IFDSbuild@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Feb 15 13:54:34 2019 +0000
+
+    SCM,SCM updated revision numbers for Desktop to: Rel_19.3.0.1
+
+commit 7e55ea82a55965d58ecbad368025439a552019f7
+Merge: ed456f48 69e3eb08
+Author: marciaf <marciaf@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 14 17:57:52 2019 +0000
+
+    PROM0012682,P0277997,SCM merging from /tags/Dev/Rel19.3_PROM0012682_feature_CHG0056372_DFT0088852_Release_19.3
+
+commit 69e3eb082f41acc5b22212b5b34fe864ec05e8d3
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 14 17:29:03 2019 +0000
+
+    Sync, Merge from release 19.3 branch
+
+commit 25418d9ebc3688ecfa882b3febfe6b2477638678
+Merge: 37ec9180 7bd7e7d6
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 14 17:23:45 2019 +0000
+
+    PROM0012682, P0277997, Merge from feature_CHG0056372_DFT0088852_Release_19.3
+
+commit ed456f4806d27569f9035234b70f2916db07a012
+Merge: d057df75 98480259
+Author: marciaf <marciaf@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 14 17:22:35 2019 +0000
+
+    PROM0012683,P0277997,SCM merging from /tags/Dev/Rel19.3_PROM0012683_feature_P0277997-241_DFT0088669_19.3QV1
+
+commit 984802593791380b0d886d7e793358037b35ccbb
+Merge: 40536217 d057df75
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 14 17:13:59 2019 +0000
+
+    Sync, Merge from release 19.3 branch
+
+commit 37ec9180ba4266a5f87cfc604cd6b460812d46d4
+Merge: ab0ef7b1 40536217
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 14 17:11:36 2019 +0000
+
+    PROM0012683, P0277997, Merge from feature_P0277997-241_DFT0088669_19.3QV1
+
+commit d057df75fe049c3f8eff1222d4ac4fb6fa0af4e3
+Merge: 27747407 76756cdd
+Author: marciaf <marciaf@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 14 17:02:53 2019 +0000
+
+    PROM0012678,P0278001,SCM merging from /tags/Dev/Rel19.3_PROM0012678_feature_P0278001-345_DFT0088666_19.3QV1
+
+commit ab0ef7b199e02e352a4f1707bb78bb368d7397c7
+Merge: cdd09d48 76756cdd
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 14 16:16:35 2019 +0000
+
+    PROM0012678, P0278001, Merge from feature_P0278001-345_DFT0088666_19.3QV1
+
+commit 7bd7e7d623b12217109e69135fb427b47692a300
+Author: if993927 <if993927@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Feb 14 03:35:17 2019 +0000
+
+    P0277997-245,Merging the changes for DFT0088852 fix (Release 19.3)
+
+commit 521b7587d6fe53995fdda1b988f51737d6743159
+Author: if993927 <if993927@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Wed Feb 13 23:02:16 2019 +0000
+
+    P0277997-245,Merging the changes for DFT0088852 fix (Release 19.3)
+
+commit 0e06f9264668121686c1a42f044b352c790082e7
+Author: if993927 <if993927@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Wed Feb 13 21:01:30 2019 +0000
+
+    P0277997-245,Merging the changes for DFT0088852 fix (Release 19.3)
+
+commit 18d4620d26ff66dbdeea70571eb46ea0c6b7ae7e
+Author: if993927 <if993927@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Wed Feb 13 18:01:59 2019 +0000
+
+    P0277997-245,Merging the changes for DFT0088852 fix (Release 19.3)
+
+commit c1ff3010218e813b41d7419eddc8b9455f97feee
+Author: if993927 <if993927@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Wed Feb 13 16:06:42 2019 +0000
+
+    P0277997-245,Create a FB for DFT0088852 (Release 19.3)
+
+commit 40536217aad2430ce0e8be09664cb01f983025f2
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Wed Feb 13 01:45:43 2019 +0000
+
+    P0277997-241, Code commit for defect DFT0088669
+
+commit e6bf4579f2fc3d517dd457dcc3af56f6e7cb6a84
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Tue Feb 12 22:52:39 2019 +0000
+
+    P0277997-241, Create Feature branch for defect DFT0088669
+
+commit 76756cddfac65cd475a0ece191b4ccc1bdc20661
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Feb 8 23:59:50 2019 +0000
+
+    P0278001-345, Code changes for displaying Early Redemption Fee for Processed Trades
+
+commit 677b101bb1dde9b9de9980dca98fab7449cec38c
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Feb 8 23:10:42 2019 +0000
+
+    P0278001-345, Create feature branch for defect DFT0088666
+
+commit 277474073a33bd21042d039d8fcd79e49464c304
+Merge: 8c112663 8a5725dd
+Author: if992899 <if992899@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Tue Feb 5 12:51:46 2019 +0000
+
+    PROM0012640,CHG0056372,SCM merging this late promote into 19.3 UV0 to fix bug
+
+commit cdd09d482a39964675cedadd9fc3268f81ea7f2f
+Merge: 45510ae0 8a5725dd
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Tue Feb 5 12:26:23 2019 +0000
+
+    PROM0012640, P0277997,Merge from feature_P0277997-242_BuildIssue
+
+commit 8a5725dd4e03755483bd23e7dad8985be6438501
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Mon Feb 4 22:46:03 2019 +0000
+
+    P0277997-242, Fix for VEW149 issue
+
+commit a2dc94130bb4e576ba1792b0f298cc394991880b
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Mon Feb 4 21:49:36 2019 +0000
+
+    P0277997-242, Create Feature branch for fixing VEW149 Issue
+
+commit 45510ae07691ef2364e409ad34bb0a481ee658c0
+Author: wp040506 <wp040506@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Mon Feb 4 10:30:19 2019 +0000
+
+    SCM,SCM updating version.txt file as part of R19.3 QA
+
+commit 8c112663f1b16f01a822074e248f655ae3ea4380
+Author: wp040506 <wp040506@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Mon Feb 4 10:26:36 2019 +0000
+
+    SCM, creating release_19.3 branch from development as part of QA preparation
+
+commit d3cdaed394f823a9764b91f6f19e7f26cfa7724c
+Merge: 9fbdf543 90c6a318
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Feb 1 18:26:21 2019 +0000
+
+    PROM0012632,P0300177, Merge from project_P0275866_RDSP_Red_Leaf_19.3_Build_Fix
+
+commit 90c6a318029712697ceb1260fcc848868c56c56b
+Merge: 40c718e7 5022f868
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Feb 1 17:27:15 2019 +0000
+
+    P0275866-987, Merge from feature_P0275866-987_build_fix
+
+commit 5022f868151c18d2d68ed01ef36bee92a2566b89
+Author: ct333036 <ct333036@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Feb 1 17:16:00 2019 +0000
+
+    P0275866-987, fixing merged files back to resolve build issue.
+
+commit ef5b6b6da80dbf01c02617e6d4a804277dae740d
+Author: ct333036 <ct333036@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Feb 1 17:04:13 2019 +0000
+
+    P0275866-987, Branch for desktop web build fix
+
+commit 40c718e7a8f7f8fecb94e341e2ade38d576fc4ac
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Feb 1 16:56:50 2019 +0000
+
+    P0275866-3305,Create project branch for RDSP Red Leaf Build Error - Release 19.3.
+
+commit 9fbdf543f2dba0cff77604a60b63b77b35dcc6ee
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Feb 1 16:52:00 2019 +0000
+
+    PROM0012611, P0277997, Merge from project_P0277997_Account_Maintenance_DSK-4CreditFondo
+
+commit 259f230d42a61797b21cd2e82c14112335f51ecb
+Author: if993927 <if993927@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Jan 31 13:49:31 2019 +0000
+
+    PROM0012594,CHG0057168,Merging project_P0300024_DSK_INA-Multiple_DIF_within_a_Portfolio_R19.3 into Development
+
+commit e998b09838a9388a4beb5763b686e862db3f8a10
+Author: if993927 <if993927@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Wed Jan 30 21:13:50 2019 +0000
+
+    PROM0012594,CHG0057168,Merging project_P0300024_DSK_INA-Multiple_DIF_within_a_Portfolio_R19.3 into Development
+
+commit 3947b5d8f54ae1618819175f92c06b63025be4ba
+Author: if993087 <if993087@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Wed Jan 30 19:41:58 2019 +0000
+
+    PROM0012600,P0300177,Merge project_P0275866_RDSP_Red_Leaf_19.3 branch to development branch.
+
+commit 87edfdd0c298590f204d1a2998a90bcbc959b5e5
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Wed Jan 30 18:07:16 2019 +0000
+
+    PROM0012609, P0300018, Merge from project_P0300018_GDPR_Entity_and_Account_Level_Verification_R19.3
+
+commit 96decb3f05f2df4d13b3bd74ed560a90c44ee813
+Author: if993087 <if993087@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Wed Jan 30 16:22:30 2019 +0000
+
+    PROM0012601,P0278104,Merge project_P0278104_Update_CashDate_19.3 branch to development branch.
+
+commit 7ed2e55199d5b54839dbc6187373d256559ea087
+Author: if993087 <if993087@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Wed Jan 30 15:07:42 2019 +0000
+
+    PROM0012601,P0278104,Merge project_P0278104_Update_CashDate_19.3 branch to development branch.
+
+commit c26b5f8268140c4903254e3d88f467bb613cd09d
+Author: if993927 <if993927@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Tue Jan 29 21:34:12 2019 +0000
+
+    PROM0012591,CHG0056829,Merging project_P0274979_V29_FundServ_Enhancements into Development
+
+commit 01f8c65e5890a0b37c530501d36689c9e0bbfe29
+Merge: f8fdf490 136d8377
+Author: wp040278 <wp040278@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Mon Jan 28 20:41:15 2019 +0000
+
+    PROM0012581,CHG0057338,Merge from change branch to development
+
+commit f8fdf4905dac7b7a796889d7d8918239a1d470d9
+Author: if993087 <if993087@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Mon Jan 28 17:55:42 2019 +0000
+
+    PROM0012595,P0275866,Merge feature_P0275866-3967_DFT0088429 branch to development branch.
+
+commit 136d83774cf9200aa5213b723ee66c28525f38a5
+Author: wp040278 <wp040278@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Mon Jan 28 15:18:13 2019 +0000
+
+    CHG0057338,1,RRIF Allocation rounding fix. Fixing indent issue with existing code
+
+commit d0b994d1030571de8eefc663e4092c2b60ff83af
+Author: wp040278 <wp040278@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Jan 25 20:17:05 2019 +0000
+
+    Sync,1,Merge from Dev to change branch
+
+commit 50f8aa299697b64de078d23145d8e90a66fbc1b5
+Author: wp040278 <wp040278@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Jan 25 20:14:10 2019 +0000
+
+    CHG0057338,1,RRIF Allocation rounding fix
+
+commit 435920f292a56fab005df63217d69d2d845e4833
+Author: wp040278 <wp040278@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Tue Jan 22 20:22:38 2019 +0000
+
+    CHG0057338,1,RRIF Allocation rounding fix
+
+commit 7e5523cf2ff5201ba73b4b86fad8f3ff0c230469
+Merge: caec70eb 27744fb3
+Author: wp040278 <wp040278@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Tue Jan 22 20:15:50 2019 +0000
+
+    PROM0012537,CHG0056983,Merge from change branch to development
+
+commit 27744fb31d211e0173824fd6b44618935a6a2c4e
+Merge: bcdf9ec5 caec70eb
+Author: wp040278 <wp040278@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Tue Jan 22 20:07:22 2019 +0000
+
+    Sync,1,Merge from Dev to change branch
+
+commit caec70eb16358cffc8dcb28b1d6697496b07a9b9
+Merge: 1f587900 6b2d3791
+Author: wp040278 <wp040278@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Tue Jan 22 20:01:43 2019 +0000
+
+    PROM0012526,CHG0057330,Merge from change branch to development
+
+commit 6b2d3791ec4282d5db1d5f53cbdaa53717543739
+Author: wp040278 <wp040278@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Tue Jan 22 20:00:24 2019 +0000
+
+    Sync,1,Merge from Dev to change branch
+
+commit bcdf9ec58ca0e0ca2fcb4e76033cccb554a724a4
+Author: wp040278 <wp040278@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Jan 18 18:20:21 2019 +0000
+
+    CHG0056983,1,Invoice Instruction issue on Account Associate screen
+
+commit fc67a0d2b98fa0b9eb1e297eb5fbd1cf72692ef5
+Author: wp040278 <wp040278@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Jan 18 15:00:33 2019 +0000
+
+    CHG0056983,1,Invoice Instruction issue on Account Associate screen
+
+commit 3bdc0accd40d0f746e8b80a85374cda459c2b89b
+Author: wp040278 <wp040278@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Jan 17 16:49:55 2019 +0000
+
+    CHG0057330,2,RESP Termination Entry screen issue commit changes
+
+commit 313604cb8b7ecc0f3589be45fba6e075f69f67d9
+Author: wp040278 <wp040278@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Jan 17 16:39:52 2019 +0000
+
+    CHG0057330,1,RESP Termination Entry screen issue
+
+commit 1f587900b6983684bc465da2586f5462f6719cff
+Author: if993087 <if993087@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Thu Jan 10 16:32:52 2019 +0000
+
+    PROM0012504,P0278183,Merge feature_P0278183-184_DFT0088300 branch to development branch.
+
+commit 6ebb7507e682ccb4e574ceedc3e96e73c41296d4
+Author: wp040445 <wp040445@b1cd1263-779c-4040-b091-8c38b6a2e629>
+Date:   Fri Jan 4 15:43:12 2019 +0000
+
+    PROM0012493, CHG0056973, Merge from feature_P0300019-34_GDPR_RollBack
