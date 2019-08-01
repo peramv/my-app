@@ -21,7 +21,7 @@
 // ^SUBCLASS : BaseMainDlg         
 //
 // ^CLASS DESCRIPTION : 990708
-//
+// Example
 //******************************************************************************
 
 #include "stdafx.h"
