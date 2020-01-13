@@ -1,7 +1,0 @@
-; AwdSrv.def : Declares the module parameters for the DLL.
-
-LIBRARY      "AwdSrv"
-
-EXPORTS
-    ; Explicit exports can go here
-    StartExternalSystem

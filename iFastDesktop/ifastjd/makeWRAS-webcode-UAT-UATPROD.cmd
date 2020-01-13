@@ -1,1 +1,0 @@
-call makeWebcodeRelease uat uatprod
